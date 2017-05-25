@@ -1,0 +1,26 @@
+{
+  "name": "tiny-task",
+  "version": "1.0.0",
+  "description": "Project Manager web app to turn large tasks into small tasks",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bethstevic/tiny-task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bethstevic/tiny-task/issues"
+  },
+  "homepage": "https://github.com/bethstevic/tiny-task#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.4"
+  }
+}
