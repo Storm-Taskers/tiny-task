@@ -5,9 +5,18 @@ USE tiny_task;
 --hold users and auth0 tokens
 CREATE TABLE IF NOT EXISTS users (
   auth_token TEXT NOT NULL,
-  user_name TEXT NOT NULL,
+  user_profile_id INTEGER NOT NULL,
+  PRIMARY KEY (auth_token),
+  FOREIGN KEY (user_profile_id) REFERENCES user_profile(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_profile (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  full_name TEXT NOT NULL,
+  email TEXT,
   user_status TEXT,
-  PRIMARY KEY (auth_token)
+  user_availability TEXT NOT NULL,
+  PRIMARY KEY (id)
 );
 
 --holds team & project name
@@ -23,6 +32,15 @@ CREATE TABLE IF NOT EXISTS team_users (
   user_id TEXT NOT NULL,
   FOREIGN KEY (team_id) REFERENCES teams(id),
   FOREIGN KEY (user_id) REFERENCES users(auth_token)
+);
+
+CREATE TABLE IF NOT EXISTS team_colors (
+  id INTEGER NOT NULL,
+  color TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  team_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(auth_token),
+  FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
 --holds announcements for bulletin board
@@ -52,8 +70,10 @@ CREATE TABLE IF NOT EXISTS messages (
 CREATE TABLE IF NOT EXISTS phases (
   id INTEGER NOT NULL AUTO_INCREMENT,
   phase_name TEXT NOT NULL,
-  team_id INTEGER NOT NULL,
+  phase_order INTEGER NOT NULL,
   phase_status TEXT,
+  phase_color TEXT NOT NULL,
+  team_id INTEGER NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (team_id) REFERENCES teams(id),
 );
@@ -76,7 +96,16 @@ CREATE TABLE IF NOT EXISTS users_tasks (
   FOREIGN KEY (task_id) REFERENCES tasks(id)
 );
 
-
+CREATE TABLE IF NOT EXISTS shared_resources (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  resource TEXT NOT NULL,
+  type TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  team_id INTEGER NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users(auth_token),
+  FOREIGN KEY (team_id) REFERENCES teams(id)
+);
 
 
 
