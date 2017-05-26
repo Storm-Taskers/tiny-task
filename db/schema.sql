@@ -22,8 +22,16 @@ CREATE TABLE IF NOT EXISTS user_profile (
 --holds team & project name
 CREATE TABLE IF NOT EXISTS teams (
   id INTEGER NOT NULL AUTO_INCREMENT,
-  project_name TEXT,
   PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  project_name TEXT,
+  completion BOOLEAN,
+  team_id INTEGER NOT NULL,
+  PRIMARY KEY (id)
+  FOREIGN KEY (team_id) REFERENCES teams(id),
 );
 
 --join table to match teams up with members
@@ -73,9 +81,9 @@ CREATE TABLE IF NOT EXISTS phases (
   phase_order INTEGER NOT NULL,
   phase_status TEXT,
   phase_color TEXT NOT NULL,
-  team_id INTEGER NOT NULL,
+  project_id INTEGER NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (team_id) REFERENCES teams(id),
+  FOREIGN KEY (project_id) REFERENCES projects(id),
 );
 
 --holds task that pertain to a phase. One task can have one phase, a phase can have multiple tasks

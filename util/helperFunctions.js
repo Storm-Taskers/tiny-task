@@ -1,50 +1,127 @@
 const mysql = require('mysql');
+const models = require('../db/models.js');
+const Sequelize = require('sequelize');
 
-const connection = sequelize.createConnection({
+
+models.connection = sequelize.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
   database: 'tiny'
 });
 
-exports.addUser
+exports.addUser = () => {
 
-exports.updateUser
+}
 
-exports.deleteUser
+exports.retrieveUser = () => {
 
-exports.addTeam
+}
 
-exports.updateTeam
+exports.updateUser = () => {
 
-exports.deleteTeam
+}
 
-exports.addMessage
+exports.deleteUser = () => {
 
-exports.deleteMessage
+}
 
-exports.addAnnouncement
+exports.addTeam = () => {
 
-exports.deleteAnnouncement
+}
 
-exports.addProject
+exports.retrieveTeam = () => {
 
-exports.updateProject
+}
 
-exports.deleteProject
+exports.updateTeam = () => {
 
-exports.addPhase
+}
 
-exports.updatePhase
+exports.deleteTeam = () => {
 
-exports.deletePhase
+}
 
-exports.addTask
+exports.addMessage = () => {
 
-exports.updateTask
+}
 
-exports.deleteTask
+exports.retrieveMessage = () => {
 
-exports.newResource
+}
 
-exports.deleteResource
+exports.deleteMessage = () => {
+
+}
+
+exports.addAnnouncement = () => {
+
+}
+
+exports.retrieveAnnouncement = () => {
+
+}
+
+exports.deleteAnnouncement = () => {
+
+}
+
+exports.addProject = () => {
+
+}
+
+exports.retrieveProject = () => {
+
+}
+
+exports.updateProject = () => {
+
+}
+
+exports.deleteProject = () => {
+
+}
+
+exports.addPhase = () => {
+
+}
+
+exports.retrievePhase = () => {
+
+}
+
+exports.updatePhase = () => {
+
+}
+
+exports.deletePhase = () => {
+
+}
+
+exports.addTask = () => {
+
+}
+
+exports.retrieveTask = () => {
+
+}
+
+exports.updateTask = () => {
+
+}
+
+exports.deleteTask = () => {
+
+}
+
+exports.newResource = () => {
+
+}
+
+exports.retrieveResource = () => {
+
+}
+
+exports.deleteResource = () => {
+
+}
