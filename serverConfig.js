@@ -5,7 +5,7 @@ const router = require('./routes.js');
 
 const app = express();
 
-app.use('/', router);
+app.use('./routes.js', router);
 
 app.use(bodyParser.json());
 

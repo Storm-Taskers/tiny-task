@@ -19,8 +19,11 @@
   "homepage": "https://github.com/bethstevic/tiny-task#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "chai": "^3.5.0",
     "express": "^4.15.3",
+    "mocha": "^3.4.2",
     "mysql": "^2.13.0",
+    "request": "^2.81.0",
     "sequelize": "^3.30.4"
   }
 }
