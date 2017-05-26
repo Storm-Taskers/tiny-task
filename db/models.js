@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-// exports.connection = Sequelize.createConnection({
+// exports.connection = sequelize.createConnection({
 //   host: 'localhost',
 //   user: 'root',
 //   password: '',
@@ -14,10 +14,10 @@ const sequelize = new Sequelize('tiny_task', 'root', '', {
 
 sequelize.authenticate()
   .then(() => {
-    console.log('successs');
+    console.log('connection has been established successfully');
   })
   .catch((err) => {
-    console.log(err, 'failed');
+    console.log('Unable to connect to DB', err);
   });
 
 const Users = sequelize.define('users', {
