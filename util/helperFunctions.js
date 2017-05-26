@@ -2,20 +2,39 @@ const mysql = require('mysql');
 const models = require('../db/models.js');
 
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'tiny_task'
-});
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '',
+//   database: 'tiny_task'
+// });
 
 ///connection.connect();
 
-exports.addUser = () => {
 
+
+
+exports.addUsers = (body) => {
+  models.Users.create({
+    auth_token: auth_token
+  }).then((result) => {
+    callback(result);
+  })
+};
+
+exports.addUserProfile = (body) => {
+  models.User_Profile.create({
+    full_name: body.full_name,
+    email: body.email,
+    user_status: body.user_status,
+    user_availability: body.user_availablility
+  }).then((result) => {
+    callback(result);
+  })
 }
 
 exports.retrieveUser = () => {
+  models.Users.find()
 
 }
 
