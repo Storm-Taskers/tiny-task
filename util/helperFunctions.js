@@ -1,6 +1,9 @@
 const mysql = require('mysql');
+const models = require('../db/models.js');
+const Sequelize = require('sequelize');
 
-const connection = sequelize.createConnection({
+
+models.connection = sequelize.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',

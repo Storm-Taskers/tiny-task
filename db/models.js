@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-// exports.connection = sequelize.createConnection({
+// exports.connection = Sequelize.createConnection({
 //   host: 'localhost',
 //   user: 'root',
 //   password: '',
@@ -12,39 +12,45 @@ const sequelize = new Sequelize('tiny_task', 'root', '', {
   dialect: 'mysql'
 });
 
-// sequelize.authenticate()
-//   .then(() => {
-//     console.log('successs');
-//   })
-//   .catch((err) => {
-//     console.log(err, 'failed');
-//   });
+sequelize.authenticate()
+  .then(() => {
+    console.log('successs');
+  })
+  .catch((err) => {
+    console.log(err, 'failed');
+  });
 
 const Users = sequelize.define('users', {
   auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
 });
 
 const User_Profile = sequelize.define('user_profile', {
-  full_name: { type: Sequelize.STRING, allowNull: false },
-  email: { type: Sequelize.STRING },
-  user_status: { type: Sequelize.STRING },
-  user_availability: { type: Sequelize.STRING }
+  full_name: { type: Sequelize.TEXT, allowNull: false },
+  email: { type: Sequelize.TEXT },
+  user_status: { type: Sequelize.TEXT },
+  user_availability: { type: Sequelize.TEXT }
 });
 
 User_Profile.belongsTo(Users);
 
 const Teams = sequelize.define('teams', {
-  project_name: { type: Sequelize.STRING, allowNull: false },
+  project_name: { type: Sequelize.TEXT, allowNull: false },
 });
+
+const Projects = sequelize.define('projects', {
+  project_name: { type: Sequelize.TEXT, allowNull: false },
+  completion: { type: Sequelize.BOOLEAN, default: false }
+})
 
 const Team_Users = sequelize.define('team_users', {
 });
 
-Users.hasMany(Teams, { foreignKey: "auth_token" })
-Teams.hasMany(Team_Users, { foreignKey: 'team_id' })
+Users.belongsToMany(Teams, { as: 'users', through: 'team_users' })
+Teams.belongsToMany(Users, { as: 'teams', through: 'team_users' })
+Projects.hasOne(Teams, { foreignKey: 'project_id' })
 
 const Team_Colors = sequelize.define('team_colors', {
-  color: { type: Sequelize.STRING, allowNull: false },
+  color: { type: Sequelize.TEXT, allowNull: false },
 });
 
 const Announcements = sequelize.define('announcements', {
@@ -56,15 +62,15 @@ const Messages = sequelize.define('messages', {
 });
 
 const Phases = sequelize.define('phases', {
-  phase_name: { type: Sequelize.STRING, allowNull: false },
+  phase_name: { type: Sequelize.TEXT, allowNull: false },
   phase_order: { type: Sequelize.INTEGER, allowNull: false },
-  phase_status: { type: Sequelize.STRING, allowNull: false },
-  phase_color: { type: Sequelize.STRING, allowNull: false },
+  phase_status: { type: Sequelize.TEXT, allowNull: false },
+  phase_color: { type: Sequelize.TEXT, allowNull: false },
 });
 
 const Tasks = sequelize.define('taks', {
-  task_name: { type: Sequelize.STRING, allowNull: false },
-  task_status: { type: Sequelize.STRING, allowNull: false },
+  task_name: { type: Sequelize.TEXT, allowNull: false },
+  task_status: { type: Sequelize.TEXT, allowNull: false },
 
 });
 
@@ -72,7 +78,7 @@ const User_Tasks = sequelize.define('user_tasks', {
 });
 
 const Shared_Resources = sequelize.define('shared_resources', {
-  resource: { type: Sequelize.STRING, allowNull: false },
-  type: { type: Sequelize.STRING, allowNull: false }
+  resource: { type: Sequelize.TEXT, allowNull: false },
+  type: { type: Sequelize.TEXT, allowNull: false }
 });
 
