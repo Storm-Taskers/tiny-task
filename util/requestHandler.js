@@ -38,10 +38,11 @@ exports.users = {
       res.status(404).send(err, 'error on deleting user');
     });
   }
-},
+};
+
 exports.teams = {
   retrieveTeams: (req, res) => {
-   helper.retrieveTeams(req)
+   helper.retrieveTeam(req)
     .then((team) => {
       res.status(200).send('team retrieved');
     })
@@ -50,7 +51,7 @@ exports.teams = {
     });
   },
   createNewTeams: (req, res) => {
-    helper.addTeams(req.body)
+    helper.addTeam(req.body)
     .then((team) => {
       res.status(200).send('team added');
     })
@@ -59,7 +60,7 @@ exports.teams = {
     });
   },
   updateTeams: (req, res) => {
-    helper.updateTeams(req.body)
+    helper.updateTeam(req.body)
     .then((team) => {
       res.status(200).send('team updated');
     })
@@ -68,7 +69,7 @@ exports.teams = {
     });
   },
   deleteTeams: (req, res) => {
-    helper.deleteTeams(req)
+    helper.deleteTeam(req)
     .then((team) => {
       res.status(200).send('team deleted');
     })
@@ -76,10 +77,11 @@ exports.teams = {
       res.status(404).send(err, 'error on deleting team');
     });
   }
-},
+}
+
 exports.messages = {
   retrieveMessages: (req, res) => {
-    helper.retrieveMessages(req)
+    helper.retrieveMessage(req)
     .then((message) => {
       res.status(200).send('message retrieved');
     })
@@ -88,7 +90,7 @@ exports.messages = {
     });
   },
   createNewMessages: (req, res) => {
-    helper.addMessages(req.body)
+    helper.addMessage(req.body)
     .then((message) => {
       res.status(200).send('message added');
     })
@@ -97,7 +99,7 @@ exports.messages = {
     });
   },
   updateMessages: (req, res) => {
-    helper.updateMessages(req.body)
+    helper.updateMessage(req.body)
     .then((message) => {
       res.status(200).send('message updated');
     })
@@ -106,7 +108,7 @@ exports.messages = {
     });
   },
   deleteMessages: (req, res) => {
-    helper.deleteMessages(req)
+    helper.deleteMessage(req)
     .then((message) => {
       res.status(200).send('message deleted');
     })
@@ -114,10 +116,11 @@ exports.messages = {
       res.status(404).send(err, 'error on deleting message');
     });
   }
-},
+}
+
 exports.announcements = {
   retrieveAnnouncements: (req, res) => {
-    helper.retrieveAnnouncements(req)
+    helper.retrieveAnnouncement(req)
     .then((announcement) => {
       res.status(200).send('announcement retrieved');
     })
@@ -126,7 +129,7 @@ exports.announcements = {
     });
   },
   createNewAnnouncements: (req, res) => {
-    helper.addAnnouncements(req.body)
+    helper.addAnnouncement(req.body)
     .then((announcement) => {
       res.status(200).send('announcement added');
     })
@@ -135,7 +138,7 @@ exports.announcements = {
     });
   },
   updateAnnouncements: (req, res) => {
-    helper.updateAnnouncements(req.body)
+    helper.updateAnnouncement(req.body)
     .then((announcement) => {
       res.status(200).send('announcement updated');
     })
@@ -144,7 +147,7 @@ exports.announcements = {
     });
   },
   deleteAnnouncements: (req, res) => {
-    helper.deleteAnnouncements(req)
+    helper.deleteAnnouncement(req)
     .then((announcement) => {
       res.status(200).send('announcement deleted');
     })
@@ -152,10 +155,11 @@ exports.announcements = {
       res.status(404).send(err, 'error on deleting announcement');
     });
   }
-},
+}
+
 exports.projects = {
   retrieveProjects: (req, res) => {
-    helper.retrieveProjects(req)
+    helper.retrieveProject(req)
     .then((project) => {
       res.status(200).send('project retrieved');
     })
@@ -164,7 +168,7 @@ exports.projects = {
     });
   },
   createNewProjects: (req, res) => {
-    helper.addProjects(req.body)
+    helper.addProject(req.body)
     .then((project) => {
       res.status(200).send('project added');
     })
@@ -173,7 +177,7 @@ exports.projects = {
     });
   },
   updateProjects: (req, res) => {
-    helper.updateProjects(req.body)
+    helper.updateProject(req.body)
     .then((project) => {
       res.status(200).send('project updated');
     })
@@ -182,7 +186,7 @@ exports.projects = {
     });
   },
   deleteProjects: (req, res) => {
-    helper.deleteProjects(req)
+    helper.deleteProject(req)
     .then((project) => {
       res.status(200).send('project deleted');
     })
@@ -190,10 +194,11 @@ exports.projects = {
       res.status(404).send(err, 'error on deleting project');
     });
   }
-},
+}
+
 exports.phases = {
   retrievePhases: (req, res) => {
-    helper.retrievePhases(req)
+    helper.retrievePhase(req)
     .then((phase) => {
       res.status(200).send('phase retrieved');
     })
@@ -202,7 +207,7 @@ exports.phases = {
     });
   },
   createNewPhases: (req, res) => {
-    helper.addPhases(req.body)
+    helper.addPhase(req.body)
     .then((phase) => {
       res.status(200).send('phase added');
     })
@@ -211,7 +216,7 @@ exports.phases = {
     });
   },
   updatePhases: (req, res) => {
-    helper.updatePhases(req.body)
+    helper.updatePhase(req.body)
     .then((phase) => {
       res.status(200).send('phase updated');
     })
@@ -220,7 +225,7 @@ exports.phases = {
     });
   },
   deletePhases: (req, res) => {
-    helper.deletePhases(req)
+    helper.deletePhase(req)
     .then((phase) => {
       res.status(200).send('phase deleted');
     })
@@ -228,10 +233,11 @@ exports.phases = {
       res.status(404).send(err, 'error on deleting phase');
     });
   }
-},
+}
+
 exports.tasks = {
   retrieveTasks: (req, res) => {
-    helper.retrieveTasks(req)
+    helper.retrieveTask(req)
     .then((task) => {
       res.status(200).send('task retrieved');
     })
@@ -240,7 +246,7 @@ exports.tasks = {
     });
   },
   createNewTasks: (req, res) => {
-    helper.addTasks(req.body)
+    helper.addTask(req.body)
     .then((task) => {
       res.status(200).send('task added');
     })
@@ -249,7 +255,7 @@ exports.tasks = {
     });
   },
   updateTasks: (req, res) => {
-    helper.updateTasks(req.body)
+    helper.updateTask(req.body)
     .then((task) => {
       res.status(200).send('task updated');
     })
@@ -258,7 +264,7 @@ exports.tasks = {
     });
   },
   deleteTasks: (req, res) => {
-    helper.deleteTasks(req)
+    helper.deleteTask(req)
     .then((task) => {
       res.status(200).send('task deleted');
     })
@@ -266,10 +272,11 @@ exports.tasks = {
       res.status(404).send(err, 'error on deleting task');
     });
   }
-},
+}
+
 exports.resources = {
   retrieveResources: (req, res) => {
-    helper.retrieveResources(req)
+    helper.retrieveResource(req)
     .then((resource) => {
       res.status(200).send('resource retrieved');
     })
@@ -278,7 +285,7 @@ exports.resources = {
     });
   },
   createNewResources: (req, res) => {
-    helper.addResources(req.body)
+    helper.addResource(req.body)
     .then((resource) => {
       res.status(200).send('resource added');
     })
@@ -287,7 +294,7 @@ exports.resources = {
     });
   },
   updateResources: (req, res) => {
-    helper.updateResources(req.body)
+    helper.updateResource(req.body)
     .then((resource) => {
       res.status(200).send('resource updated');
     })
@@ -296,7 +303,7 @@ exports.resources = {
     });
   },
   deleteResources: (req, res) => {
-    helper.deleteResources(req)
+    helper.deleteResource(req)
     .then((resource) => {
       res.status(200).send('resource deleted');
     })
