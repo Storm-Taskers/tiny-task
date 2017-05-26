@@ -62,9 +62,9 @@ const Phases = sequelize.define('phases', {
   phase_color: { type: Sequelize.STRING, allowNull: false },
 });
 
-const Tasks = sequelize.define('');
+const Tasks = sequelize.define('taks', {});
 
-const User_Tasks = sequelize.define('');
+const User_Tasks = sequelize.define('user_tasks', {});
 
-const Shared_Resources = sequelize.define('');
+const Shared_Resources = sequelize.define('shared_resources', {});
 
