@@ -21,34 +21,46 @@ const sequelize = new Sequelize('tiny_task', 'root', '', {
 //   });
 
 const Users = sequelize.define('users', {
-  auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true},
-  user_profile_id: { type: Sequelize.INTEGER, allowNull: false }
+  auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
 });
 
 const User_Profile = sequelize.define('user_profile', {
-  full_name: {type: Sequelize.STRING, allowNull: false},
-  email: {type: Sequelize.STRING},
-  user_status: {type: Sequelize.STRING},
-  user_availability: {type: Sequelize.STRING}
+  full_name: { type: Sequelize.STRING, allowNull: false },
+  email: { type: Sequelize.STRING },
+  user_status: { type: Sequelize.STRING },
+  user_availability: { type: Sequelize.STRING }
 });
 
 User_Profile.belongsTo(Users);
 
 const Teams = sequelize.define('teams', {
-  project_name: { type: Sequelize.STRING, allowNull: false},
+  project_name: { type: Sequelize.STRING, allowNull: false },
 });
 
 const Team_Users = sequelize.define('team_users', {
-  
 });
 
-const Team_Colors = sequelize.define('');
+User.hasMany(Teams, { foreignKey: "auth_token" })
+Team.hasMany(Team_Users, { foreignKey: 'team_id' })
 
-const Announcements = sequelize.define('announcements', );
+const Team_Colors = sequelize.define('team_colors', {
+  color: { type: Sequelize.STRING, allowNull: false },
+});
 
-const Messages = sequelize.define('');
+const Announcements = sequelize.define('announcements', {
+  announcement: { type: Sequelize.TEXT, allowNull: false },
+});
 
-const Phases = sequelize.define();
+const Messages = sequelize.define('messages', {
+  messages: { type: Sequelize.TEXT, allowNull: false }
+});
+
+const Phases = sequelize.define('phases', {
+  phase_name: { type: Sequelize.STRING, allowNull: false },
+  phase_order: { type: Sequelize.INTEGER, allowNull: false },
+  phase_status: { type: Sequelize.STRING, allowNull: false },
+  phase_color: { type: Sequelize.STRING, allowNull: false },
+});
 
 const Tasks = sequelize.define('');
 
