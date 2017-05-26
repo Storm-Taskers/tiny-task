@@ -1,8 +1,5 @@
 const Sequelize = require('sequelize');
 
-
-
-
 const sequelize = new Sequelize('tiny_task', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
@@ -11,10 +8,10 @@ const sequelize = new Sequelize('tiny_task', 'root', '', {
 
 sequelize.authenticate()
   .then(() => {
-    console.log('successs');
+    console.log('connection has been established successfully');
   })
   .catch((err) => {
-    console.log(err, 'failed');
+    console.log('Unable to connect to DB', err);
   });
 
 // const Users = sequelize.define('users', {
