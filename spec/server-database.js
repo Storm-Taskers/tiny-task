@@ -30,7 +30,7 @@ describe('Persistent Node Server', function() {
   it('Should insert new users to the DB', function(done) {
     request({
       method: 'POST',
-      uri: 'http://127.0.0.1:3000/users/createNewUser',
+      uri: 'http://127.0.0.1:8080/api/users',
       json: {
         full_name: 'John Smith',
         email: 'johnsmith@gmail.com',
@@ -55,7 +55,7 @@ describe('Persistent Node Server', function() {
     var queryArgs = [];
     dbConnection.query(queryString, queryArgs, function(err, results) {
       if (err) { throw err; }
-      request('http://127.0.0.1:8080/user_profile', function(error, response, body) {
+      request('http://127.0.0.1:8080/api/users', function(error, response, body) {
         var userInfo = JSON.parse(body);
         expect(userInfo[0].full_name).to.equal('John Smith');
         expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
@@ -64,6 +64,12 @@ describe('Persistent Node Server', function() {
     });
   });
 
+  // it('Should update user profile on DB', function(done) {
+  //   request({
+  //     method: 'PUT',
+  //     uri: 'http://127.0.0.1:8080/users'
+  //   })
+  // })
 
 //update userProfile
 //delete userProfile
