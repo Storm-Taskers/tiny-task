@@ -6,45 +6,45 @@ const handler = require('./util/requestHandler.js');
 //   res.status(200).send('hello world');
 // });
 
-router.get('/users', handler.users.get);
-router.post('/users', handler.users.post);
-router.put('/users', handler.users.put);
-router.delete('/users', handler.users.delete);
+router.get('/users', handler.users.retrieveUser);
+router.post('/users', handler.users.createNewUser);
+router.put('/users', handler.users.updateUser);
+router.delete('/users', handler.users.deleteUser);
 
-router.get('/teams', handler.teams.get);
-router.post('/teams', handler.teams.post);
-router.put('/teams', handler.teams.put);
-router.delete('/teams', handler.teams.delete);
+router.get('/teams', handler.teams.retrieveTeams);
+router.post('/teams', handler.teams.createNewTeams);
+router.put('/teams', handler.teams.updateTeams);
+router.delete('/teams', handler.teams.deleteTeams);
 
-router.get('/messages', handler.messages.get);
-router.post('/messages', handler.messages.post);
-router.put('/messages', handler.messages.put);
-router.delete('/messages', handler.messages.delete);
+router.get('/messages', handler.messages.retrieveMessages);
+router.post('/messages', handler.messages.createNewMessages);
+router.put('/messages', handler.messages.updateMessages);
+router.delete('/messages', handler.messages.deleteMessages);
 
-router.get('/announcements', handler.announcements.get);
-router.post('/announcements', handler.announcements.post);
-router.put('/announcements', handler.announcements.put);
-router.delete('/announcements', handler.announcements.delete);
+router.get('/announcements', handler.announcements.retrieveAnnouncements);
+router.post('/announcements', handler.announcements.createNewAnnouncements);
+router.put('/announcements', handler.announcements.updateAnnouncements);
+router.delete('/announcements', handler.announcements.deleteAnnouncements);
 
-router.get('/projects', handler.projects.get);
-router.post('/projects', handler.projects.post);
-router.put('/projects', handler.projects.put);
-router.delete('/projects', handler.projects.delete);
+router.get('/projects', handler.projects.retrieveProjects);
+router.post('/projects', handler.projects.createNewProjects);
+router.put('/projects', handler.projects.updateProjects);
+router.delete('/projects', handler.projects.deleteProjects);
 
-router.get('/phases', handler.phases.get);
-router.post('/phases', handler.phases.post);
-router.put('/phases', handler.phases.put);
-router.delete('/phases', handler.phases.delete);
+router.get('/phases', handler.phases.retrievePhases);
+router.post('/phases', handler.phases.createNewPhases);
+router.put('/phases', handler.phases.updatePhases);
+router.delete('/phases', handler.phases.deletePhases);
 
-router.get('/tasks', handler.tasks.get);
-router.post('/tasks', handler.tasks.post);
-router.put('/tasks', handler.tasks.put);
-router.delete('/tasks', handler.tasks.delete);
+router.get('/tasks', handler.tasks.retrieveTasks);
+router.post('/tasks', handler.tasks.createNewTasks);
+router.put('/tasks', handler.tasks.updateTasks);
+router.delete('/tasks', handler.tasks.deleteTasks);
 
-router.get('/resources', handler.resources.get);
-router.post('/resources', handler.resources.post);
-router.put('/resources', handler.resources.put);
-router.delete('/resources', handler.resources.delete);
+router.get('/resources', handler.resources.retrieveResources);
+router.post('/resources', handler.resources.createNewResources);
+router.put('/resources', handler.resources.updateResources);
+router.delete('/resources', handler.resources.deleteResources);
 
 module.exports = router;
 

@@ -1,244 +1,308 @@
 const helper = require('./helperFunctions.js');
 
-module.exports = {
-  users: {
-    get: (req, res) => {
-      helper.retrieveUsers(req);
-    },
-    post: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside users post requestHandler.js');
-        helper.addUser(JSON.parse(data));
-      });
-      req.end('user added, requestHandler.js');
-    },
-    put: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside users put requestHandler.js');
-        helper.updateUser(JSON.parse(data));
-      });
-      req.end('user updated, requestHandler.js');
-    },
-    delete: (req, res) => {
-      helper.deleteUser(req);
-    }
+
+exports.users = {
+  retrieveUser: (req, res) => {
+    helper.retrieveUsers(req)
+    .then((user) => {
+      res.status(200).send('user retrieved');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error retrieving user');
+    });
   },
-  teams: {
-    get: (req, res) => {
-      helper.retrieveTeam(req);
-    },
-    post: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside teams post requestHandler.js');
-        helper.addTeam(JSON.parse(data));
-      });
-      req.end('team added, requestHandler.js');
-    },
-    put: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside teams put requestHandler.js');
-        helper.updateTeam(JSON.parse(data));
-      });
-      req.end('team updated, requestHandler.js');
-    },
-    delete: (req, res) => {
-      helper.deleteUTeam(req);
-    }
+  createNewUser: (req, res) => {
+    helper.addUser(req.body)
+    .then((user) => {
+      res.status(200).send('user added');
+    })
+    .catch ((err) => {
+      res.status(404).send(err, 'error on creating user');
+    });
   },
-  messages: {
-    get: (req, res) => {
-      helper.retrieveMessage(req);
-    },
-    post: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside messages post requestHandler.js');
-        helper.addMessage(JSON.parse(data));
-      });
-      req.end('message added, requestHandler.js');
-    },
-    put: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside messages put requestHandler.js');
-        helper.updateMessage(JSON.parse(data));
-      });
-      req.end('message updated, requestHandler.js');
-    },
-    delete: (req, res) => {
-      helper.deleteMessage(req);
-    }
+  updateUser: (req, res) => {
+    helper.updateUser(req.body)
+    .then((user) => {
+      res.status(200).send('user updated');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on updating user');
+    });
   },
-  announcements: {
-    get: (req, res) => {
-      helper.retrieveAnnouncement(req);
-    },
-    post: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside announcements post requestHandler.js');
-        helper.addAnnouncement(JSON.parse(data));
-      });
-      req.end('announcement added, requestHandler.js');
-    },
-    put: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside announcements put requestHandler.js');
-        helper.updateAnnouncement(JSON.parse(data));
-      });
-      req.end('announcement updated, requestHandler.js');
-    },
-    delete: (req, res) => {
-      helper.deleteAnnouncement(req);
-    }
+  deleteUser: (req, res) => {
+    helper.deleteUser(req)
+    .then((user) => {
+      res.status(200).send('user deleted');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on deleting user');
+    });
+  }
+},
+exports.teams = {
+  retrieveTeams: (req, res) => {
+   helper.retrieveTeams(req)
+    .then((team) => {
+      res.status(200).send('team retrieved');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error retrieving team');
+    });
   },
-  projects: {
-    get: (req, res) => {
-      helper.retrieveProject(req);
-    },
-    post: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside projects post requestHandler.js');
-        helper.addProject(JSON.parse(data));
-      });
-      req.end('project added, requestHandler.js');
-    },
-    put: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside projects put requestHandler.js');
-        helper.updateProject(JSON.parse(data));
-      });
-      req.end('project updated, requestHandler.js');
-    },
-    delete: (req, res) => {
-      helper.deleteProject(req);
-    }
+  createNewTeams: (req, res) => {
+    helper.addTeams(req.body)
+    .then((team) => {
+      res.status(200).send('team added');
+    })
+    .catch ((err) => {
+      res.status(404).send(err, 'error on creating team');
+    });
   },
-  phases: {
-    get: (req, res) => {
-      helper.retrievePhases(req);
-    },
-    post: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside phases post requestHandler.js');
-        helper.addPhase(JSON.parse(data));
-      });
-      req.end('phase added, requestHandler.js');
-    },
-    put: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside phases put requestHandler.js');
-        helper.updatePhase(JSON.parse(data));
-      });
-      req.end('phase updated, requestHandler.js');
-    },
-    delete: (req, res) => {
-      helper.deletePhase(req);
-    }
+  updateTeams: (req, res) => {
+    helper.updateTeams(req.body)
+    .then((team) => {
+      res.status(200).send('team updated');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on updating team');
+    });
   },
-  tasks: {
-    get: (req, res) => {
-      helper.retrieveTask(req);
-    },
-    post: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside tasks post requestHandler.js');
-        helper.addTask(JSON.parse(data));
-      });
-      req.end('task added, requestHandler.js');
-    },
-    put: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside tasks put requestHandler.js');
-        helper.updateTask(JSON.parse(data));
-      });
-      req.end('task updated, requestHandler.js');
-    },
-    delete: (req, res) => {
-      helper.deleteTask(req);
-    }
+  deleteTeams: (req, res) => {
+    helper.deleteTeams(req)
+    .then((team) => {
+      res.status(200).send('team deleted');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on deleting team');
+    });
+  }
+},
+exports.messages = {
+  retrieveMessages: (req, res) => {
+    helper.retrieveMessages(req)
+    .then((message) => {
+      res.status(200).send('message retrieved');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error retrieving message');
+    });
   },
-  resources: {
-    get: (req, res) => {
-      helper.retrieveResource(req);
-    },
-    post: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside resources post requestHandler.js');
-        helper.addResource(JSON.parse(data));
-      });
-      req.end('resource added, requestHandler.js');
-    },
-    put: (req, res) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk;
-      });
-      req.on('end', () => {
-        console.log(data, 'inside resources put requestHandler.js');
-        helper.updateResource(JSON.parse(data));
-      });
-      req.end('resource updated, requestHandler.js');
-    },
-    delete: (req, res) => {
-      helper.deleteResource(req);
-    }
-};
+  createNewMessages: (req, res) => {
+    helper.addMessages(req.body)
+    .then((message) => {
+      res.status(200).send('message added');
+    })
+    .catch ((err) => {
+      res.status(404).send(err, 'error on creating message');
+    });
+  },
+  updateMessages: (req, res) => {
+    helper.updateMessages(req.body)
+    .then((message) => {
+      res.status(200).send('message updated');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on updating message');
+    });
+  },
+  deleteMessages: (req, res) => {
+    helper.deleteMessages(req)
+    .then((message) => {
+      res.status(200).send('message deleted');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on deleting message');
+    });
+  }
+},
+exports.announcements = {
+  retrieveAnnouncements: (req, res) => {
+    helper.retrieveAnnouncements(req)
+    .then((announcement) => {
+      res.status(200).send('announcement retrieved');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error retrieving announcement');
+    });
+  },
+  createNewAnnouncements: (req, res) => {
+    helper.addAnnouncements(req.body)
+    .then((announcement) => {
+      res.status(200).send('announcement added');
+    })
+    .catch ((err) => {
+      res.status(404).send(err, 'error on creating announcement');
+    });
+  },
+  updateAnnouncements: (req, res) => {
+    helper.updateAnnouncements(req.body)
+    .then((announcement) => {
+      res.status(200).send('announcement updated');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on updating announcement');
+    });
+  },
+  deleteAnnouncements: (req, res) => {
+    helper.deleteAnnouncements(req)
+    .then((announcement) => {
+      res.status(200).send('announcement deleted');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on deleting announcement');
+    });
+  }
+},
+exports.projects = {
+  retrieveProjects: (req, res) => {
+    helper.retrieveProjects(req)
+    .then((project) => {
+      res.status(200).send('project retrieved');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error retrieving project');
+    });
+  },
+  createNewProjects: (req, res) => {
+    helper.addProjects(req.body)
+    .then((project) => {
+      res.status(200).send('project added');
+    })
+    .catch ((err) => {
+      res.status(404).send(err, 'error on creating project');
+    });
+  },
+  updateProjects: (req, res) => {
+    helper.updateProjects(req.body)
+    .then((project) => {
+      res.status(200).send('project updated');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on updating project');
+    });
+  },
+  deleteProjects: (req, res) => {
+    helper.deleteProjects(req)
+    .then((project) => {
+      res.status(200).send('project deleted');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on deleting project');
+    });
+  }
+},
+exports.phases = {
+  retrievePhases: (req, res) => {
+    helper.retrievePhases(req)
+    .then((phase) => {
+      res.status(200).send('phase retrieved');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error retrieving phase');
+    });
+  },
+  createNewPhases: (req, res) => {
+    helper.addPhases(req.body)
+    .then((phase) => {
+      res.status(200).send('phase added');
+    })
+    .catch ((err) => {
+      res.status(404).send(err, 'error on creating phase');
+    });
+  },
+  updatePhases: (req, res) => {
+    helper.updatePhases(req.body)
+    .then((phase) => {
+      res.status(200).send('phase updated');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on updating phase');
+    });
+  },
+  deletePhases: (req, res) => {
+    helper.deletePhases(req)
+    .then((phase) => {
+      res.status(200).send('phase deleted');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on deleting phase');
+    });
+  }
+},
+exports.tasks = {
+  retrieveTasks: (req, res) => {
+    helper.retrieveTasks(req)
+    .then((task) => {
+      res.status(200).send('task retrieved');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error retrieving task');
+    });
+  },
+  createNewTasks: (req, res) => {
+    helper.addTasks(req.body)
+    .then((task) => {
+      res.status(200).send('task added');
+    })
+    .catch ((err) => {
+      res.status(404).send(err, 'error on creating task');
+    });
+  },
+  updateTasks: (req, res) => {
+    helper.updateTasks(req.body)
+    .then((task) => {
+      res.status(200).send('task updated');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on updating task');
+    });
+  },
+  deleteTasks: (req, res) => {
+    helper.deleteTasks(req)
+    .then((task) => {
+      res.status(200).send('task deleted');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on deleting task');
+    });
+  }
+},
+exports.resources = {
+  retrieveResources: (req, res) => {
+    helper.retrieveResources(req)
+    .then((resource) => {
+      res.status(200).send('resource retrieved');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error retrieving resource');
+    });
+  },
+  createNewResources: (req, res) => {
+    helper.addResources(req.body)
+    .then((resource) => {
+      res.status(200).send('resource added');
+    })
+    .catch ((err) => {
+      res.status(404).send(err, 'error on creating resource');
+    });
+  },
+  updateResources: (req, res) => {
+    helper.updateResources(req.body)
+    .then((resource) => {
+      res.status(200).send('resource updated');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on updating resource');
+    });
+  },
+  deleteResources: (req, res) => {
+    helper.deleteResources(req)
+    .then((resource) => {
+      res.status(200).send('resource deleted');
+    })
+    .catch((err) => {
+      res.status(404).send(err, 'error on deleting resource');
+    });
+  }
+
 
