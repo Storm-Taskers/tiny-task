@@ -77,7 +77,7 @@ exports.teams = {
       res.status(404).send(err, 'error on deleting team');
     });
   }
-}
+};
 
 exports.messages = {
   retrieveMessages: (req, res) => {
@@ -116,7 +116,7 @@ exports.messages = {
       res.status(404).send(err, 'error on deleting message');
     });
   }
-}
+};
 
 exports.announcements = {
   retrieveAnnouncements: (req, res) => {
@@ -155,7 +155,7 @@ exports.announcements = {
       res.status(404).send(err, 'error on deleting announcement');
     });
   }
-}
+};
 
 exports.projects = {
   retrieveProjects: (req, res) => {
@@ -194,7 +194,7 @@ exports.projects = {
       res.status(404).send(err, 'error on deleting project');
     });
   }
-}
+};
 
 exports.phases = {
   retrievePhases: (req, res) => {
@@ -233,7 +233,7 @@ exports.phases = {
       res.status(404).send(err, 'error on deleting phase');
     });
   }
-}
+};
 
 exports.tasks = {
   retrieveTasks: (req, res) => {
@@ -272,7 +272,7 @@ exports.tasks = {
       res.status(404).send(err, 'error on deleting task');
     });
   }
-}
+};
 
 exports.resources = {
   retrieveResources: (req, res) => {
@@ -311,5 +311,6 @@ exports.resources = {
       res.status(404).send(err, 'error on deleting resource');
     });
   }
+};
 
 
