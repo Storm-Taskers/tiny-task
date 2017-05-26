@@ -24,7 +24,7 @@ exports.users = {
   },
   updateUser: (req, res) => {
     helper.updateUser(req.body)
-    helper.updateUser(req.body)
+    helper.updateUserProfile(req.body)
     .then((user) => {
       res.status(200).send('user updated');
     })
@@ -34,7 +34,7 @@ exports.users = {
   },
   deleteUser: (req, res) => {
     helper.deleteUser(req)
-    helper.deleteUser(req)
+    helper.deleteUserProfile(req)
     .then((user) => {
       res.status(200).send('user deleted');
     })
