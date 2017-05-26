@@ -1,6 +1,19 @@
 const mysql = require('mysql');
 const models = require('../db/models.js');
 
+
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '',
+//   database: 'tiny_task'
+// });
+
+///connection.connect();
+
+
+
+
 exports.addUsers = (body) => {
   models.Users.create({
     auth_token: auth_token
