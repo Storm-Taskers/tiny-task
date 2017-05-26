@@ -1,14 +1,15 @@
 const mysql = require('mysql');
 const models = require('../db/models.js');
-const Sequelize = require('sequelize');
 
 
-models.connection = sequelize.createConnection({
+const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'tiny'
+  database: 'tiny_task'
 });
+
+///connection.connect();
 
 exports.addUser = () => {
 
