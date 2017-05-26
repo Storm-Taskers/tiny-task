@@ -40,8 +40,8 @@ const Teams = sequelize.define('teams', {
 const Team_Users = sequelize.define('team_users', {
 });
 
-User.hasMany(Teams, { foreignKey: "auth_token" })
-Team.hasMany(Team_Users, { foreignKey: 'team_id' })
+Users.hasMany(Teams, { foreignKey: "auth_token" })
+Teams.hasMany(Team_Users, { foreignKey: 'team_id' })
 
 const Team_Colors = sequelize.define('team_colors', {
   color: { type: Sequelize.STRING, allowNull: false },
@@ -62,9 +62,17 @@ const Phases = sequelize.define('phases', {
   phase_color: { type: Sequelize.STRING, allowNull: false },
 });
 
-const Tasks = sequelize.define('taks', {});
+const Tasks = sequelize.define('taks', {
+  task_name: { type: Sequelize.STRING, allowNull: false },
+  task_status: { type: Sequelize.STRING, allowNull: false },
 
-const User_Tasks = sequelize.define('user_tasks', {});
+});
 
-const Shared_Resources = sequelize.define('shared_resources', {});
+const User_Tasks = sequelize.define('user_tasks', {
+});
+
+const Shared_Resources = sequelize.define('shared_resources', {
+  resource: { type: Sequelize.STRING, allowNull: false },
+  type: { type: Sequelize.STRING, allowNull: false }
+});
 
