@@ -3,8 +3,12 @@ const helper = require('./helperFunctions.js');
 
 exports.users = {
   retrieveUser: (req, res) => {
-    helper.retrieveUsers(req);
-    helper.retrieveUserProfile(req)
+    helper.retrieveUsers(req, () => {
+      res.end(JSON.stringify(res.body));
+    });
+    helper.retrieveUserProfile(req, () => {
+      res.end(JSON.stringify(res.body));
+    })
     .then((user) => {
       res.status(200).send('user retrieved');
     })
@@ -15,8 +19,10 @@ exports.users = {
   createNewUser: (req, res) => {
     helper.addUsers(req.body, () => {
       res.end(JSON.stringify(res.body));
+    });
+    helper.addUserProfile(req.body, () => {
+      res.end(JSON.stringify(res.body));
     })
-    //helper.addUserProfile(req.body)
     .then((user) => {
       res.status(200).send('user added');
     })
@@ -25,8 +31,12 @@ exports.users = {
     });
   },
   updateUser: (req, res) => {
-    helper.updateUser(req.body)
-    helper.updateUserProfile(req.body)
+    helper.updateUser(req.body, () => {
+      res.end(JSON.stringify(res.body));
+    });
+    helper.updateUserProfile(req.body, () => {
+      res.end(JSON.stringify(res.body));
+    })
     .then((user) => {
       res.status(200).send('user updated');
     })
@@ -35,8 +45,12 @@ exports.users = {
     });
   },
   deleteUser: (req, res) => {
-    helper.deleteUser(req)
-    helper.deleteUserProfile(req)
+    helper.deleteUser(req, () => {
+      res.end(JSON.stringify(res.body));
+    });
+    helper.deleteUserProfile(req, () => {
+      res.end(JSON.stringify(res.body));
+    })
     .then((user) => {
       res.status(200).send('user deleted');
     })
@@ -48,7 +62,9 @@ exports.users = {
 
 // exports.teams = {
 //   retrieveTeams: (req, res) => {
-//    helper.retrieveTeam(req)
+//    helper.retrieveTeam(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   });
 //     .then((team) => {
 //       res.status(200).send('team retrieved');
 //     })
@@ -57,7 +73,9 @@ exports.users = {
 //     });
 //   },
 //   createNewTeams: (req, res) => {
-//     helper.addTeam(req.body)
+//     helper.addTeam(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((team) => {
 //       res.status(200).send('team added');
 //     })
@@ -66,7 +84,9 @@ exports.users = {
 //     });
 //   },
 //   updateTeams: (req, res) => {
-//     helper.updateTeam(req.body)
+//     helper.updateTeam(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((team) => {
 //       res.status(200).send('team updated');
 //     })
@@ -75,7 +95,9 @@ exports.users = {
 //     });
 //   },
 //   deleteTeams: (req, res) => {
-//     helper.deleteTeam(req)
+//     helper.deleteTeam(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((team) => {
 //       res.status(200).send('team deleted');
 //     })
@@ -87,7 +109,9 @@ exports.users = {
 
 // exports.messages = {
 //   retrieveMessages: (req, res) => {
-//     helper.retrieveMessage(req)
+//     helper.retrieveMessage(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((message) => {
 //       res.status(200).send('message retrieved');
 //     })
@@ -96,7 +120,9 @@ exports.users = {
 //     });
 //   },
 //   createNewMessages: (req, res) => {
-//     helper.addMessage(req.body)
+//     helper.addMessage(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((message) => {
 //       res.status(200).send('message added');
 //     })
@@ -105,7 +131,9 @@ exports.users = {
 //     });
 //   },
 //   updateMessages: (req, res) => {
-//     helper.updateMessage(req.body)
+//     helper.updateMessage(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((message) => {
 //       res.status(200).send('message updated');
 //     })
@@ -114,7 +142,9 @@ exports.users = {
 //     });
 //   },
 //   deleteMessages: (req, res) => {
-//     helper.deleteMessage(req)
+//     helper.deleteMessage(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((message) => {
 //       res.status(200).send('message deleted');
 //     })
@@ -126,7 +156,9 @@ exports.users = {
 
 // exports.announcements = {
 //   retrieveAnnouncements: (req, res) => {
-//     helper.retrieveAnnouncement(req)
+//     helper.retrieveAnnouncement(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((announcement) => {
 //       res.status(200).send('announcement retrieved');
 //     })
@@ -135,7 +167,9 @@ exports.users = {
 //     });
 //   },
 //   createNewAnnouncements: (req, res) => {
-//     helper.addAnnouncement(req.body)
+//     helper.addAnnouncement(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((announcement) => {
 //       res.status(200).send('announcement added');
 //     })
@@ -144,7 +178,9 @@ exports.users = {
 //     });
 //   },
 //   updateAnnouncements: (req, res) => {
-//     helper.updateAnnouncement(req.body)
+//     helper.updateAnnouncement(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((announcement) => {
 //       res.status(200).send('announcement updated');
 //     })
@@ -153,7 +189,9 @@ exports.users = {
 //     });
 //   },
 //   deleteAnnouncements: (req, res) => {
-//     helper.deleteAnnouncement(req)
+//     helper.deleteAnnouncement(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((announcement) => {
 //       res.status(200).send('announcement deleted');
 //     })
@@ -165,7 +203,9 @@ exports.users = {
 
 // exports.projects = {
 //   retrieveProjects: (req, res) => {
-//     helper.retrieveProject(req)
+//     helper.retrieveProject(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((project) => {
 //       res.status(200).send('project retrieved');
 //     })
@@ -174,7 +214,9 @@ exports.users = {
 //     });
 //   },
 //   createNewProjects: (req, res) => {
-//     helper.addProject(req.body)
+//     helper.addProject(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((project) => {
 //       res.status(200).send('project added');
 //     })
@@ -183,7 +225,9 @@ exports.users = {
 //     });
 //   },
 //   updateProjects: (req, res) => {
-//     helper.updateProject(req.body)
+//     helper.updateProject(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((project) => {
 //       res.status(200).send('project updated');
 //     })
@@ -192,7 +236,9 @@ exports.users = {
 //     });
 //   },
 //   deleteProjects: (req, res) => {
-//     helper.deleteProject(req)
+//     helper.deleteProject(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((project) => {
 //       res.status(200).send('project deleted');
 //     })
@@ -204,7 +250,9 @@ exports.users = {
 
 // exports.phases = {
 //   retrievePhases: (req, res) => {
-//     helper.retrievePhase(req)
+//     helper.retrievePhase(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((phase) => {
 //       res.status(200).send('phase retrieved');
 //     })
@@ -213,7 +261,9 @@ exports.users = {
 //     });
 //   },
 //   createNewPhases: (req, res) => {
-//     helper.addPhase(req.body)
+//     helper.addPhase(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((phase) => {
 //       res.status(200).send('phase added');
 //     })
@@ -222,7 +272,9 @@ exports.users = {
 //     });
 //   },
 //   updatePhases: (req, res) => {
-//     helper.updatePhase(req.body)
+//     helper.updatePhase(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((phase) => {
 //       res.status(200).send('phase updated');
 //     })
@@ -231,7 +283,9 @@ exports.users = {
 //     });
 //   },
 //   deletePhases: (req, res) => {
-//     helper.deletePhase(req)
+//     helper.deletePhase(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((phase) => {
 //       res.status(200).send('phase deleted');
 //     })
@@ -243,7 +297,9 @@ exports.users = {
 
 // exports.tasks = {
 //   retrieveTasks: (req, res) => {
-//     helper.retrieveTask(req)
+//     helper.retrieveTask(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((task) => {
 //       res.status(200).send('task retrieved');
 //     })
@@ -252,7 +308,9 @@ exports.users = {
 //     });
 //   },
 //   createNewTasks: (req, res) => {
-//     helper.addTask(req.body)
+//     helper.addTask(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((task) => {
 //       res.status(200).send('task added');
 //     })
@@ -261,7 +319,9 @@ exports.users = {
 //     });
 //   },
 //   updateTasks: (req, res) => {
-//     helper.updateTask(req.body)
+//     helper.updateTask(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((task) => {
 //       res.status(200).send('task updated');
 //     })
@@ -270,7 +330,9 @@ exports.users = {
 //     });
 //   },
 //   deleteTasks: (req, res) => {
-//     helper.deleteTask(req)
+//     helper.deleteTask(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((task) => {
 //       res.status(200).send('task deleted');
 //     })
@@ -282,7 +344,9 @@ exports.users = {
 
 // exports.resources = {
 //   retrieveResources: (req, res) => {
-//     helper.retrieveResource(req)
+//     helper.retrieveResource(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((resource) => {
 //       res.status(200).send('resource retrieved');
 //     })
@@ -291,7 +355,9 @@ exports.users = {
 //     });
 //   },
 //   createNewResources: (req, res) => {
-//     helper.addResource(req.body)
+//     helper.addResource(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((resource) => {
 //       res.status(200).send('resource added');
 //     })
@@ -300,7 +366,9 @@ exports.users = {
 //     });
 //   },
 //   updateResources: (req, res) => {
-//     helper.updateResource(req.body)
+//     helper.updateResource(req.body, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((resource) => {
 //       res.status(200).send('resource updated');
 //     })
@@ -309,7 +377,9 @@ exports.users = {
 //     });
 //   },
 //   deleteResources: (req, res) => {
-//     helper.deleteResource(req)
+//     helper.deleteResource(req, () => {
+ //     res.end(JSON.stringify(res.body));
+ //   })
 //     .then((resource) => {
 //       res.status(200).send('resource deleted');
 //     })
