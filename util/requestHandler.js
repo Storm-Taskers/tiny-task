@@ -9,12 +9,12 @@ exports.users = {
     helper.retrieveUserProfile(req, () => {
       res.end(JSON.stringify(res.body));
     })
-    .then((user) => {
-      res.status(200).send('user retrieved');
-    })
-    .catch((err) => {
-      res.status(404).send(err, 'error retrieving user');
-    });
+      .then((user) => {
+        res.status(200).send('user retrieved');
+      })
+      .catch((err) => {
+        res.status(404).send(err, 'error retrieving user');
+      });
   },
   createNewUser: (req, res) => {
     helper.addUsers(req.body, () => {
@@ -25,12 +25,12 @@ exports.users = {
       console.log('inside requestHandler for create new');
       res.end(JSON.stringify(res.body));
     })
-    .then((user) => {
-      res.status(200).send('user added');
-    })
-    .catch ((err) => {
-      res.status(404).send(err, 'error on creating user');
-    });
+      .then((user) => {
+        res.status(200).send('user added');
+      })
+      .catch((err) => {
+        res.status(404).send(err, 'error on creating user');
+      });
   },
   updateUser: (req, res) => {
     helper.updateUser(req.body, () => {
@@ -40,12 +40,12 @@ exports.users = {
     helper.updateUserProfile(req.body, () => {
       res.end(JSON.stringify(res.body));
     })
-    .then((user) => {
-      res.status(200).send('user updated');
-    })
-    .catch((err) => {
-      res.status(404).send(err, 'error on updating user');
-    });
+      .then((user) => {
+        res.status(200).send('user updated');
+      })
+      .catch((err) => {
+        res.status(404).send(err, 'error on updating user');
+      });
   },
   deleteUser: (req, res) => {
     helper.deleteUser(req, () => {
@@ -54,12 +54,12 @@ exports.users = {
     helper.deleteUserProfile(req, () => {
       res.end(JSON.stringify(res.body));
     })
-    .then((user) => {
-      res.status(200).send('user deleted');
-    })
-    .catch((err) => {
-      res.status(404).send(err, 'error on deleting user');
-    });
+      .then((user) => {
+        res.status(200).send('user deleted');
+      })
+      .catch((err) => {
+        res.status(404).send(err, 'error on deleting user');
+      });
   }
 };
 
@@ -380,5 +380,6 @@ exports.users = {
 //     });
 //   }
 // };
+
 
 

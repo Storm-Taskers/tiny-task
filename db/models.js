@@ -5,7 +5,6 @@ const sequelize = new Sequelize('tiny_task', 'root', '', {
   dialect: 'mysql'
 });
 
-
 sequelize.authenticate()
   .then(() => {
     console.log('connection has been established successfully');
@@ -25,14 +24,15 @@ const User_Profile = sequelize.define('user_profile', {
   user_availability: { type: Sequelize.TEXT }
 });
 
+
 //User_Profile.belongsTo(Users);
-Users.hasOne(User_Profile, {foreignKey: 'user_profile_id'});
+Users.hasOne(User_Profile, { foreignKey: 'user_profile_id' });
 // const Teams = sequelize.define('teams', {
-//   project_name: { type: Sequelize.TEXT, allowNull: false },
+//   project_name: { type: Sequelize.STRING, allowNull: false },
 // });
 
 // const Projects = sequelize.define('projects', {
-//   project_name: { type: Sequelize.TEXT, allowNull: false },
+//   project_name: { type: Sequelize.STRING, allowNull: false },
 //   completion: { type: Sequelize.BOOLEAN, default: false }
 // })
 
@@ -44,27 +44,27 @@ Users.hasOne(User_Profile, {foreignKey: 'user_profile_id'});
 // Projects.hasOne(Teams, { foreignKey: 'project_id' })
 
 // const Team_Colors = sequelize.define('team_colors', {
-//   color: { type: Sequelize.TEXT, allowNull: false },
+//   color: { type: Sequelize.STRING, allowNull: false },
 // });
 
 // const Announcements = sequelize.define('announcements', {
-//   announcement: { type: Sequelize.TEXT, allowNull: false },
+//   announcement: { type: Sequelize.STRING, allowNull: false },
 // });
 
 // const Messages = sequelize.define('messages', {
-//   messages: { type: Sequelize.TEXT, allowNull: false }
+//   messages: { type: Sequelize.STRING, allowNull: false }
 // });
 
 // const Phases = sequelize.define('phases', {
-//   phase_name: { type: Sequelize.TEXT, allowNull: false },
+//   phase_name: { type: Sequelize.STRING, allowNull: false },
 //   phase_order: { type: Sequelize.INTEGER, allowNull: false },
-//   phase_status: { type: Sequelize.TEXT, allowNull: false },
-//   phase_color: { type: Sequelize.TEXT, allowNull: false },
+//   phase_status: { type: Sequelize.STRING, allowNull: false },
+//   phase_color: { type: Sequelize.STRING, allowNull: false },
 // });
 
 // const Tasks = sequelize.define('taks', {
-//   task_name: { type: Sequelize.TEXT, allowNull: false },
-//   task_status: { type: Sequelize.TEXT, allowNull: false },
+//   task_name: { type: Sequelize.STRING, allowNull: false },
+//   task_status: { type: Sequelize.STRING, allowNull: false },
 
 // });
 
@@ -72,8 +72,8 @@ Users.hasOne(User_Profile, {foreignKey: 'user_profile_id'});
 // });
 
 // const Shared_Resources = sequelize.define('shared_resources', {
-//   resource: { type: Sequelize.TEXT, allowNull: false },
-//   type: { type: Sequelize.TEXT, allowNull: false }
+//   resource: { type: Sequelize.STRING, allowNull: false },
+//   type: { type: Sequelize.STRING, allowNull: false }
 // });
 
 Users.sync();
@@ -84,4 +84,29 @@ module.exports.User_Profile = User_Profile;
 
 
 
+
+
+
+// Teams.sync();
+// Projects.sync();
+// Team_Users.sync();
+// Team_Colors.sync();
+// Announcements.sync();
+// Messages.sync();
+// Phases.sync();
+// Tasks.sync();
+// User_Tasks.sync();
+// Shared_Resources.sync();
+
+
+// module.exports.Teams = Teams;
+// module.exports.Projects = Projects;
+// module.exports.Team_Users = Team_Users;
+// module.exports.Team_Colors = Team_Colors;
+// module.exports.Announcements = Announcements;
+// module.exports.Messages = Messages;
+// module.exports.Phases = Phases;
+// module.exports.Tasks = Tasks;
+// module.exports.User_Tasks = User_Tasks;
+// module.exports.Shared_Resources = Shared_Resources;
 

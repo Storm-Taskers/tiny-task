@@ -10,9 +10,7 @@ exports.addUsers = (body, callback) => {
   console.log(body, 'create new user');
   models.Users.create({
     auth_token: body.auth_token,
-    //user_profile_id: body.user_profile_id
   }).then((result) => {
-    console.log(result);
     callback(result);
   });
 };
@@ -43,102 +41,135 @@ exports.deleteUser = () => {
 
 }
 
-exports.addTeam = () => {
+// exports.addTeam = () => {
+//   models.Teams.create({
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-}
+// exports.retrieveTeam = () => {
 
-exports.retrieveTeam = () => {
+// }
 
-}
+// exports.updateTeam = () => {
 
-exports.updateTeam = () => {
+// }
 
-}
+// exports.deleteTeam = () => {
 
-exports.deleteTeam = () => {
+// }
 
-}
+// exports.addMessage = () => {
+//   models.Messages.create({
+//     message: body.message
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-exports.addMessage = () => {
+// exports.retrieveMessage = () => {
 
-}
+// }
 
-exports.retrieveMessage = () => {
+// exports.deleteMessage = () => {
 
-}
+// }
 
-exports.deleteMessage = () => {
+// exports.addAnnouncement = () => {
+//   models.Announcements.create({
+//     announcement: body.announcement
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-}
+// exports.retrieveAnnouncement = () => {
 
-exports.addAnnouncement = () => {
+// }
 
-}
+// exports.deleteAnnouncement = () => {
 
-exports.retrieveAnnouncement = () => {
+// }
 
-}
+// exports.addProject = () => {
+//   models.Projects.create({
+//     project_name: body.project_name
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-exports.deleteAnnouncement = () => {
+// exports.retrieveProject = () => {
 
-}
+// }
 
-exports.addProject = () => {
+// exports.updateProject = () => {
 
-}
+// }
 
-exports.retrieveProject = () => {
+// exports.deleteProject = () => {
 
-}
+// }
 
-exports.updateProject = () => {
+// exports.addPhase = () => {
+//   models.Users.create({
+//     phase_name: body.phase_name,
+//     phase_order: body.phase_order,
+//     phase_status: body.phase_status,
+//     phase_color: body.phase_color,
+//     project_id: body.project_id
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-}
+// exports.retrievePhase = () => {
 
-exports.deleteProject = () => {
+// }
 
-}
+// exports.updatePhase = () => {
 
-exports.addPhase = () => {
+// }
 
-}
+// exports.deletePhase = () => {
 
-exports.retrievePhase = () => {
+// }
 
-}
+// exports.addTask = () => {
+//   models.Tasks.create({
+//     task_name: body.task_name,
+//     task_status: body.task_status
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-exports.updatePhase = () => {
+// exports.retrieveTask = () => {
 
-}
+// }
 
-exports.deletePhase = () => {
+// exports.updateTask = () => {
 
-}
+// }
 
-exports.addTask = () => {
+// exports.deleteTask = () => {
 
-}
+// }
 
-exports.retrieveTask = () => {
+// exports.createNewResources = () => {
+//   models.Resources.create({
+//     resource: body.resource,
+//     type: body.type
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-}
+// exports.retrieveResources = () => {
 
-exports.updateTask = () => {
+// }
 
-}
+// exports.deleteResources = () => {
 
-exports.deleteTask = () => {
-
-}
-
-exports.newResource = () => {
-
-}
-
-exports.retrieveResource = () => {
-
-}
-
-exports.deleteResource = () => {
-
-}
+// }

@@ -116,8 +116,8 @@ describe('User Table', () => {
     let tablename = 'users';
 
     //empty database before inserting
-  //   dbConnection.query('truncate ' + tablename, done);
-   });
+    //   dbConnection.query('truncate ' + tablename, done);
+  });
 
   afterEach(() => {
     dbConnection.end();
@@ -132,7 +132,7 @@ describe('User Table', () => {
       let queryString = 'SELECT * FROM users';
       let queryArgs = [];
       dbConnection.query(queryString, queryArgs, (err, results) => {
-        if(err) { throw err; }
+        if (err) { throw err; }
         expect(results.length).to.equal(1);
         done();
       });
@@ -505,4 +505,3 @@ describe('User Table', () => {
 //update shared_resource
 //delete shared_resource
 //});
-
