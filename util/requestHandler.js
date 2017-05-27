@@ -18,9 +18,11 @@ exports.users = {
   },
   createNewUser: (req, res) => {
     helper.addUsers(req.body, () => {
+      console.log('inside requestHandler for create new');
       res.end(JSON.stringify(res.body));
     });
     helper.addUserProfile(req.body, () => {
+      console.log('inside requestHandler for create new');
       res.end(JSON.stringify(res.body));
     })
     .then((user) => {
@@ -32,6 +34,7 @@ exports.users = {
   },
   updateUser: (req, res) => {
     helper.updateUser(req.body, () => {
+      console.log('inside requestHandler for update user');
       res.end(JSON.stringify(res.body));
     });
     helper.updateUserProfile(req.body, () => {
@@ -81,17 +84,6 @@ exports.users = {
 //     })
 //     .catch ((err) => {
 //       res.status(404).send(err, 'error on creating team');
-//     });
-//   },
-//   updateTeams: (req, res) => {
-//     helper.updateTeam(req.body, () => {
- //     res.end(JSON.stringify(res.body));
- //   })
-//     .then((team) => {
-//       res.status(200).send('team updated');
-//     })
-//     .catch((err) => {
-//       res.status(404).send(err, 'error on updating team');
 //     });
 //   },
 //   deleteTeams: (req, res) => {

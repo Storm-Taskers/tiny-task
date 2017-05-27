@@ -15,19 +15,18 @@ sequelize.authenticate()
   });
 
 const Users = sequelize.define('users', {
-  auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
-  //user_profile_id: {type: Sequelize.INTEGER, allowNull: false}
+  auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true }
 });
 
-// const User_Profile = sequelize.define('user_profile', {
-//   full_name: { type: Sequelize.TEXT, allowNull: false },
-//   email: { type: Sequelize.TEXT },
-//   user_status: { type: Sequelize.TEXT },
-//   user_availability: { type: Sequelize.TEXT }
-// });
+const User_Profile = sequelize.define('user_profile', {
+  full_name: { type: Sequelize.TEXT, allowNull: false },
+  email: { type: Sequelize.TEXT },
+  user_status: { type: Sequelize.TEXT },
+  user_availability: { type: Sequelize.TEXT }
+});
 
-//const User_Profile.belongsTo(Users);
-
+//User_Profile.belongsTo(Users);
+Users.hasOne(User_Profile, {foreignKey: 'user_profile_id'});
 // const Teams = sequelize.define('teams', {
 //   project_name: { type: Sequelize.TEXT, allowNull: false },
 // });
@@ -78,8 +77,10 @@ const Users = sequelize.define('users', {
 // });
 
 Users.sync();
+User_Profile.sync();
 
 module.exports.Users = Users;
+module.exports.User_Profile = User_Profile;
 
 
 

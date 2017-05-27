@@ -6,11 +6,10 @@ const models = require('../db/models.js');
 
 
 
-exports.addUsers = (body) => {
-  console.log(body, 'body');
-  console.log(models.Users, '--users');
+exports.addUsers = (body, callback) => {
+  console.log(body, 'create new user');
   models.Users.create({
-    auth_token: body.auth_token
+    auth_token: body.auth_token,
     //user_profile_id: body.user_profile_id
   }).then((result) => {
     console.log(result);
@@ -18,7 +17,9 @@ exports.addUsers = (body) => {
   });
 };
 
-exports.addUserProfile = (body) => {
+exports.addUserProfile = (body, callback) => {
+  console.log(body, 'update user - helpers');
+  console.log(models.Users, 'update user - helpers');
   models.User_Profile.create({
     full_name: body.full_name,
     email: body.email,
@@ -26,8 +27,8 @@ exports.addUserProfile = (body) => {
     user_availability: body.user_availablility
   }).then((result) => {
     callback(result);
-  })
-}
+  });
+};
 
 exports.retrieveUser = () => {
   models.Users.find()

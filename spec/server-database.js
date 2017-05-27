@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const request = require('request');
 const expect = require('chai').expect;
 
-describe('User Table', () => {
+describe('User Profile Table', () => {
   let dbConnection;
 
   beforeEach((done) => {
@@ -16,7 +16,7 @@ describe('User Table', () => {
     });
     dbConnection.connect();
 
-    let tablename = 'users';
+    let tablename = 'user_profiles';
 
     //empty database before inserting
     dbConnection.query('truncate ' + tablename, done);
@@ -31,7 +31,103 @@ describe('User Table', () => {
       method: 'POST',
       uri: 'http://127.0.0.1:8080/api/users',
       json: {
-        auth_token: 'temp'      }
+        full_name: 'John Smith',
+        email: 'johnsmith@gmail.com',
+        user_status: 'working',
+        user_availability: true
+      }
+    }, () => {
+      let queryString = 'SELECT * FROM user_profiles';
+      let queryArgs = [];
+      dbConnection.query(queryString, queryArgs, (err, results) => {
+        if (err) { throw err; }
+        expect(results.length).to.equal(1);
+        expect(results[0].full_name).to.equal('John Smith');
+
+        done();
+      });
+    });
+  });
+
+  // it('Should output all users from the DB', (done) => {
+  //   request({
+  //     method: 'GET',
+  //     uri: 'http://127.0.0.1:8080/api/users',
+  //   }, () => {
+  //     let queryString = 'SELECT * FROM users';
+  //     let queryArgs = [];
+  //     dbConnection.query(queryString, queryArgs, (err, results) => {
+  //       if (err) { throw err; }
+  //       request('http://127.0.0.1:8080/api/users', (error, response, body) => {
+  //         let userInfo = JSON.parse(body);
+  //         expect(userInfo[0].full_name).to.equal('John Smith');
+  //         expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
+  //         done();
+  //       });
+  //     });
+  //   });
+  // });
+
+  // it('Should update user profile on DB', (done) => {
+  //   request({
+  //     method: 'PUT',
+  //     uri: 'http://127.0.0.1:8080/users',
+  //     json: { user_availability: false }
+  //   }, () => {
+  //     let queryString = 'SELECT * FROM user_profiles WHERE full_name = John Smith';
+  //     let queryArgs = [];
+  //     dbConnection.query(queryString, queryArgs, (err, response, body) => {
+  //       if (err) { throw err; };
+  //       let userInfo = JSON.parse(body);
+  //       expect(userInfo[0].user_availability).to.equal(false);
+  //       done();
+  //     });
+  //   });
+  // });
+
+  // it('Should delete user profile on DB', (done) => {
+  //   request({
+  //     method: 'DELETE',
+  //     uri: 'htp://127.0.0.1:8080/users',
+  //   }, () => {
+  //     let queryString = 'DELETE FROM user_profile WHERE full_name = John Smith and email = johnsmith@gmail.com';
+  //     let queryArgs = [];
+  //     dbConnection.query(queryString, queryArgs, (err, results) => {
+  //       if (err) { throw err; };
+  //       expect(results.length).to.equal(0);
+  //     });
+  //   });
+  // });
+
+
+});
+//----------------------------------------------------------------------------------------------------------
+describe('User Table', () => {
+  let dbConnection;
+
+  beforeEach((done) => {
+    dbConnection = mysql.createConnection({
+      user: 'root',
+      password: '',
+      database: 'tiny_task'
+    });
+    dbConnection.connect();
+
+    let tablename = 'users';
+
+    //empty database before inserting
+  //   dbConnection.query('truncate ' + tablename, done);
+   });
+
+  afterEach(() => {
+    dbConnection.end();
+  });
+
+  it('Should insert new users to the DB', (done) => {
+    request({
+      method: 'POST',
+      uri: 'http://127.0.0.1:8080/api/users',
+      json: { auth_token: 'temp' }
     }, () => {
       let queryString = 'SELECT * FROM users';
       let queryArgs = [];
@@ -43,103 +139,6 @@ describe('User Table', () => {
     });
   });
 });
-//----------------------------------------------------------------------------------------------------------
-// describe('User Profile Table', () => {
-//   let dbConnection;
-
-//   beforeEach((done) => {
-//     dbConnection = mysql.createConnection({
-//       user: 'root',
-//       password: '',
-//       database: 'tiny_task'
-//     });
-//     dbConnection.connect();
-
-//     let tablename = 'user_profile';
-
-//     //empty database before inserting
-//     dbConnection.query('truncate ' + tablename, done);
-//   });
-
-//   afterEach(() => {
-//     dbConnection.end();
-//   });
-
-//   it('Should insert new users to the DB', (done) => {
-//     request({
-//       method: 'POST',
-//       uri: 'http://127.0.0.1:8080/api/users',
-//       json: {
-//         full_name: 'John Smith',
-//         email: 'johnsmith@gmail.com',
-//         user_status: 'working',
-//         user_availability: true
-//       }
-//     }, () => {
-//       let queryString = 'SELECT * FROM user_profile';
-//       let queryArgs = [];
-//       dbConnection.query(queryString, queryArgs, (err, results) => {
-//         if (err) { throw err; }
-//         expect(results.length).to.equal(1);
-//         expect(results[0].full_name).to.equal('John Smith');
-
-//         done();
-//       });
-//     });
-//   });
-
-//   it('Should output all users from the DB', (done) => {
-//     request({
-//       method: 'GET',
-//       uri: 'http://127.0.0.1:8080/api/users',
-//     }, () => {
-//       let queryString = "INSERT INTO user_profile (id, full_name, email, user_status, user_availability) VALUES ('John Smith', 'johnsmith@gmail.com', 'working', true)";
-//       let queryArgs = [];
-//       dbConnection.query(queryString, queryArgs, (err, results) => {
-//         if (err) { throw err; }
-//         request('http://127.0.0.1:8080/api/users', (error, response, body) => {
-//           let userInfo = JSON.parse(body);
-//           expect(userInfo[0].full_name).to.equal('John Smith');
-//           expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
-//           done();
-//         });
-//       });
-//     });
-//   });
-
-//   it('Should update user profile on DB', (done) => {
-//     request({
-//       method: 'PUT',
-//       uri: 'http://127.0.0.1:8080/users',
-//       json: { user_availability: false }
-//     }, () => {
-//       let queryString = 'SELECT * FROM user_profile WHERE full_name = John Smith';
-//       let queryArgs = [];
-//       dbConnection.query(queryString, queryArgs, (err, response, body) => {
-//         if (err) { throw err; };
-//         let userInfo = JSON.parse(body);
-//         expect(userInfo[0].user_availability).to.equal(false);
-//         done();
-//       });
-//     });
-//   });
-
-//   it('Should delet user profile on DB', (done) => {
-//     request({
-//       method: 'DELETE',
-//       uri: 'htp://127.0.0.1:8080/users',
-//     }, () => {
-//       let queryString = 'DELETE FROM user_profile WHERE full_name = John Smith and email = johnsmith@gmail.com';
-//       let queryArgs = [];
-//       dbConnection.query(queryString, queryArgs, (err, results) => {
-//         if (err) { throw err; };
-//         expect(results.length).to.equal(0);
-//       });
-//     });
-//   });
-
-
-// });
 //----------------------------------------------------------------------------------------------------------
 //describe('Teams Table', () => {
 //   let dbConnection;
@@ -245,13 +244,101 @@ describe('User Table', () => {
 //   it('Should output all projects from the DB', (done) => {
 //     request({
 //       method: 'GET',
-//       uri: 'http://127.0.0.1:8080/api/users',
+//       uri: 'http://127.0.0.1:8080/api/projects',
 //     }, () => {
 //       let queryString = "INSERT INTO projects (project_name, completion, team_id) VALUES ('Tiny Task', false, 1)";
 //       let queryArgs = [];
 //       dbConnection.query(queryString, queryArgs, (err, results) => {
 //         if (err) { throw err; }
-//         request('http://127.0.0.1:8080/api/users', (error, response, body) => {
+//         request('http://127.0.0.1:8080/api/projects', (error, response, body) => {
+//           let projectInfo = JSON.parse(body);
+//           expect(projectInfo[0].project_name).to.equal('Tiny Task');
+//           expect(projectInfo[0].completion).to.equal(false);
+//           done();
+//         });
+//       });
+//     });
+//   });
+
+//   it('Should update project on DB', (done) => {
+//     request({
+//       method: 'PUT',
+//       uri: 'http://127.0.0.1:8080/projects',
+//       json: { completion: true }
+//     }, () => {
+//       let queryString = 'SELECT * FROM projects WHERE project_name = Tiny Task';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, response, body) => {
+//         if (err) { throw err; };
+//         let projectInfo = JSON.parse(body);
+//         expect(projectInfo[0].completion).to.equal(true);
+//         done();
+//       });
+//     });
+//   });
+
+//   it('Should delete project on DB', (done) => {
+//     request({
+//       method: 'DELETE',
+//       uri: 'htp://127.0.0.1:8080/projects',
+//     }, () => {
+//       let queryString = 'DELETE FROM user_profile WHERE project_name = Tiny Task';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; };
+//         expect(results.length).to.equal(0);
+//       });
+//     });
+//   });
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Team Colors Table', () => {
+//   let dbConnection;
+// beforeEach(function(done) {
+//   dbConnection = mysql.createConnection({
+//       user: 'root',
+//       password: '',
+//       database: 'tiny_task'
+//   });
+//   dbConnection.connect();
+//   let tablename = "team_colors";
+//   dbConnection.query('truncate ' + tablename, done);
+// });
+// afterEach(function() {
+//   dbConnection.end();
+// });
+//  it('Should insert new projects to the DB', (done) => {
+//     request({
+//       method: 'POST',
+//       uri: 'http://127.0.0.1:8080/api/projects',
+//       json: {
+//         project_name: 'Tiny Task',
+//         completion: false,
+//         team_id: 1,
+//       }
+//     }, () => {
+//       let queryString = 'SELECT * FROM projects';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         expect(results.length).to.equal(1);
+//         expect(results[0].project_name).to.equal('Tiny Task');
+
+//         done();
+//       });
+//     });
+//   });
+
+//   it('Should output all projects from the DB', (done) => {
+//     request({
+//       method: 'GET',
+//       uri: 'http://127.0.0.1:8080/api/projects',
+//     }, () => {
+//       let queryString = "INSERT INTO projects (project_name, completion, team_id) VALUES ('Tiny Task', false, 1)";
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         request('http://127.0.0.1:8080/api/projects', (error, response, body) => {
 //           let projectInfo = JSON.parse(body);
 //           expect(projectInfo[0].project_name).to.equal('Tiny Task');
 //           expect(projectInfo[0].completion).to.equal(false);
@@ -281,7 +368,7 @@ describe('User Table', () => {
 //   it('Should delet project on DB', (done) => {
 //     request({
 //       method: 'DELETE',
-//       uri: 'htp://127.0.0.1:8080/users',
+//       uri: 'htp://127.0.0.1:8080/projects',
 //     }, () => {
 //       let queryString = 'DELETE FROM user_profile WHERE project_name = Tiny Task';
 //       let queryArgs = [];
@@ -291,27 +378,6 @@ describe('User Table', () => {
 //       });
 //     });
 //   });
-//});
-//----------------------------------------------------------------------------------------------------------
-// describe('Team Colors Table', () => {
-//   let dbConnection;
-// beforeEach(function(done) {
-//   dbConnection = mysql.createConnection({
-//       user: 'root',
-//       password: '',
-//       database: 'tiny_task'
-//   });
-//   dbConnection.connect();
-//   let tablename = "team_colors";
-//   dbConnection.query('truncate ' + tablename, done);
-// });
-// afterEach(function() {
-//   dbConnection.end();
-// });
-//create new team_color
-//retrieve all team_color
-//update team_color
-//delete team_color
 //});
 //----------------------------------------------------------------------------------------------------------
 // describe('Announcements Table', () => {
