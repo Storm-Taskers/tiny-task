@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const request = require('request');
 const expect = require('chai').expect;
 
-describe('Persistent Node Server', () => {
+describe('User Profile Table', () => {
   let dbConnection;
 
   beforeEach((done) => {
@@ -16,7 +16,8 @@ describe('Persistent Node Server', () => {
     });
     dbConnection.connect();
 
-    let tablename = 'users';
+    let tablename = 'user_profiles';
+
     //empty database before inserting
     dbConnection.query('truncate ' + tablename, done);
   });
@@ -30,70 +31,118 @@ describe('Persistent Node Server', () => {
       method: 'POST',
       uri: 'http://127.0.0.1:8080/api/users',
       json: {
-        auth_token: 'temp'
-        //user_profile_id: 3
+        full_name: 'John Smith',
+        email: 'johnsmith@gmail.com',
+        user_status: 'working',
+        user_availability: true
       }
+    }, () => {
+      let queryString = 'SELECT * FROM user_profiles';
+      let queryArgs = [];
+      dbConnection.query(queryString, queryArgs, (err, results) => {
+        if (err) { throw err; }
+        expect(results.length).to.equal(1);
+        expect(results[0].full_name).to.equal('John Smith');
+
+        done();
+      });
+    });
+  });
+
+  // it('Should output all users from the DB', (done) => {
+  //   request({
+  //     method: 'GET',
+  //     uri: 'http://127.0.0.1:8080/api/users',
+  //   }, () => {
+  //     let queryString = 'SELECT * FROM users';
+  //     let queryArgs = [];
+  //     dbConnection.query(queryString, queryArgs, (err, results) => {
+  //       if (err) { throw err; }
+  //       request('http://127.0.0.1:8080/api/users', (error, response, body) => {
+  //         let userInfo = JSON.parse(body);
+  //         expect(userInfo[0].full_name).to.equal('John Smith');
+  //         expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
+  //         done();
+  //       });
+  //     });
+  //   });
+  // });
+
+  // it('Should update user profile on DB', (done) => {
+  //   request({
+  //     method: 'PUT',
+  //     uri: 'http://127.0.0.1:8080/users',
+  //     json: { user_availability: false }
+  //   }, () => {
+  //     let queryString = 'SELECT * FROM user_profiles WHERE full_name = John Smith';
+  //     let queryArgs = [];
+  //     dbConnection.query(queryString, queryArgs, (err, response, body) => {
+  //       if (err) { throw err; };
+  //       let userInfo = JSON.parse(body);
+  //       expect(userInfo[0].user_availability).to.equal(false);
+  //       done();
+  //     });
+  //   });
+  // });
+
+  // it('Should delete user profile on DB', (done) => {
+  //   request({
+  //     method: 'DELETE',
+  //     uri: 'htp://127.0.0.1:8080/users',
+  //   }, () => {
+  //     let queryString = 'DELETE FROM user_profile WHERE full_name = John Smith and email = johnsmith@gmail.com';
+  //     let queryArgs = [];
+  //     dbConnection.query(queryString, queryArgs, (err, results) => {
+  //       if (err) { throw err; };
+  //       expect(results.length).to.equal(0);
+  //     });
+  //   });
+  // });
+
+
+});
+//----------------------------------------------------------------------------------------------------------
+describe('User Table', () => {
+  let dbConnection;
+
+  beforeEach((done) => {
+    dbConnection = mysql.createConnection({
+      user: 'root',
+      password: '',
+      database: 'tiny_task'
+    });
+    dbConnection.connect();
+
+    let tablename = 'users';
+
+    //empty database before inserting
+  //   dbConnection.query('truncate ' + tablename, done);
+   });
+
+  afterEach(() => {
+    dbConnection.end();
+  });
+
+  it('Should insert new users to the DB', (done) => {
+    request({
+      method: 'POST',
+      uri: 'http://127.0.0.1:8080/api/users',
+      json: { auth_token: 'temp' }
     }, () => {
       let queryString = 'SELECT * FROM users';
       let queryArgs = [];
       dbConnection.query(queryString, queryArgs, (err, results) => {
         if(err) { throw err; }
         expect(results.length).to.equal(1);
-        //expect(results[0].user_profile_id).to.equal(3);
         done();
       });
     });
   });
-
-  // it('Should insert new users to the DB', function(done) {
-  //   request({
-  //     method: 'POST',
-  //     uri: 'http://127.0.0.1:8080/api/users',
-  //     json: {
-  //       full_name: 'John Smith',
-  //       email: 'johnsmith@gmail.com',
-  //       user_status: 'working',
-  //       user_availability: true
-  //     }
-  //   }, function () {
-  //     let queryString = 'SELECT * FROM user_profile';
-  //     let queryArgs = [];
-  //     dbConnection.query(queryString, queryArgs, function(err, results) {
-  //       if (err) { throw err; }
-  //       expect(results.length).to.equal(1);
-  //       expect(results[0].full_name).to.equal('John Smith');
-
-  //       done();
-  //     });
-  //   });
-  // });
-
-  // it('Should output all users from the DB', function(done) {
-  //   let queryString = "INSERT INTO user_profile (id, full_name, email, user_status, user_availability) VALUES ('John Smith', 'johnsmith@gmail.com', 'working', true)";
-  //   let queryArgs = [];
-  //   dbConnection.query(queryString, queryArgs, function(err, results) {
-  //     if (err) { throw err; }
-  //     request('http://127.0.0.1:8080/api/users', function(error, response, body) {
-  //       let userInfo = JSON.parse(body);
-  //       expect(userInfo[0].full_name).to.equal('John Smith');
-  //       expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
-  //       done();
-  //     });
-  //   });
-  // });
-
-  // it('Should update user profile on DB', function(done) {
-  //   request({
-  //     method: 'PUT',
-  //     uri: 'http://127.0.0.1:8080/users'
-  //   })
-  // })
-
-//update userProfile
-//delete userProfile
-
-
-// beforeEach(function(done) {
+});
+//----------------------------------------------------------------------------------------------------------
+//describe('Teams Table', () => {
+//   let dbConnection;
+//  beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
 //       password: '',
@@ -106,12 +155,57 @@ describe('Persistent Node Server', () => {
 // afterEach(function() {
 //   dbConnection.end();
 // });
-//create new team
-//retrieve all team
-//update team
-//delete team
+//   it('Should insert new teams to the DB', (done) => {
+//     request({
+//       method: 'POST',
+//       uri: 'http://127.0.0.1:8080/api/teams',
+//     }, () => {
+//       let queryString = 'SELECT * FROM teams';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         expect(results.length).to.equal(1);
+//         done();
+//       });
+//     });
+//   });
+
+//   it('Should output all teams from the DB', (done) => {
+//     request({
+//       method: 'GET',
+//       uri: 'http://127.0.0.1:8080/api/teams',
+//     }, () => {
+//       let queryString = "INSERT INTO teams (id) VALUES (1)";
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         request('http://127.0.0.1:8080/api/teams', (error, response, body) => {
+//           let teamInfo = JSON.parse(body);
+//           expect(teamInfo[0].id).to.equal(1);
+//           done();
+//         });
+//       });
+//     });
+//   });
 
 
+//   it('Should delete team on DB', (done) => {
+//     request({
+//       method: 'DELETE',
+//       uri: 'htp://127.0.0.1:8080/teams',
+//     }, () => {
+//       let queryString = 'DELETE FROM teams WHERE id = 1';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; };
+//         expect(results.length).to.equal(0);
+//       });
+//     });
+//   });
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Projects Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -125,31 +219,81 @@ describe('Persistent Node Server', () => {
 // afterEach(function() {
 //   dbConnection.end();
 // });
-//create new project
-//retrieve all project
-//update project
-//delete project
+//   it('Should insert new projects to the DB', (done) => {
+//     request({
+//       method: 'POST',
+//       uri: 'http://127.0.0.1:8080/api/projects',
+//       json: {
+//         project_name: 'Tiny Task',
+//         completion: false,
+//         team_id: 1,
+//       }
+//     }, () => {
+//       let queryString = 'SELECT * FROM projects';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         expect(results.length).to.equal(1);
+//         expect(results[0].project_name).to.equal('Tiny Task');
 
-
-// beforeEach(function(done) {
-//   dbConnection = mysql.createConnection({
-//       user: 'root',
-//       password: '',
-//       database: 'tiny_task'
+//         done();
+//       });
+//     });
 //   });
-//   dbConnection.connect();
-//   let tablename = "team_users";
-//   dbConnection.query('truncate ' + tablename, done);
-// });
-// afterEach(function() {
-//   dbConnection.end();
-// });
-//create new team_users
-//retrieve all team_users
-//update team_users
-//delete team_users
 
+//   it('Should output all projects from the DB', (done) => {
+//     request({
+//       method: 'GET',
+//       uri: 'http://127.0.0.1:8080/api/projects',
+//     }, () => {
+//       let queryString = "INSERT INTO projects (project_name, completion, team_id) VALUES ('Tiny Task', false, 1)";
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         request('http://127.0.0.1:8080/api/projects', (error, response, body) => {
+//           let projectInfo = JSON.parse(body);
+//           expect(projectInfo[0].project_name).to.equal('Tiny Task');
+//           expect(projectInfo[0].completion).to.equal(false);
+//           done();
+//         });
+//       });
+//     });
+//   });
 
+//   it('Should update project on DB', (done) => {
+//     request({
+//       method: 'PUT',
+//       uri: 'http://127.0.0.1:8080/projects',
+//       json: { completion: true }
+//     }, () => {
+//       let queryString = 'SELECT * FROM projects WHERE project_name = Tiny Task';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, response, body) => {
+//         if (err) { throw err; };
+//         let projectInfo = JSON.parse(body);
+//         expect(projectInfo[0].completion).to.equal(true);
+//         done();
+//       });
+//     });
+//   });
+
+//   it('Should delete project on DB', (done) => {
+//     request({
+//       method: 'DELETE',
+//       uri: 'htp://127.0.0.1:8080/projects',
+//     }, () => {
+//       let queryString = 'DELETE FROM user_profile WHERE project_name = Tiny Task';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; };
+//         expect(results.length).to.equal(0);
+//       });
+//     });
+//   });
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Team Colors Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -163,12 +307,81 @@ describe('Persistent Node Server', () => {
 // afterEach(function() {
 //   dbConnection.end();
 // });
-//create new team_color
-//retrieve all team_color
-//update team_color
-//delete team_color
+//  it('Should insert new projects to the DB', (done) => {
+//     request({
+//       method: 'POST',
+//       uri: 'http://127.0.0.1:8080/api/projects',
+//       json: {
+//         project_name: 'Tiny Task',
+//         completion: false,
+//         team_id: 1,
+//       }
+//     }, () => {
+//       let queryString = 'SELECT * FROM projects';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         expect(results.length).to.equal(1);
+//         expect(results[0].project_name).to.equal('Tiny Task');
 
+//         done();
+//       });
+//     });
+//   });
 
+//   it('Should output all projects from the DB', (done) => {
+//     request({
+//       method: 'GET',
+//       uri: 'http://127.0.0.1:8080/api/projects',
+//     }, () => {
+//       let queryString = "INSERT INTO projects (project_name, completion, team_id) VALUES ('Tiny Task', false, 1)";
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         request('http://127.0.0.1:8080/api/projects', (error, response, body) => {
+//           let projectInfo = JSON.parse(body);
+//           expect(projectInfo[0].project_name).to.equal('Tiny Task');
+//           expect(projectInfo[0].completion).to.equal(false);
+//           done();
+//         });
+//       });
+//     });
+//   });
+
+//   it('Should update project on DB', (done) => {
+//     request({
+//       method: 'PUT',
+//       uri: 'http://127.0.0.1:8080/projects',
+//       json: { completion: true }
+//     }, () => {
+//       let queryString = 'SELECT * FROM projects WHERE project_name = Tiny Task';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, response, body) => {
+//         if (err) { throw err; };
+//         let projectInfo = JSON.parse(body);
+//         expect(projectInfo[0].completion).to.equal(true);
+//         done();
+//       });
+//     });
+//   });
+
+//   it('Should delet project on DB', (done) => {
+//     request({
+//       method: 'DELETE',
+//       uri: 'htp://127.0.0.1:8080/projects',
+//     }, () => {
+//       let queryString = 'DELETE FROM user_profile WHERE project_name = Tiny Task';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; };
+//         expect(results.length).to.equal(0);
+//       });
+//     });
+//   });
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Announcements Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -186,8 +399,10 @@ describe('Persistent Node Server', () => {
 //retrieve all announcement
 //update announcement
 //delete announcement
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Messages Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -205,8 +420,10 @@ describe('Persistent Node Server', () => {
 //retrieve all message
 //update message
 //delete message
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Phases Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -224,8 +441,10 @@ describe('Persistent Node Server', () => {
 //retrieve all phase
 //update phase
 //delete phase
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Tasks Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -243,8 +462,10 @@ describe('Persistent Node Server', () => {
 //retrieve all task
 //update task
 //delete task
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('User Task Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -262,8 +483,10 @@ describe('Persistent Node Server', () => {
 //retrieve all user_task
 //update user_task
 //delete user_task
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Shared Resource Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -281,5 +504,5 @@ describe('Persistent Node Server', () => {
 //retrieve all shared_resource
 //update shared_resource
 //delete shared_resource
+//});
 
-});
