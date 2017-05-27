@@ -14,9 +14,9 @@ sequelize.authenticate()
     console.log('Unable to connect to DB', err);
   });
 
-// const Users = sequelize.define('users', {
-//   auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
-// });
+const Users = sequelize.define('users', {
+  auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
+});
 
 // const User_Profile = sequelize.define('user_profile', {
 //   full_name: { type: Sequelize.TEXT, allowNull: false },

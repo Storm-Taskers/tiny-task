@@ -3,7 +3,7 @@ const helper = require('./helperFunctions.js');
 
 exports.users = {
   retrieveUser: (req, res) => {
-    helper.retrieveUsers(req)
+    helper.retrieveUsers(req);
     helper.retrieveUserProfile(req)
     .then((user) => {
       res.status(200).send('user retrieved');
@@ -13,7 +13,8 @@ exports.users = {
     });
   },
   createNewUser: (req, res) => {
-    helper.addUser(req.body)
+    console.log(req.body, 'inside createNewUser');
+    //helper.addUsers(req.body);
     helper.addUserProfile(req.body)
     .then((user) => {
       res.status(200).send('user added');
@@ -24,7 +25,7 @@ exports.users = {
   },
   updateUser: (req, res) => {
     helper.updateUser(req.body)
-    helper.updateUser(req.body)
+    helper.updateUserProfile(req.body)
     .then((user) => {
       res.status(200).send('user updated');
     })
@@ -34,7 +35,7 @@ exports.users = {
   },
   deleteUser: (req, res) => {
     helper.deleteUser(req)
-    helper.deleteUser(req)
+    helper.deleteUserProfile(req)
     .then((user) => {
       res.status(200).send('user deleted');
     })
