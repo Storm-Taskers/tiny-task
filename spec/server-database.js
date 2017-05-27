@@ -156,10 +156,53 @@ describe('User Table', () => {
 // afterEach(function() {
 //   dbConnection.end();
 // });
-//create new team
-//retrieve all team
-//update team
-//delete team
+//   it('Should insert new teams to the DB', (done) => {
+//     request({
+//       method: 'POST',
+//       uri: 'http://127.0.0.1:8080/api/teams',
+//     }, () => {
+//       let queryString = 'SELECT * FROM teams';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         expect(results.length).to.equal(1);
+//         done();
+//       });
+//     });
+//   });
+
+//   it('Should output all teams from the DB', (done) => {
+//     request({
+//       method: 'GET',
+//       uri: 'http://127.0.0.1:8080/api/teams',
+//     }, () => {
+//       let queryString = "INSERT INTO teams (id) VALUES (1)";
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         request('http://127.0.0.1:8080/api/teams', (error, response, body) => {
+//           let teamInfo = JSON.parse(body);
+//           expect(teamInfo[0].id).to.equal(1);
+//           done();
+//         });
+//       });
+//     });
+//   });
+
+
+//   it('Should delet team on DB', (done) => {
+//     request({
+//       method: 'DELETE',
+//       uri: 'htp://127.0.0.1:8080/teams',
+//     }, () => {
+//       let queryString = 'DELETE FROM teams WHERE id = 1';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; };
+//         expect(results.length).to.equal(0);
+//       });
+//     });
+//   });
 //});
 //----------------------------------------------------------------------------------------------------------
 // describe('Projects Table', () => {
