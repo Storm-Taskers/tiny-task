@@ -26,25 +26,20 @@ describe('Persistent Node Server', () => {
   });
 
   it('Should insert new users to the DB', (done) => {
-    //console.log('inside function');
     request({
       method: 'POST',
       uri: 'http://127.0.0.1:8080/api/users',
       json: {
-        auth_token: 'temp',
-        user_profile_id: 3
+        auth_token: 'temp'
+        //user_profile_id: 3
       }
     }, () => {
-      //console.log('inside callback after request');
       let queryString = 'SELECT * FROM users';
       let queryArgs = [];
       dbConnection.query(queryString, queryArgs, (err, results) => {
-        //console.log(queryString, 'queryString');
-        //console.log(queryArgs, 'queryArgs');
-        //console.log(results, 'results');
         if(err) { throw err; }
         expect(results.length).to.equal(1);
-        expect(results[0].user_profile_id).to.equal(3);
+        //expect(results[0].user_profile_id).to.equal(3);
         done();
       });
     });

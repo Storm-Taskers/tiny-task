@@ -16,6 +16,7 @@ sequelize.authenticate()
 
 const Users = sequelize.define('users', {
   auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
+  //user_profile_id: {type: Sequelize.INTEGER, allowNull: false}
 });
 
 // const User_Profile = sequelize.define('user_profile', {
@@ -25,7 +26,7 @@ const Users = sequelize.define('users', {
 //   user_availability: { type: Sequelize.TEXT }
 // });
 
-// User_Profile.belongsTo(Users);
+//const User_Profile.belongsTo(Users);
 
 // const Teams = sequelize.define('teams', {
 //   project_name: { type: Sequelize.TEXT, allowNull: false },
@@ -75,3 +76,11 @@ const Users = sequelize.define('users', {
 //   resource: { type: Sequelize.TEXT, allowNull: false },
 //   type: { type: Sequelize.TEXT, allowNull: false }
 // });
+
+Users.sync();
+
+module.exports.Users = Users;
+
+
+
+

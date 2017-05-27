@@ -13,9 +13,10 @@ exports.users = {
     });
   },
   createNewUser: (req, res) => {
-    console.log(req.body, 'inside createNewUser');
-    //helper.addUsers(req.body);
-    helper.addUserProfile(req.body)
+    helper.addUsers(req.body, () => {
+      res.end(JSON.stringify(res.body));
+    })
+    //helper.addUserProfile(req.body)
     .then((user) => {
       res.status(200).send('user added');
     })
