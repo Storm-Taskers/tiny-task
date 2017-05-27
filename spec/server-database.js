@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const request = require('request');
 const expect = require('chai').expect;
 
-describe('Persistent Node Server', () => {
+describe('User Table', () => {
   let dbConnection;
 
   beforeEach((done) => {
@@ -17,6 +17,7 @@ describe('Persistent Node Server', () => {
     dbConnection.connect();
 
     let tablename = 'users';
+
     //empty database before inserting
     dbConnection.query('truncate ' + tablename, done);
   });
@@ -30,70 +31,119 @@ describe('Persistent Node Server', () => {
       method: 'POST',
       uri: 'http://127.0.0.1:8080/api/users',
       json: {
-        auth_token: 'temp'
-        //user_profile_id: 3
-      }
+        auth_token: 'temp'      }
     }, () => {
       let queryString = 'SELECT * FROM users';
       let queryArgs = [];
       dbConnection.query(queryString, queryArgs, (err, results) => {
         if(err) { throw err; }
         expect(results.length).to.equal(1);
-        //expect(results[0].user_profile_id).to.equal(3);
         done();
       });
     });
   });
+});
+//----------------------------------------------------------------------------------------------------------
+// describe('User Profile Table', () => {
+//   let dbConnection;
 
-  // it('Should insert new users to the DB', function(done) {
-  //   request({
-  //     method: 'POST',
-  //     uri: 'http://127.0.0.1:8080/api/users',
-  //     json: {
-  //       full_name: 'John Smith',
-  //       email: 'johnsmith@gmail.com',
-  //       user_status: 'working',
-  //       user_availability: true
-  //     }
-  //   }, function () {
-  //     let queryString = 'SELECT * FROM user_profile';
-  //     let queryArgs = [];
-  //     dbConnection.query(queryString, queryArgs, function(err, results) {
-  //       if (err) { throw err; }
-  //       expect(results.length).to.equal(1);
-  //       expect(results[0].full_name).to.equal('John Smith');
+//   beforeEach((done) => {
+//     dbConnection = mysql.createConnection({
+//       user: 'root',
+//       password: '',
+//       database: 'tiny_task'
+//     });
+//     dbConnection.connect();
 
-  //       done();
-  //     });
-  //   });
-  // });
+//     let tablename = 'user_profile';
 
-  // it('Should output all users from the DB', function(done) {
-  //   let queryString = "INSERT INTO user_profile (id, full_name, email, user_status, user_availability) VALUES ('John Smith', 'johnsmith@gmail.com', 'working', true)";
-  //   let queryArgs = [];
-  //   dbConnection.query(queryString, queryArgs, function(err, results) {
-  //     if (err) { throw err; }
-  //     request('http://127.0.0.1:8080/api/users', function(error, response, body) {
-  //       let userInfo = JSON.parse(body);
-  //       expect(userInfo[0].full_name).to.equal('John Smith');
-  //       expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
-  //       done();
-  //     });
-  //   });
-  // });
+//     //empty database before inserting
+//     dbConnection.query('truncate ' + tablename, done);
+//   });
 
-  // it('Should update user profile on DB', function(done) {
-  //   request({
-  //     method: 'PUT',
-  //     uri: 'http://127.0.0.1:8080/users'
-  //   })
-  // })
+//   afterEach(() => {
+//     dbConnection.end();
+//   });
 
-//update userProfile
-//delete userProfile
+//   it('Should insert new users to the DB', (done) => {
+//     request({
+//       method: 'POST',
+//       uri: 'http://127.0.0.1:8080/api/users',
+//       json: {
+//         full_name: 'John Smith',
+//         email: 'johnsmith@gmail.com',
+//         user_status: 'working',
+//         user_availability: true
+//       }
+//     }, () => {
+//       let queryString = 'SELECT * FROM user_profile';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         expect(results.length).to.equal(1);
+//         expect(results[0].full_name).to.equal('John Smith');
+
+//         done();
+//       });
+//     });
+//   });
+
+//   it('Should output all users from the DB', (done) => {
+//     request({
+//       method: 'GET',
+//       uri: 'http://127.0.0.1:8080/api/users',
+//     }, () => {
+//       let queryString = "INSERT INTO user_profile (id, full_name, email, user_status, user_availability) VALUES ('John Smith', 'johnsmith@gmail.com', 'working', true)";
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; }
+//         request('http://127.0.0.1:8080/api/users', (error, response, body) => {
+//           let userInfo = JSON.parse(body);
+//           expect(userInfo[0].full_name).to.equal('John Smith');
+//           expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
+//           done();
+//         });
+//       });
+//     });
+//   });
+
+//   it('Should update user profile on DB', (done) => {
+//     request({
+//       method: 'PUT',
+//       uri: 'http://127.0.0.1:8080/users',
+//       json: { user_availability: false }
+//     }, () => {
+//       let queryString = 'SELECT * FROM user_profile';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, response, body) => {
+//         if (err) { throw err; };
+//         let userInfo = JSON.parse(body);
+//         expect(userInfo[0].user_availability).to.equal(false);
+//         done();
+//       });
+//     });
+//   });
+
+//   it('Should delet user profile on DB', (done) => {
+//     request({
+//       method: 'DELETE',
+//       uri: 'htp://127.0.0.1:8080/users',
+//     }, () => {
+//       let queryString = 'DELETE FROM user_profile WHERE full_name = John Smith and email = johnsmith@gmail.com';
+//       let queryArgs = [];
+//       dbConnection.query(queryString, queryArgs, (err, results) => {
+//         if (err) { throw err; };
+//         expect(results.length).to.equal(0);
+//       });
+//     });
+//   });
 
 
-// beforeEach(function(done) {
+// });
+//----------------------------------------------------------------------------------------------------------
+//describe('Teams Table', () => {
+//   let dbConnection;
+//  beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
 //       password: '',
@@ -110,8 +160,10 @@ describe('Persistent Node Server', () => {
 //retrieve all team
 //update team
 //delete team
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Projects Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -129,27 +181,10 @@ describe('Persistent Node Server', () => {
 //retrieve all project
 //update project
 //delete project
-
-
-// beforeEach(function(done) {
-//   dbConnection = mysql.createConnection({
-//       user: 'root',
-//       password: '',
-//       database: 'tiny_task'
-//   });
-//   dbConnection.connect();
-//   let tablename = "team_users";
-//   dbConnection.query('truncate ' + tablename, done);
-// });
-// afterEach(function() {
-//   dbConnection.end();
-// });
-//create new team_users
-//retrieve all team_users
-//update team_users
-//delete team_users
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Team Colors Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -167,8 +202,10 @@ describe('Persistent Node Server', () => {
 //retrieve all team_color
 //update team_color
 //delete team_color
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Announcements Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -186,8 +223,10 @@ describe('Persistent Node Server', () => {
 //retrieve all announcement
 //update announcement
 //delete announcement
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Messages Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -205,8 +244,10 @@ describe('Persistent Node Server', () => {
 //retrieve all message
 //update message
 //delete message
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Phases Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -224,8 +265,10 @@ describe('Persistent Node Server', () => {
 //retrieve all phase
 //update phase
 //delete phase
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Tasks Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -243,8 +286,10 @@ describe('Persistent Node Server', () => {
 //retrieve all task
 //update task
 //delete task
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('User Task Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -262,8 +307,10 @@ describe('Persistent Node Server', () => {
 //retrieve all user_task
 //update user_task
 //delete user_task
-
-
+//});
+//----------------------------------------------------------------------------------------------------------
+// describe('Shared Resource Table', () => {
+//   let dbConnection;
 // beforeEach(function(done) {
 //   dbConnection = mysql.createConnection({
 //       user: 'root',
@@ -281,5 +328,5 @@ describe('Persistent Node Server', () => {
 //retrieve all shared_resource
 //update shared_resource
 //delete shared_resource
+//});
 
-});

@@ -7,13 +7,10 @@ const handler = require('./util/requestHandler.js');
 // });
 
 router.get('/api/users', handler.users.retrieveUser);
-router.post('/users', handler.users.createNewUser, () => {
-  console.log('inside router');
-});
+router.post('/users', handler.users.createNewUser);
 router.put('/users', handler.users.updateUser);
 router.delete('/users', handler.users.deleteUser);
 
-//handler.users.createNewUser
 
 // router.get('/api/teams', handler.teams.retrieveTeams);
 // router.post('/api/teams', handler.teams.createNewTeams);
