@@ -5,6 +5,44 @@ const mysql = require('mysql');
 const request = require('request');
 const expect = require('chai').expect;
 
+describe('User Table', () => {
+  let dbConnection;
+
+  beforeEach((done) => {
+    dbConnection = mysql.createConnection({
+      user: 'root',
+      password: '',
+      database: 'tiny_task'
+    });
+    dbConnection.connect();
+
+    let tablename = 'users';
+
+    //empty database before inserting
+    //   dbConnection.query('truncate ' + tablename, done);
+  });
+
+  afterEach(() => {
+    dbConnection.end();
+  });
+
+  it('Should insert new users to the DB', (done) => {
+    request({
+      method: 'POST',
+      uri: 'http://127.0.0.1:8080/api/users',
+      json: { auth_token: 'temp' }
+    }, () => {
+      let queryString = 'SELECT * FROM users';
+      let queryArgs = [];
+      dbConnection.query(queryString, queryArgs, (err, results) => {
+        if (err) { throw err; }
+        expect(results.length).to.equal(1);
+        done();
+      });
+    });
+  });
+});
+//----------------------------------------------------------------------------------------------------------
 describe('User Profile Table', () => {
   let dbConnection;
 
@@ -100,44 +138,6 @@ describe('User Profile Table', () => {
   // });
 
 
-});
-//----------------------------------------------------------------------------------------------------------
-describe('User Table', () => {
-  let dbConnection;
-
-  beforeEach((done) => {
-    dbConnection = mysql.createConnection({
-      user: 'root',
-      password: '',
-      database: 'tiny_task'
-    });
-    dbConnection.connect();
-
-    let tablename = 'users';
-
-    //empty database before inserting
-    //   dbConnection.query('truncate ' + tablename, done);
-  });
-
-  afterEach(() => {
-    dbConnection.end();
-  });
-
-  it('Should insert new users to the DB', (done) => {
-    request({
-      method: 'POST',
-      uri: 'http://127.0.0.1:8080/api/users',
-      json: { auth_token: 'temp' }
-    }, () => {
-      let queryString = 'SELECT * FROM users';
-      let queryArgs = [];
-      dbConnection.query(queryString, queryArgs, (err, results) => {
-        if (err) { throw err; }
-        expect(results.length).to.equal(1);
-        done();
-      });
-    });
-  });
 });
 //----------------------------------------------------------------------------------------------------------
 //describe('Teams Table', () => {

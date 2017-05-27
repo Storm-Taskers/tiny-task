@@ -25,8 +25,6 @@ const User_Profile = sequelize.define('user_profile', {
   user_availability: { type: Sequelize.STRING }
 });
 
-
-
 //User_Profile.belongsTo(Users);
 Users.hasOne(User_Profile, { foreignKey: 'user_profile_id' });
 // const Teams = sequelize.define('teams', {

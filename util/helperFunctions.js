@@ -1,11 +1,6 @@
 const mysql = require('mysql');
 const models = require('../db/models.js');
 
-
-
-
-
-
 exports.addUsers = (body, callback) => {
   console.log(body, 'create new user');
   models.Users.create({
@@ -14,7 +9,6 @@ exports.addUsers = (body, callback) => {
     callback(result);
   });
 };
-
 
 exports.addUserProfile = (body, callback) => {
   console.log(body, 'update user - helpers');
@@ -29,10 +23,17 @@ exports.addUserProfile = (body, callback) => {
   });
 };
 
-
-exports.retrieveUser = () => {
-  models.Users.find()
-
+exports.retrieveUser = (body, callback) => {
+  model.Users.findAll({
+    where: {
+      auth_token: body.auth_token
+    },
+    include: [{
+      model: model.User_Profile
+    }]
+  }).then(function (result) {
+    callback(result);
+  })
 }
 
 exports.updateUser = () => {

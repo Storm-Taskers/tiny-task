@@ -1,6 +1,5 @@
 const helper = require('./helperFunctions.js');
 
-
 exports.users = {
   retrieveUser: (req, res) => {
     helper.retrieveUsers(req, () => {
