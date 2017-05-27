@@ -15,16 +15,18 @@ const models = require('../db/models.js');
 
 
 exports.addUsers = (body) => {
+  console.log(body, 'body');
+  console.log(models.Users, '--users');
   models.Users.create({
-    auth_token: auth_token
+    auth_token: body.auth_token
+    //user_profile_id: body.user_profile_id
   }).then((result) => {
+    console.log(result);
     callback(result);
-  })
+  });
 };
 
 exports.addUserProfile = (body) => {
-  console.log(body, 'body');
-  console.log(models.Users, 'users');
   models.User_Profile.create({
     full_name: body.full_name,
     email: body.email,
