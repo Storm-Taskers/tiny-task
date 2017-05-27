@@ -15,6 +15,7 @@ exports.addUsers = (body, callback) => {
   });
 };
 
+
 exports.addUserProfile = (body, callback) => {
   console.log(body, 'update user - helpers');
   console.log(models.Users, 'update user - helpers');
@@ -27,6 +28,7 @@ exports.addUserProfile = (body, callback) => {
     callback(result);
   });
 };
+
 
 exports.retrieveUser = () => {
   models.Users.find()

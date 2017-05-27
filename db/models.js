@@ -18,11 +18,13 @@ const Users = sequelize.define('users', {
 });
 
 const User_Profile = sequelize.define('user_profile', {
-  full_name: { type: Sequelize.TEXT, allowNull: false },
-  email: { type: Sequelize.TEXT },
-  user_status: { type: Sequelize.TEXT },
-  user_availability: { type: Sequelize.TEXT }
+
+  full_name: { type: Sequelize.STRING, allowNull: false },
+  email: { type: Sequelize.STRING },
+  user_status: { type: Sequelize.STRING },
+  user_availability: { type: Sequelize.STRING }
 });
+
 
 
 //User_Profile.belongsTo(Users);
@@ -87,6 +89,7 @@ module.exports.User_Profile = User_Profile;
 
 
 
+
 // Teams.sync();
 // Projects.sync();
 // Team_Users.sync();
@@ -97,7 +100,6 @@ module.exports.User_Profile = User_Profile;
 // Tasks.sync();
 // User_Tasks.sync();
 // Shared_Resources.sync();
-
 
 // module.exports.Teams = Teams;
 // module.exports.Projects = Projects;
