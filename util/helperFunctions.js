@@ -1,20 +1,44 @@
 const mysql = require('mysql');
 const models = require('../db/models.js');
-const Sequelize = require('sequelize');
 
 
-models.connection = sequelize.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'tiny'
-});
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '',
+//   database: 'tiny_task'
+// });
 
-exports.addUser = () => {
+///connection.connect();
 
+
+
+
+exports.addUsers = (body) => {
+  console.log(body, 'body');
+  console.log(models.Users, '--users');
+  models.Users.create({
+    auth_token: body.auth_token
+    //user_profile_id: body.user_profile_id
+  }).then((result) => {
+    console.log(result);
+    callback(result);
+  });
+};
+
+exports.addUserProfile = (body) => {
+  models.User_Profile.create({
+    full_name: body.full_name,
+    email: body.email,
+    user_status: body.user_status,
+    user_availability: body.user_availablility
+  }).then((result) => {
+    callback(result);
+  })
 }
 
 exports.retrieveUser = () => {
+  models.Users.find()
 
 }
 
