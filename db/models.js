@@ -26,7 +26,7 @@ const User_Profile = sequelize.define('user_profile', {
 });
 
 //User_Profile.belongsTo(Users);
-Users.hasOne(User_Profile, { foreignKey: 'user_profile_id' });
+//Users.hasOne(User_Profile, { foreignKey: 'user_profile_id' });
 // const Teams = sequelize.define('teams', {
 //   project_name: { type: Sequelize.STRING, allowNull: false },
 // });

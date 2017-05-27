@@ -19,7 +19,7 @@ describe('User Table', () => {
     let tablename = 'users';
 
     //empty database before inserting
-    //   dbConnection.query('truncate ' + tablename, done);
+    dbConnection.query('truncate ' + tablename, done);
   });
 
   afterEach(() => {

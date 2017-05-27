@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS shared_resources (
 );
 
 
-ALTER TABLE 'users' ADD FOREIGN KEY (user_profile_id) REFERENCES 'user_profile'('id');
+--ALTER TABLE 'users' ADD FOREIGN KEY (user_profile_id) REFERENCES 'user_profile'('id');
 
 
 
