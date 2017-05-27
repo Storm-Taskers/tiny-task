@@ -23,6 +23,8 @@ exports.addUsers = (body) => {
 };
 
 exports.addUserProfile = (body) => {
+  console.log(body, 'body');
+  console.log(models.Users, 'users');
   models.User_Profile.create({
     full_name: body.full_name,
     email: body.email,

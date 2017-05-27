@@ -1,14 +1,14 @@
 /* You'll need to have MySQL running and your Node server running
  * for these tests to pass. */
 
-var mysql = require('mysql');
-var request = require('request'); // You might need to npm install the request module!
-var expect = require('chai').expect;
+const mysql = require('mysql');
+const request = require('request');
+const expect = require('chai').expect;
 
-describe('Persistent Node Server', function() {
-  var dbConnection;
+describe('Persistent Node Server', () => {
+  let dbConnection;
 
-  beforeEach(function(done) {
+  beforeEach((done) => {
     dbConnection = mysql.createConnection({
       user: 'root',
       password: '',
@@ -16,53 +16,76 @@ describe('Persistent Node Server', function() {
     });
     dbConnection.connect();
 
-    var tablename = "users";
-
-    /* Empty the db table before each test so that multiple tests
-     * (or repeated runs of the tests) won't screw each other up: */
+    let tablename = 'users';
+    //empty database before inserting
     dbConnection.query('truncate ' + tablename, done);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     dbConnection.end();
   });
 
-  it('Should insert new users to the DB', function(done) {
+  it('Should insert new users to the DB', (done) => {
+    //console.log('inside function');
     request({
       method: 'POST',
       uri: 'http://127.0.0.1:8080/api/users',
       json: {
-        full_name: 'John Smith',
-        email: 'johnsmith@gmail.com',
-        user_status: 'working',
-        user_availability: true
+        auth_token: 'temp',
+        user_profile_id: 3
       }
-    }, function () {
-      var queryString = 'SELECT * FROM users';
-      var queryArgs = [];
-      dbConnection.query(queryString, queryArgs, function(err, results) {
-        if (err) { throw err; }
+    }, () => {
+      //console.log('inside callback after request');
+      let queryString = 'SELECT * FROM users';
+      let queryArgs = [];
+      dbConnection.query(queryString, queryArgs, (err, results) => {
+        //console.log(queryString, 'queryString');
+        //console.log(queryArgs, 'queryArgs');
+        //console.log(results, 'results');
+        if(err) { throw err; }
         expect(results.length).to.equal(1);
-        expect(results[0].full_name).to.equal('John Smith');
-
+        expect(results[0].user_profile_id).to.equal(3);
         done();
       });
     });
   });
 
-  it('Should output all users from the DB', function(done) {
-    var queryString = "INSERT INTO user_profile (id, full_name, email, user_status, user_availability) VALUES ('John Smith', 'johnsmith@gmail.com', 'working', true)";
-    var queryArgs = [];
-    dbConnection.query(queryString, queryArgs, function(err, results) {
-      if (err) { throw err; }
-      request('http://127.0.0.1:8080/api/users', function(error, response, body) {
-        var userInfo = JSON.parse(body);
-        expect(userInfo[0].full_name).to.equal('John Smith');
-        expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
-        done();
-      });
-    });
-  });
+  // it('Should insert new users to the DB', function(done) {
+  //   request({
+  //     method: 'POST',
+  //     uri: 'http://127.0.0.1:8080/api/users',
+  //     json: {
+  //       full_name: 'John Smith',
+  //       email: 'johnsmith@gmail.com',
+  //       user_status: 'working',
+  //       user_availability: true
+  //     }
+  //   }, function () {
+  //     let queryString = 'SELECT * FROM user_profile';
+  //     let queryArgs = [];
+  //     dbConnection.query(queryString, queryArgs, function(err, results) {
+  //       if (err) { throw err; }
+  //       expect(results.length).to.equal(1);
+  //       expect(results[0].full_name).to.equal('John Smith');
+
+  //       done();
+  //     });
+  //   });
+  // });
+
+  // it('Should output all users from the DB', function(done) {
+  //   let queryString = "INSERT INTO user_profile (id, full_name, email, user_status, user_availability) VALUES ('John Smith', 'johnsmith@gmail.com', 'working', true)";
+  //   let queryArgs = [];
+  //   dbConnection.query(queryString, queryArgs, function(err, results) {
+  //     if (err) { throw err; }
+  //     request('http://127.0.0.1:8080/api/users', function(error, response, body) {
+  //       let userInfo = JSON.parse(body);
+  //       expect(userInfo[0].full_name).to.equal('John Smith');
+  //       expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
+  //       done();
+  //     });
+  //   });
+  // });
 
   // it('Should update user profile on DB', function(done) {
   //   request({
@@ -82,7 +105,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "teams";
+//   let tablename = "teams";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -101,7 +124,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "projects";
+//   let tablename = "projects";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -120,7 +143,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "team_users";
+//   let tablename = "team_users";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -139,7 +162,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "team_colors";
+//   let tablename = "team_colors";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -158,7 +181,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "announcements";
+//   let tablename = "announcements";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -177,7 +200,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "messages";
+//   let tablename = "messages";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -196,7 +219,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "phases";
+//   let tablename = "phases";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -215,7 +238,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "tasks";
+//   let tablename = "tasks";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -234,7 +257,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "users_tasks";
+//   let tablename = "users_tasks";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -253,7 +276,7 @@ describe('Persistent Node Server', function() {
 //       database: 'tiny_task'
 //   });
 //   dbConnection.connect();
-//   var tablename = "shared_resource";
+//   let tablename = "shared_resource";
 //   dbConnection.query('truncate ' + tablename, done);
 // });
 // afterEach(function() {
@@ -263,21 +286,5 @@ describe('Persistent Node Server', function() {
 //retrieve all shared_resource
 //update shared_resource
 //delete shared_resource
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
