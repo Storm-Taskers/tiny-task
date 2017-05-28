@@ -7,9 +7,10 @@ exports.users = {
       res.end(JSON.stringify(res.body));
     });
     helper.retrieveUserProfile(req, () => {
+      console.log('res.body', res.body);
       res.end(JSON.stringify(res.body));
     })
-    .then((user) => {
+    .then(() => {
       res.status(200).send('user retrieved');
     })
     .catch((err) => {
@@ -18,14 +19,12 @@ exports.users = {
   },
   createNewUser: (req, res) => {
     helper.addUsers(req.body, () => {
-      console.log('inside requestHandler for create new');
       res.end(JSON.stringify(res.body));
     });
     helper.addUserProfile(req.body, () => {
-      console.log('inside requestHandler for create new');
       res.end(JSON.stringify(res.body));
     })
-    .then((user) => {
+    .then(() => {
       res.status(200).send('user added');
     })
     .catch ((err) => {
@@ -34,13 +33,12 @@ exports.users = {
   },
   updateUser: (req, res) => {
     helper.updateUser(req.body, () => {
-      console.log('inside requestHandler for update user');
       res.end(JSON.stringify(res.body));
     });
     helper.updateUserProfile(req.body, () => {
       res.end(JSON.stringify(res.body));
     })
-    .then((user) => {
+    .then(() => {
       res.status(200).send('user updated');
     })
     .catch((err) => {
@@ -54,7 +52,7 @@ exports.users = {
     helper.deleteUserProfile(req, () => {
       res.end(JSON.stringify(res.body));
     })
-    .then((user) => {
+    .then(() => {
       res.status(200).send('user deleted');
     })
     .catch((err) => {

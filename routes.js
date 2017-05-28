@@ -7,12 +7,8 @@ const handler = require('./util/requestHandler.js');
 // });
 
 router.get('/users', handler.users.retrieveUser);
-router.post('/users', handler.users.createNewUser, () => {
-  console.log('inside router for create new user');
-});
-router.put('/users', handler.users.updateUser, () => {
-  console.log('inside router for update user');
-});
+router.post('/users', handler.users.createNewUser);
+router.put('/users', handler.users.updateUser);
 router.delete('/users', handler.users.deleteUser);
 
 

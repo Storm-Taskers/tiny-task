@@ -19,7 +19,8 @@ describe('User Profile Table', () => {
     let tablename = 'user_profiles';
 
     //empty database before inserting
-    dbConnection.query('truncate ' + tablename, done);
+    //dbConnection.query('truncate ' + tablename, done);
+    dbConnection.user_profiles.destroy({truncate: true, cascade: true});
   });
 
   afterEach(() => {
@@ -49,24 +50,25 @@ describe('User Profile Table', () => {
     });
   });
 
-  // it('Should output all users from the DB', (done) => {
-  //   request({
-  //     method: 'GET',
-  //     uri: 'http://127.0.0.1:8080/api/users',
-  //   }, () => {
-  //     let queryString = 'SELECT * FROM users';
-  //     let queryArgs = [];
-  //     dbConnection.query(queryString, queryArgs, (err, results) => {
-  //       if (err) { throw err; }
-  //       request('http://127.0.0.1:8080/api/users', (error, response, body) => {
-  //         let userInfo = JSON.parse(body);
-  //         expect(userInfo[0].full_name).to.equal('John Smith');
-  //         expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
+  it('Should output all users from the DB', (done) => {
+    request({
+      method: 'GET',
+      uri: 'http://127.0.0.1:8080/api/users',
+    }, () => {
+      let queryString = 'SELECT * FROM user_profiles';
+      let queryArgs = [];
+      dbConnection.query(queryString, queryArgs, (err, results) => {
+        if (err) { throw err; }
+        request('http://127.0.0.1:8080/api/users', (error, response) => {
+          let userInfo = response;
+          console.log(response, 'res');
+          expect(userInfo[0].full_name).to.equal('John Smith');
+          expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
+          done();
+        });
+      });
+    });
+  });
 
   // it('Should update user profile on DB', (done) => {
   //   request({
@@ -116,7 +118,8 @@ describe('User Table', () => {
     let tablename = 'users';
 
     //empty database before inserting
-  //   dbConnection.query('truncate ' + tablename, done);
+    //dbConnection.query('truncate ' + tablename, done);
+    dbConnection.users.destroy({truncate: true, cascade: true});
    });
 
   afterEach(() => {

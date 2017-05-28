@@ -7,7 +7,6 @@ const models = require('../db/models.js');
 
 
 exports.addUsers = (body, callback) => {
-  console.log(body, 'create new user');
   models.Users.create({
     auth_token: body.auth_token,
     //user_profile_id: body.user_profile_id
@@ -18,8 +17,6 @@ exports.addUsers = (body, callback) => {
 };
 
 exports.addUserProfile = (body, callback) => {
-  console.log(body, 'update user - helpers');
-  console.log(models.Users, 'update user - helpers');
   models.User_Profile.create({
     full_name: body.full_name,
     email: body.email,
@@ -30,10 +27,20 @@ exports.addUserProfile = (body, callback) => {
   });
 };
 
-exports.retrieveUser = () => {
-  models.Users.find()
-
-}
+exports.retrieveUserProfile = (body, callback) => {
+  //console.log(body, 'inside retrieveUser');
+  model.User_Profile.findAll({
+    where: {
+      auth_token: body.auth_token
+    },
+    include: [{
+      model: model.User_Profile
+    }]
+  }).then(function (result) {
+    console.log(result, 'results');
+    callback(result);
+  });
+};
 
 exports.updateUser = () => {
 

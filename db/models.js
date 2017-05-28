@@ -25,8 +25,12 @@ const User_Profile = sequelize.define('user_profile', {
   user_availability: { type: Sequelize.TEXT }
 });
 
-//User_Profile.belongsTo(Users);
-Users.hasOne(User_Profile, {foreignKey: 'user_profile_id'});
+/*
+SET FOREIGN_KEY_CHECKS = 0; TRUNCATE table1; SET FOREIGN_KEY_CHECKS = 1;
+*/
+
+Users.belongsTo(User_Profile, {foreignKey: 'user_profile_id'});
+
 // const Teams = sequelize.define('teams', {
 //   project_name: { type: Sequelize.TEXT, allowNull: false },
 // });
@@ -76,8 +80,14 @@ Users.hasOne(User_Profile, {foreignKey: 'user_profile_id'});
 //   type: { type: Sequelize.TEXT, allowNull: false }
 // });
 
+
 Users.sync();
 User_Profile.sync();
+
+// Users.truncate({ cascade: true });
+// User_Profile.truncate({ cascade: true });
+
+
 
 module.exports.Users = Users;
 module.exports.User_Profile = User_Profile;
