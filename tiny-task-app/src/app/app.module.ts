@@ -9,6 +9,7 @@ import { AppRouterModule } from './router-modules/app-router.module';
 
 // Import application sub-components
 import { NavComponent } from './nav/nav.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { PhasesComponent } from './projects/project-details/phases/phases.component';
@@ -21,6 +22,7 @@ import { UserDetailsComponent } from './projects/project-details/user/user-detai
   declarations: [
     AppComponent,
     NavComponent,
+    UserProfileComponent,
     ProjectsComponent,
     ProjectDetailsComponent,
     PhasesComponent,
