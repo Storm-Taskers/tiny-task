@@ -1,0 +1,8 @@
+.user-info {
+  margin-bottom: 20px;
+}
+
+.nav-bar .nav-cols {
+  display: flex;
+  flex-direction: column;
+}

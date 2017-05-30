@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRouterModule } from './router-modules/app-router.module';
 
 // Import application sub-components
-import { NavComponent } from './nav/nav.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
@@ -21,7 +21,7 @@ import { UserDetailsComponent } from './projects/project-details/user/user-detai
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
+    UserInfoComponent,
     UserProfileComponent,
     ProjectsComponent,
     ProjectDetailsComponent,
@@ -29,7 +29,7 @@ import { UserDetailsComponent } from './projects/project-details/user/user-detai
     PhaseDetailsComponent,
     UserComponent,
     UserDetailsComponent,
-    TeamMembersComponent,
+    TeamMembersComponent
   ],
   imports: [
     BrowserModule,

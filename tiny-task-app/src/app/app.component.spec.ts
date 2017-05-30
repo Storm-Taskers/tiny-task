@@ -2,24 +2,14 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 
-import { NavComponent } from './nav/nav.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
-import { PhasesComponent } from './projects/project-details/phases/phases.component';
-import { UserComponent } from './projects/project-details/user/user.component';
-import { TeamMembersComponent } from './projects/project-details/team-members/team-members.component';
-import { PhaseDetailsComponent } from './projects/project-details/phases/phase-details/phase-details.component';
-import { UserDetailsComponent } from './projects/project-details/user/user-details/user-details.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        UserProfileComponent,
-        NavComponent,
-        ProjectsComponent
+        UserInfoComponent
       ],
     }).compileComponents();
   }));
