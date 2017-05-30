@@ -22,4 +22,8 @@ describe('NavComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should not show Resources, Meeting Room, or Bulletin board onload', () =>{
+    expect(component.showProjects).toBeFalsy();
+  });
 });
