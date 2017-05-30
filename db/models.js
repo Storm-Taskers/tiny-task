@@ -1,32 +1,44 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('tiny_task', 'root', '', {
-  host: 'localhost',
-  dialect: 'mysql'
+const connection = new Sequelize('tiny_task', 'root', '');
+
+// sequelize.authenticate()
+//   .then(() => {
+//     console.log('connection has been established successfully');
+//   })
+//   .catch((err) => {
+//     console.log('Unable to connect to DB', err);
+//   });
+
+const Users = connection.define('users', {
+  auth_token: { type: Sequelize.STRING, unique: true, allowNull: false, primaryKey: true }
 });
 
-sequelize.authenticate()
-  .then(() => {
-    console.log('connection has been established successfully');
-  })
-  .catch((err) => {
-    console.log('Unable to connect to DB', err);
-  });
-
-const Users = sequelize.define('users', {
-  auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true }
-});
-
-const User_Profile = sequelize.define('user_profile', {
-
+const User_Profile = connection.define('user_profile', {
   full_name: { type: Sequelize.STRING, allowNull: false },
   email: { type: Sequelize.STRING },
   user_status: { type: Sequelize.STRING },
   user_availability: { type: Sequelize.STRING }
 });
 
-//User_Profile.belongsTo(Users);
-//Users.hasOne(User_Profile, { foreignKey: 'user_profile_id' });
+// Users.sync()
+//   .then(() => {
+//     Users.create({
+//       auth_token: "abc"
+//     })
+//   });
+
+// User_Profile.hasOne(Users);
+Users.belongsTo(User_Profile, { targetKey: 'id' });
+// Users.belongsTo(User_Profile, { foreignKey: "id" });
+
+connection.sync({
+  force: true
+}).then(() => {
+
+}).catch((error) => {
+  console.log(error);
+});
 // const Teams = sequelize.define('teams', {
 //   project_name: { type: Sequelize.STRING, allowNull: false },
 // });
@@ -76,17 +88,8 @@ const User_Profile = sequelize.define('user_profile', {
 //   type: { type: Sequelize.STRING, allowNull: false }
 // });
 
-Users.sync();
-User_Profile.sync();
-
 module.exports.Users = Users;
 module.exports.User_Profile = User_Profile;
-
-
-
-
-
-
 
 // Teams.sync();
 // Projects.sync();

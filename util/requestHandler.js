@@ -1,28 +1,26 @@
 const helper = require('./helperFunctions.js');
 
 exports.users = {
-  retrieveUser: (req, res) => {
-    helper.retrieveUsers(req, () => {
-      res.end(JSON.stringify(res.body));
-    });
-    helper.retrieveUserProfile(req, () => {
+  // retrieveUser: (req, res) => {
+  //   helper.retrieveUsers(req, () => {
+  //     res.end(JSON.stringify(res.body));
+  //   });
+  //   helper.retrieveUserProfile(req, () => {
+  //     res.end(JSON.stringify(res.body));
+  //   })
+  //     .then((user) => {
+  //       res.status(200).send('user retrieved');
+  //     })
+  //     .catch((err) => {
+  //       res.status(404).send(err, 'error retrieving user');
+  //     });
+  // },
+  createNewUser: (req, res) => {
+    helper.addUserProfile(req.body, () => {
       res.end(JSON.stringify(res.body));
     })
-      .then((user) => {
-        res.status(200).send('user retrieved');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error retrieving user');
-      });
-  },
-  createNewUser: (req, res) => {
     helper.addUsers(req.body, () => {
-      console.log('inside requestHandler for create new');
-      res.end(JSON.stringify(res.body));
-    });
-    helper.addUserProfile(req.body, () => {
-      console.log('inside requestHandler for create new');
-      res.end(JSON.stringify(res.body));
+      // res.end(JSON.stringify(res.body));
     })
       .then((user) => {
         res.status(200).send('user added');
@@ -31,36 +29,37 @@ exports.users = {
         res.status(404).send(err, 'error on creating user');
       });
   },
-  updateUser: (req, res) => {
-    helper.updateUser(req.body, () => {
-      console.log('inside requestHandler for update user');
-      res.end(JSON.stringify(res.body));
-    });
-    helper.updateUserProfile(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((user) => {
-        res.status(200).send('user updated');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on updating user');
-      });
-  },
-  deleteUser: (req, res) => {
-    helper.deleteUser(req, () => {
-      res.end(JSON.stringify(res.body));
-    });
-    helper.deleteUserProfile(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((user) => {
-        res.status(200).send('user deleted');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on deleting user');
-      });
-  }
-};
+}
+//   updateUser: (req, res) => {
+//     helper.updateUser(req.body, () => {
+//       console.log('inside requestHandler for update user');
+//       res.end(JSON.stringify(res.body));
+//     });
+//     helper.updateUserProfile(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((user) => {
+//         res.status(200).send('user updated');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on updating user');
+//       });
+//   },
+//   deleteUser: (req, res) => {
+//     helper.deleteUser(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     });
+//     helper.deleteUserProfile(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((user) => {
+//         res.status(200).send('user deleted');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on deleting user');
+//       });
+//   }
+// };
 
 // exports.teams = {
 //   retrieveTeams: (req, res) => {

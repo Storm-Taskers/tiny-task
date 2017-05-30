@@ -2,7 +2,6 @@ const mysql = require('mysql');
 const models = require('../db/models.js');
 
 exports.addUsers = (body, callback) => {
-  console.log(body, 'create new user');
   models.Users.create({
     auth_token: body.auth_token,
   }).then((result) => {
@@ -11,38 +10,36 @@ exports.addUsers = (body, callback) => {
 };
 
 exports.addUserProfile = (body, callback) => {
-  console.log(body, 'update user - helpers');
-  console.log(models.Users, 'update user - helpers');
   models.User_Profile.create({
     full_name: body.full_name,
     email: body.email,
     user_status: body.user_status,
-    user_availability: body.user_availablility
+    user_availability: body.user_availability
   }).then((result) => {
     callback(result);
   });
 };
 
-exports.retrieveUser = (body, callback) => {
-  model.Users.findAll({
-    where: {
-      auth_token: body.auth_token
-    },
-    include: [{
-      model: model.User_Profile
-    }]
-  }).then(function (result) {
-    callback(result);
-  })
-}
+// exports.retrieveUser = (body, callback) => {
+//   model.Users.findAll({
+//     where: {
+//       auth_token: body.auth_token
+//     },
+//     include: [{
+//       model: model.User_Profile
+//     }]
+//   }).then(function (result) {
+//     callback(result);
+//   })
+// }
 
-exports.updateUser = () => {
+// exports.updateUser = () => {
 
-}
+// }
 
-exports.deleteUser = () => {
+// exports.deleteUser = () => {
 
-}
+// }
 
 // exports.addTeam = () => {
 //   models.Teams.create({

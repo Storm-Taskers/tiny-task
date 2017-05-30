@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
   auth_token TEXT NOT NULL,
   user_profile_id INTEGER NOT NULL,
   PRIMARY KEY (auth_token),
-  --FOREIGN KEY (user_profile_id) REFERENCES user_profile(id)
+  FOREIGN KEY (user_profile_id) REFERENCES user_profile(id)
 );
 
 CREATE TABLE IF NOT EXISTS user_profile (
