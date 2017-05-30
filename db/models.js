@@ -16,7 +16,7 @@ const User_Profile = connection.define('user_profile', {
 Users.belongsTo(User_Profile, { foreignKey: { name: 'user_profile_id', targetKey: 'id' } });
 
 const Teams = connection.define('teams', {
-  team_name: { type: Sequelize.STRING, allowNull: false }
+  //team_name: { type: Sequelize.STRING, allowNull: false }
 });
 
 const Team_Users = connection.define('team_users', {
@@ -33,13 +33,25 @@ const Projects = connection.define('projects', {
 })
 Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
-// const Team_Colors = connection.define('team_colors', {
-//   color: { type: Sequelize.STRING, allowNull: false },
-// });
+const Phases = connection.define('phases', {
+  phase_name: { type: Sequelize.STRING, allowNull: false },
+  phase_color: { type: Sequelize.STRING, allowNull: false },
+  phase_order: { type: Sequelize.INTEGER, allowNull: false },
+  phase_status: { type: Sequelize.STRING, allowNull: false },
+});
+Phases.belongsTo(Projects, { foreignKey: { name: 'project_id', targetKey: 'id' } });
 
-// const Announcements = connection.define('announcements', {
-//   announcement: { type: Sequelize.STRING, allowNull: false },
-// });
+const Tasks = connection.define('tasks', {
+  task_name: { type: Sequelize.STRING, allowNull: false },
+  task_status: { type: Sequelize.STRING, allowNull: false },
+});
+Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' } });
+
+const User_Tasks = connection.define('user_tasks', {
+});
+Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
+Tasks.hasMany(Team_Users, { foreignKey: { name: 'task_id', targetKey: 'id' } })
+//Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
 
 // const Messages = connection.define('messages', {
 //   messages: { type: Sequelize.STRING, allowNull: false }
@@ -47,20 +59,12 @@ Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 // Users.belongsToMany(Teams, { as: 'Users', through: 'Messages' })
 // Teams.belongsToMany(Users, { as: 'Teams', through: 'Messages' })
 
-// const Phases = connection.define('phases', {
-//   phase_name: { type: Sequelize.STRING, allowNull: false },
-//   phase_order: { type: Sequelize.INTEGER, allowNull: false },
-//   phase_status: { type: Sequelize.STRING, allowNull: false },
-//   phase_color: { type: Sequelize.STRING, allowNull: false },
+// const Team_Colors = connection.define('team_colors', {
+//   color: { type: Sequelize.STRING, allowNull: false },
 // });
 
-// const Tasks = connection.define('taks', {
-//   task_name: { type: Sequelize.STRING, allowNull: false },
-//   task_status: { type: Sequelize.STRING, allowNull: false },
-
-// });
-
-// const User_Tasks = connection.define('user_tasks', {
+// const Announcements = connection.define('announcements', {
+//   announcement: { type: Sequelize.STRING, allowNull: false },
 // });
 
 // const Shared_Resources = connection.define('shared_resources', {
@@ -81,11 +85,11 @@ exports.User_Profile = User_Profile;
 module.exports.Teams = Teams;
 module.exports.Team_Users = Team_Users;
 module.exports.Projects = Projects;
+module.exports.Phases = Phases;
+module.exports.Tasks = Tasks;
+module.exports.User_Tasks = User_Tasks;
 // module.exports.Team_Colors = Team_Colors;
 // module.exports.Announcements = Announcements;
 // module.exports.Messages = Messages;
-// module.exports.Phases = Phases;
-// module.exports.Tasks = Tasks;
-// module.exports.User_Tasks = User_Tasks;
 // module.exports.Shared_Resources = Shared_Resources;
 
