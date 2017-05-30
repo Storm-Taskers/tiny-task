@@ -53,24 +53,30 @@ Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
 Tasks.hasMany(Team_Users, { foreignKey: { name: 'task_id', targetKey: 'id' } })
 //Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
 
-// const Messages = connection.define('messages', {
-//   messages: { type: Sequelize.STRING, allowNull: false }
-// });
-// Users.belongsToMany(Teams, { as: 'Users', through: 'Messages' })
-// Teams.belongsToMany(Users, { as: 'Teams', through: 'Messages' })
+const Messages = connection.define('messages', {
+  message: { type: Sequelize.TEXT }
+});
+Users.hasMany(Messages, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Messages, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
-// const Team_Colors = connection.define('team_colors', {
-//   color: { type: Sequelize.STRING, allowNull: false },
-// });
+const Announcements = connection.define('announcements', {
+  announcement: { type: Sequelize.STRING, allowNull: false },
+});
+Users.hasMany(Announcements, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Announcements, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
-// const Announcements = connection.define('announcements', {
-//   announcement: { type: Sequelize.STRING, allowNull: false },
-// });
+const Shared_Resources = connection.define('shared_resources', {
+  resource: { type: Sequelize.STRING, allowNull: false },
+  type: { type: Sequelize.STRING, allowNull: false }
+});
+Users.hasMany(Shared_Resources, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Shared_Resources, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
-// const Shared_Resources = connection.define('shared_resources', {
-//   resource: { type: Sequelize.STRING, allowNull: false },
-//   type: { type: Sequelize.STRING, allowNull: false }
-// });
+const Team_Colors = connection.define('team_colors', {
+  color: { type: Sequelize.STRING, allowNull: false },
+});
+Users.hasMany(Team_Colors, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
 connection.sync({
   force: true
@@ -88,8 +94,8 @@ module.exports.Projects = Projects;
 module.exports.Phases = Phases;
 module.exports.Tasks = Tasks;
 module.exports.User_Tasks = User_Tasks;
-// module.exports.Team_Colors = Team_Colors;
-// module.exports.Announcements = Announcements;
-// module.exports.Messages = Messages;
-// module.exports.Shared_Resources = Shared_Resources;
+module.exports.Messages = Messages;
+module.exports.Announcements = Announcements;
+module.exports.Shared_Resources = Shared_Resources;
+module.exports.Team_Colors = Team_Colors;
 
