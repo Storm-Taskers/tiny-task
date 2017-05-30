@@ -5,13 +5,14 @@ import { HttpModule } from '@angular/http';
 
 // Boot-strap of App
 import { AppComponent } from './app.component';
-import { AppRouterModule } from './app-router.module';
+import { AppRouterModule } from './router-modules/app-router.module';
 
 import { TeamMembersComponent } from './project/team-members/team-members.component';
 import { PhaseComponent } from './project/phase/phase.component';
 import { UserComponent } from './project/user/user.component';
 import { TaskComponent } from './project/phase/task/task.component';
 import { UserTaskComponent } from './project/user/user-task/user-task.component';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserTaskComponent } from './project/user/user-task/user-task.component'
     PhaseComponent,
     UserComponent,
     TaskComponent,
-    UserTaskComponent
+    UserTaskComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
