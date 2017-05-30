@@ -27,11 +27,11 @@ Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 // Users.belongsToMany(Teams, { as: 'Users', through: 'Team_Users' })
 // Teams.belongsToMany(Users, { as: 'Teams', through: 'Team_Users' })
 
-// const Projects = connection.define('projects', {
-//   project_name: { type: Sequelize.STRING, allowNull: false },
-//   completion: { type: Sequelize.BOOLEAN, default: false }
-// })
-// Projects.hasOne(Teams, { foreignKey: 'project_id' })
+const Projects = connection.define('projects', {
+  project_name: { type: Sequelize.STRING, allowNull: false },
+  completion: { type: Sequelize.BOOLEAN, default: false }
+})
+Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 // const Team_Colors = connection.define('team_colors', {
 //   color: { type: Sequelize.STRING, allowNull: false },
@@ -80,7 +80,7 @@ exports.Users = Users;
 exports.User_Profile = User_Profile;
 module.exports.Teams = Teams;
 module.exports.Team_Users = Team_Users;
-// module.exports.Projects = Projects;
+module.exports.Projects = Projects;
 // module.exports.Team_Colors = Team_Colors;
 // module.exports.Announcements = Announcements;
 // module.exports.Messages = Messages;
