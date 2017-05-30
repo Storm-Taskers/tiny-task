@@ -13,7 +13,7 @@ router.post('/users', handler.users.createNewUser);
 
 
 // router.get('/api/teams', handler.teams.retrieveTeams);
-// router.post('/api/teams', handler.teams.createNewTeams);
+router.post('/teams', handler.teams.createNewTeams);
 // router.put('/api/teams', handler.teams.updateTeams);
 // router.delete('/api/teams', handler.teams.deleteTeams);
 
