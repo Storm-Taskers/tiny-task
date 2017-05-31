@@ -3,6 +3,17 @@
     width: 80px;
 }
 
+h2 {
+  padding: 0px;
+  margin: 0px;
+}
+
+hr {
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
 .current-project {
   color: white;
   width: 280px;
@@ -17,6 +28,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  margin-bottom: 30px;
 }
 
 .current-project > img {
