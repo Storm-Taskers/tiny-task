@@ -1,102 +1,133 @@
 const mysql = require('mysql');
 const models = require('../db/models.js');
 
-
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   database: 'tiny_task'
-// });
-
-///connection.connect();
-
-
-
-
-exports.addUsers = (body) => {
-  console.log(body, 'body');
-  console.log(models.Users, '--users');
+exports.addUsers = (body, id, callback) => {
   models.Users.create({
-    auth_token: body.auth_token
-    //user_profile_id: body.user_profile_id
+    auth_token: body.auth_token,
+    user_profile_id: id
   }).then((result) => {
-    console.log(result);
-    callback(result);
+    callback(null, result);
+  }).catch((err) => {
+    callback(err);
   });
 };
 
-exports.addUserProfile = (body) => {
+exports.addUserProfile = (body, callback) => {
   models.User_Profile.create({
     full_name: body.full_name,
     email: body.email,
     user_status: body.user_status,
-    user_availability: body.user_availablility
+    user_availability: body.user_availability
   }).then((result) => {
     callback(result);
-  })
+  });
+};
+
+exports.retrieveUser = (params, callback) => {
+  models.Users.findOne({
+    where: {
+      auth_token: params.auth_token
+    }
+  }).then((user) => {
+    return models.User_Profile.findOne({
+      where: {
+        id: user.user_profile_id
+      }
+    })
+  }).then((user_profile) => {
+    callback(user_profile);
+  });
 }
 
-exports.retrieveUser = () => {
-  models.Users.find()
-
+exports.addProject = (body, uid, callback) => {
+  models.Projects.create({
+    project_name: body.project_name,
+    complete: body.complete,
+    user_id: uid,
+    // team_id: team_id
+  }).then((result) => {
+    callback(result);
+  });
 }
 
-exports.updateUser = () => {
-
+exports.retrieveProject = (params, callback) => {
+  models.Users.findOne({
+    where: {
+      auth_token: params.auth_token
+    }
+  }).then((user) => {
+    return models.Projects.findAll({
+      where: {
+        user_id: user.auth_token
+      }
+    })
+  }).then((projects) => {
+    callback(projects);
+  });
 }
 
-exports.deleteUser = () => {
+// exports.updateUser = () => {
 
+// }
+
+// exports.deleteUser = () => {
+
+// }
+
+exports.addTeam = (body, callback) => {
+  models.Teams.create({
+    team_name: body.team_name,
+    user_id: body.auth_token
+  }).then((result) => {
+    callback(result);
+  });
 }
 
-exports.addTeam = () => {
+// exports.retrieveTeam = () => {
 
-}
+// }
 
-exports.retrieveTeam = () => {
+// exports.updateTeam = () => {
 
-}
+// }
 
-exports.updateTeam = () => {
+// exports.deleteTeam = () => {
 
-}
+// }
 
-exports.deleteTeam = () => {
+// exports.addMessage = () => {
+//   models.Messages.create({
+//     message: body.message
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-}
+// exports.retrieveMessage = () => {
 
-exports.addMessage = () => {
+// }
 
-}
+// exports.deleteMessage = () => {
 
-exports.retrieveMessage = () => {
+// }
 
-}
+// exports.addAnnouncement = () => {
+//   models.Announcements.create({
+//     announcement: body.announcement
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-exports.deleteMessage = () => {
+// exports.retrieveAnnouncement = () => {
 
-}
+// }
 
-exports.addAnnouncement = () => {
+// exports.deleteAnnouncement = () => {
 
-}
+// }
 
-exports.retrieveAnnouncement = () => {
 
-}
-
-exports.deleteAnnouncement = () => {
-
-}
-
-exports.addProject = () => {
-
-}
-
-exports.retrieveProject = () => {
-
-}
 
 exports.updateProject = () => {
 
@@ -107,7 +138,15 @@ exports.deleteProject = () => {
 }
 
 exports.addPhase = () => {
-
+  models.Users.create({
+    phase_name: body.phase_name,
+    phase_order: body.phase_order,
+    phase_status: body.phase_status,
+    phase_color: body.phase_color,
+    project_id: body.project_id
+  }).then((result) => {
+    callback(result);
+  });
 }
 
 exports.retrievePhase = () => {
@@ -123,7 +162,12 @@ exports.deletePhase = () => {
 }
 
 exports.addTask = () => {
-
+  models.Tasks.create({
+    task_name: body.task_name,
+    task_status: body.task_status
+  }).then((result) => {
+    callback(result);
+  });
 }
 
 exports.retrieveTask = () => {
@@ -138,14 +182,19 @@ exports.deleteTask = () => {
 
 }
 
-exports.newResource = () => {
+exports.createNewResources = () => {
+  models.Resources.create({
+    resource: body.resource,
+    type: body.type
+  }).then((result) => {
+    callback(result);
+  });
+}
+
+exports.retrieveResources = () => {
 
 }
 
-exports.retrieveResource = () => {
-
-}
-
-exports.deleteResource = () => {
+exports.deleteResources = () => {
 
 }
