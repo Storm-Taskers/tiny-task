@@ -6,7 +6,9 @@ exports.addUsers = (body, id, callback) => {
     auth_token: body.auth_token,
     user_profile_id: id
   }).then((result) => {
-    callback(result);
+    callback(null, result);
+  }).catch((err) => {
+    callback(err);
   });
 };
 
@@ -22,57 +24,76 @@ exports.addUserProfile = (body, callback) => {
 };
 
 exports.retrieveUser = (params, callback) => {
-  console.log(params);
-  model.Users.findAll({
-
+  models.Users.findOne({
     where: {
-      auth_token: body.auth_token
-    },
-    include: [{
-      model: model.User_Profile
-    }]
-  }).then(function (result) {
-
-    callback(result);
+      auth_token: params.auth_token
+    }
+  }).then((user) => {
+    return models.User_Profile.findOne({
+      where: {
+        id: user.user_profile_id
+      }
+    })
+  }).then((user_profile) => {
+    callback(user_profile);
   });
-};
+}
 
-
-// exports.updateUser = () => {
-
-
-};
-
-// exports.deleteUser = () => {
-
-
-// };
-
-exports.addTeam = (body, id, callback) => {
-  models.Teams.create({
-    team_name: body.team_name,
-    user_id: id
+exports.addProject = (body, uid, callback) => {
+  models.Projects.create({
+    project_name: body.project_name,
+    complete: body.complete,
+    user_id: uid,
+    // team_id: team_id
   }).then((result) => {
     callback(result);
   });
-};
+}
 
+exports.retrieveProject = (params, callback) => {
+  models.Users.findOne({
+    where: {
+      auth_token: params.auth_token
+    }
+  }).then((user) => {
+    return models.Projects.findAll({
+      where: {
+        user_id: user.auth_token
+      }
+    })
+  }).then((projects) => {
+    callback(projects);
+  });
+}
+
+// exports.updateUser = () => {
+
+// }
+
+// exports.deleteUser = () => {
+
+// }
+
+exports.addTeam = (body, callback) => {
+  models.Teams.create({
+    team_name: body.team_name,
+    user_id: body.auth_token
+  }).then((result) => {
+    callback(result);
+  });
+}
 
 // exports.retrieveTeam = () => {
 
-
-};
-
+// }
 
 // exports.updateTeam = () => {
 
-
-//};
+// }
 
 // exports.deleteTeam = () => {
 
-// };
-
+// }
 
 // exports.addMessage = () => {
 //   models.Messages.create({
@@ -82,17 +103,13 @@ exports.addTeam = (body, id, callback) => {
 //   });
 // }
 
-
 // exports.retrieveMessage = () => {
 
-
-// };
+// }
 
 // exports.deleteMessage = () => {
 
-
-// };
-
+// }
 
 // exports.addAnnouncement = () => {
 //   models.Announcements.create({
@@ -100,38 +117,25 @@ exports.addTeam = (body, id, callback) => {
 //   }).then((result) => {
 //     callback(result);
 //   });
-// };
-
+// }
 
 // exports.retrieveAnnouncement = () => {
 
-// };
-
+// }
 
 // exports.deleteAnnouncement = () => {
 
-// };
-
-exports.addProject = () => {
-  models.Projects.create({
-    project_name: body.project_name
-  }).then((result) => {
-    callback(result);
-  });
-};
+// }
 
 
-exports.retrieveProject = () => {
-
-};
 
 exports.updateProject = () => {
 
-};
+}
 
 exports.deleteProject = () => {
 
-};
+}
 
 exports.addPhase = () => {
   models.Users.create({
@@ -143,19 +147,19 @@ exports.addPhase = () => {
   }).then((result) => {
     callback(result);
   });
-};
+}
 
 exports.retrievePhase = () => {
 
-};
+}
 
 exports.updatePhase = () => {
 
-};
+}
 
 exports.deletePhase = () => {
 
-};
+}
 
 exports.addTask = () => {
   models.Tasks.create({
@@ -164,20 +168,19 @@ exports.addTask = () => {
   }).then((result) => {
     callback(result);
   });
-};
-
+}
 
 exports.retrieveTask = () => {
 
-};
+}
 
 exports.updateTask = () => {
 
-};
+}
 
 exports.deleteTask = () => {
 
-};
+}
 
 exports.createNewResources = () => {
   models.Resources.create({
@@ -186,13 +189,12 @@ exports.createNewResources = () => {
   }).then((result) => {
     callback(result);
   });
-};
-
+}
 
 exports.retrieveResources = () => {
 
-};
+}
 
 exports.deleteResources = () => {
 
-};
+}
