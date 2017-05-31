@@ -7,19 +7,24 @@ exports.users = {
     })
   },
 
-  createNewUser: (req, res) => {
+createNewUser: (req, res, seed) => {
+  let isSeed = seed || false;
     helper.addUserProfile(req.body, (user_profile) => {
       //res.end(JSON.stringify(res.body));
       const id = user_profile.id;
       return helper.addUsers(req.body, id, (err, result) => {
         if (err) {
           return res.status(500).send('server error');
-        } else {
+
+        } else if (!isSeed) {
           res.status(200).send('user added');
           res.end();
+        } else {
+          console.log('seed user added');
+          res.end();
         }
-      })
-    })
+      });
+    });
   },
 
   updateUser: (req, res) => {

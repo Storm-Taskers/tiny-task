@@ -1,93 +1,71 @@
 const Chance = require('chance');
-const models = require('./db/models.js');
-const helpers = require('./util/helperFunctions.js');
+//const models = require('./db/models.js');
+const handler = require('./util/requestHandler.js');
 
-const connection = models.connection;
+//const connection = models.connection;
 
 const chance = new Chance();
 
-//delete all old data
-const seed = () => {
-  connection.queryInterface.dropTable('announcements')
-  .then(() => {
-    connection.queryInterface.dropTable('messages');
-  }).then(() => {
-    connection.queryInterface.dropTable('shared_resources');
-  }).then(() => {
-    connection.queryInterface.dropTable('team_colors');
-  }).then(() => {
-    connection.queryInterface.dropTable('team_users');
-  }).then(() => {
-    connection.queryInterface.dropTable('users');
-  }).then(() => {
-    connection.queryInterface.dropTable('tasks');
-  }).then(() => {
-    connection.queryInterface.dropTable('user_profiles');
-  }).then(() => {
-    connection.queryInterface.dropTable('phases');
-  }).then(() => {
-    connection.queryInterface.dropTable('projects');
-  }).then(() => {
-    connection.queryInterface.dropTable('teams');
-  }).then(() => {
-    repopulate();
-  });
-};
 
 const seedData = [
-//create new user profile
+//create new user
   () => {
-    return helpers.addUsers.create({
+    return handler.users.createNewUser({body: {
       auth_token: chance.character(),
       full_name: chance.word(),
       email: chance.email(),
       user_status: null,
-      user_availability: chance.word(true, false)
-    });
+      user_availability: chance.word()
+      }
+    }, {end: () => {
+          console.log('finished');
+        }
+      }, true);
   },
 
-//create new user table
+//create new team
   // () => {
-  //   return helpers.Users.create({
-  //     auth_token: chance.character()
-  //   });
+  //   return handler.teams.createNewTeams({
+  //     name: chance.word()
+  //   }, {end: () => {
+  //         console.log('seed team added');
+  //   }}, true);
   // },
 
-//create new team
-//   () => {
-//     return helpers.addTeams.create({
-//       name: chance.word()
-//     });
-//   },
-
-// //create new project
-//   () => {
-//     return helpers.addProjects.create({
-//       project_name: chance.word(),
-//       completion: chance.word(true, false)
-//     });
-//   },
+ //create new project
+  // () => {
+  //   return helpers.projects.createNewProjects({
+  //     project_name: chance.word(),
+  //     completion: chance.word(true, false)
+  //   },{end: () => {
+  //     console.log('seed project added');
+  //   }}, true);
+  // },
 
 // //create new phase
-//   () => {
-//     return helpers.addPhases.create({
-//       phase_name: chance.word(),
-//       phase_order: chance.natural({min: 1, max: 20}),
-//       phase_status: chance.word('not started', 'in progress', 'finished'),
-//       phase_color: chance.word('blue', 'green', 'yellow')
-//     });
-//   },
+  //() => {
+  //   return helpers.phases.createNewPhases({
+  //     phase_name: chance.word(),
+  //     phase_order: chance.natural({min: 1, max: 20}),
+  //     phase_status: chance.word('not started', 'in progress', 'finished'),
+  //     phase_color: chance.word('blue', 'green', 'yellow')
+  //   }, {end: () => {
+  //     console.log('seed phase added');
+  //   }}, true);
+  // },
 
-// //create new task
-//   () => {
-//     return helpers.addTasks.create({
-//       task_name: chance.word(),
-//       task_status: chance.word('not started', 'in progress', 'finished')
-//     });
-//   }
+//create new task
+  // () => {
+  //   return helpers.tasks.createNewTasks({
+  //     task_name: chance.word(),
+  //     task_status: chance.word('not started', 'in progress', 'finished')
+  //   }, {end: () => {
+  //     console.log('seed task created');
+  //   }}, true);
+  // }
 ];
 
-const repopulate = () => {
+const seed = () => {
   seedData.forEach((func) => {
     func();
   });
