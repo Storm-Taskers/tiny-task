@@ -10,7 +10,7 @@ to use:
   CREATE DATABASE tiny_task;
 
   this will clear database
-  in terminal run node seed.js to seed the database
+  in terminal write 'npm run seed' to seed the database
 */
 
 const Chance = require('chance');

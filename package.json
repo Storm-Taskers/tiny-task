@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha spec/server-database.js -w",
     "start": "nodemon",
-    "./seed.js": "seed.js"
+    "seed": "node seed.js"
   },
   "repository": {
     "type": "git",
