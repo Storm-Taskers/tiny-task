@@ -1,27 +1,14 @@
-.landscape {
-    height: 30px;
-    width: 80px;
-}
-
 h2 {
+  display: inline;
   padding: 0px;
   margin: 0px;
+  cursor: default;
 }
 
 hr {
   padding: 0px;
   margin-top: 0px;
   margin-bottom: 10px;
-}
-
-.current-project {
-  color: white;
-  width: 280px;
-  background-color: hsla(348, 82%, 44%, 1);
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  padding: 7px;
-  margin: 5px;
 }
 
 .container-project {
@@ -31,9 +18,25 @@ hr {
   margin-bottom: 30px;
 }
 
+.current-project {
+  color: white;
+  width: 280px;
+  background-color: hsla(348, 82%, 44%, 1);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 7px;
+  margin: 5px;
+}
+
 .current-project > img {
   object-fit: contain;
   width: 280px;
+}
+
+.container-past-project {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .past-project {
@@ -46,8 +49,8 @@ hr {
   margin: 5px;
 }
 
-.container-past-project {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+.past-project > img {
+  object-fit: contain;
+  width: 280px;
+  opacity: .5;
 }
