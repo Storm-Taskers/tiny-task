@@ -7,24 +7,24 @@ const request = require('request');
 const expect = require('chai').expect;
 
 describe('User Table', () => {
-  let dbConnection;
+  let connection;
 
   beforeEach((done) => {
-    dbConnection = mysql.createConnection({
+    connection = mysql.createConnection({
       user: 'root',
       password: '',
       database: 'tiny_task'
     });
-    dbConnection.connect();
+    connection.connect();
 
     let tablename = 'users';
 
     //empty database before inserting
-    dbConnection.query('truncate ' + tablename, done);
+    connection.query('truncate ' + tablename, done);
   });
 
   afterEach(() => {
-    dbConnection.end();
+    connection.end();
   });
 
   it('Should insert new users to the DB', (done) => {
@@ -35,7 +35,7 @@ describe('User Table', () => {
     }, () => {
       let queryString = 'SELECT * FROM users';
       let queryArgs = [];
-      dbConnection.query(queryString, queryArgs, (err, results) => {
+      connection.query(queryString, queryArgs, (err, results) => {
         if (err) { throw err; }
         expect(results.length).to.equal(1);
         done();
@@ -44,25 +44,8 @@ describe('User Table', () => {
   });
 });
 //----------------------------------------------------------------------------------------------------------
-describe('User Profile Table', () => {
-  let dbConnection;
-
-  beforeEach((done) => {
-    dbConnection = mysql.createConnection({
-      user: 'root',
-      password: '',
-      database: 'tiny_task'
-    });
-    dbConnection.connect();
-
-    let tablename = 'user_profiles';
-
- var connection = new Sequelize('tiny_task', 'root', '', {
-  host: 'localhost',
-  dialect: 'mysql'
-  });
-
 describe('User Profile Table', function () {
+  let connection;
 
 
   beforeEach(function (done) {

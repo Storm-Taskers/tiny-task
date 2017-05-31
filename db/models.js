@@ -88,14 +88,14 @@ connection.sync({
 
 exports.Users = Users;
 exports.User_Profile = User_Profile;
-module.exports.Teams = Teams;
-module.exports.Team_Users = Team_Users;
-module.exports.Projects = Projects;
-module.exports.Phases = Phases;
-module.exports.Tasks = Tasks;
-module.exports.User_Tasks = User_Tasks;
-module.exports.Messages = Messages;
-module.exports.Announcements = Announcements;
-module.exports.Shared_Resources = Shared_Resources;
-module.exports.Team_Colors = Team_Colors;
+exports.Teams = Teams;
+exports.Team_Users = Team_Users;
+exports.Projects = Projects;
+exports.Phases = Phases;
+exports.Tasks = Tasks;
+exports.User_Tasks = User_Tasks;
+exports.Messages = Messages;
+exports.Announcements = Announcements;
+exports.Shared_Resources = Shared_Resources;
+exports.Team_Colors = Team_Colors;
 
