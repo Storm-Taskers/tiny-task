@@ -7,6 +7,9 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRouterModule } from './router-modules/app-router.module';
 
+// Import application services
+import { HttpService } from './services/http/http.service';
+
 // Import application sub-components
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -37,7 +40,7 @@ import { UserDetailsComponent } from './projects/project-details/user/user-detai
     HttpModule,
     AppRouterModule
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 
