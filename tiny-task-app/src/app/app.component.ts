@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NavService } from './services/nav-service/nav.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,13 +10,16 @@ import { Component, OnInit } from '@angular/core';
 
 export class AppComponent implements OnInit {
   title: string = 'Tiny Task';
-  private currentPageView: string;
+  currentPage: string;
+
+  constructor(private navService: NavService) { }
 
   ngOnInit() {
-    this.currentPageView = 'projects';
+    this.currentPage = this.navService.currentPage;
   }
 
-  showProjectNav(): void {
-    this.currentPageView = 'projects';
+  changeToProjectsView(): void {
+    this.navService.changeToProjectsPage();
+    this.currentPage = this.navService.currentPage;
   }
 }
