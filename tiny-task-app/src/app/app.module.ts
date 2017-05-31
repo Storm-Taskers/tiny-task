@@ -7,29 +7,32 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRouterModule } from './router-modules/app-router.module';
 
+// Import application services
+import { UserService } from './services/user-service/user.service';
+
 // Import application sub-components
-import { NavComponent } from './nav/nav.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { PhasesComponent } from './projects/project-details/phases/phases.component';
-import { UserComponent } from './projects/project-details/user/user.component';
+import { ProjectUserComponent } from './projects/project-details/project-user/project-user.component';
 import { TeamMembersComponent } from './projects/project-details/team-members/team-members.component';
 import { PhaseDetailsComponent } from './projects/project-details/phases/phase-details/phase-details.component';
-import { UserDetailsComponent } from './projects/project-details/user/user-details/user-details.component';
+import { UserDetailsComponent } from './projects/project-details/project-user/user-details/user-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
+    UserInfoComponent,
     UserProfileComponent,
     ProjectsComponent,
     ProjectDetailsComponent,
     PhasesComponent,
     PhaseDetailsComponent,
-    UserComponent,
+    ProjectUserComponent,
     UserDetailsComponent,
-    TeamMembersComponent,
+    TeamMembersComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ import { UserDetailsComponent } from './projects/project-details/user/user-detai
     HttpModule,
     AppRouterModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 
