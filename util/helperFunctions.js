@@ -6,7 +6,9 @@ exports.addUsers = (body, id, callback) => {
     auth_token: body.auth_token,
     user_profile_id: id
   }).then((result) => {
-    callback(result);
+    callback(null, result);
+  }).catch((err) => {
+    callback(err);
   });
 };
 
@@ -21,23 +23,31 @@ exports.addUserProfile = (body, callback) => {
   });
 };
 
-exports.addProject = (body, user_id, team_id, callback) => {
-  models.Projects.create({
-    project_name: body.project_name
-  }).then((result) => {
-    callback(result);
-  });
-}
-
 exports.retrieveUser = (params, callback) => {
-  console.log(params);
-  models.Users.findAll({
+  models.Users.findOne({
     where: {
       auth_token: params.auth_token
     }
-  }).then(function (result) {
+  }).then((user) => {
+    return models.User_Profile.findOne({
+      where: {
+        id: user.user_profile_id
+      }
+    })
+  }).then((user_profile) => {
+    callback(user_profile);
+  });
+}
+
+
+exports.addProject = (body, user_id, team_id, callback) => {
+  models.Projects.create({
+    project_name: body.project_name,
+    user_id: user_id,
+    team_id: team_id
+  }).then((result) => {
     callback(result);
-  })
+  });
 }
 
 // exports.updateUser = () => {
@@ -48,7 +58,7 @@ exports.retrieveUser = (params, callback) => {
 
 // }
 
-exports.addTeam = (body, id, callback) => {
+exports.addTeam = (body, user_id, callback) => {
   models.Teams.create({
     team_name: body.team_name,
     user_id: id

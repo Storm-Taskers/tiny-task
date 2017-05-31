@@ -2,29 +2,24 @@ const helper = require('./helperFunctions.js');
 
 exports.users = {
   retrieveUser: (req, res) => {
-
-    helper.retrieveUser(req, () => {
-
-      res.end(JSON.stringify(res.body));
-    }).then((user) => {
-      res.status(200).send('user retrieved');
-    }).catch((err) => {
-      res.status(404).send(err, 'error retrieving user');
-    });
+    helper.retrieveUser(req.params, (result) => {
+      res.send(result);
+    })
   },
 
   createNewUser: (req, res) => {
     helper.addUserProfile(req.body, (user_profile) => {
       //res.end(JSON.stringify(res.body));
       const id = user_profile.id;
-      helper.addUsers(req.body, id, () => {
+      return helper.addUsers(req.body, id, (err, result) => {
+        if (err) {
+          return res.status(500).send('server error');
+        } else {
+          res.status(200).send('user added');
+          res.end();
+        }
       })
-    }).then(() => {
-      res.status(200).send('user added');
-      res.end();
-    }).catch((err) => {
-      res.status(404).send(err, 'error on creating user');
-    });
+    })
   },
 
   updateUser: (req, res) => {

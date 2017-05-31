@@ -1,30 +1,36 @@
 const router = require('express').Router();
 const handler = require('./util/requestHandler.js');
 
-router.get('/users', handler.users.retrieveUser);
+// router.get('/', (req, res) => {
+//   console.log('it works');
+//   res.status(200).send('hello world');
+// });
+
+// router.get('/login', -)
+
+router.get('/users/:auth_token', handler.users.retrieveUser);
 router.post('/users', handler.users.createNewUser);
 // router.put('/users', handler.users.updateUser);
 // router.delete('/users', handler.users.deleteUser);
 
 
 // router.get('/api/teams', handler.teams.retrieveTeams);
-router.post('/teams', handler.teams.createNewTeams);
+//router.post('/teams', handler.teams.createNewTeams);
 // router.put('/api/teams', handler.teams.updateTeams);
 // router.delete('/api/teams', handler.teams.deleteTeams);
 
+// router.get('/api/messages', handler.messages.retrieveMessages);
+// router.post('/api/messages', handler.messages.createNewMessages);
+// router.put('/api/messages', handler.messages.updateMessages);
+// router.delete('/api/messages', handler.messages.deleteMessages);
 
-// router.get('/messages', handler.messages.retrieveMessages);
-// router.post('/messages', handler.messages.createNewMessages);
-// router.put('/messages', handler.messages.updateMessages);
-// router.delete('/messages', handler.messages.deleteMessages);
+// router.get('/api/announcements', handler.announcements.retrieveAnnouncements);
+// router.post('/api/announcements', handler.announcements.createNewAnnouncements);
+// router.put('/api/announcements', handler.announcements.updateAnnouncements);
+// router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
 
-// router.get('/announcements', handler.announcements.retrieveAnnouncements);
-// router.post('/announcements', handler.announcements.createNewAnnouncements);
-// router.put('/announcements', handler.announcements.updateAnnouncements);
-// router.delete('/announcements', handler.announcements.deleteAnnouncements);
-
-router.get('/projects/', handler.projects.retrieveProjects);
-// router.post('/projects', handler.projects.createNewProjects);
+// router.get('/projects/', handler.projects.retrieveProjects);
+//router.post('/projects', handler.projects.createNewProjects);
 // router.put('/projects', handler.projects.updateProjects);
 // router.delete('/projects', handler.projects.deleteProjects);
 
