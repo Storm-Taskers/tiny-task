@@ -34,6 +34,7 @@ exports.users = {
       res.status(404).send(err, 'error on updating user');
     });
   },
+
   deleteUser: (req, res) => {
     helper.deleteUser(req, () => {
       res.end(JSON.stringify(res.body));
@@ -158,34 +159,23 @@ exports.announcements = {
 
 exports.projects = {
   retrieveProjects: (req, res) => {
-    helper.retrieveProject(req, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((project) => {
-      res.status(200).send('project retrieved');
-    }).catch((err) => {
-      res.status(404).send(err, 'error retrieving project');
-    });
+
   },
-  createNewProjects: (req, res) => {
-    helper.addProject(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((project) => {
-      res.status(200).send('project added');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on creating project');
-    });
-  },
-  updateProjects: (req, res) => {
-    helper.updateProject(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((project) => {
-        res.status(200).send('project updated');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on updating project');
-      });
-  },
+  // createNewProjects: (req, res) => {
+  //   helper.addProject(req.body, (project) => {
+  //     const user_id = project.user_id,
+  //   },
+  //     updateProjects: (req, res) => {
+  //       helper.updateProject(req.body, () => {
+  //         res.end(JSON.stringify(res.body));
+  //       })
+  //         .then((project) => {
+  //           res.status(200).send('project updated');
+  //         })
+  //         .catch((err) => {
+  //           res.status(404).send(err, 'error on updating project');
+  //         });
+  //     },
   deleteProjects: (req, res) => {
     helper.deleteProject(req, () => {
       res.end(JSON.stringify(res.body));

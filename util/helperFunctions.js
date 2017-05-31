@@ -39,14 +39,30 @@ exports.retrieveUser = (params, callback) => {
   });
 }
 
-
-exports.addProject = (body, user_id, team_id, callback) => {
+exports.addProject = (body, uid, callback) => {
   models.Projects.create({
     project_name: body.project_name,
-    user_id: user_id,
-    team_id: team_id
+    complete: body.complete,
+    user_id: uid,
+    // team_id: team_id
   }).then((result) => {
     callback(result);
+  });
+}
+
+exports.retrieveProject = (params, callback) => {
+  models.Users.findOne({
+    where: {
+      auth_token: params.auth_token
+    }
+  }).then((user) => {
+    return models.Projects.findAll({
+      where: {
+        user_id: user.auth_token
+      }
+    })
+  }).then((projects) => {
+    callback(projects);
   });
 }
 
@@ -58,10 +74,10 @@ exports.addProject = (body, user_id, team_id, callback) => {
 
 // }
 
-exports.addTeam = (body, user_id, callback) => {
+exports.addTeam = (body, callback) => {
   models.Teams.create({
     team_name: body.team_name,
-    user_id: id
+    user_id: body.auth_token
   }).then((result) => {
     callback(result);
   });
@@ -112,9 +128,6 @@ exports.addTeam = (body, user_id, callback) => {
 // }
 
 
-exports.retrieveProject = () => {
-
-}
 
 exports.updateProject = () => {
 
