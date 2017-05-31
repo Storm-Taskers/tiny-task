@@ -6,45 +6,30 @@ var Sequelize = require('sequelize');
 var request = require('request');
 var expect = require('chai').expect;
 
-describe('User Profile Table', function () {
-  this.timeout(15000);
-  //let dbConnection;
-  var sequelize;
-
-  beforeEach(function (done) {
-
-  sequelize = new Sequelize('tiny_task', 'root', '', {
+ var connection = new Sequelize('tiny_task', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
   });
 
+describe('User Profile Table', function () {
 
-  sequelize.authenticate()
+
+  beforeEach(function (done) {
+
+    connection.sync({
+      force: true
+    }).then(function () {
+      done();
+    });
+  });
+
+  connection.authenticate()
     .then(function () {
       console.log('connection has been established successfully');
     })
     .catch(function (err) {
       console.log('Unable to connect to DB', err);
     });
-
-    var tablename = 'user_profiles';
-
-    //empty database before inserting
-    sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
-    .then(function () {
-      return sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
-    })
-    .then(function () {
-      console.log('database synchronised');
-    }, function (err) {
-      console.log(err);
-    });
-    done();
-  });
-
-  afterEach(function () {
-    sequelize.close();
-  });
 
   it('Should insert new users to the DB', function (done) {
     request({
@@ -53,20 +38,18 @@ describe('User Profile Table', function () {
       json: {
         full_name: 'John Smith',
         email: 'johnsmith@gmail.com',
-        user_status: 'working',
+        user_status: null,
         user_availability: true
       }
-    }, function () {
-      var queryString = 'SELECT * FROM user_profiles';
-      var queryArgs = [];
-      sequelize.query(queryString, {type: sequelize.QueryTypes.SELECT}, function (err, results) {
-        if (err) { throw err; }
-        expect(results.length).to.equal(1);
-        expect(results[0].full_name).to.equal('John Smith');
+    }).end((function (err, res) {
+      console.log(res, res);
+      console.log(err, 'err');
+        expect(res.body.length).to.equal(1);
+        expect(res.body[0].full_name).to.equal('John Smith');
         done();
-      }).catch(done);
-    });
+      }));
   });
+
 
   // it('Should output all users from the DB', function (done) {
   //   request({
@@ -75,7 +58,7 @@ describe('User Profile Table', function () {
   //   }, function () {
   //     var queryString = 'SELECT * FROM user_profiles';
   //     var queryArgs = [];
-  //     sequelize.query(queryString, queryArgs, function (err, results) {
+  //     connection.query(queryString, queryArgs, function (err, results) {
   //       if (err) { throw err; }
   //       request('http://127.0.0.1:8080/api/users', function (error, response) {
   //         var userInfo = response;
@@ -124,17 +107,17 @@ describe('User Profile Table', function () {
 //----------------------------------------------------------------------------------------------------------
 // describe('User Table', function () {
 //   this.timeout(15000);
-//   var sequelize;
+//   var connection;
 
 //   beforeEach(function (done) {
 
-//     sequelize = new Sequelize('tiny_task', 'root', '', {
+//     connection = new Sequelize('tiny_task', 'root', '', {
 //     host: 'localhost',
 //     dialect: 'mysql'
 //     });
 
 
-//     sequelize.authenticate()
+//     connection.authenticate()
 //       .then(function () {
 //         console.log('connection has been established successfully');
 //       })
@@ -145,9 +128,9 @@ describe('User Profile Table', function () {
 //     var tablename = 'users';
 
 //     empty database before inserting
-//     sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+//     connection.query('SET FOREIGN_KEY_CHECKS = 0')
 //     .then(function () {
-//       return sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
+//       return connection.query('SET FOREIGN_KEY_CHECKS = 1');
 //     })
 //     .then(function () {
 //       console.log('database synchronised');
@@ -157,7 +140,7 @@ describe('User Profile Table', function () {
 //   });
 
 //   afterEach(function () {
-//     sequelize.close();
+//     connection.close();
 //   });
 
 //   it('Should insert new users to the DB', function (done)  {
@@ -168,7 +151,7 @@ describe('User Profile Table', function () {
 //     }, () => {
 //       var queryString = 'SELECT * FROM users';
 //       var queryArgs = [];
-//       sequelize.query(queryString, queryArgs, function (err, results) {
+//       connection.query(queryString, queryArgs, function (err, results) {
 //         if(err) { throw err; }
 //         expect(results.length).to.equal(1);
 //         done();
