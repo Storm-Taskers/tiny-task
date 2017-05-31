@@ -1,21 +1,24 @@
-<h1>{{ title }}</h1>
-
-<div class="user-info">
-  <user-info [userToken]="authToken"></user-info>
-</div>
-
-<nav class="nav-bar">
-  <div class="nav-cols">
-    <a routerLink="projects" (click)="showProjectNav()" >Projects</a>
-    <a routerLink="">Calendar</a>
+<div class="app">
+  <header>
+    <h1>{{ title }}</h1>
+  </header>
+  <div class="user-info">
+    <user-info [userToken]="authToken"></user-info>
   </div>
-  <div *ngIf="currentPageView !== 'projects'" class="nav-cols">
-    <a routerLink="">Bulletin Board</a>
-    <a routerLink="">Meeting Room</a>
-    <a routerLink="">Resources</a>
+  <div class="container-nav">
+    <nav class="nav-bar">
+      <div class="nav-cols">
+        <a routerLink="projects" (click)="showProjectNav()" >Projects</a>
+        <a routerLink="">Calendar</a>
+      </div>
+      <div *ngIf="currentPageView !== 'projects'" class="nav-cols">
+        <a routerLink="">Bulletin Board</a>
+        <a routerLink="">Meeting Room</a>
+        <a routerLink="">Resources</a>
+      </div>
+    </nav>
   </div>
-</nav>
-
-<div class="pageView">
-  <router-outlet></router-outlet>
+    <div class="pageView">
+      <router-outlet></router-outlet>
+    </div>
 </div>

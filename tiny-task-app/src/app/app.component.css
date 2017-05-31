@@ -1,8 +1,45 @@
-.user-info {
-  margin-bottom: 20px;
+header {
+  grid-area: header;
+}
+
+.container-nav {
+  background-color: lightgray;
+  grid-area: nav;
 }
 
 .nav-bar .nav-cols {
   display: flex;
+  padding: 30px;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.pageView {
+  background-color: white;
+  grid-area: content;
+  border: 1px solid black;
+  padding: 30px;  
+}
+
+.user-info {
+  display: flex;
+  background-color: hsl(336, 66%, 50%);
+  grid-area: profile;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: 100px 3fr;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+  "profile header"
+  "nav content";
+  grid-gap: 10px;
+  margin: 0;
+  height: 95vh;
+}
+
