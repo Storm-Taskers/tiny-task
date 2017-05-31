@@ -55,6 +55,19 @@ createNewUser: (req, res, seed) => {
 };
 
 exports.teams = {
+  createNewTeams: (req, res) => {
+    helper.addTeam(req.body, (team) => {
+      const team_id = team.id;
+      helper.addTeamUser(req.body, team_id, (err, result) => {
+        if (err) {
+          return res.status(500).send('server error');
+        } else {
+          res.status(200).send('team created');
+          res.end();
+        }
+      })
+    })
+  },
   // retrieveTeams: (req, res) => {
   //   helper.retrieveTeam(req, () => {
   //     res.end(JSON.stringify(res.body));
@@ -64,15 +77,6 @@ exports.teams = {
   //       res.status(404).send(err, 'error retrieving team');
   //     });
   // },
-  createNewTeams: (req, res) => {
-    helper.addTeam(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((team) => {
-      res.status(200).send('team added');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on creating team');
-    });
-  },
   deleteTeams: (req, res) => {
     helper.deleteTeam(req, () => {
       res.end(JSON.stringify(res.body));

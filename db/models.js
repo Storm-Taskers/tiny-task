@@ -49,9 +49,10 @@ const Tasks = connection.define('tasks', {
 Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' } });
 
 const User_Tasks = connection.define('user_tasks', {
+  stage: { type: Sequelize.STRING, allowNull: false },
 });
 Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
-Tasks.hasMany(Team_Users, { foreignKey: { name: 'task_id', targetKey: 'id' } })
+// Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } })
 //Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
 
 const Messages = connection.define('messages', {
