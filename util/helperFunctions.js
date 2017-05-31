@@ -21,7 +21,8 @@ exports.addUserProfile = (body, callback) => {
   });
 };
 
-exports.retrieveUser = (body, callback) => {
+exports.retrieveUser = (params, callback) => {
+  console.log(params);
   model.Users.findAll({
     where: {
       auth_token: body.auth_token
@@ -34,64 +35,66 @@ exports.retrieveUser = (body, callback) => {
   })
 }
 
-exports.updateUser = () => {
+// exports.updateUser = () => {
 
-}
+// }
 
-exports.deleteUser = () => {
+// exports.deleteUser = () => {
 
-}
+// }
 
-exports.addTeam = () => {
+exports.addTeam = (body, id, callback) => {
   models.Teams.create({
+    team_name: body.team_name,
+    user_id: id
   }).then((result) => {
     callback(result);
   });
 }
 
-exports.retrieveTeam = () => {
+// exports.retrieveTeam = () => {
 
-}
+// }
 
-exports.updateTeam = () => {
+// exports.updateTeam = () => {
 
-}
+// }
 
-exports.deleteTeam = () => {
+// exports.deleteTeam = () => {
 
-}
+// }
 
-exports.addMessage = () => {
-  models.Messages.create({
-    message: body.message
-  }).then((result) => {
-    callback(result);
-  });
-}
+// exports.addMessage = () => {
+//   models.Messages.create({
+//     message: body.message
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-exports.retrieveMessage = () => {
+// exports.retrieveMessage = () => {
 
-}
+// }
 
-exports.deleteMessage = () => {
+// exports.deleteMessage = () => {
 
-}
+// }
 
-exports.addAnnouncement = () => {
-  models.Announcements.create({
-    announcement: body.announcement
-  }).then((result) => {
-    callback(result);
-  });
-}
+// exports.addAnnouncement = () => {
+//   models.Announcements.create({
+//     announcement: body.announcement
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-exports.retrieveAnnouncement = () => {
+// exports.retrieveAnnouncement = () => {
 
-}
+// }
 
-exports.deleteAnnouncement = () => {
+// exports.deleteAnnouncement = () => {
 
-}
+// }
 
 exports.addProject = () => {
   models.Projects.create({

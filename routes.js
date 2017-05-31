@@ -6,7 +6,7 @@ const handler = require('./util/requestHandler.js');
 //   res.status(200).send('hello world');
 // });
 
-// router.get('/users', handler.users.retrieveUser);
+router.get('/users', handler.users.retrieveUser);
 router.post('/users', handler.users.createNewUser);
 // router.put('/users', handler.users.updateUser);
 // router.delete('/users', handler.users.deleteUser);
@@ -27,7 +27,7 @@ router.post('/teams', handler.teams.createNewTeams);
 // router.put('/api/announcements', handler.announcements.updateAnnouncements);
 // router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
 
-// router.get('/projects', handler.projects.retrieveProjects);
+router.get('/projects/', handler.projects.retrieveProjects);
 // router.post('/projects', handler.projects.createNewProjects);
 // router.put('/projects', handler.projects.updateProjects);
 // router.delete('/projects', handler.projects.deleteProjects);

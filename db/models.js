@@ -13,10 +13,10 @@ const User_Profile = connection.define('user_profile', {
   user_availability: { type: Sequelize.STRING }
 });
 
-Users.belongsTo(User_Profile, { foreignKey: { name: 'user_profile_id', targetKey: 'id' } });
+Users.belongsTo(User_Profile, { foreignKey: { name: 'user_profile_id', targetKey: 'id', allowNull: false, unique: true } });
 
 const Teams = connection.define('teams', {
-  //team_name: { type: Sequelize.STRING, allowNull: false }
+  team_name: { type: Sequelize.STRING, allowNull: false }
 });
 
 const Team_Users = connection.define('team_users', {
@@ -31,6 +31,7 @@ const Projects = connection.define('projects', {
   project_name: { type: Sequelize.STRING, allowNull: false },
   completion: { type: Sequelize.BOOLEAN, default: false }
 })
+Projects.belongsTo(Users, { foreignKey: { name: 'user_id', target: 'auth_token' } })
 Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 const Phases = connection.define('phases', {
