@@ -2,17 +2,15 @@ const helper = require('./helperFunctions.js');
 
 exports.users = {
   retrieveUser: (req, res) => {
-    helper.retrieveUsers(req, () => {
-      res.end(JSON.stringify(res.body));
-    });
-    helper.retrieveUserProfile(req, () => {
-      console.log('res.body', res.body);
+
+    helper.retrieveUser(req, () => {
+
       res.end(JSON.stringify(res.body));
     }).then((user) => {
-        res.status(200).send('user retrieved');
-      }).catch((err) => {
-        res.status(404).send(err, 'error retrieving user');
-      });
+      res.status(200).send('user retrieved');
+    }).catch((err) => {
+      res.status(404).send(err, 'error retrieving user');
+    });
   },
 
   createNewUser: (req, res) => {
@@ -25,7 +23,7 @@ exports.users = {
       res.status(200).send('user added');
       res.end();
     }).catch((err) => {
-        res.status(404).send(err, 'error on creating user');
+      res.status(404).send(err, 'error on creating user');
     });
   },
 
@@ -36,10 +34,10 @@ exports.users = {
     helper.updateUserProfile(req.body, () => {
       res.end(JSON.stringify(res.body));
     }).then((user) => {
-        res.status(200).send('user updated');
-      }).catch((err) => {
-        res.status(404).send(err, 'error on updating user');
-      });
+      res.status(200).send('user updated');
+    }).catch((err) => {
+      res.status(404).send(err, 'error on updating user');
+    });
   },
   deleteUser: (req, res) => {
     helper.deleteUser(req, () => {
@@ -48,10 +46,10 @@ exports.users = {
     helper.deleteUserProfile(req, () => {
       res.end(JSON.stringify(res.body));
     }).then((user) => {
-        res.status(200).send('user deleted');
-      }) .catch((err) => {
-        res.status(404).send(err, 'error on deleting user');
-      });
+      res.status(200).send('user deleted');
+    }).catch((err) => {
+      res.status(404).send(err, 'error on deleting user');
+    });
   }
 };
 
@@ -69,18 +67,18 @@ exports.teams = {
     helper.addTeam(req.body, () => {
       res.end(JSON.stringify(res.body));
     }).then((team) => {
-        res.status(200).send('team added');
+      res.status(200).send('team added');
     }).catch((err) => {
-        res.status(404).send(err, 'error on creating team');
+      res.status(404).send(err, 'error on creating team');
     });
   },
   deleteTeams: (req, res) => {
     helper.deleteTeam(req, () => {
       res.end(JSON.stringify(res.body));
     }).then((team) => {
-        res.status(200).send('team deleted');
+      res.status(200).send('team deleted');
     }).catch((err) => {
-        res.status(404).send(err, 'error on deleting team');
+      res.status(404).send(err, 'error on deleting team');
     });
   }
 };
@@ -90,36 +88,36 @@ exports.messages = {
     helper.retrieveMessage(req, () => {
       res.end(JSON.stringify(res.body));
     }).then((message) => {
-        res.status(200).send('message retrieved');
+      res.status(200).send('message retrieved');
     }).catch((err) => {
-        res.status(404).send(err, 'error retrieving message');
+      res.status(404).send(err, 'error retrieving message');
     });
   },
   createNewMessages: (req, res) => {
     helper.addMessage(req.body, () => {
       res.end(JSON.stringify(res.body));
     }).then((message) => {
-        res.status(200).send('message added');
+      res.status(200).send('message added');
     }).catch((err) => {
-        res.status(404).send(err, 'error on creating message');
+      res.status(404).send(err, 'error on creating message');
     });
   },
   updateMessages: (req, res) => {
     helper.updateMessage(req.body, () => {
       res.end(JSON.stringify(res.body));
     }).then((message) => {
-        res.status(200).send('message updated');
+      res.status(200).send('message updated');
     }).catch((err) => {
-        res.status(404).send(err, 'error on updating message');
+      res.status(404).send(err, 'error on updating message');
     });
   },
   deleteMessages: (req, res) => {
     helper.deleteMessage(req, () => {
       res.end(JSON.stringify(res.body));
     }).then((message) => {
-        res.status(200).send('message deleted');
+      res.status(200).send('message deleted');
     }).catch((err) => {
-        res.status(404).send(err, 'error on deleting message');
+      res.status(404).send(err, 'error on deleting message');
     });
   }
 };
@@ -129,36 +127,36 @@ exports.announcements = {
     helper.retrieveAnnouncement(req, () => {
       res.end(JSON.stringify(res.body));
     }).then((announcement) => {
-        res.status(200).send('announcement retrieved');
+      res.status(200).send('announcement retrieved');
     }).catch((err) => {
-        res.status(404).send(err, 'error retrieving announcement');
+      res.status(404).send(err, 'error retrieving announcement');
     });
   },
   createNewAnnouncements: (req, res) => {
     helper.addAnnouncement(req.body, () => {
       res.end(JSON.stringify(res.body));
     }).then((announcement) => {
-        res.status(200).send('announcement added');
+      res.status(200).send('announcement added');
     }).catch((err) => {
-        res.status(404).send(err, 'error on creating announcement');
+      res.status(404).send(err, 'error on creating announcement');
     });
   },
   updateAnnouncements: (req, res) => {
     helper.updateAnnouncement(req.body, () => {
       res.end(JSON.stringify(res.body));
     }).then((announcement) => {
-        res.status(200).send('announcement updated');
+      res.status(200).send('announcement updated');
     }).catch((err) => {
-        res.status(404).send(err, 'error on updating announcement');
+      res.status(404).send(err, 'error on updating announcement');
     });
   },
   deleteAnnouncements: (req, res) => {
     helper.deleteAnnouncement(req, () => {
       res.end(JSON.stringify(res.body));
     }).then((announcement) => {
-        res.status(200).send('announcement deleted');
+      res.status(200).send('announcement deleted');
     }).catch((err) => {
-        res.status(404).send(err, 'error on deleting announcement');
+      res.status(404).send(err, 'error on deleting announcement');
     });
   }
 };
@@ -168,18 +166,18 @@ exports.projects = {
     helper.retrieveProject(req, () => {
       res.end(JSON.stringify(res.body));
     }).then((project) => {
-        res.status(200).send('project retrieved');
+      res.status(200).send('project retrieved');
     }).catch((err) => {
-        res.status(404).send(err, 'error retrieving project');
+      res.status(404).send(err, 'error retrieving project');
     });
   },
   createNewProjects: (req, res) => {
     helper.addProject(req.body, () => {
       res.end(JSON.stringify(res.body));
     }).then((project) => {
-        res.status(200).send('project added');
+      res.status(200).send('project added');
     }).catch((err) => {
-        res.status(404).send(err, 'error on creating project');
+      res.status(404).send(err, 'error on creating project');
     });
   },
   updateProjects: (req, res) => {
