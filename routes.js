@@ -3,14 +3,15 @@ const handler = require('./util/requestHandler.js');
 
 router.get('/users', handler.users.retrieveUser);
 router.post('/users', handler.users.createNewUser);
-router.put('/users', handler.users.updateUser);
-router.delete('/users', handler.users.deleteUser);
+// router.put('/users', handler.users.updateUser);
+// router.delete('/users', handler.users.deleteUser);
 
 
-// router.get('/teams', handler.teams.retrieveTeams);
-// router.post('/teams', handler.teams.createNewTeams);
-// router.put('/teams', handler.teams.updateTeams);
-// router.delete('/teams', handler.teams.deleteTeams);
+// router.get('/api/teams', handler.teams.retrieveTeams);
+router.post('/teams', handler.teams.createNewTeams);
+// router.put('/api/teams', handler.teams.updateTeams);
+// router.delete('/api/teams', handler.teams.deleteTeams);
+
 
 // router.get('/messages', handler.messages.retrieveMessages);
 // router.post('/messages', handler.messages.createNewMessages);
@@ -22,7 +23,7 @@ router.delete('/users', handler.users.deleteUser);
 // router.put('/announcements', handler.announcements.updateAnnouncements);
 // router.delete('/announcements', handler.announcements.deleteAnnouncements);
 
-// router.get('/projects', handler.projects.retrieveProjects);
+router.get('/projects/', handler.projects.retrieveProjects);
 // router.post('/projects', handler.projects.createNewProjects);
 // router.put('/projects', handler.projects.updateProjects);
 // router.delete('/projects', handler.projects.deleteProjects);

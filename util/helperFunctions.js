@@ -1,7 +1,6 @@
 const mysql = require('mysql');
 const models = require('../db/models.js');
 
-
 exports.addUsers = (body, id, callback) => {
   models.Users.create({
     auth_token: body.auth_token,
@@ -22,9 +21,10 @@ exports.addUserProfile = (body, callback) => {
   });
 };
 
-exports.retrieveUserProfile = (body, callback) => {
-  //console.log(body, 'inside retrieveUser');
-  model.User_Profile.findAll({
+exports.retrieveUser = (params, callback) => {
+  console.log(params);
+  model.Users.findAll({
+
     where: {
       auth_token: body.auth_token
     },
@@ -32,62 +32,94 @@ exports.retrieveUserProfile = (body, callback) => {
       model: model.User_Profile
     }]
   }).then(function (result) {
-    console.log(result, 'results');
+
     callback(result);
   });
 };
 
-exports.updateUser = () => {
+
+// exports.updateUser = () => {
+
 
 };
 
-exports.deleteUser = () => {
+// exports.deleteUser = () => {
+
+
+// };
+
+exports.addTeam = (body, id, callback) => {
+  models.Teams.create({
+    team_name: body.team_name,
+    user_id: id
+  }).then((result) => {
+    callback(result);
+  });
+};
+
+
+// exports.retrieveTeam = () => {
+
 
 };
 
-exports.addTeam = () => {
 
-};
+// exports.updateTeam = () => {
 
-exports.retrieveTeam = () => {
 
-};
+//};
 
-exports.updateTeam = () => {
+// exports.deleteTeam = () => {
 
-};
+// };
 
-exports.deleteTeam = () => {
 
-};
+// exports.addMessage = () => {
+//   models.Messages.create({
+//     message: body.message
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-exports.addMessage = () => {
 
-};
+// exports.retrieveMessage = () => {
 
-exports.retrieveMessage = () => {
 
-};
+// };
 
-exports.deleteMessage = () => {
+// exports.deleteMessage = () => {
 
-};
 
-exports.addAnnouncement = () => {
+// };
 
-};
 
-exports.retrieveAnnouncement = () => {
+// exports.addAnnouncement = () => {
+//   models.Announcements.create({
+//     announcement: body.announcement
+//   }).then((result) => {
+//     callback(result);
+//   });
+// };
 
-};
 
-exports.deleteAnnouncement = () => {
+// exports.retrieveAnnouncement = () => {
 
-};
+// };
+
+
+// exports.deleteAnnouncement = () => {
+
+// };
 
 exports.addProject = () => {
-
+  models.Projects.create({
+    project_name: body.project_name
+  }).then((result) => {
+    callback(result);
+  });
 };
+
 
 exports.retrieveProject = () => {
 
@@ -102,7 +134,15 @@ exports.deleteProject = () => {
 };
 
 exports.addPhase = () => {
-
+  models.Users.create({
+    phase_name: body.phase_name,
+    phase_order: body.phase_order,
+    phase_status: body.phase_status,
+    phase_color: body.phase_color,
+    project_id: body.project_id
+  }).then((result) => {
+    callback(result);
+  });
 };
 
 exports.retrievePhase = () => {
@@ -118,8 +158,14 @@ exports.deletePhase = () => {
 };
 
 exports.addTask = () => {
-
+  models.Tasks.create({
+    task_name: body.task_name,
+    task_status: body.task_status
+  }).then((result) => {
+    callback(result);
+  });
 };
+
 
 exports.retrieveTask = () => {
 
@@ -133,14 +179,20 @@ exports.deleteTask = () => {
 
 };
 
-exports.newResource = () => {
+exports.createNewResources = () => {
+  models.Resources.create({
+    resource: body.resource,
+    type: body.type
+  }).then((result) => {
+    callback(result);
+  });
+};
+
+
+exports.retrieveResources = () => {
 
 };
 
-exports.retrieveResource = () => {
-
-};
-
-exports.deleteResource = () => {
+exports.deleteResources = () => {
 
 };

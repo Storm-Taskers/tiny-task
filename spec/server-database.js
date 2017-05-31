@@ -1,10 +1,61 @@
 /* You'll need to have MySQL running and your Node server running
  * for these tests to pass. */
 
-//const mysql = require('mysql');
-var Sequelize = require('sequelize');
-var request = require('request');
-var expect = require('chai').expect;
+
+const mysql = require('mysql');
+const request = require('request');
+const expect = require('chai').expect;
+
+describe('User Table', () => {
+  let dbConnection;
+
+  beforeEach((done) => {
+    dbConnection = mysql.createConnection({
+      user: 'root',
+      password: '',
+      database: 'tiny_task'
+    });
+    dbConnection.connect();
+
+    let tablename = 'users';
+
+    //empty database before inserting
+    dbConnection.query('truncate ' + tablename, done);
+  });
+
+  afterEach(() => {
+    dbConnection.end();
+  });
+
+  it('Should insert new users to the DB', (done) => {
+    request({
+      method: 'POST',
+      uri: 'http://127.0.0.1:8080/api/users',
+      json: { auth_token: 'temp' }
+    }, () => {
+      let queryString = 'SELECT * FROM users';
+      let queryArgs = [];
+      dbConnection.query(queryString, queryArgs, (err, results) => {
+        if (err) { throw err; }
+        expect(results.length).to.equal(1);
+        done();
+      });
+    });
+  });
+});
+//----------------------------------------------------------------------------------------------------------
+describe('User Profile Table', () => {
+  let dbConnection;
+
+  beforeEach((done) => {
+    dbConnection = mysql.createConnection({
+      user: 'root',
+      password: '',
+      database: 'tiny_task'
+    });
+    dbConnection.connect();
+
+    let tablename = 'user_profiles';
 
  var connection = new Sequelize('tiny_task', 'root', '', {
   host: 'localhost',
@@ -525,4 +576,3 @@ describe('User Profile Table', function () {
 //update shared_resource
 //delete shared_resource
 //});
-
