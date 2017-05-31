@@ -17,7 +17,7 @@ export class UserService {
   }
 
   getUserProfile(token: string): Promise<object> {
-    return this.http.get(`${this.baseUrl}/user`)
+    return this.http.get(`${this.baseUrl}/user/${token}`)
             .toPromise()
             .then(response => response.json().data as object)
             .catch(this.handleError);

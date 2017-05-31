@@ -9,6 +9,7 @@ import { AppRouterModule } from './router-modules/app-router.module';
 
 // Import application services
 import { UserService } from './services/user-service/user.service';
+import { ProjectsService } from './services/projects-service/projects.service';
 
 // Import application sub-components
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -40,7 +41,7 @@ import { UserDetailsComponent } from './projects/project-details/project-user/us
     HttpModule,
     AppRouterModule
   ],
-  providers: [UserService],
+  providers: [UserService, ProjectsService],
   bootstrap: [AppComponent]
 })
 
