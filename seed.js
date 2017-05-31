@@ -1,3 +1,18 @@
+/*
+to use:
+  open sql server -- mysql.server start
+  open database -- mysql -h localhost -u root -p
+  push enter for password, none needed
+
+  type SHOW DATABASE
+  if tiny_task exists, drop database and create new:
+  DROP DATABASE tiny_task;
+  CREATE DATABASE tiny_task;
+
+  this will clear database
+  in terminal run node seed.js to seed the database
+*/
+
 const Chance = require('chance');
 //const models = require('./db/models.js');
 const handler = require('./util/requestHandler.js');
