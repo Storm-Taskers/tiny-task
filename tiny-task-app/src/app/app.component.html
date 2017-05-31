@@ -1,10 +1,13 @@
 <div class="app">
+
   <header>
     <h1>{{ title }}</h1>
   </header>
+
   <div class="user-info">
-    <user-info [userToken]="authToken"></user-info>
+    <user-info></user-info>
   </div>
+
   <div class="container-nav">
     <nav class="nav-bar">
       <div class="nav-cols">
@@ -18,7 +21,9 @@
       </div>
     </nav>
   </div>
+
     <div class="pageView">
       <router-outlet></router-outlet>
     </div>
+
 </div>

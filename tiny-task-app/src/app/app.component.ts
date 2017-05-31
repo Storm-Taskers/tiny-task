@@ -10,10 +10,10 @@ export class AppComponent implements OnInit {
   title: string = 'Tiny Task';
   private currentPageView: string;
   authToken: string;
+  projects: number[];
 
   ngOnInit() {
     this.currentPageView = 'projects';
-    this.authToken = 'test';
   }
 
   showProjectNav(): void {
