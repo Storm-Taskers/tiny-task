@@ -3,6 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProjectsService } from '../services/projects-service/projects.service';
 import { UserService } from '../services/user-service/user.service';
 
+import { Project } from './Project';
+
 @Component({
   selector: 'projects',
   templateUrl: './projects.component.html',
@@ -10,7 +12,7 @@ import { UserService } from '../services/user-service/user.service';
 })
 
 export class ProjectsComponent implements OnInit {
-  projects: Array<any>;
+  projects: Project[];
 
   constructor(
     private projectsService: ProjectsService,

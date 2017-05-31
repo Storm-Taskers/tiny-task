@@ -8,8 +8,9 @@ import 'rxjs/add/operator/toPromise';
 export class UserService {
   private headers = new Headers({'Content-Type': 'application/JSON'});
   private baseUrl: string = 'http://localhost:4200';
+
   public userId: string = 'test';
-  public userProfile: object = {fullname: 'Kevin Nguyen', email: 'contact@example.com'};
+  public userProfile: any = {fullName: 'Kevin Nguyen', email: 'contact@example.com'};
   public projectIds: number[] = [1, 2, 3];
 
   constructor(private http: Http) { }
@@ -20,7 +21,7 @@ export class UserService {
   }
 
   getUserProfile(token: string): Promise<object> {
-    return this.http.get(`${this.baseUrl}/user/${token}`)
+    return this.http.get(`${this.baseUrl}/users/${token}`)
             .toPromise()
             .then( (response) => {
               // this.userProfile =
@@ -29,5 +30,4 @@ export class UserService {
             })
             .catch(this.handleError);
   }
-
 }
