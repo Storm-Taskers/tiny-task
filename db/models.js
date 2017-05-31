@@ -82,7 +82,6 @@ Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 connection.sync({
   force: true
 }).then(() => {
-
 }).catch((error) => {
   console.log(error);
 });

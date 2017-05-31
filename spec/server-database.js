@@ -1,6 +1,7 @@
 /* You'll need to have MySQL running and your Node server running
  * for these tests to pass. */
 
+
 const mysql = require('mysql');
 const request = require('request');
 const expect = require('chai').expect;
@@ -56,48 +57,63 @@ describe('User Profile Table', () => {
 
     let tablename = 'user_profiles';
 
-    //empty database before inserting
-    dbConnection.query('truncate ' + tablename, done);
+ var connection = new Sequelize('tiny_task', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql'
   });
 
-  afterEach(() => {
-    dbConnection.end();
+describe('User Profile Table', function () {
+
+
+  beforeEach(function (done) {
+
+    connection.sync({
+      force: true
+    }).then(function () {
+      done();
+    });
   });
 
-  it('Should insert new users to the DB', (done) => {
+  connection.authenticate()
+    .then(function () {
+      console.log('connection has been established successfully');
+    })
+    .catch(function (err) {
+      console.log('Unable to connect to DB', err);
+    });
+
+  it('Should insert new users to the DB', function (done) {
     request({
       method: 'POST',
       uri: 'http://127.0.0.1:8080/api/users',
       json: {
         full_name: 'John Smith',
         email: 'johnsmith@gmail.com',
-        user_status: 'working',
+        user_status: null,
         user_availability: true
       }
-    }, () => {
-      let queryString = 'SELECT * FROM user_profiles';
-      let queryArgs = [];
-      dbConnection.query(queryString, queryArgs, (err, results) => {
-        if (err) { throw err; }
-        expect(results.length).to.equal(1);
-        expect(results[0].full_name).to.equal('John Smith');
-
+    }).end((function (err, res) {
+      console.log(res, res);
+      console.log(err, 'err');
+        expect(res.body.length).to.equal(1);
+        expect(res.body[0].full_name).to.equal('John Smith');
         done();
-      });
-    });
+      }));
   });
 
-  // it('Should output all users from the DB', (done) => {
+
+  // it('Should output all users from the DB', function (done) {
   //   request({
   //     method: 'GET',
   //     uri: 'http://127.0.0.1:8080/api/users',
-  //   }, () => {
-  //     let queryString = 'SELECT * FROM users';
-  //     let queryArgs = [];
-  //     dbConnection.query(queryString, queryArgs, (err, results) => {
+  //   }, function () {
+  //     var queryString = 'SELECT * FROM user_profiles';
+  //     var queryArgs = [];
+  //     connection.query(queryString, queryArgs, function (err, results) {
   //       if (err) { throw err; }
-  //       request('http://127.0.0.1:8080/api/users', (error, response, body) => {
-  //         let userInfo = JSON.parse(body);
+  //       request('http://127.0.0.1:8080/api/users', function (error, response) {
+  //         var userInfo = response;
+  //         console.log(response, 'res');
   //         expect(userInfo[0].full_name).to.equal('John Smith');
   //         expect(userInfo[0].email).to.equal('johnsmith@gmail.com');
   //         done();
@@ -139,6 +155,61 @@ describe('User Profile Table', () => {
 
 
 });
+//----------------------------------------------------------------------------------------------------------
+// describe('User Table', function () {
+//   this.timeout(15000);
+//   var connection;
+
+//   beforeEach(function (done) {
+
+//     connection = new Sequelize('tiny_task', 'root', '', {
+//     host: 'localhost',
+//     dialect: 'mysql'
+//     });
+
+
+//     connection.authenticate()
+//       .then(function () {
+//         console.log('connection has been established successfully');
+//       })
+//       .catch(function (err) {
+//         console.log('Unable to connect to DB', err);
+//       });
+
+//     var tablename = 'users';
+
+//     empty database before inserting
+//     connection.query('SET FOREIGN_KEY_CHECKS = 0')
+//     .then(function () {
+//       return connection.query('SET FOREIGN_KEY_CHECKS = 1');
+//     })
+//     .then(function () {
+//       console.log('database synchronised');
+//     }, (err) => {
+//       console.log(err);
+//     });
+//   });
+
+//   afterEach(function () {
+//     connection.close();
+//   });
+
+//   it('Should insert new users to the DB', function (done)  {
+//     request({
+//       method: 'POST',
+//       uri: 'http://127.0.0.1:8080/api/users',
+//       json: { auth_token: 'temp' }
+//     }, () => {
+//       var queryString = 'SELECT * FROM users';
+//       var queryArgs = [];
+//       connection.query(queryString, queryArgs, function (err, results) {
+//         if(err) { throw err; }
+//         expect(results.length).to.equal(1);
+//         done();
+//       });
+//     });
+//   });
+// });
 //----------------------------------------------------------------------------------------------------------
 //describe('Teams Table', () => {
 //   let dbConnection;
