@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpService } from '../services/http/http.service';
+import { UserService } from '../services/user-service/user.service';
 
 @Component({
   selector: 'user-info',
@@ -10,11 +10,11 @@ export class UserInfoComponent implements OnInit {
   @Input() userToken: string;
 
   userProfile: object;
-  constructor(private httpService: HttpService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     console.log(this.userToken);
-    // this.httpService.getUserProfile(this.userToken)
+    // this.userService.getUserProfile(this.userToken)
     //   .then(userProfile => { this.userProfile = userProfile; console.log(this.userProfile); } );
   }
 

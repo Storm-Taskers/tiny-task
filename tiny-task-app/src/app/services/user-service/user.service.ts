@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class HttpService {
+export class UserService {
   private headers = new Headers({'Content-Type': 'application/JSON'});
   private baseUrl: string = 'http://localhost:4200';
 
