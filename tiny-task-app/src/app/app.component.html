@@ -11,10 +11,10 @@
   <div class="container-nav">
     <nav class="nav-bar">
       <div class="nav-cols">
-        <a routerLink="projects" (click)="showProjectNav()" >Projects</a>
+        <a routerLink="projects" (click)="changeToProjectsView()" >Projects</a>
         <a routerLink="">Calendar</a>
       </div>
-      <div *ngIf="currentPageView !== 'projects'" class="nav-cols">
+      <div *ngIf="currentPage !== 'projects'" class="nav-cols">
         <a routerLink="">Bulletin Board</a>
         <a routerLink="">Meeting Room</a>
         <a routerLink="">Resources</a>
