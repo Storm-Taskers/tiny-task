@@ -4,8 +4,9 @@
   "description": "Project Manager web app to turn large tasks into small tasks",
   "main": "server.js",
   "scripts": {
-    "test": "npm test",
-    "start": "nodemon"
+    "test": "mocha spec/server-database.js -w",
+    "start": "nodemon",
+    "./seed.js": "seed.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,7 @@
   "homepage": "https://github.com/bethstevic/tiny-task#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "chai": "^3.5.0",
+    "chance": "^1.0.9",
     "express": "^4.15.3",
     "mocha": "^3.4.2",
     "mysql": "^2.13.0",

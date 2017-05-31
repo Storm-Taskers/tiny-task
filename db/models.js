@@ -1,80 +1,101 @@
 const Sequelize = require('sequelize');
 
+const connection = new Sequelize('tiny_task', 'root', '');
 
-
-
-const sequelize = new Sequelize('tiny_task', 'root', '', {
-  host: 'localhost',
-  dialect: 'mysql'
+const Users = connection.define('users', {
+  auth_token: { type: Sequelize.STRING, unique: true, allowNull: false, primaryKey: true },
 });
 
+const User_Profile = connection.define('user_profile', {
+  full_name: { type: Sequelize.STRING, allowNull: false },
+  email: { type: Sequelize.STRING },
+  user_status: { type: Sequelize.STRING },
+  user_availability: { type: Sequelize.STRING }
+});
 
-sequelize.authenticate()
-  .then(() => {
-    console.log('successs');
-  })
-  .catch((err) => {
-    console.log(err, 'failed');
-  });
+Users.belongsTo(User_Profile, { foreignKey: { name: 'user_profile_id', targetKey: 'id', allowNull: false, unique: true } });
 
-// const Users = sequelize.define('users', {
-//   auth_token: { type: Sequelize.STRING, allowNull: false, primaryKey: true },
-// });
+const Teams = connection.define('teams', {
+  team_name: { type: Sequelize.STRING, allowNull: false }
+});
 
-// const User_Profile = sequelize.define('user_profile', {
-//   full_name: { type: Sequelize.TEXT, allowNull: false },
-//   email: { type: Sequelize.TEXT },
-//   user_status: { type: Sequelize.TEXT },
-//   user_availability: { type: Sequelize.TEXT }
-// });
+const Team_Users = connection.define('team_users', {
+});
 
-// User_Profile.belongsTo(Users);
+Users.hasMany(Team_Users, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } })
+// Users.belongsToMany(Teams, { as: 'Users', through: 'Team_Users' })
+// Teams.belongsToMany(Users, { as: 'Teams', through: 'Team_Users' })
 
-// const Teams = sequelize.define('teams', {
-//   project_name: { type: Sequelize.TEXT, allowNull: false },
-// });
+const Projects = connection.define('projects', {
+  project_name: { type: Sequelize.STRING, allowNull: false },
+  completion: { type: Sequelize.BOOLEAN, default: false }
+})
+Projects.belongsTo(Users, { foreignKey: { name: 'user_id', target: 'auth_token' } })
+Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
-// const Projects = sequelize.define('projects', {
-//   project_name: { type: Sequelize.TEXT, allowNull: false },
-//   completion: { type: Sequelize.BOOLEAN, default: false }
-// })
+const Phases = connection.define('phases', {
+  phase_name: { type: Sequelize.STRING, allowNull: false },
+  phase_color: { type: Sequelize.STRING, allowNull: false },
+  phase_order: { type: Sequelize.INTEGER, allowNull: false },
+  phase_status: { type: Sequelize.STRING, allowNull: false },
+});
+Phases.belongsTo(Projects, { foreignKey: { name: 'project_id', targetKey: 'id' } });
 
-// const Team_Users = sequelize.define('team_users', {
-// });
+const Tasks = connection.define('tasks', {
+  task_name: { type: Sequelize.STRING, allowNull: false },
+  task_status: { type: Sequelize.STRING, allowNull: false },
+});
+Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' } });
 
-// Users.belongsToMany(Teams, { as: 'users', through: 'team_users' })
-// Teams.belongsToMany(Users, { as: 'teams', through: 'team_users' })
-// Projects.hasOne(Teams, { foreignKey: 'project_id' })
+const User_Tasks = connection.define('user_tasks', {
+});
+Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
+Tasks.hasMany(Team_Users, { foreignKey: { name: 'task_id', targetKey: 'id' } })
+//Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
 
-// const Team_Colors = sequelize.define('team_colors', {
-//   color: { type: Sequelize.TEXT, allowNull: false },
-// });
+const Messages = connection.define('messages', {
+  message: { type: Sequelize.TEXT }
+});
+Users.hasMany(Messages, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Messages, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
-// const Announcements = sequelize.define('announcements', {
-//   announcement: { type: Sequelize.TEXT, allowNull: false },
-// });
+const Announcements = connection.define('announcements', {
+  announcement: { type: Sequelize.STRING, allowNull: false },
+});
+Users.hasMany(Announcements, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Announcements, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
-// const Messages = sequelize.define('messages', {
-//   messages: { type: Sequelize.TEXT, allowNull: false }
-// });
+const Shared_Resources = connection.define('shared_resources', {
+  resource: { type: Sequelize.STRING, allowNull: false },
+  type: { type: Sequelize.STRING, allowNull: false }
+});
+Users.hasMany(Shared_Resources, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Shared_Resources, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
-// const Phases = sequelize.define('phases', {
-//   phase_name: { type: Sequelize.TEXT, allowNull: false },
-//   phase_order: { type: Sequelize.INTEGER, allowNull: false },
-//   phase_status: { type: Sequelize.TEXT, allowNull: false },
-//   phase_color: { type: Sequelize.TEXT, allowNull: false },
-// });
+const Team_Colors = connection.define('team_colors', {
+  color: { type: Sequelize.STRING, allowNull: false },
+});
+Users.hasMany(Team_Colors, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
-// const Tasks = sequelize.define('taks', {
-//   task_name: { type: Sequelize.TEXT, allowNull: false },
-//   task_status: { type: Sequelize.TEXT, allowNull: false },
+connection.sync({
+  force: true
+}).then(() => {
+}).catch((error) => {
+  console.log(error);
+});
 
-// });
+exports.Users = Users;
+exports.User_Profile = User_Profile;
+module.exports.Teams = Teams;
+module.exports.Team_Users = Team_Users;
+module.exports.Projects = Projects;
+module.exports.Phases = Phases;
+module.exports.Tasks = Tasks;
+module.exports.User_Tasks = User_Tasks;
+module.exports.Messages = Messages;
+module.exports.Announcements = Announcements;
+module.exports.Shared_Resources = Shared_Resources;
+module.exports.Team_Colors = Team_Colors;
 
-// const User_Tasks = sequelize.define('user_tasks', {
-// });
-
-// const Shared_Resources = sequelize.define('shared_resources', {
-//   resource: { type: Sequelize.TEXT, allowNull: false },
-//   type: { type: Sequelize.TEXT, allowNull: false }
-// });
