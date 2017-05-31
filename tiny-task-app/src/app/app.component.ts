@@ -9,11 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title: string = 'Tiny Task';
   private currentPageView: string;
-  authToken: string;
 
   ngOnInit() {
     this.currentPageView = 'projects';
-    this.authToken = 'test';
   }
 
   showProjectNav(): void {
