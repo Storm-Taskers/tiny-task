@@ -7,10 +7,10 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class UserService {
   private headers = new Headers({'Content-Type': 'application/JSON'});
-  private baseUrl: string = 'http://localhost:4200';
+  private baseUrl: string = 'http://localhost:8080';
 
   public userId: string = 'test';
-  public userProfile: any = {fullName: 'Kevin Nguyen', email: 'contact@example.com'};
+  public userProfile: any;
   public projectIds: number[] = [1, 2, 3];
 
   constructor(private http: Http) { }
@@ -21,12 +21,13 @@ export class UserService {
   }
 
   getUserProfile(token: string): Promise<object> {
-    return this.http.get(`${this.baseUrl}/users/${token}`)
+    return this.http.get(`${this.baseUrl}/api/users/${token}`)
             .toPromise()
             .then( (response) => {
-              // this.userProfile =
+              this.userProfile = response.json();
               // this.projectIds =
-              return response.json().data as object;
+              console.log(response.json())
+              return response.json() as object;
             })
             .catch(this.handleError);
   }

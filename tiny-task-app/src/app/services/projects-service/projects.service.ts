@@ -20,20 +20,20 @@ export class ProjectsService {
 
   // Fetch Information
   getProject(projectId: number): Promise<Project> {
-    return this.http.get(`${this.baseUrl}/project/${projectId}`)
+    return this.http.get(`${this.baseUrl}/api/project/${projectId}`)
             .toPromise()
             .then((response) => {
               // this.projects.push(???)
-              return response.json().data;
+              return response.json();
             })
             .catch(this.handleError);
   }
 
   getUserTasks(token: string): Promise<object> {
-    return this.http.get(`${this.baseUrl}/tasks/${token}`)
+    return this.http.get(`${this.baseUrl}/api/tasks/${token}`)
             .toPromise()
             .then((response) => {
-              return response.json().data as object;
+              return response.json() as object;
             })
             .catch(this.handleError);
   }
@@ -42,47 +42,36 @@ export class ProjectsService {
   // Post Information
   createProject(projectName: string, teamId: number): Promise<Project> {
     return this.http.post(
-            `${this.baseUrl}/project`,
+            `${this.baseUrl}/api/project`,
             JSON.stringify({projectName: projectName, teamId: teamId}))
             .toPromise()
             .then( (response) => {
               // this.projects.push(???)
-              return response.json().data;
+              return response.json();
             })
             .catch(this.handleError);
   }
 
   createPhase(projectId: number, phaseName: string): Promise<Phase> {
     return this.http.post(
-            `${this.baseUrl}/project/${projectId}`,
+            `${this.baseUrl}/api/project/${projectId}`,
             JSON.stringify({projectId: projectId, phaseName: phaseName}))
             .toPromise()
             .then( (response) => {
-              return response.json().data;
+              return response.json();
             })
             .catch(this.handleError);
   }
 
   createTask(phaseId: number, taskName: string): Promise<Task> {
     return this.http.post(
-            `${this.baseUrl}/tasks/${phaseId}`,
+            `${this.baseUrl}/api/tasks/${phaseId}`,
             JSON.stringify({phaseId: phaseId, taskName: taskName}))
             .toPromise()
             .then( (response) => {
-              return response.json().data;
+              return response.json();
             })
             .catch(this.handleError);
   }
 
-
 }
-
-
-
-
-
-
-
-
-
-
