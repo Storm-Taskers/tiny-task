@@ -11,6 +11,7 @@ import { AppRouterModule } from './router-modules/app-router.module';
 import { UserService } from './services/user-service/user.service';
 import { ProjectsService } from './services/projects-service/projects.service';
 import { NavService } from './services/nav-service/nav.service';
+import { TeamService } from './services/team-service/team.service';
 
 // Import application sub-components
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -46,7 +47,7 @@ import { MaterialModule } from './material-modules/material.module';
     AppRouterModule,
     MaterialModule
   ],
-  providers: [UserService, ProjectsService, NavService],
+  providers: [UserService, ProjectsService, NavService, TeamService],
   bootstrap: [AppComponent]
 })
 
