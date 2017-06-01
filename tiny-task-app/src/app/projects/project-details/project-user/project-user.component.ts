@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { User } from './User';
 
 @Component({
   selector: 'user',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-user.component.css']
 })
 export class ProjectUserComponent implements OnInit {
+  @Input() user: User;
 
   constructor() { }
 
   ngOnInit() {
-  }
 
+  }
 }

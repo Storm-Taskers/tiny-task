@@ -2,6 +2,7 @@ import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Team } from '../../teams/Team';
+import { User } from '../../projects/project-details/project-user/User';
 
 // Import ReactiveJS Observables
 import 'rxjs/add/operator/toPromise';
@@ -15,6 +16,8 @@ export class UserService {
   public userProfile: any;
   public projectIds: number[] = [1, 2, 3];
   public teams: Team[];
+  public usersOnProject: User[];
+  // public usersOnTeam: User[]; Same as usersOnProject at the moment
 
   constructor(private http: Http) { }
 
@@ -32,6 +35,16 @@ export class UserService {
               // this.teams =
               console.log(response.json())
               return response.json() as object;
+            })
+            .catch(this.handleError);
+  }
+
+  getUsersOnProject(projectId: number): Promise<User[]> {
+    return this.http.get(`${this.baseUrl}/api/projects/${projectId}/users`)
+            .toPromise()
+            .then( (response) => {
+              this.usersOnProject = response.json();
+              return response.json();
             })
             .catch(this.handleError);
   }
