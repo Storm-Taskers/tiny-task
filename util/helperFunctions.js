@@ -39,12 +39,44 @@ exports.retrieveUser = (params, callback) => {
   });
 }
 
-exports.addProject = (body, uid, callback) => {
+exports.addTeam = (body, callback) => {
+  models.Teams.create({
+    team_name: body.team_name,
+    user_id: body.auth_token
+  }).then((result) => {
+    callback(result);
+  });
+}
+
+exports.addTeamUser = (body, team_id, callback) => {
+  models.Team_Users.create({
+    team_id: team_id,
+    user_id: body.auth_token
+  }).then((result) => {
+    callback(result);
+  });
+}
+
+exports.addProject = (body, callback) => {
   models.Projects.create({
     project_name: body.project_name,
     complete: body.complete,
-    user_id: uid,
-    // team_id: team_id
+    user_id: body.auth_token,
+    team_id: body.team_id
+  }).then((result) => {
+    callback(result);
+  });
+}
+
+exports.addPhase = (body, callback) => {
+  models.Phases.create({
+    phase_name: body.phase_name,
+    phase_order: body.phase_order,
+    phase_status: body.phase_status,
+    phase_color: body.phase_color,
+    project_id: body.project_id,
+    user_id: body.auth_token,
+    team_id: body.team_id
   }).then((result) => {
     callback(result);
   });
@@ -65,6 +97,31 @@ exports.retrieveProject = (params, callback) => {
     callback(projects);
   });
 }
+exports.retrieveProjectById = (params, callback) => {
+  return models.Projects.findOne({
+    where: {
+      id: params.project_id
+    }
+  }).then((project) => {
+    callback(project);
+  })
+}
+
+exports.retrieveTeam = (params, callback) => {
+  models.Team_Users.findAll({
+    where: {
+      user_id: params.auth_token
+    }
+  }).then((teamUsers) => {
+    return models.Teams.findAll({
+      where: {
+        team_id: teamUsers.team_id
+      }
+    })
+  }).then((projects) => {
+    callback(projects);
+  });
+}
 
 // exports.updateUser = () => {
 
@@ -74,18 +131,7 @@ exports.retrieveProject = (params, callback) => {
 
 // }
 
-exports.addTeam = (body, callback) => {
-  models.Teams.create({
-    team_name: body.team_name,
-    user_id: body.auth_token
-  }).then((result) => {
-    callback(result);
-  });
-}
 
-// exports.retrieveTeam = () => {
-
-// }
 
 // exports.updateTeam = () => {
 
@@ -137,17 +183,6 @@ exports.deleteProject = () => {
 
 }
 
-exports.addPhase = () => {
-  models.Users.create({
-    phase_name: body.phase_name,
-    phase_order: body.phase_order,
-    phase_status: body.phase_status,
-    phase_color: body.phase_color,
-    project_id: body.project_id
-  }).then((result) => {
-    callback(result);
-  });
-}
 
 exports.retrievePhase = () => {
 
