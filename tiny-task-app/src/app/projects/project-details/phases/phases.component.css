@@ -1,0 +1,9 @@
+.current-phases {
+  color: white;
+  width: auto;
+  background-color: hsla(348, 82%, 44%, 1);
+  border-radius: 6px;
+  padding: 7px;
+  margin: 5px;
+  box-shadow: 0px 2px 5px #888888;
+}
