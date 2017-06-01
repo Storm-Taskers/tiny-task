@@ -23,7 +23,8 @@ export class ProjectsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('Project Ids:', this.userService.projectIds)
+    this.projects = this.projectsService.projects;
+    console.log(this.projects);
     // this.userService.projectIds.forEach((projectId) => {
     //   this.projectsService.getProject(projectId)
     //     .then((project) => {
@@ -31,12 +32,4 @@ export class ProjectsComponent implements OnInit {
     //     });
     // });
   }
-
-  getProject(projectId: number): void {
-    this.projectsService.getProject(projectId)
-    .then( (project) => {
-
-    });
-  }
-
 }

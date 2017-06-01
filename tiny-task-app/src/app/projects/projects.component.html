@@ -4,12 +4,15 @@
 </button>
 <hr/>
 <div class="container-project">
+
 <!--Implement ngFor to create Projects-->
-  <div class="current-project">
-    <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png">
-    <div>
-      Title of Project
-      <button>edit</button>
+  <div *ngFor="let project of projects">
+    <div *ngIf="!project.complete" [routerLink]="['/projects', project.id]" class="current-project">
+      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png">
+      <div>
+        {{ project.project_name }}
+        <button (click)="$event.stopPropagation()" >edit</button>
+      </div>
     </div>
   </div>
 </div>
@@ -18,10 +21,12 @@
 <hr/>
 <div class="container-past-project">
 <!--Implement ngFor to create Projects-->
-  <div class="past-project">
-    <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png">
-    <div>
-    Title of Project
+  <div *ngFor="let project of projects">
+    <div *ngIf="project.complete" [routerLink]="['/projects', project.id]" class="past-project">
+      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png">
+      <div>
+        {{ project.project_name }}
+      </div>
     </div>
   </div>
 </div>

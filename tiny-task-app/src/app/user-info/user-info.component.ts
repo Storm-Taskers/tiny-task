@@ -6,6 +6,7 @@ import { UserService } from '../services/user-service/user.service';
   templateUrl: './user-info.component.html',
   styleUrls: ['./user-info.component.css']
 })
+
 export class UserInfoComponent implements OnInit {
   userProfile: any = {};
 

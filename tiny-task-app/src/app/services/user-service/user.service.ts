@@ -1,6 +1,8 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
+import { Team } from '../../teams/Team';
+
 // Import ReactiveJS Observables
 import 'rxjs/add/operator/toPromise';
 
@@ -12,6 +14,7 @@ export class UserService {
   public userId: string = 'test';
   public userProfile: any;
   public projectIds: number[] = [1, 2, 3];
+  public teams: Team[];
 
   constructor(private http: Http) { }
 
@@ -26,6 +29,7 @@ export class UserService {
             .then( (response) => {
               this.userProfile = response.json();
               // this.projectIds =
+              // this.teams =
               console.log(response.json())
               return response.json() as object;
             })
