@@ -82,6 +82,31 @@ exports.retrieveProject = (params, callback) => {
     callback(projects);
   });
 }
+exports.retrieveProjectById = (params, callback) => {
+  return models.Projects.findOne({
+    where: {
+      id: params.project_id
+    }
+  }).then((project) => {
+    callback(project);
+  })
+}
+
+exports.retrieveTeam = (params, callback) => {
+  models.Team_Users.findAll({
+    where: {
+      user_id: params.auth_token
+    }
+  }).then((teamUsers) => {
+    return models.Teams.findAll({
+      where: {
+        team_id: teamUsers.team_id
+      }
+    })
+  }).then((projects) => {
+    callback(projects);
+  });
+}
 
 // exports.updateUser = () => {
 
@@ -92,9 +117,6 @@ exports.retrieveProject = (params, callback) => {
 // }
 
 
-// exports.retrieveTeam = () => {
-
-// }
 
 // exports.updateTeam = () => {
 

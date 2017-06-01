@@ -28,7 +28,7 @@ router.post('/teams', handler.teams.createNewTeams);
 // router.put('/api/announcements', handler.announcements.updateAnnouncements);
 // router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
 
-// router.get('/project/:project_id', handler.projects.retrieveProjects);
+router.get('/project/:project_id', handler.projects.retrieveProjectById);
 router.post('/projects', handler.projects.createNewProjects);
 // router.put('/project/:project_id', handler.projects.updateProjects);
 // router.delete('/project/:project_id', handler.projects.deleteProjects);

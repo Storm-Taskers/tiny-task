@@ -1,6 +1,10 @@
 const helper = require('./helperFunctions.js');
 
 exports.users = {
+  // retrieveTeam: (req, res) => {
+  //   helper.retrieveTeam(req.params, (result) => {
+  //     res.send(result);
+  //   })
   retrieveUser: (req, res) => {
     var userData = {};
     helper.retrieveUser(req.params, (result) => {
@@ -15,7 +19,6 @@ exports.users = {
 createNewUser: (req, res, seed) => {
   let isSeed = seed || false;
     helper.addUserProfile(req.body, (user_profile) => {
-      //res.end(JSON.stringify(res.body));
       const id = user_profile.id;
       return helper.addUsers(req.body, id, (err, result) => {
         if (err) {
@@ -178,138 +181,138 @@ exports.projects = {
       res.end()
     })
   },
-  // retrieveProjects: (req, res) => {
-  //   helper.retrieveProject
-  // },
-  // deleteProjects: (req, res) => {
-
-  // }
-};
-
-exports.phases = {
-  retrievePhases: (req, res) => {
-
-  },
-  createNewPhases: (req, res) => {
-    helper.addPhase(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((phase) => {
-        res.status(200).send('phase added');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on creating phase');
-      });
-  },
-  updatePhases: (req, res) => {
-    helper.updatePhase(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((phase) => {
-        res.status(200).send('phase updated');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on updating phase');
-      });
-  },
-  deletePhases: (req, res) => {
-    helper.deletePhase(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((phase) => {
-        res.status(200).send('phase deleted');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on deleting phase');
-      });
+  retrieveProjectById: (req, res) => {
+    helper.retrieveProjectById(req.params, (project) => {
+      res.send(project);
+    }
+    )
   }
 };
 
-exports.tasks = {
-  retrieveTasks: (req, res) => {
-    helper.retrieveTask(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((task) => {
-        res.status(200).send('task retrieved');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error retrieving task');
-      });
-  },
-  createNewTasks: (req, res) => {
-    helper.addTask(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((task) => {
-        res.status(200).send('task added');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on creating task');
-      });
-  },
-  updateTasks: (req, res) => {
-    helper.updateTask(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((task) => {
-        res.status(200).send('task updated');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on updating task');
-      });
-  },
-  deleteTasks: (req, res) => {
-    helper.deleteTask(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((task) => {
-        res.status(200).send('task deleted');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on deleting task');
-      });
-  }
-};
+// exports.phases = {
+//   retrievePhases: (req, res) => {
 
-exports.resources = {
-  retrieveResources: (req, res) => {
-    helper.retrieveResource(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((resource) => {
-        res.status(200).send('resource retrieved');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error retrieving resource');
-      });
-  },
-  createNewResources: (req, res) => {
-    helper.addResource(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((resource) => {
-        res.status(200).send('resource added');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on creating resource');
-      });
-  },
-  updateResources: (req, res) => {
-    helper.updateResource(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((resource) => {
-        res.status(200).send('resource updated');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on updating resource');
-      });
-  },
-  deleteResources: (req, res) => {
+//   },
+//   createNewPhases: (req, res) => {
+//     helper.addPhase(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((phase) => {
+//         res.status(200).send('phase added');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on creating phase');
+//       });
+//   },
+//   updatePhases: (req, res) => {
+//     helper.updatePhase(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((phase) => {
+//         res.status(200).send('phase updated');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on updating phase');
+//       });
+//   },
+//   deletePhases: (req, res) => {
+//     helper.deletePhase(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((phase) => {
+//         res.status(200).send('phase deleted');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on deleting phase');
+//       });
+//   }
+// };
 
-  }
-};
+// exports.tasks = {
+//   retrieveTasks: (req, res) => {
+//     helper.retrieveTask(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((task) => {
+//         res.status(200).send('task retrieved');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error retrieving task');
+//       });
+//   },
+//   createNewTasks: (req, res) => {
+//     helper.addTask(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((task) => {
+//         res.status(200).send('task added');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on creating task');
+//       });
+//   },
+//   updateTasks: (req, res) => {
+//     helper.updateTask(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((task) => {
+//         res.status(200).send('task updated');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on updating task');
+//       });
+//   },
+//   deleteTasks: (req, res) => {
+//     helper.deleteTask(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((task) => {
+//         res.status(200).send('task deleted');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on deleting task');
+//       });
+//   }
+// };
+
+// exports.resources = {
+//   retrieveResources: (req, res) => {
+//     helper.retrieveResource(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((resource) => {
+//         res.status(200).send('resource retrieved');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error retrieving resource');
+//       });
+//   },
+//   createNewResources: (req, res) => {
+//     helper.addResource(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((resource) => {
+//         res.status(200).send('resource added');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on creating resource');
+//       });
+//   },
+//   updateResources: (req, res) => {
+//     helper.updateResource(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     })
+//       .then((resource) => {
+//         res.status(200).send('resource updated');
+//       })
+//       .catch((err) => {
+//         res.status(404).send(err, 'error on updating resource');
+//       });
+//   },
+//   deleteResources: (req, res) => {
+
+//   }
+// };
 
 
 
