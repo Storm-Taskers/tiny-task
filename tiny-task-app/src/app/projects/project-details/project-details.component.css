@@ -1,0 +1,31 @@
+h2 {
+  display: inline;
+  padding: 0px;
+  margin: 0px;
+  cursor: default;
+}
+
+hr {
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.h2-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.container-team-members, .container-phases{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}

@@ -12,8 +12,8 @@ exports.users = {
       helper.retrieveProject(req.params, (projects) => {
         userData.projects = projects;
         res.send(userData);
-      })
-    })
+      });
+    });
   },
 
   createNewUser: (req, res, seed) => {
@@ -62,19 +62,25 @@ exports.users = {
 };
 
 exports.teams = {
-  createNewTeams: (req, res) => {
+  createNewTeams: (req, res, isSeed) => {
+    //let isSeed = seed || false;
     helper.addTeam(req.body, (team) => {
       const team_id = team.id;
       helper.addTeamUser(req.body, team_id, (err, result) => {
-        // if (err) {
-        //   return res.status(500).send('server error');
-        // } else {
-        res.status(200).send('team created');
-        res.end();
-        // }
-      })
-    })
+        if (err) {
+          console.error(err, '****err****');
+          return res.status(500).send('server error');
+        } else if (!isSeed) {
+          res.status(200).send('team added');
+          res.end();
+        } else {
+          console.log('seed team added');
+          res.end();
+        }
+      });
+    });
   },
+
   // retrieveTeams: (req, res) => {
   //   helper.retrieveTeam(req, () => {
   //     res.end(JSON.stringify(res.body));
@@ -84,6 +90,36 @@ exports.teams = {
   //       res.status(404).send(err, 'error retrieving team');
   //     });
   // },
+
+  updateTeams: (req, res, seed) => {
+    console.log(req.body, '***hfiehfqfh9qfheqhfiudalnsjkfhhehihfhiqfphcj**');
+    let isSeed = seed || false;
+    // helper.addTeamUser(req.body, req.body.team_id, (err, result) => {
+    //   // if (err) {
+    //   //   return res.status(500).send('server error');
+    //   // } else
+    //   if (!isSeed) {
+    //     res.status(200).send('team user added');
+    //     res.end();
+    //   } else {
+    //     console.log('seed team user added');
+    //     res.end();
+    //   }
+    // });
+    helper.addTeamUser(req.body, req.body.team_id, (err, result) => {
+        if (err) {
+          console.error(err, '****err**** in update');
+          return res.status(500).send('server error');
+        } else if (!isSeed) {
+          res.status(200).send('team added');
+          res.end();
+        } else {
+          console.log('seed team added');
+          res.end();
+        }
+      });
+  },
+
   deleteTeams: (req, res) => {
     helper.deleteTeam(req, () => {
       res.end(JSON.stringify(res.body));
@@ -96,16 +132,24 @@ exports.teams = {
 };
 
 exports.projects = {
-  createNewProjects: (req, res) => {
+  createNewProjects: (req, res, seed) => {
+    let isSeed = seed || false;
     helper.addProject(req.body, (err, result) => {
-      res.status(200).send('project created');
-      res.end()
-    })
+      if (err) {
+          return res.status(500).send('server error');
+        } else if (!isSeed) {
+          res.status(200).send('project added');
+          res.end();
+        } else {
+          console.log('seed project added');
+          res.end();
+        }
+    });
   },
   retrieveProjectById: (req, res) => {
     helper.retrieveProjectById(req.params, (project) => {
       res.send(project);
-    })
+    });
   }
 };
 
@@ -113,14 +157,22 @@ exports.phases = {
   retrievePhasesByProjectId: (req, res) => {
     helper.retrievePhases(req.params, (phases) => {
       res.send(phases);
-    })
+    });
   },
 
-  createNewPhases: (req, res) => {
+  createNewPhases: (req, res, seed) => {
+    let isSeed = seed || false;
     helper.addPhases(req.body, (err, result) => {
-      res.status(200).send('phase created');
-      res.end();
-    })
+      if (err) {
+          return res.status(500).send('server error');
+        } else if (!isSeed) {
+          res.status(200).send('phase added');
+          res.end();
+        } else {
+          console.log('seed phase added');
+          res.end();
+        }
+    });
   },
 
   deletePhases: (req, res) => {
@@ -137,18 +189,22 @@ exports.phases = {
 };
 
 exports.tasks = {
-  createNewTasks: (req, res) => {
+  createNewTasks: (req, res, seed) => {
+    let isSeed = seed || false;
     helper.addTask(req.body, (task) => {
-      const x = task.id
+      const x = task.id;
       return helper.addUserTasks(req.body, x, (err, result) => {
         if (err) {
           return res.status(500).send('server error');
+        } else if (!isSeed) {
+          res.status(200).send('task added');
+          res.end();
         } else {
-          console.log('task added');
+          console.log('seed task added');
           res.end();
         }
-      })
-    })
+      });
+    });
   },
   retrieveTasksByUserId: (req, res) => {
 
@@ -156,7 +212,8 @@ exports.tasks = {
   retrieveTasksByPhaseId: (req, res) => {
     helper.retrieveTasksByPhaseId(req.params, (tasks) => {
       res.send(tasks);
-    })
+    });
+
   }
 };
 
@@ -276,6 +333,3 @@ exports.tasks = {
 
 //   }
 // };
-
-
-

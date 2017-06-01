@@ -19,7 +19,9 @@ exports.addUserProfile = (body, callback) => {
     user_status: body.user_status,
     user_availability: body.user_availability
   }).then((result) => {
-    callback(result);
+    callback(null, result);
+  }).catch((err) => {
+    callback(err, null);
   });
 }
 
@@ -33,11 +35,11 @@ exports.retrieveUser = (params, callback) => {
       where: {
         id: user.user_profile_id
       }
-    })
+    });
   }).then((user_profile) => {
     callback(user_profile);
   });
-}
+};
 
 exports.addTeam = (body, callback) => {
   models.Teams.create({
@@ -46,16 +48,36 @@ exports.addTeam = (body, callback) => {
   }).then((result) => {
     callback(result);
   });
-}
+};
 
 exports.addTeamUser = (body, team_id, callback) => {
   models.Team_Users.create({
     team_id: team_id,
     userAuthToken: body.auth_token
   }).then((result) => {
+    callback(null, result);
+  }).catch((err) => {
+    callback(err, null);
+  });
+};
+
+exports.addTask = (body, callback) => {
+  models.Tasks.create({
+    task_name: body.task_name,
+    task_status: body.task_status,
+    phase_id: body.phase_id
+  }).then((result) => {
     callback(result);
   });
-}
+};
+
+exports.addUserTasks = (body, x, callback) => {
+  models.User_Tasks.create({
+    user_id: body.auth_token,
+    task_id: x,
+    stage: body.stage
+  });
+};
 
 exports.addTask = (body, callback) => {
   models.Tasks.create({
@@ -82,9 +104,11 @@ exports.addProject = (body, callback) => {
     user_id: body.auth_token,
     team_id: body.team_id
   }).then((result) => {
-    callback(result);
+    callback(null, result);
+  }).catch((err) => {
+    callback(err, null);
   });
-}
+};
 
 exports.addPhases = (body, callback) => {
   models.Phases.create({
@@ -98,7 +122,28 @@ exports.addPhases = (body, callback) => {
   }).then((result) => {
     callback(result);
   });
-}
+};
+
+exports.retrievePhases = (params, callback) => {
+  return models.Phases.findAll({
+    where: {
+      project_id: params.project_id
+    }
+  }).then((phases) => {
+    callback(phases);
+  });
+};
+
+exports.retrieveTasksByPhaseId = (params, callback) => {
+  return models.tasks.findAll({
+    where: {
+      phase_id: params.phase_id
+    }
+  }).then((phases) => {
+    callback(phases);
+  });
+};
+
 
 exports.retrievePhases = (params, callback) => {
   return models.Phases.findAll({
@@ -131,11 +176,11 @@ exports.retrieveProject = (params, callback) => {
       where: {
         user_id: user.auth_token
       }
-    })
+    });
   }).then((projects) => {
     callback(projects);
   });
-}
+};
 exports.retrieveProjectById = (params, callback) => {
   return models.Projects.findOne({
     where: {
@@ -143,8 +188,8 @@ exports.retrieveProjectById = (params, callback) => {
     }
   }).then((project) => {
     callback(project);
-  })
-}
+  });
+};
 
 exports.retrieveTeam = (params, callback) => {
   models.Team_Users.findAll({
@@ -156,11 +201,12 @@ exports.retrieveTeam = (params, callback) => {
       where: {
         team_id: teamUsers.team_id
       }
-    })
+    });
   }).then((projects) => {
     callback(projects);
   });
-}
+};
+
 
 
 // exports.updateUser = () => {
