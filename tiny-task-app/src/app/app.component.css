@@ -2,17 +2,15 @@ header {
   grid-area: header;
 }
 
-.container-nav {
-  background-color: lightgray;
-  grid-area: nav;
+hr {
+  width: 200px;
 }
 
-.nav-bar .nav-cols {
-  display: flex;
+.container-nav {
+  background-color: #eeeeee;
+  grid-area: nav;
   padding: 30px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  border: .25px solid lightgrey;
 }
 
 .pageView {
@@ -23,13 +21,30 @@ header {
 
 .user-info {
   display: flex;
-  background-color: hsl(336, 66%, 50%);
+  background-color: hsla(341, 59%, 48%, 1);
   grid-area: profile;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+a:link, a:visited {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+  color: #9e9e9e;
+  text-decoration: none;
+  margin: 20px;
+}
+
+a:hover, a:active {
+  color: white;
+}
+
+.select {
+  color: #2196f3;
+}
 .app {
   display: grid;
   grid-template-rows: 100px 3fr;
