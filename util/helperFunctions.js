@@ -39,16 +39,6 @@ exports.retrieveUser = (params, callback) => {
   });
 }
 
-exports.addProject = (body, uid, callback) => {
-  models.Projects.create({
-    project_name: body.project_name,
-    complete: body.complete,
-    user_id: uid,
-    // team_id: team_id
-  }).then((result) => {
-    callback(result);
-  });
-}
 exports.addTeam = (body, callback) => {
   models.Teams.create({
     team_name: body.team_name,
@@ -67,6 +57,16 @@ exports.addTeamUser = (body, team_id, callback) => {
   });
 }
 
+exports.addProject = (body, callback) => {
+  models.Projects.create({
+    project_name: body.project_name,
+    complete: body.complete,
+    user_id: body.auth_token,
+    team_id: body.team_id
+  }).then((result) => {
+    callback(result);
+  });
+}
 exports.retrieveProject = (params, callback) => {
   models.Users.findOne({
     where: {

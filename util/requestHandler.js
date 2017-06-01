@@ -167,24 +167,15 @@ exports.announcements = {
 };
 
 exports.projects = {
+  createNewProjects: (req, res) => {
+    helper.addProject(req.body, (err, result) => {
+      res.status(200).send('project created');
+      res.end()
+    })
+  },
   retrieveProjects: (req, res) => {
 
   },
-  // createNewProjects: (req, res) => {
-  //   helper.addProject(req.body, (project) => {
-  //     const user_id = project.user_id,
-  //   },
-  //     updateProjects: (req, res) => {
-  //       helper.updateProject(req.body, () => {
-  //         res.end(JSON.stringify(res.body));
-  //       })
-  //         .then((project) => {
-  //           res.status(200).send('project updated');
-  //         })
-  //         .catch((err) => {
-  //           res.status(404).send(err, 'error on updating project');
-  //         });
-  //     },
   deleteProjects: (req, res) => {
     helper.deleteProject(req, () => {
       res.end(JSON.stringify(res.body));
