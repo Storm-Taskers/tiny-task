@@ -23,6 +23,9 @@ import { TeamMembersComponent } from './projects/project-details/team-members/te
 import { PhaseDetailsComponent } from './projects/project-details/phases/phase-details/phase-details.component';
 import { UserDetailsComponent } from './projects/project-details/project-user/user-details/user-details.component';
 
+// Import Materials
+import { MaterialModule } from './material-modules/material.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +43,8 @@ import { UserDetailsComponent } from './projects/project-details/project-user/us
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRouterModule
+    AppRouterModule,
+    MaterialModule
   ],
   providers: [UserService, ProjectsService, NavService],
   bootstrap: [AppComponent]
