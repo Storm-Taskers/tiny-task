@@ -84,7 +84,7 @@ Users.hasMany(Team_Colors, { foreignKey: { name: 'user_id', targetKey: 'auth_tok
 Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 connection.sync({
-  //force: true
+  force: true
 }).then(() => {
 }).catch((error) => {
   console.log(error);
