@@ -29,14 +29,3 @@ hr {
   justify-content: flex-start;
   margin-bottom: 30px;
 }
-
-.current-team-members {
-  color: white;
-  height: 100px;
-  width: 100px;
-  background-color: #00bcd4;
-  border-radius: 6px;
-  padding: 7px;
-  margin: 5px;
-  box-shadow: 0px 2px 5px #888888;
-}
