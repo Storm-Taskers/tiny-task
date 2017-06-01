@@ -153,18 +153,18 @@ const seedData = [
   //   }}, true);
   // },
 
-  () => {
-    return handler.projects.createNewProjects({body: {
-      project_name: 'Tiny Task',
-      complete: false,
-      user_id: 'Kevin',
-      team_id: 1
-      }
-    },{end: () => {
-      console.log('seed project added');
-      }
-    }, true);
-  },
+  // () => {
+  //   return handler.projects.createNewProjects({body: {
+  //     project_name: 'Tiny Task',
+  //     complete: false,
+  //     user_id: 'Kevin',
+  //     team_id: 1
+  //     }
+  //   },{end: () => {
+  //     console.log('seed project added');
+  //     }
+  //   }, true);
+  // },
 
 // //create new phase
   // () => {

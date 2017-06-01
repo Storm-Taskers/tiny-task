@@ -8,9 +8,9 @@ exports.addUsers = (body, id, callback) => {
   }).then((result) => {
     callback(null, result);
   }).catch((err) => {
-    callback(err);
+    callback(err, null);
   });
-}
+};
 
 exports.addUserProfile = (body, callback) => {
   models.User_Profile.create({
@@ -19,11 +19,9 @@ exports.addUserProfile = (body, callback) => {
     user_status: body.user_status,
     user_availability: body.user_availability
   }).then((result) => {
-    callback(null, result);
-  }).catch((err) => {
-    callback(err, null);
+    callback(result);
   });
-}
+};
 
 exports.retrieveUser = (params, callback) => {
   models.Users.findOne({
@@ -87,15 +85,15 @@ exports.addTask = (body, callback) => {
   }).then((result) => {
     callback(result);
   });
-}
+};
 
 exports.addUserTasks = (body, x, callback) => {
   models.User_Tasks.create({
     user_id: body.auth_token,
     task_id: x,
     stage: body.stage
-  })
-}
+  });
+};
 
 exports.addProject = (body, callback) => {
   models.Projects.create({

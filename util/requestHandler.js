@@ -16,11 +16,10 @@ exports.users = {
     });
   },
 
-  createNewUser: (req, res, seed) => {
-    let isSeed = seed || false;
+  createNewUser: (req, res, isSeed) => {
     helper.addUserProfile(req.body, (user_profile) => {
       const id = user_profile.id;
-      return helper.addUsers(req.body, id, (err, result) => {
+      helper.addUsers(req.body, id, (err, result) => {
         if (err) {
           return res.status(500).send('server error');
         } else if (!isSeed) {
