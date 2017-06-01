@@ -67,6 +67,21 @@ exports.addProject = (body, callback) => {
     callback(result);
   });
 }
+
+exports.addPhase = (body, callback) => {
+  models.Phases.create({
+    phase_name: body.phase_name,
+    phase_order: body.phase_order,
+    phase_status: body.phase_status,
+    phase_color: body.phase_color,
+    project_id: body.project_id,
+    user_id: body.auth_token,
+    team_id: body.team_id
+  }).then((result) => {
+    callback(result);
+  });
+}
+
 exports.retrieveProject = (params, callback) => {
   models.Users.findOne({
     where: {
@@ -168,17 +183,6 @@ exports.deleteProject = () => {
 
 }
 
-exports.addPhase = () => {
-  models.Users.create({
-    phase_name: body.phase_name,
-    phase_order: body.phase_order,
-    phase_status: body.phase_status,
-    phase_color: body.phase_color,
-    project_id: body.project_id
-  }).then((result) => {
-    callback(result);
-  });
-}
 
 exports.retrievePhase = () => {
 
