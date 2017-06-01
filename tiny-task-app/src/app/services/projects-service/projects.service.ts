@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Project } from '../../projects/Project';
 import { Phase } from '../../projects/project-details/phases/Phase';
-import { Task } from '../../projects/project-details/Task';
+import { Task } from '../../projects/project-details/phases/tasks/Task';
 
 @Injectable()
 export class ProjectsService {
@@ -94,15 +94,23 @@ export class ProjectsService {
     //         .catch(this.handleError);
   }
 
-  getUserTasks(token: string): Promise<object> {
-    return this.http.get(`${this.baseUrl}/api/tasks/${token}`)
+  getPhaseTasks(phaseId: number): Promise<Task[]> {
+    return this.http.get(`${this.baseUrl}/api/tasks/phase/${phaseId}`)
             .toPromise()
             .then((response) => {
-              return response.json() as object;
+              return response.json();
             })
             .catch(this.handleError);
   }
 
+  getUserTasks(token: string): Promise<Task[]> {
+    return this.http.get(`${this.baseUrl}/api/tasks/user/${token}`)
+            .toPromise()
+            .then((response) => {
+              return response.json();
+            })
+            .catch(this.handleError);
+  }
 
   // Post Information
   createProject(teamId: number, userId: string): Promise<Project> {
@@ -117,10 +125,10 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-  createPhase(projectId: number, phaseName: string): Promise<Phase> {
+  createPhase(projectId: number): Promise<Phase> {
     return this.http.post(
             `${this.baseUrl}/api/project/${projectId}`,
-            JSON.stringify({projectId: projectId, phaseName: phaseName}))
+            JSON.stringify({projectId: projectId, phaseName: "Phase"}))
             .toPromise()
             .then( (response) => {
               return response.json();

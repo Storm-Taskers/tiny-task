@@ -30,5 +30,8 @@
 
 <div class="container-phases">
 <!--Implement ngFor to create Phases-->
-  <app-phases></app-phases>
+  <phases
+    *ngFor="let phase of projectPhases"
+    [phase]="phase">
+  </phases>
 </div>
