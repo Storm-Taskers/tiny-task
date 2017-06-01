@@ -2,8 +2,13 @@ const helper = require('./helperFunctions.js');
 
 exports.users = {
   retrieveUser: (req, res) => {
+    var userData = {};
     helper.retrieveUser(req.params, (result) => {
-      res.send(result);
+      userData.profile = result;
+      helper.retrieveProject(req.params, (projects) => {
+        userData.projects = projects;
+        res.send(userData);
+      })
     })
   },
 
@@ -59,12 +64,12 @@ exports.teams = {
     helper.addTeam(req.body, (team) => {
       const team_id = team.id;
       helper.addTeamUser(req.body, team_id, (err, result) => {
-        if (err) {
-          return res.status(500).send('server error');
-        } else {
-          res.status(200).send('team created');
-          res.end();
-        }
+        // if (err) {
+        //   return res.status(500).send('server error');
+        // } else {
+        res.status(200).send('team created');
+        res.end();
+        // }
       })
     })
   },
@@ -88,83 +93,83 @@ exports.teams = {
   }
 };
 
-exports.messages = {
-  retrieveMessages: (req, res) => {
-    helper.retrieveMessage(req, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((message) => {
-      res.status(200).send('message retrieved');
-    }).catch((err) => {
-      res.status(404).send(err, 'error retrieving message');
-    });
-  },
-  createNewMessages: (req, res) => {
-    helper.addMessage(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((message) => {
-      res.status(200).send('message added');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on creating message');
-    });
-  },
-  updateMessages: (req, res) => {
-    helper.updateMessage(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((message) => {
-      res.status(200).send('message updated');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on updating message');
-    });
-  },
-  deleteMessages: (req, res) => {
-    helper.deleteMessage(req, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((message) => {
-      res.status(200).send('message deleted');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on deleting message');
-    });
-  }
-};
+// exports.messages = {
+//   retrieveMessages: (req, res) => {
+//     helper.retrieveMessage(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     }).then((message) => {
+//       res.status(200).send('message retrieved');
+//     }).catch((err) => {
+//       res.status(404).send(err, 'error retrieving message');
+//     });
+//   },
+//   createNewMessages: (req, res) => {
+//     helper.addMessage(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     }).then((message) => {
+//       res.status(200).send('message added');
+//     }).catch((err) => {
+//       res.status(404).send(err, 'error on creating message');
+//     });
+//   },
+//   updateMessages: (req, res) => {
+//     helper.updateMessage(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     }).then((message) => {
+//       res.status(200).send('message updated');
+//     }).catch((err) => {
+//       res.status(404).send(err, 'error on updating message');
+//     });
+//   },
+//   deleteMessages: (req, res) => {
+//     helper.deleteMessage(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     }).then((message) => {
+//       res.status(200).send('message deleted');
+//     }).catch((err) => {
+//       res.status(404).send(err, 'error on deleting message');
+//     });
+//   }
+// };
 
-exports.announcements = {
-  retrieveAnnouncements: (req, res) => {
-    helper.retrieveAnnouncement(req, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((announcement) => {
-      res.status(200).send('announcement retrieved');
-    }).catch((err) => {
-      res.status(404).send(err, 'error retrieving announcement');
-    });
-  },
-  createNewAnnouncements: (req, res) => {
-    helper.addAnnouncement(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((announcement) => {
-      res.status(200).send('announcement added');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on creating announcement');
-    });
-  },
-  updateAnnouncements: (req, res) => {
-    helper.updateAnnouncement(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((announcement) => {
-      res.status(200).send('announcement updated');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on updating announcement');
-    });
-  },
-  deleteAnnouncements: (req, res) => {
-    helper.deleteAnnouncement(req, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((announcement) => {
-      res.status(200).send('announcement deleted');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on deleting announcement');
-    });
-  }
-};
+// exports.announcements = {
+//   retrieveAnnouncements: (req, res) => {
+//     helper.retrieveAnnouncement(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     }).then((announcement) => {
+//       res.status(200).send('announcement retrieved');
+//     }).catch((err) => {
+//       res.status(404).send(err, 'error retrieving announcement');
+//     });
+//   },
+//   createNewAnnouncements: (req, res) => {
+//     helper.addAnnouncement(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     }).then((announcement) => {
+//       res.status(200).send('announcement added');
+//     }).catch((err) => {
+//       res.status(404).send(err, 'error on creating announcement');
+//     });
+//   },
+//   updateAnnouncements: (req, res) => {
+//     helper.updateAnnouncement(req.body, () => {
+//       res.end(JSON.stringify(res.body));
+//     }).then((announcement) => {
+//       res.status(200).send('announcement updated');
+//     }).catch((err) => {
+//       res.status(404).send(err, 'error on updating announcement');
+//     });
+//   },
+//   deleteAnnouncements: (req, res) => {
+//     helper.deleteAnnouncement(req, () => {
+//       res.end(JSON.stringify(res.body));
+//     }).then((announcement) => {
+//       res.status(200).send('announcement deleted');
+//     }).catch((err) => {
+//       res.status(404).send(err, 'error on deleting announcement');
+//     });
+//   }
+// };
 
 exports.projects = {
   createNewProjects: (req, res) => {
@@ -173,33 +178,17 @@ exports.projects = {
       res.end()
     })
   },
-  retrieveProjects: (req, res) => {
+  // retrieveProjects: (req, res) => {
+  //   helper.retrieveProject
+  // },
+  // deleteProjects: (req, res) => {
 
-  },
-  deleteProjects: (req, res) => {
-    helper.deleteProject(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((project) => {
-        res.status(200).send('project deleted');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on deleting project');
-      });
-  }
+  // }
 };
 
 exports.phases = {
   retrievePhases: (req, res) => {
-    helper.retrievePhase(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((phase) => {
-        res.status(200).send('phase retrieved');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error retrieving phase');
-      });
+
   },
   createNewPhases: (req, res) => {
     helper.addPhase(req.body, () => {
@@ -318,15 +307,7 @@ exports.resources = {
       });
   },
   deleteResources: (req, res) => {
-    helper.deleteResource(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((resource) => {
-        res.status(200).send('resource deleted');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on deleting resource');
-      });
+
   }
 };
 

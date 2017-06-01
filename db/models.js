@@ -29,7 +29,7 @@ Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
 const Projects = connection.define('projects', {
   project_name: { type: Sequelize.STRING, allowNull: false },
-  completion: { type: Sequelize.BOOLEAN, default: false }
+  complete: { type: Sequelize.BOOLEAN, default: false }
 })
 Projects.belongsTo(Users, { foreignKey: { name: 'user_id', target: 'auth_token' } })
 Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
