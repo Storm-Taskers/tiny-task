@@ -13,7 +13,7 @@ export class UserService {
   private baseUrl: string = 'http://localhost:8080';
 
   public userId: string = 'test';
-  public userProfile: any;
+  // public userProfile: any;
   public projectIds: number[] = [1, 2, 3];
   public teams: Team[];
   public currentTeam: Team = {id: 1, teamName: 'Tiny Task'}; // MOCK DATA
@@ -37,6 +37,11 @@ export class UserService {
       user_status: 'Very Sick'
     }
   ]
+
+  public userProfile: any = {
+    full_name: 'Beth Stevic',
+    email: 'beth.s@tinytask.com'
+  }
 
   constructor(private http: Http) { }
 
