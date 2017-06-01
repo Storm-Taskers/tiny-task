@@ -55,9 +55,6 @@ export class ProjectsService {
     }
   ];
 
-  public test: Phase[] = [
-  ];
-
   constructor(private http: Http) { }
 
   private handleError(error: any): Promise<any> {
@@ -113,27 +110,57 @@ export class ProjectsService {
   }
 
   // Post Information
+
+  // MOCK DATA
+  public testProject: Project = {
+                                  id: 4,
+                                  user_id: 't4',
+                                  team_id: 1,
+                                  project_name: 'New Project',
+                                  complete: false
+                                }
+  testCreateProject(): Promise<Project> {
+    return Promise.resolve(this.testProject);
+  }
+
   createProject(teamId: number, userId: string): Promise<Project> {
-    return this.http.post(
-            `${this.baseUrl}/api/project`,
-            JSON.stringify({user_id: userId, team_id: teamId}))
-            .toPromise()
-            .then( (response) => {
-              // this.projects.push(???)
-              return response.json();
-            })
-            .catch(this.handleError);
+    return this.testCreateProject()
+            .then(project => project);
+    // return this.http.post(
+    //         `${this.baseUrl}/api/project`,
+    //         JSON.stringify({user_id: userId, team_id: teamId}))
+    //         .toPromise()
+    //         .then( (response) => {
+    //           // this.projects.push(???)
+    //           return response.json();
+    //         })
+    //         .catch(this.handleError);
+  }
+
+  // MOCK DATA
+  public testPhase: Phase = {
+                              id: 3,
+                              project_id: 1,
+                              phase_name: 'New Phase',
+                              phase_color: 'green',
+                              phase_order: 1,
+                              phase_status: 'In progress'
+                            }
+  testPhaseProject(): Promise<Phase> {
+    return Promise.resolve(this.testPhase);
   }
 
   createPhase(projectId: number): Promise<Phase> {
-    return this.http.post(
-            `${this.baseUrl}/api/project/${projectId}`,
-            JSON.stringify({projectId: projectId, phaseName: "Phase"}))
-            .toPromise()
-            .then( (response) => {
-              return response.json();
-            })
-            .catch(this.handleError);
+    return this.testPhaseProject()
+            .then(phase => phase);
+    // return this.http.post(
+    //         `${this.baseUrl}/api/project/${projectId}`,
+    //         JSON.stringify({projectId: projectId, phaseName: "Phase"}))
+    //         .toPromise()
+    //         .then( (response) => {
+    //           return response.json();
+    //         })
+    //         .catch(this.handleError);
   }
 
   createTask(phaseId: number, taskName: string): Promise<Task> {
