@@ -9,14 +9,18 @@
 <!--Render Nav Bar-->
   <div class="container-nav">
     <nav class="nav-bar">
-      <div class="nav-cols">
-        <a routerLink="projects">Projects</a>
-        <a routerLink="">Calendar</a>
+      <div class="col">
+        <a routerLink="projects">PROJECTS</a>
+        <hr/>
+        <a routerLink="">CALENDAR</a>
       </div>
-      <div *ngIf="navService.currentPage !== 'projects'" class="nav-cols">
-        <a routerLink="">Bulletin Board</a>
-        <a routerLink="">Meeting Room</a>
-        <a routerLink="">Resources</a>
+      <div *ngIf="navService.currentPage !== 'projects'" class="col">
+        <hr/>
+        <a routerLink="">BULLETIN BOARD</a>
+        <hr/>
+        <a routerLink="">MEETING ROOM</a>
+        <hr/>
+        <a routerLink="">RESOURCES</a>
       </div>
     </nav>
   </div>
