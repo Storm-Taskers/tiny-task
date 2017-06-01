@@ -23,7 +23,6 @@ exports.users = {
       return helper.addUsers(req.body, id, (err, result) => {
         if (err) {
           return res.status(500).send('server error');
-
         } else if (!isSeed) {
           res.status(200).send('user added');
           res.end();
@@ -137,52 +136,21 @@ exports.phases = {
   }
 };
 
-// exports.tasks = {
-//   retrieveTasks: (req, res) => {
-//     helper.retrieveTask(req, () => {
-//       res.end(JSON.stringify(res.body));
-//     })
-//       .then((task) => {
-//         res.status(200).send('task retrieved');
-//       })
-//       .catch((err) => {
-//         res.status(404).send(err, 'error retrieving task');
-//       });
-//   },
-//   createNewTasks: (req, res) => {
-//     helper.addTask(req.body, () => {
-//       res.end(JSON.stringify(res.body));
-//     })
-//       .then((task) => {
-//         res.status(200).send('task added');
-//       })
-//       .catch((err) => {
-//         res.status(404).send(err, 'error on creating task');
-//       });
-//   },
-//   updateTasks: (req, res) => {
-//     helper.updateTask(req.body, () => {
-//       res.end(JSON.stringify(res.body));
-//     })
-//       .then((task) => {
-//         res.status(200).send('task updated');
-//       })
-//       .catch((err) => {
-//         res.status(404).send(err, 'error on updating task');
-//       });
-//   },
-//   deleteTasks: (req, res) => {
-//     helper.deleteTask(req, () => {
-//       res.end(JSON.stringify(res.body));
-//     })
-//       .then((task) => {
-//         res.status(200).send('task deleted');
-//       })
-//       .catch((err) => {
-//         res.status(404).send(err, 'error on deleting task');
-//       });
-//   }
-// };
+exports.tasks = {
+  createNewTasks: (req, res) => {
+    helper.addTask(req.body, (task) => {
+      const x = task.id
+      return helper.addUserTasks(req.body, x, (err, result) => {
+        if (err) {
+          return res.status(500).send('server error');
+        } else {
+          console.log('task added');
+          res.end();
+        }
+      })
+    })
+  }
+};
 
 // exports.messages = {
 //   retrieveMessages: (req, res) => {

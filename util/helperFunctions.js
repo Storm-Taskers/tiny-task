@@ -51,10 +51,28 @@ exports.addTeam = (body, callback) => {
 exports.addTeamUser = (body, team_id, callback) => {
   models.Team_Users.create({
     team_id: team_id,
-    user_id: body.auth_token
+    userAuthToken: body.auth_token
   }).then((result) => {
     callback(result);
   });
+}
+
+exports.addTask = (body, callback) => {
+  models.Tasks.create({
+    task_name: body.task_name,
+    task_status: body.task_status,
+    phase_id: body.phase_id
+  }).then((result) => {
+    callback(result);
+  });
+}
+
+exports.addUserTasks = (body, x, callback) => {
+  models.User_Tasks.create({
+    user_id: body.auth_token,
+    task_id: x,
+    stage: body.stage
+  })
 }
 
 exports.addProject = (body, callback) => {
@@ -133,6 +151,7 @@ exports.retrieveTeam = (params, callback) => {
   });
 }
 
+
 // exports.updateUser = () => {
 
 // }
@@ -185,58 +204,50 @@ exports.retrieveTeam = (params, callback) => {
 
 
 
-exports.updateProject = () => {
+// exports.updateProject = () => {
 
-}
+// }
 
-exports.deleteProject = () => {
+// exports.deleteProject = () => {
 
-}
+// }
 
 
 
-exports.updatePhase = () => {
+// exports.updatePhase = () => {
 
-}
+// }
 
-exports.deletePhase = () => {
+// exports.deletePhase = () => {
 
-}
+// }
 
-exports.addTask = () => {
-  models.Tasks.create({
-    task_name: body.task_name,
-    task_status: body.task_status
-  }).then((result) => {
-    callback(result);
-  });
-}
 
-exports.retrieveTask = () => {
+// exports.retrieveTask = () => {
 
-}
+// }
 
-exports.updateTask = () => {
+// exports.updateTask = () => {
 
-}
+// }
 
-exports.deleteTask = () => {
+// exports.deleteTask = () => {
 
-}
+// }
 
-exports.createNewResources = () => {
-  models.Resources.create({
-    resource: body.resource,
-    type: body.type
-  }).then((result) => {
-    callback(result);
-  });
-}
+// exports.createNewResources = () => {
+//   models.Resources.create({
+//     resource: body.resource,
+//     type: body.type
+//   }).then((result) => {
+//     callback(result);
+//   });
+// }
 
-exports.retrieveResources = () => {
+// exports.retrieveResources = () => {
 
-}
+// }
 
-exports.deleteResources = () => {
+// exports.deleteResources = () => {
 
-}
+// }

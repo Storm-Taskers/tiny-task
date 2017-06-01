@@ -19,14 +19,6 @@ router.post('/teams', handler.teams.createNewTeams);
 // router.put('/api/teams', handler.teams.updateTeams);
 // router.delete('/api/teams', handler.teams.deleteTeams);
 
-// router.get('/api/messages', handler.messages.retrieveMessages);
-// router.post('/api/messages', handler.messages.createNewMessages);
-// router.delete('/api/messages', handler.messages.deleteMessages);
-
-// router.get('/api/announcements', handler.announcements.retrieveAnnouncements);
-// router.post('/api/announcements', handler.announcements.createNewAnnouncements);
-// router.put('/api/announcements', handler.announcements.updateAnnouncements);
-// router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
 
 //router.get('/project/:project_id', handler.projects.retrievePhasesByProjectId);
 router.post('/projects', handler.projects.createNewProjects);
@@ -38,9 +30,20 @@ router.post('/phases', handler.phases.createNewPhases);
 // router.put('/phases', handler.phases.updatePhases);
 // router.delete('/phases', handler.phases.deletePhases);
 
-// router.post('/tasks/:phase_id', handler.tasks.createNewTasks);
+router.post('/tasks', handler.tasks.createNewTasks);
+//router.get('/tasks/users/:auth_token', handler.tasks.retrieveTasksByUserId);
+//router.get('/tasks/phase/:phase_id', handler.tasks.retrieveTasksByPhaseId);
 // router.put('/tasks', handler.tasks.updateTasks);
 // router.delete('/tasks', handler.tasks.deleteTasks);
+
+// router.get('/api/messages', handler.messages.retrieveMessages);
+// router.post('/api/messages', handler.messages.createNewMessages);
+// router.delete('/api/messages', handler.messages.deleteMessages);
+
+// router.get('/api/announcements', handler.announcements.retrieveAnnouncements);
+// router.post('/api/announcements', handler.announcements.createNewAnnouncements);
+// router.put('/api/announcements', handler.announcements.updateAnnouncements);
+// router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
 
 // router.get('/resources', handler.resources.retrieveResources);
 // router.post('/resources', handler.resources.createNewResources);

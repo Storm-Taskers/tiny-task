@@ -51,9 +51,9 @@ Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' } });
 const User_Tasks = connection.define('user_tasks', {
   stage: { type: Sequelize.STRING, allowNull: false },
 });
-Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
-// Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } })
-//Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+// Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
+Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } })
+Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
 
 const Messages = connection.define('messages', {
   message: { type: Sequelize.TEXT }
@@ -81,7 +81,7 @@ Users.hasMany(Team_Colors, { foreignKey: { name: 'user_id', targetKey: 'auth_tok
 Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } })
 
 connection.sync({
-  //force: true
+  force: true
 }).then(() => {
 }).catch((error) => {
   console.log(error);
