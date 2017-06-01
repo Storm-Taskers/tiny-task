@@ -1,23 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = require('./routes.js');
-
+const cors = require('cors');
 
 const app = express();
 
 app.use(bodyParser.json());
-
+app.use(cors());
 app.use('/api', router);
-
-app.use(function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader('access-control-allow-headers', 'Content-Type, accept, X-Requested-With');
-  return next();
-});
-
-//app.use(express.static('./'));
-
-
-
 
 module.exports = app;
