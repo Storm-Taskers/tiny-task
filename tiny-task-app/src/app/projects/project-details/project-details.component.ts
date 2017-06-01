@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { ProjectsService } from '../../services/projects-service/projects.service';
 import { UserService } from '../../services/user-service/user.service';
+import { NavService } from '../../services/nav-service/nav.service';
 
 import { Phase } from './phases/Phase';
 import { User } from './project-user/User';
@@ -22,6 +23,7 @@ export class ProjectDetailsComponent implements OnInit {
   constructor(
     private projectsService: ProjectsService,
     private userService: UserService,
+    private navService: NavService,
     private route: ActivatedRoute,
     private location: Location
    ) { }
@@ -31,6 +33,9 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Render Navigation Bar
+    this.navService.changeToDetailsPage();
+
     // Get Project Phases
     this.route.params
       .switchMap((params: Params) => this.projectsService.getPhases(+params['id']))
