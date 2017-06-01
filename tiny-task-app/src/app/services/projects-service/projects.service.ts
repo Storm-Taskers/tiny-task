@@ -35,6 +35,25 @@ export class ProjectsService {
     }
   ];
 
+   public phases: Phase[] = [
+    {
+      id: 1,
+      project_id: 1,
+      phase_name: 'First MVP',
+      phase_color: 'green',
+      phase_order: 1,
+      phase_status: 'In progress'
+    },
+    {
+      id: 2,
+      project_id: 1,
+      phase_name: 'Second MVP',
+      phase_color: 'red',
+      phase_order: 2,
+      phase_status: 'Not Started'
+    }
+  ]
+
   constructor(private http: Http) { }
 
   private handleError(error: any): Promise<any> {
@@ -51,6 +70,24 @@ export class ProjectsService {
               return response.json();
             })
             .catch(this.handleError);
+  }
+
+  // Test
+  getThePhases(): Promise<Phase[]> {
+    return Promise.resolve(this.phases)
+  }
+
+  getPhases(projectId: number): Promise<Phase[]> {
+    return this.getThePhases()
+            .then((phases) => {
+              return phases;
+            });
+    // this.http.get(`${this.baseUrl}/api/phases/${projectId}`)
+    //         .toPromise()
+    //         .then((response) => {
+    //           return response.json();
+    //         })
+    //         .catch(this.handleError);
   }
 
   getUserTasks(token: string): Promise<object> {

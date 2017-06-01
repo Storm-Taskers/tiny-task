@@ -24,7 +24,7 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.projects = this.projectsService.projects;
-    console.log(this.projects);
+
     // this.userService.projectIds.forEach((projectId) => {
     //   this.projectsService.getProject(projectId)
     //     .then((project) => {
