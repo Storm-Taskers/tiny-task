@@ -23,7 +23,7 @@ export class UserService {
     return Promise.reject(error.message || error);
   }
 
-  getUserProfile(token: string): Promise<object> {
+  getUserInfo(token: string): Promise<object> {
     return this.http.get(`${this.baseUrl}/api/users/${token}`)
             .toPromise()
             .then( (response) => {
