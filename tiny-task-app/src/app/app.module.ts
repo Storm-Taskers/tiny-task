@@ -21,7 +21,7 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
 import { PhasesComponent } from './projects/project-details/phases/phases.component';
 import { ProjectUserComponent } from './projects/project-details/project-user/project-user.component';
 import { TeamMembersComponent } from './projects/project-details/team-members/team-members.component';
-import { PhaseDetailsComponent } from './projects/project-details/phases/phase-details/phase-details.component';
+import { TasksComponent } from './projects/project-details/phases/tasks/tasks.component';
 import { UserDetailsComponent } from './projects/project-details/project-user/user-details/user-details.component';
 
 // Import Materials
@@ -35,7 +35,7 @@ import { MaterialModule } from './material-modules/material.module';
     ProjectsComponent,
     ProjectDetailsComponent,
     PhasesComponent,
-    PhaseDetailsComponent,
+    TasksComponent,
     ProjectUserComponent,
     UserDetailsComponent,
     TeamMembersComponent
