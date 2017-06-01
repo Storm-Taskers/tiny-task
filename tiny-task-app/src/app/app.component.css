@@ -18,8 +18,7 @@ header {
 .pageView {
   background-color: white;
   grid-area: content;
-  border: 1px solid black;
-  padding: 30px;  
+  padding: 20px;  
 }
 
 .user-info {

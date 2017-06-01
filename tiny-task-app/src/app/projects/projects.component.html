@@ -4,7 +4,7 @@
      <i class="material-icons">library_add</i>
     </button>
   </h2>
-  <!--Render Dropdown Menu-->
+<!--Render Dropdown Menu-->
   <md-select floatPlaceholder="never">
     <md-option [value]="1">--Select a Team--</md-option>
     <md-option [value]="2">--All--</md-option>
@@ -12,8 +12,8 @@
   </md-select>
 </div>
 <hr/>
-<div class="container-project">
 
+<div class="container-project">
 <!--Implement ngFor to create Projects-->
   <div *ngFor="let project of projects">
     <div *ngIf="!project.complete" [routerLink]="['/projects', project.id]" class="current-project">
