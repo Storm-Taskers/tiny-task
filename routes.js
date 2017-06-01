@@ -28,12 +28,13 @@ router.post('/teams', handler.teams.createNewTeams);
 // router.put('/api/announcements', handler.announcements.updateAnnouncements);
 // router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
 
-router.get('/project/:project_id', handler.projects.retrieveProjectById);
+//router.get('/project/:project_id', handler.projects.retrievePhasesByProjectId);
 router.post('/projects', handler.projects.createNewProjects);
 // router.put('/project/:project_id', handler.projects.updateProjects);
 // router.delete('/project/:project_id', handler.projects.deleteProjects);
 
-// router.post('/phases', handler.phases.createNewPhases);
+router.get('/phases/:project_id', handler.phases.retrievePhasesByProjectId);
+router.post('/phases', handler.phases.createNewPhases);
 // router.put('/phases', handler.phases.updatePhases);
 // router.delete('/phases', handler.phases.deletePhases);
 

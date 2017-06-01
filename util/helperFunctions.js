@@ -10,7 +10,7 @@ exports.addUsers = (body, id, callback) => {
   }).catch((err) => {
     callback(err);
   });
-};
+}
 
 exports.addUserProfile = (body, callback) => {
   models.User_Profile.create({
@@ -21,7 +21,7 @@ exports.addUserProfile = (body, callback) => {
   }).then((result) => {
     callback(result);
   });
-};
+}
 
 exports.retrieveUser = (params, callback) => {
   models.Users.findOne({
@@ -68,7 +68,7 @@ exports.addProject = (body, callback) => {
   });
 }
 
-exports.addPhase = (body, callback) => {
+exports.addPhases = (body, callback) => {
   models.Phases.create({
     phase_name: body.phase_name,
     phase_order: body.phase_order,
@@ -79,6 +79,16 @@ exports.addPhase = (body, callback) => {
     team_id: body.team_id
   }).then((result) => {
     callback(result);
+  });
+}
+
+exports.retrievePhases = (params, callback) => {
+  return models.Phases.findAll({
+    where: {
+      project_id: params.project_id
+    }
+  }).then((phases) => {
+    callback(phases);
   });
 }
 
@@ -184,9 +194,6 @@ exports.deleteProject = () => {
 }
 
 
-exports.retrievePhase = () => {
-
-}
 
 exports.updatePhase = () => {
 

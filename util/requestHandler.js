@@ -16,8 +16,8 @@ exports.users = {
     })
   },
 
-createNewUser: (req, res, seed) => {
-  let isSeed = seed || false;
+  createNewUser: (req, res, seed) => {
+    let isSeed = seed || false;
     helper.addUserProfile(req.body, (user_profile) => {
       const id = user_profile.id;
       return helper.addUsers(req.body, id, (err, result) => {
@@ -96,7 +96,6 @@ exports.teams = {
   }
 };
 
-
 exports.projects = {
   createNewProjects: (req, res) => {
     helper.addProject(req.body, (err, result) => {
@@ -112,6 +111,11 @@ exports.projects = {
 };
 
 exports.phases = {
+  retrievePhasesByProjectId: (req, res) => {
+    helper.retrievePhases(req.params, (phases) => {
+      res.send(phases);
+    })
+  },
 
   createNewPhases: (req, res) => {
     helper.addPhases(req.body, (err, result) => {
@@ -119,9 +123,7 @@ exports.phases = {
       res.end();
     })
   },
-  updatePhases: (req, res) => {
 
-  },
   deletePhases: (req, res) => {
     helper.deletePhase(req, () => {
       res.end(JSON.stringify(res.body));
