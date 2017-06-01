@@ -33,11 +33,12 @@ hr {
 .current-project {
   color: white;
   width: 280px;
-  background-color: hsla(348, 82%, 44%, 1);
+  background-color: hsl(336, 66%, 50%);;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   padding: 7px;
   margin: 5px;
+  box-shadow: 0px 2px 5px #888888;
 }
 
 .current-project > img {
@@ -59,6 +60,7 @@ hr {
   border-bottom-right-radius: 4px;
   padding: 10px;
   margin: 5px;
+  box-shadow: 0px 2px 5px #888888;
 }
 
 .past-project > img {

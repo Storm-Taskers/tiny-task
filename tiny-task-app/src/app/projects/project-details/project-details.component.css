@@ -1,0 +1,59 @@
+h2 {
+  display: inline;
+  padding: 0px;
+  margin: 0px;
+  cursor: default;
+}
+
+hr {
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.h2-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.container-team-members, .container-phases{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}
+
+.current-team-members {
+  color: white;
+  height: 100px;
+  width: 100px;
+  background-color: #00bcd4;
+  border-radius: 6px;
+  padding: 7px;
+  margin: 5px;
+  box-shadow: 0px 2px 5px #888888;
+}
+
+.current-phases {
+  color: white;
+  width: auto;
+  background-color: hsla(348, 82%, 44%, 1);
+  border-radius: 6px;
+  padding: 7px;
+  margin: 5px;
+  box-shadow: 0px 2px 5px #888888;
+}
+
+.task {
+  background-color: white;
+  color: #00bcd4;
+  border-radius: 4px;
+  width: 200px
+}
