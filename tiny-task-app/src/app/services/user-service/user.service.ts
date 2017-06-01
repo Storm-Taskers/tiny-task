@@ -16,6 +16,7 @@ export class UserService {
   public userProfile: any;
   public projectIds: number[] = [1, 2, 3];
   public teams: Team[];
+  public currentTeam: Team = {id: 1, teamName: 'Tiny Task'}; // MOCK DATA
   public usersOnProject: User[];
   // public usersOnTeam: User[]; Same as usersOnProject at the moment
 

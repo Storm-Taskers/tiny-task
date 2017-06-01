@@ -1,6 +1,6 @@
 <div class="header">
   <h2 class="h2-header">Current Projects
-    <button md-icon-button>
+    <button md-icon-button (click)="addNewProject()">
      <i class="material-icons">library_add</i>
     </button>
   </h2>
@@ -16,7 +16,7 @@
 <div class="container-project">
 <!--Implement ngFor to create Projects-->
   <div *ngFor="let project of projects">
-    <div *ngIf="!project.complete" [routerLink]="['/projects', project.id]" class="current-project">
+    <div *ngIf="!project.complete" (click)="showDetails()" [routerLink]="['/projects', project.id]" class="current-project">
       <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png">
       <div>
         {{ project.project_name }}

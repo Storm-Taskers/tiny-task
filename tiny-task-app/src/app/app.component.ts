@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { NavService } from './services/nav-service/nav.service';
 
@@ -8,18 +8,8 @@ import { NavService } from './services/nav-service/nav.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   title: string = 'Tiny Task';
-  currentPage: string;
 
   constructor(private navService: NavService) { }
-
-  ngOnInit() {
-    this.currentPage = this.navService.currentPage;
-  }
-
-  changeToProjectsView(): void {
-    this.navService.changeToProjectsPage();
-    this.currentPage = this.navService.currentPage;
-  }
 }
