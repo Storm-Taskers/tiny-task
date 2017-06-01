@@ -10,7 +10,10 @@
 <hr/>
 <div class="container-team-members">
 <!--Implement ngFor to create each User-->
-  <user></user>
+  <user
+    *ngFor="let user of projectUsers"
+    [user]="user">
+  </user>
 </div>
 
 <div class="header">
