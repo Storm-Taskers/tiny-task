@@ -12,8 +12,8 @@ exports.users = {
       helper.retrieveProject(req.params, (projects) => {
         userData.projects = projects;
         res.send(userData);
-      })
-    })
+      });
+    });
   },
 
 createNewUser: (req, res, seed) => {
@@ -23,7 +23,6 @@ createNewUser: (req, res, seed) => {
       return helper.addUsers(req.body, id, (err, result) => {
         if (err) {
           return res.status(500).send('server error');
-
         } else if (!isSeed) {
           res.status(200).send('user added');
           res.end();
