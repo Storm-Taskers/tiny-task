@@ -12,9 +12,9 @@ export class UserInfoComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userProfile = this.userService.userProfile;
-    // this.userService.getUserProfile(this.userToken)
-    //   .then(userProfile => { this.userProfile = userProfile; console.log(this.userProfile); } );
+    // Stub 's' for user profile
+    this.userService.getUserProfile('s')
+      .then( (userProfile) => { this.userProfile = userProfile; } );
     console.log('User Info:', this.userProfile);
   }
 
