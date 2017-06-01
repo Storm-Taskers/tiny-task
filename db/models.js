@@ -20,10 +20,12 @@ const Teams = connection.define('teams', {
 });
 
 const Team_Users = connection.define('team_users', {
+
 });
 
 Users.hasMany(Team_Users, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
 Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } });
+
 // Users.belongsToMany(Teams, { as: 'Users', through: 'Team_Users' })
 // Teams.belongsToMany(Users, { as: 'Teams', through: 'Team_Users' })
 
@@ -51,13 +53,9 @@ Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' } });
 const User_Tasks = connection.define('user_tasks', {
   stage: { type: Sequelize.STRING, allowNull: false },
 });
-<<<<<<< HEAD
+
 Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
 // Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } })
-=======
-Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' });
-Tasks.hasMany(Team_Users, { foreignKey: { name: 'task_id', targetKey: 'id' } });
->>>>>>> Add functions to helperFunctions and requestHandler
 //Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
 
 const Messages = connection.define('messages', {

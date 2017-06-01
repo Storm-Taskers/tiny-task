@@ -87,8 +87,8 @@ const seedData = [
       }
     }, {end: () => {
           console.log('finished');
-        }
-      }, true);
+      }
+    }, true);
   },
 
 //create new team
@@ -101,25 +101,51 @@ const seedData = [
   // },
 
   () => {
-    return handler.teams.createNewTeams({
-      name: 'Storm Taskers'
+    return handler.teams.createNewTeams({body: {
+      team_name: 'Storm Taskers',
+      auth_token: 'Kevin'
+      }
     }, {end: () => {
           console.log('seed team added');
-    }}, true);
+      }
+    }, true);
   },
 
   () => {
-    return handler.teams.updateTeams({
-      userid: '[Kevin, Brian, David, Beth]'
+    return handler.teams.updateTeams({body: {
+      team_id: 1,
+      auth_token: 'Brian'
+      }
     }, {end: () => {
           console.log('seed team updated');
-    }}, true);
+      }
+    }, true);
   },
 
+  () => {
+    return handler.teams.updateTeams({body: {
+      team_id: 1,
+      auth_token: 'David'
+      }
+    }, {end: () => {
+          console.log('seed team updated');
+      }
+    }, true);
+  },
+  () => {
+    return handler.teams.updateTeams({body: {
+      team_id: 1,
+      auth_token: 'Beth'
+      }
+    }, {end: () => {
+          console.log('seed team updated');
+      }
+    }, true);
+  },
 
  //create new project
   // () => {
-  //   return helpers.projects.createNewProjects({
+  //   return handler.projects.createNewProjects({
   //     project_name: chance.word(),
   //     completion: chance.word(true, false)
   //   },{end: () => {
@@ -128,17 +154,21 @@ const seedData = [
   // },
 
   () => {
-    return helpers.projects.createNewProjects({
+    return handler.projects.createNewProjects({body: {
       project_name: 'Tiny Task',
-      completion: 'In Progress'
+      complete: false,
+      user_id: 'Kevin',
+      team_id: 1
+      }
     },{end: () => {
       console.log('seed project added');
-    }}, true);
+      }
+    }, true);
   },
 
 // //create new phase
   // () => {
-  //   return helpers.phases.createNewPhases({
+  //   return handler.phases.createNewPhases({
   //     phase_name: chance.word(),
   //     phase_order: chance.natural({min: 1, max: 20}),
   //     phase_status: chance.word('not started', 'in progress', 'finished'),
@@ -148,40 +178,55 @@ const seedData = [
   //   }}, true);
   // },
 
-    () => {
-    return helpers.phases.createNewPhases({
-      phase_name: 'Phase 1',
-      phase_order: 1,
-      phase_status: 'Finished',
-      phase_color: 'blue'
-    }, {end: () => {
-      console.log('seed phase added');
-    }}, true);
-  },
-    () => {
-    return helpers.phases.createNewPhases({
-      phase_name: 'Phase 2',
-      phase_order: 2,
-      phase_status: 'In progress',
-      phase_color: 'green'
-    }, {end: () => {
-      console.log('seed phase added');
-    }}, true);
-  },
-    () => {
-    return helpers.phases.createNewPhases({
-      phase_name: 'Phase 3',
-      phase_order: 3,
-      phase_status: 'Not started',
-      phase_color: 'yellow'
-    }, {end: () => {
-      console.log('seed phase added');
-    }}, true);
-  },
+  //   () => {
+  //   return handler.phases.createNewPhases({body: {
+  //     phase_name: 'Phase 1',
+  //     phase_order: 1,
+  //     phase_status: 'Finished',
+  //     phase_color: 'blue',
+  //     project_id: 1,
+  //     user_id: 'Kevin',
+  //     team_id: 1
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed phase added');
+  //     }
+  //   }, true);
+  // },
+  //   () => {
+  //   return handler.phases.createNewPhases({body: {
+  //     phase_name: 'Phase 2',
+  //     phase_order: 2,
+  //     phase_status: 'In progress',
+  //     phase_color: 'green',
+  //     project_id: 1,
+  //     user_id: 'Kevin',
+  //     team_id: 1
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed phase added');
+  //     }
+  //   }, true);
+  // },
+  //   () => {
+  //   return handler.phases.createNewPhases({body: {
+  //     phase_name: 'Phase 3',
+  //     phase_order: 3,
+  //     phase_status: 'Not started',
+  //     phase_color: 'yellow',
+  //     project_id: 1,
+  //     user_id: 'Kevin',
+  //     team_id: 1
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed phase added');
+  //     }
+  //   }, true);
+  // },
 
 //create new task
   // () => {
-  //   return helpers.tasks.createNewTasks({
+  //   return handler.tasks.createNewTasks({
   //     task_name: chance.word(),
   //     task_status: chance.word('not started', 'in progress', 'finished')
   //   }, {end: () => {
@@ -189,70 +234,82 @@ const seedData = [
   //   }}, true);
   // }
 
-  () => {
-    return helpers.tasks.createNewTasks({
-      phase_id: 1,
-      task_name: 'Create back-end',
-      task_status: 'Finished'
-    }, {end: () => {
-      console.log('seed task created');
-    }}, true);
-  },
+  // () => {
+  //   return handler.tasks.createNewTasks({body: {
+  //     task_name: 'Create back-end',
+  //     task_status: 'Finished',
+  //     phase_id: 1
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed task created');
+  //     }
+  //   }, true);
+  // },
 
-  () => {
-    return helpers.tasks.createNewTasks({
-      phase_id: 1,
-      task_name: 'Create front-end',
-      task_status: 'Finished'
-    }, {end: () => {
-      console.log('seed task created');
-    }}, true);
-  },
+  // () => {
+  //   return handler.tasks.createNewTasks({body: {
+  //     task_name: 'Create front-end',
+  //     task_status: 'Finished',
+  //     phase_id: 1
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed task created');
+  //     }
+  //   }, true);
+  // },
 
-  () => {
-    return helpers.tasks.createNewTasks({
-      phase_id: 2,
-      task_name: 'Write more Tests',
-      task_status: 'In progress'
-    }, {end: () => {
-      console.log('seed task created');
-    }}, true);
-  },
+  // () => {
+  //   return handler.tasks.createNewTasks({body: {
+  //     task_name: 'Write more Tests',
+  //     task_status: 'In progress',
+  //     phase_id: 2
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed task created');
+  //     }
+  //   }, true);
+  // },
 
-  () => {
-    return helpers.tasks.createNewTasks({
-      phase_id: 2,
-      task_name: 'Write more functions',
-      task_status: 'In progress'
-    }, {end: () => {
-      console.log('seed task created');
-    }}, true);
-  },
+  // () => {
+  //   return handler.tasks.createNewTasks({body: {
+  //     task_name: 'Write more functions',
+  //     task_status: 'In progress',
+  //     phase_id: 2
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed task created');
+  //     }
+  //   }, true);
+  // },
 
-  () => {
-    return helpers.tasks.createNewTasks({
-      phase_id: 3,
-      task_name: 'Finish app',
-      task_status: 'Not started'
-    }, {end: () => {
-      console.log('seed task created');
-    }}, true);
-  },
+  // () => {
+  //   return handler.tasks.createNewTasks({body: {
+  //     task_name: 'Finish app',
+  //     task_status: 'Not started',
+  //     phase_id: 3
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed task created');
+  //     }
+  //   }, true);
+  // },
 
-  () => {
-    return helpers.tasks.createNewTasks({
-      phase_id: 3,
-      task_name: 'Make it pretty',
-      task_status: 'Not started'
-    }, {end: () => {
-      console.log('seed task created');
-    }}, true);
-  }
+  // () => {
+  //   return handler.tasks.createNewTasks({body: {
+  //     task_name: 'Make it pretty',
+  //     task_status: 'Not started',
+  //     phase_id: 3
+  //     }
+  //   }, {end: () => {
+  //     console.log('seed task created');
+  //     }
+  //   }, true);
+  // }
 ];
 
 const seed = () => {
-  seedData.forEach((func) => {
-    func();
+  seedData.forEach((func, index) => {
+    setTimeout(func, 1000 * index);
   });
 };
 
