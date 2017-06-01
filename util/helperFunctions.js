@@ -110,6 +110,17 @@ exports.retrievePhases = (params, callback) => {
   });
 }
 
+exports.retrieveTasksByPhaseId = (params, callback) => {
+  return models.tasks.findAll({
+    where: {
+      phase_id: params.phase_id
+    }
+  }).then((phases) => {
+    callback(phases);
+  });
+}
+
+
 exports.retrieveProject = (params, callback) => {
   models.Users.findOne({
     where: {

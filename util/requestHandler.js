@@ -149,6 +149,14 @@ exports.tasks = {
         }
       })
     })
+  },
+  retrieveTasksByUserId: (req, res) => {
+
+  },
+  retrieveTasksByPhaseId: (req, res) => {
+    helper.retrieveTasksByPhaseId(req.params, (tasks) => {
+      res.send(tasks);
+    })
   }
 };
 
