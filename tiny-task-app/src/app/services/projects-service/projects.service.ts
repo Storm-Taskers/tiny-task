@@ -10,7 +10,7 @@ export class ProjectsService {
   private headers = new Headers({'Content-type': 'application/JSON'});
   private baseUrl: string = 'http://localhost:4200';
 
-  // Mock Data
+  // MOCK DATA
   public projects: Project[] = [
     {
       id: 1,
@@ -35,7 +35,8 @@ export class ProjectsService {
     }
   ];
 
-   public phases: Phase[] = [
+  // MOCK DATA
+  public phases: Phase[] = [
     {
       id: 1,
       project_id: 1,
@@ -52,7 +53,10 @@ export class ProjectsService {
       phase_order: 2,
       phase_status: 'Not Started'
     }
-  ]
+  ];
+
+  public test: Phase[] = [
+  ];
 
   constructor(private http: Http) { }
 
@@ -72,7 +76,7 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-  // Test
+  // MOCK DATA
   getThePhases(): Promise<Phase[]> {
     return Promise.resolve(this.phases)
   }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Phase } from './Phase';
+import { Task } from '../Task';
 
 @Component({
   selector: 'app-phases',
@@ -9,7 +10,8 @@ import { Phase } from './Phase';
 })
 
 export class PhasesComponent implements OnInit {
-  phase: Phase;
+  @Input() phase: Phase;
+  phaseTasks: Task[];
 
   constructor() { }
 
