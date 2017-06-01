@@ -28,6 +28,6 @@ export class ProjectDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params
       .switchMap((params: Params) => this.projectsService.getPhases(+params['id']))
-      .subscribe(phases => this.projectPhases);
+      .subscribe(phases => this.projectPhases = phases);
   }
 }
