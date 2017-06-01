@@ -23,7 +23,7 @@ header {
 
 .user-info {
   display: flex;
-  background-color: hsl(336, 66%, 50%);
+  background-color: hsla(341, 59%, 48%, 1);
   grid-area: profile;
   flex-direction: column;
   align-items: center;

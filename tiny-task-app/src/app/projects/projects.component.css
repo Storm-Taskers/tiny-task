@@ -33,7 +33,7 @@ hr {
 .current-project {
   color: white;
   width: 280px;
-  background-color: hsl(336, 66%, 50%);;
+  background-color: hsla(341, 59%, 48%, 1);
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   padding: 7px;

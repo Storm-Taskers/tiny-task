@@ -16,21 +16,21 @@ export class ProjectsService {
       id: 1,
       user_id: 't1',
       team_id: 1,
-      project_name: 'Project 1',
+      project_name: 'Tiny Task',
       complete: false
     },
     {
       id: 2,
       user_id: 't2',
       team_id: 2,
-      project_name: 'Project 2',
+      project_name: 'Make Millions',
       complete: false
     },
     {
       id: 3,
       user_id: 't3',
       team_id: 3,
-      project_name: 'Project 3',
+      project_name: 'NOTED',
       complete: true
     }
   ];

@@ -1,7 +1,7 @@
 .current-phases {
   color: white;
-  width: auto;
-  background-color: hsla(348, 82%, 44%, 1);
+  min-width: 200px;
+  background-color: hsla(2, 81%, 65%, 1);
   border-radius: 6px;
   padding: 7px;
   margin: 5px;
