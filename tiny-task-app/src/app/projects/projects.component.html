@@ -1,15 +1,23 @@
-<h2>Current Projects</h2>
-<button md-button>
- <i class="material-icons">library_add</i>
-</button>
+<div class="header">
+  <h2 class="h2-header">Current Projects  
+    <button md-icon-button>
+     <i class="material-icons">library_add</i>
+    </button>
+  </h2>
+  <!--Render Dropdown Menu-->
+  <md-select floatPlaceholder="never">
+    <md-option [value]="1">--Select a Team--</md-option>
+    <md-option [value]="2">--All--</md-option>
+    <md-option [value]="3">Tiny Task</md-option>
+  </md-select>
+</div>
 <hr/>
 <div class="container-project">
 <!--Implement ngFor to create Projects-->
-  <div class="current-project">
-    <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png">
+  <div class="current-project" >
+    <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" [routerLink]="['/projects', 1]">
     <div>
       Title of Project
-      <button>edit</button>
     </div>
   </div>
 </div>
