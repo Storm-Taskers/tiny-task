@@ -70,7 +70,6 @@ export class UserService {
   }
 
   getUsersOnProject(projectId: number): Promise<User[]> {
-    console.log(this.usersOnProject);
     return this.testGetUsers()
       .then(users => users);
     // return this.http.get(`${this.baseUrl}/api/projects/${projectId}/users`)
@@ -96,16 +95,19 @@ export class UserService {
   }
 
   addUserToProject(projectId: number, userId: string): Promise<User> {
-    // return this.testUserAdd()
-    //         .then(user => user);
-    return this.http.post(
-            `${this.baseUrl}/api/projects/${projectId}/users`,
-            JSON.stringify({projectId: projectId, userId: userId}))
-            .toPromise()
-            .then( (response) => {
-              this.usersOnProject.push(response.json());
-              return response.json();
-            })
-            .catch(this.handleError);
+    return this.testUserAdd()
+            .then(user => {
+              this.usersOnProject.push(user);
+              return user;
+            });
+    // return this.http.post(
+    //         `${this.baseUrl}/api/projects/${projectId}/users`,
+    //         JSON.stringify({projectId: projectId, userId: userId}))
+    //         .toPromise()
+    //         .then( (response) => {
+    //           this.usersOnProject.push(response.json());
+    //           return response.json();
+    //         })
+    //         .catch(this.handleError);
   }
 }

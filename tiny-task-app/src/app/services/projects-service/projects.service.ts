@@ -125,13 +125,16 @@ export class ProjectsService {
 
   createProject(teamId: number, userId: string): Promise<Project> {
     return this.testCreateProject()
-            .then(project => project);
+            .then(project => {
+               this.projects.push(project);
+               return project;
+             });
     // return this.http.post(
     //         `${this.baseUrl}/api/project`,
     //         JSON.stringify({user_id: userId, team_id: teamId}))
     //         .toPromise()
     //         .then( (response) => {
-    //           // this.projects.push(???)
+    //           // this.projects.push(response.json());
     //           return response.json();
     //         })
     //         .catch(this.handleError);
@@ -152,12 +155,16 @@ export class ProjectsService {
 
   createPhase(projectId: number): Promise<Phase> {
     return this.testPhaseProject()
-            .then(phase => phase);
+            .then(phase => {
+              this.phases.push(phase);
+              return phase;
+            });
     // return this.http.post(
     //         `${this.baseUrl}/api/project/${projectId}`,
     //         JSON.stringify({projectId: projectId, phaseName: "Phase"}))
     //         .toPromise()
     //         .then( (response) => {
+    //           this.phases.push(response.json());
     //           return response.json();
     //         })
     //         .catch(this.handleError);

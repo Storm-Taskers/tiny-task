@@ -11,7 +11,7 @@
 <div class="container-team-members">
 <!--Implement ngFor to create each User-->
   <user
-    *ngFor="let user of projectUsers"
+    *ngFor="let user of userService.usersOnProject"
     [user]="user">
   </user>
 </div>
@@ -29,7 +29,7 @@
 <div class="container-phases">
 <!--Implement ngFor to create Phases-->
   <phases
-    *ngFor="let phase of projectPhases"
+    *ngFor="let phase of projectsService.phases"
     [phase]="phase">
   </phases>
 </div>

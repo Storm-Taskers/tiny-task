@@ -5,8 +5,6 @@ import { UserService } from '../services/user-service/user.service';
 import { TeamService } from '../services/team-service/team.service';
 import { NavService } from '../services/nav-service/nav.service';
 
-import { Project } from './Project';
-
 @Component({
   selector: 'projects',
   templateUrl: './projects.component.html',
@@ -14,10 +12,7 @@ import { Project } from './Project';
 })
 
 export class ProjectsComponent implements OnInit {
-  projects: Project[];
-  currentProject: Project;
-  editableText: string = 'myText';
-  
+
   constructor(
     private projectsService: ProjectsService,
     private userService: UserService,
@@ -29,9 +24,6 @@ export class ProjectsComponent implements OnInit {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
 
-
-
-    this.projects = this.projectsService.projects;
     // this.userService.projectIds.forEach((projectId) => {
     //   this.projectsService.getProject(projectId)
     //     .then((project) => {
@@ -48,11 +40,11 @@ export class ProjectsComponent implements OnInit {
     let teamId: number = this.userService.currentTeam.id;
     let userId: string = this.userService.userId;
     this.projectsService.createProject(teamId, userId)
-      .then(project => this.projects.push(project));
+      .then();
   }
 
-  saveEditable(projectId: number, value: string): void {
-    //call to http service
-    console.log('http.service: ', projectId, value);
+  editProjectName(projectId: number, newName: string): void {
+    this.projectsService.editProjectName(projectId, newName)
+      .then();
   }
 }

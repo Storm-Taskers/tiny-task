@@ -8,9 +8,6 @@ import { UserService } from '../../services/user-service/user.service';
 import { NavService } from '../../services/nav-service/nav.service';
 import { TeamService } from '../../services/team-service/team.service';
 
-import { Phase } from './phases/Phase';
-import { User } from './project-user/User';
-
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
@@ -19,8 +16,6 @@ import { User } from './project-user/User';
 
 export class ProjectDetailsComponent implements OnInit {
   currentProjectId: number;
-  projectPhases: Phase[];
-  projectUsers: User[];
 
   constructor(
     private projectsService: ProjectsService,
@@ -43,26 +38,23 @@ export class ProjectDetailsComponent implements OnInit {
     this.route.params.subscribe(params => this.currentProjectId = +params['id']);
 
     // Get Project Phases
-    this.route.params
-      .switchMap((params: Params) => this.projectsService.getPhases(+params['id']))
-      .subscribe(phases => this.projectPhases = phases);
+    this.route.params.subscribe(params => this.projectsService.getPhases(+params['id'])
+        .then()
+    );
 
     // Get Users on Project
-    this.route.params
-      .switchMap((params: Params) => this.userService.getUsersOnProject(+params['id']))
-      .subscribe(users => this.projectUsers = users);
-
+    this.route.params.subscribe(params => this.userService.getUsersOnProject(+params['id'])
+        .then()
+    );
   }
 
   addNewProjectUser(): void {
     this.userService.addUserToProject(this.currentProjectId, '3') // Mock User ID
-      .then(user => this.projectUsers.push(user));
+      .then();
   }
 
   addNewPhase(): void {
     this.projectsService.createPhase(this.currentProjectId)
-      .then(phase => this.projectPhases.push(phase));
+      .then();
   }
-
-
 }
