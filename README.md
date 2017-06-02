@@ -25,10 +25,10 @@ Request Example:
 }
 ```
 
-Return Example:
+Response Example:
 ```JSON
 {
-  user_profile: {
+  "user_profile": {
     "full_name": "Kevin Nguyen",
     "email": "kev_win@gmail.com",
     "user_availability": "true",
@@ -53,7 +53,7 @@ Request Example:
 }
 ```
 
-Return Example:
+Response Example:
 ```JSON
 {
   "something": "Hello"
@@ -71,7 +71,7 @@ Request Example:
 }
 ```
 
-Return Example:
+Response Example:
   {}
 
 * ### `DELETE /api/users`
@@ -84,7 +84,7 @@ Request Example:
 }
 ```
 
-Return Example:
+Response Example:
   "Deleted User"
 
 ### Project
@@ -98,17 +98,17 @@ Request Example:
 }
 ```
 
-Return Example:
+Response Example:
 ```JSON
 {
-  project_info: {
+  "project_info": {
     "id": "1",
     "user_id": "google-auth0-2903",
     "team_id": "1",
     "project_name": "Tremendous Task",
-    "complete": "false"
+    "complete": false
   },
-  team_info: { 
+  "team_info": { 
     "id": "1",
     "team_name": "Storm Taskers"
   },
@@ -136,7 +136,7 @@ Request Example:
 }
 ```
 
-Return Example:
+Response Example:
 ```JSON
 {
   "project_info":{
@@ -151,7 +151,8 @@ Return Example:
     "team_name": "Storm Taskers"
   },
   "users_on_project": [
-    "1": {
+    {
+      "id": "1",
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": "true",
@@ -178,7 +179,7 @@ Request Example:
   }
 ```
 
-Return Example:
+Response Example:
 ```JSON
 {
   "project_info": {
@@ -213,7 +214,7 @@ Request Example:
 }
 ```
 
-Return Example:
+Response Example:
 e.g. `Delete Successful`
 
 
