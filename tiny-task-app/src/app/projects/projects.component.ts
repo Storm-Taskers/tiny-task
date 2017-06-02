@@ -12,7 +12,6 @@ import { NavService } from '../services/nav-service/nav.service';
 })
 
 export class ProjectsComponent implements OnInit {
-
   constructor(
     private projectsService: ProjectsService,
     private userService: UserService,
