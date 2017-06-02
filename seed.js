@@ -116,7 +116,6 @@ const seedData = [
   () => {
     return handler.projects.createNewProjects({body: {
       project_name: 'Tiny Task',
-      complete: false,
       auth_token: 'Kevin',
       team_id: 1
       }

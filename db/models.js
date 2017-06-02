@@ -54,7 +54,7 @@ const User_Tasks = connection.define('user_tasks', {
   stage: { type: Sequelize.STRING, allowNull: false },
 });
 
-Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
+Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' });
 // Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } })
 //Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
 
@@ -84,7 +84,6 @@ Users.hasMany(Team_Colors, { foreignKey: { name: 'user_id', targetKey: 'auth_tok
 Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 connection.sync({
-  force: true
 }).then(() => {
 }).catch((error) => {
   console.log(error);
