@@ -48,8 +48,8 @@ Request Example:
   "auth_token": "google-auth0-2903",
   "full_name": "Kevin Nguyen",
   "Email": "kevinn@tinytask.com",
-  "User_status": "slacking off",
-  "User_availability: false
+  "user_status": "slacking off",
+  "user_availability: false
 }
 ```
 
