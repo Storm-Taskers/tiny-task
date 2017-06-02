@@ -51,7 +51,7 @@ exports.addTeam = (body, callback) => {
 exports.addTeamUser = (body, team_id, callback) => {
   models.Team_Users.create({
     team_id: team_id,
-    userAuthToken: body.auth_token
+    user_id: body.auth_token
   }).then((result) => {
     callback(null, result);
   }).catch((err) => {

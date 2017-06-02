@@ -62,12 +62,10 @@ exports.users = {
 
 exports.teams = {
   createNewTeams: (req, res, isSeed) => {
-    //let isSeed = seed || false;
     helper.addTeam(req.body, (team) => {
       const team_id = team.id;
       helper.addTeamUser(req.body, team_id, (err, result) => {
         if (err) {
-          console.error(err, '****err****');
           return res.status(500).send('server error');
         } else if (!isSeed) {
           res.status(200).send('team added');
@@ -90,8 +88,7 @@ exports.teams = {
   //     });
   // },
 
-  updateTeams: (req, res, seed) => {
-    let isSeed = seed || false;
+  updateTeams: (req, res, isSeed) => {
     helper.addTeamUser(req.body, req.body.team_id, (err, result) => {
         if (err) {
           return res.status(500).send('server error');
@@ -117,8 +114,7 @@ exports.teams = {
 };
 
 exports.projects = {
-  createNewProjects: (req, res, seed) => {
-    let isSeed = seed || false;
+  createNewProjects: (req, res, isSeed) => {
     helper.addProject(req.body, (err, result) => {
       if (err) {
           return res.status(500).send('server error');
@@ -145,8 +141,7 @@ exports.phases = {
     });
   },
 
-  createNewPhases: (req, res, seed) => {
-    let isSeed = seed || false;
+  createNewPhases: (req, res, isSeed) => {
     helper.addPhases(req.body, (err, result) => {
       if (err) {
           return res.status(500).send('server error');
