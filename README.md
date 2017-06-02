@@ -34,7 +34,7 @@ Return Example:
     "user_availability": "true",
     "User_status": "Working"
   },
-  project_ids: [1, 2, 3, 4]
+  "project_ids": [1, 2, 3, 4]
 }
 ```
 
@@ -56,7 +56,7 @@ Request Example:
 Return Example:
 ```JSON
 {
-  something: "Hello"
+  "something": "Hello"
 }
 ```
 
@@ -113,7 +113,8 @@ Return Example:
     "team_name": "Storm Taskers"
   },
   "users_on_project": [
-    "1": {
+    {
+      "id": 1,
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": "true",
@@ -213,7 +214,7 @@ Request Example:
 ```
 
 Return Example:
-e.g. "Delete Successful"
+e.g. `Delete Successful`
 
 
 
