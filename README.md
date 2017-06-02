@@ -53,8 +53,13 @@ Request Example:
   "user_availability: "false"
 =======
   "Email": "kevinn@tinytask.com",
+<<<<<<< 53a85b009ff5839c0e7f413c56729fa7f31f71a9
   "User_status": "slacking off",
   "User_availability: false
+>>>>>>> Fix syntax error
+=======
+  "user_status": "slacking off",
+  "user_availability: false
 >>>>>>> Fix syntax error
 }
 ```
