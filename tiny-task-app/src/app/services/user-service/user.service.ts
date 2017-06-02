@@ -63,22 +63,13 @@ export class UserService {
             .catch(this.handleError);
   }
 
-
-  // MOCK DATA
-  testGetUsers(): Promise<User[]> {
-    return Promise.resolve(this.usersOnProject);
-  }
-
-  getUsersOnProject(projectId: number): Promise<User[]> {
-    return this.testGetUsers()
-      .then(users => users);
-    // return this.http.get(`${this.baseUrl}/api/projects/${projectId}/users`)
-    //         .toPromise()
-    //         .then( (response) => {
-    //           this.usersOnProject = response.json();
-    //           return response.json();
-    //         })
-    //         .catch(this.handleError);
+  getUsersOnProject(projectId: number): void {
+    // this.http.get(`${this.baseUrl}/api/projects/${projectId}/users`)
+    //   .toPromise()
+    //   .then( (response) => {
+    //     this.usersOnProject = response.json();
+    //   })
+    //   .catch(this.handleError);
   }
 
 
@@ -90,24 +81,16 @@ export class UserService {
                             user_availability: 'Available',
                             user_status: 'Working too hard'
                           }
-  testUserAdd(): Promise<User> {
-    return Promise.resolve(this.testUser);
-  }
 
-  addUserToProject(projectId: number, userId: string): Promise<User> {
-    return this.testUserAdd()
-            .then(user => {
-              this.usersOnProject.push(user);
-              return user;
-            });
-    // return this.http.post(
-    //         `${this.baseUrl}/api/projects/${projectId}/users`,
-    //         JSON.stringify({projectId: projectId, userId: userId}))
-    //         .toPromise()
-    //         .then( (response) => {
-    //           this.usersOnProject.push(response.json());
-    //           return response.json();
-    //         })
-    //         .catch(this.handleError);
+  addUserToProject(projectId: number, userId: string): void {
+    this.usersOnProject.push(this.testUser);
+    // this.http.post(
+    //   `${this.baseUrl}/api/projects/${projectId}/users`,
+    //   JSON.stringify({projectId: projectId, userId: userId}))
+    //   .toPromise()
+    //   .then( (response) => {
+    //     this.usersOnProject.push(response.json());
+    //   })
+    //   .catch(this.handleError);
   }
 }
