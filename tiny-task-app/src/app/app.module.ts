@@ -26,6 +26,7 @@ import { UserDetailsComponent } from './projects/project-details/project-user/us
 
 // Import Materials
 import { MaterialModule } from './material-modules/material.module';
+import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { MaterialModule } from './material-modules/material.module';
     FormsModule,
     HttpModule,
     AppRouterModule,
-    MaterialModule
+    MaterialModule,
+    InlineEditorModule
   ],
   providers: [UserService, ProjectsService, NavService, TeamService],
   bootstrap: [AppComponent]

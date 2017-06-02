@@ -15,7 +15,8 @@ import { Project } from './Project';
 export class ProjectsComponent implements OnInit {
   projects: Project[];
   currentProject: Project;
-
+  editableText: string = 'myText';
+  
   constructor(
     private projectsService: ProjectsService,
     private userService: UserService,
@@ -45,5 +46,10 @@ export class ProjectsComponent implements OnInit {
     let userId: string = this.userService.userId;
     this.projectsService.createProject(teamId, userId)
       .then(project => this.projects.push(project));
+  }
+
+  saveEditable(value: string): void {
+    //call to http service
+    console.log('http.service: ' + value);
   }
 }
