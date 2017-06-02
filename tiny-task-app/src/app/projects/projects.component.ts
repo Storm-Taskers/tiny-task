@@ -39,12 +39,10 @@ export class ProjectsComponent implements OnInit {
   addNewProject(): void {
     let teamId: number = this.userService.currentTeam.id;
     let userId: string = this.userService.userId;
-    this.projectsService.createProject(teamId, userId)
-      .then();
+    this.projectsService.createProject(teamId, userId);
   }
 
   editProjectName(projectId: number, newName: string): void {
-    this.projectsService.editProjectName(projectId, newName)
-      .then();
+    this.projectsService.editProjectName(projectId, newName);
   }
 }
