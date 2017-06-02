@@ -117,7 +117,7 @@ const seedData = [
     return handler.projects.createNewProjects({body: {
       project_name: 'Tiny Task',
       complete: false,
-      user_id: 'Kevin',
+      auth_token: 'Kevin',
       team_id: 1
       }
     },{end: () => {
@@ -133,7 +133,7 @@ const seedData = [
       phase_status: 'Finished',
       phase_color: 'blue',
       project_id: 1,
-      user_id: 'Kevin',
+      auth_token: 'Kevin',
       team_id: 1
       }
     }, {end: () => {
@@ -148,7 +148,7 @@ const seedData = [
       phase_status: 'In progress',
       phase_color: 'green',
       project_id: 1,
-      user_id: 'Kevin',
+      auth_token: 'Kevin',
       team_id: 1
       }
     }, {end: () => {
@@ -163,7 +163,7 @@ const seedData = [
       phase_status: 'Not started',
       phase_color: 'yellow',
       project_id: 1,
-      user_id: 'Kevin',
+      auth_token: 'Kevin',
       team_id: 1
       }
     }, {end: () => {
