@@ -2,82 +2,43 @@
  * for these tests to pass. */
 
 
-const mysql = require('mysql');
+const chaiHttp = require('chai-http');
 const request = require('request');
 const expect = require('chai').expect;
+const app = require('.serverConfig.js');
+const db = require('/.db/models.js');
 
-describe('User Table', () => {
-  let connection;
+let connection;
 
-  beforeEach((done) => {
+describe('Users', function () {
+
+
+
+  beforeEach(function (done) {
     connection = mysql.createConnection({
       user: 'root',
       password: '',
       database: 'tiny_task'
     });
-    connection.connect();
-
-    let tablename = 'users';
-
-    //empty database before inserting
-    connection.query('truncate ' + tablename, done);
   });
 
-  afterEach(() => {
+    afterEach(() => {
     connection.end();
   });
-
-  it('Should insert new users to the DB', (done) => {
-    request({
-      method: 'POST',
-      uri: 'http://127.0.0.1:8080/api/users',
-      json: { auth_token: 'temp' }
-    }, () => {
-      let queryString = 'SELECT * FROM users';
-      let queryArgs = [];
-      connection.query(queryString, queryArgs, (err, results) => {
-        if (err) { throw err; }
-        expect(results.length).to.equal(1);
-        done();
-      });
-    });
-  });
-});
-//----------------------------------------------------------------------------------------------------------
-describe('User Profile Table', function () {
-  let connection;
-
-
-  beforeEach(function (done) {
-
-    connection.sync({
-      force: true
-    }).then(function () {
-      done();
-    });
-  });
-
-  connection.authenticate()
-    .then(function () {
-      console.log('connection has been established successfully');
-    })
-    .catch(function (err) {
-      console.log('Unable to connect to DB', err);
-    });
 
   it('Should insert new users to the DB', function (done) {
     request({
       method: 'POST',
       uri: 'http://127.0.0.1:8080/api/users',
       json: {
+        auth_token: 'test',
         full_name: 'John Smith',
         email: 'johnsmith@gmail.com',
         user_status: null,
         user_availability: true
       }
     }).end((function (err, res) {
-      console.log(res, res);
-      console.log(err, 'err');
+        if(err) { throw err; }
         expect(res.body.length).to.equal(1);
         expect(res.body[0].full_name).to.equal('John Smith');
         done();

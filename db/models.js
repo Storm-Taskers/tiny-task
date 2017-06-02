@@ -16,14 +16,16 @@ const User_Profile = connection.define('user_profile', {
 Users.belongsTo(User_Profile, { foreignKey: { name: 'user_profile_id', targetKey: 'id', allowNull: false, unique: true } });
 
 const Teams = connection.define('teams', {
-  team_name: { type: Sequelize.STRING, allowNull: false }
+  team_name: { type: Sequelize.STRING, allowNull: true }
 });
 
 const Team_Users = connection.define('team_users', {
+
 });
 
-Users.hasMany(Team_Users, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
-Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } })
+Users.hasMany(Team_Users, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
+Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } });
+
 // Users.belongsToMany(Teams, { as: 'Users', through: 'Team_Users' })
 // Teams.belongsToMany(Users, { as: 'Teams', through: 'Team_Users' })
 
@@ -31,7 +33,7 @@ const Projects = connection.define('projects', {
   project_name: { type: Sequelize.STRING, allowNull: false },
   complete: { type: Sequelize.BOOLEAN, default: false }
 })
-Projects.belongsTo(Users, { foreignKey: { name: 'user_id', target: 'auth_token' } })
+Projects.belongsTo(Users, { foreignKey: { name: 'user_id', target: 'auth_token' } });
 Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 const Phases = connection.define('phases', {
@@ -51,6 +53,7 @@ Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' } });
 const User_Tasks = connection.define('user_tasks', {
   stage: { type: Sequelize.STRING, allowNull: false },
 });
+
 Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
 // Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } })
 //Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
@@ -58,30 +61,30 @@ Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' })
 const Messages = connection.define('messages', {
   message: { type: Sequelize.TEXT }
 });
-Users.hasMany(Messages, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
-Teams.hasMany(Messages, { foreignKey: { name: 'team_id', targetKey: 'id' } })
+Users.hasMany(Messages, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
+Teams.hasMany(Messages, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 const Announcements = connection.define('announcements', {
   announcement: { type: Sequelize.STRING, allowNull: false },
 });
-Users.hasMany(Announcements, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
-Teams.hasMany(Announcements, { foreignKey: { name: 'team_id', targetKey: 'id' } })
+Users.hasMany(Announcements, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
+Teams.hasMany(Announcements, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 const Shared_Resources = connection.define('shared_resources', {
   resource: { type: Sequelize.STRING, allowNull: false },
   type: { type: Sequelize.STRING, allowNull: false }
 });
-Users.hasMany(Shared_Resources, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
-Teams.hasMany(Shared_Resources, { foreignKey: { name: 'team_id', targetKey: 'id' } })
+Users.hasMany(Shared_Resources, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
+Teams.hasMany(Shared_Resources, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 const Team_Colors = connection.define('team_colors', {
   color: { type: Sequelize.STRING, allowNull: false },
 });
-Users.hasMany(Team_Colors, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
-Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } })
+Users.hasMany(Team_Colors, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
+Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
 connection.sync({
-  //force: true
+  force: true
 }).then(() => {
 }).catch((error) => {
   console.log(error);
