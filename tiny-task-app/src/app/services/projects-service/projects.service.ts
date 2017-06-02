@@ -203,10 +203,10 @@ export class ProjectsService {
   // Delete Information
   deleteProject(projectId: number): Promise<void> {
     return this.http.delete(
-      `${this.baseUrl}/api/project/${projectId}`, 
+      `${this.baseUrl}/api/project/${projectId}`,
       {headers: this.headers})
       .toPromise()
       .then(() => null)
-      .catch(this.handleError);  
+      .catch(this.handleError);
   }
 }
