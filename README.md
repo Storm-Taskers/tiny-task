@@ -94,7 +94,7 @@ Retrieve a project
 Request Example:
 ```JSON
 {
-  "projectId": "1"
+  "projectId": 1
 }
 ```
 
@@ -102,14 +102,14 @@ Response Example:
 ```JSON
 {
   "project_info": {
-    "id": "1",
+    "id": 1,
     "user_id": "google-auth0-2903",
-    "team_id": "1",
+    "team_id": 1,
     "project_name": "Tremendous Task",
     "complete": false
   },
   "team_info": { 
-    "id": "1",
+    "id": 1,
     "team_name": "Storm Taskers"
   },
   "users_on_project": [
@@ -140,19 +140,19 @@ Response Example:
 ```JSON
 {
   "project_info":{
-    "id": "1",
+    "id": 1,
     "user_id": "google-auth0-2903",
-    "team_id": "1",
+    "team_id": 1,
     "project_name": "Tremendous Task",
     "complete": "false"
   },
   "team_info": { 
-    "id": "1",
+    "id": 1,
     "team_name": "Storm Taskers"
   },
   "users_on_project": [
     {
-      "id": "1",
+      "id": 1,
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": "true",
@@ -172,7 +172,7 @@ Properties you can update:
 Request Example:
 ```JSON
   {
-    "projectId": "1",
+    "projectId": 1,
     "projectChanges": {
       "projectName": "Tremendous Task"
     }
@@ -183,7 +183,7 @@ Response Example:
 ```JSON
 {
   "project_info": {
-    "id": "1",
+    "id": 1,
     "user_id": "google-auth0-2903",
     "team_id": "1",
     "project_name": "Tremendous Task",
@@ -194,7 +194,8 @@ Response Example:
     "team_name": "Storm Taskers"
   },
   "users_on_project": [
-    "1": {
+    {
+      "id": 1,
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": "true",
@@ -215,7 +216,7 @@ Request Example:
 ```
 
 Response Example:
-e.g. `Delete Successful`
+e.g. `"Delete Successful"`
 
 
 
