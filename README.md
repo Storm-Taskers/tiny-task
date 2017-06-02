@@ -88,7 +88,7 @@ Response Example:
   "Deleted User"
 
 ### Project
-* ### `GET /api/project/:project_id`
+* ### `GET /api/projects/:project_id`
 Retrieve a project
 
 Request Example:
@@ -118,13 +118,13 @@ Response Example:
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": "true",
-      "User_status": "Working"
+      "user_status": "Working"
     }
   ]
 }
 ```
 
-* ### `POST /api/project/:project_id`
+* ### `POST /api/projects/:project_id`
 Create a project
 
 Request Example:
@@ -156,13 +156,13 @@ Response Example:
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": "true",
-      "User_status": "Working"
+      "user_status": "Working"
     }
   ]
 }
 ```
 
-* ### `PUT /api/project/:project_id`
+* ### `PUT /api/projects/:project_id`
 Update Project Info
 
 Properties you can update:
@@ -199,13 +199,13 @@ Response Example:
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": "true",
-      "User_status": "Working"
+      "user_status": "Working"
     }
   ]
 }
 ```
 
-* ### `DELETE /api/project/:project_id`
+* ### `DELETE /api/projects/:project_id`
 Gets Project Info
  
 Request Example:
