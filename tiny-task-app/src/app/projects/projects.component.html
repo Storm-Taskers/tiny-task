@@ -21,7 +21,7 @@
       <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
       <div>
         <div>
-        <inline-editor type="text" [(ngModel)]="editableText" (onSave)="saveEditable($event)" name="projectText" size="12"  min="1"> {{ project.project_name }}</inline-editor>
+          <inline-editor type="text" [(ngModel)]="editableText" (onSave)="saveEditable($event)" name="projectText" size="12"  min="1"> {{ project.project_name }}</inline-editor>
         </div>
       </div>
     </div>
