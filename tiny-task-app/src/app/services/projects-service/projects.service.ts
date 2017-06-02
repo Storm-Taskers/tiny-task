@@ -73,22 +73,13 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-  // MOCK DATA
-  getThePhases(): Promise<Phase[]> {
-    return Promise.resolve(this.phases)
-  }
-
-  getPhases(projectId: number): Promise<Phase[]> {
-    return this.getThePhases()
-            .then((phases) => {
-              return phases;
-            });
+  getPhases(projectId: number): void {
     // this.http.get(`${this.baseUrl}/api/phases/${projectId}`)
-    //         .toPromise()
-    //         .then((response) => {
-    //           return response.json();
-    //         })
-    //         .catch(this.handleError);
+    //   .toPromise()
+    //   .then((response) => {
+    //     this.phases = response.json();
+    //   })
+    //   .catch(this.handleError);
   }
 
   getPhaseTasks(phaseId: number): Promise<Task[]> {
@@ -119,25 +110,17 @@ export class ProjectsService {
                                   project_name: 'New Project',
                                   complete: false
                                 }
-  testCreateProject(): Promise<Project> {
-    return Promise.resolve(this.testProject);
-  }
 
-  createProject(teamId: number, userId: string): Promise<Project> {
-    return this.testCreateProject()
-            .then(project => {
-               this.projects.push(project);
-               return project;
-             });
-    // return this.http.post(
-    //         `${this.baseUrl}/api/project`,
-    //         JSON.stringify({user_id: userId, team_id: teamId}))
-    //         .toPromise()
-    //         .then( (response) => {
-    //           // this.projects.push(response.json());
-    //           return response.json();
-    //         })
-    //         .catch(this.handleError);
+  createProject(teamId: number, userId: string): void {
+    this.projects.push(this.testProject);
+  //   this.http.post(
+  //     `${this.baseUrl}/api/project`,
+  //     JSON.stringify({user_id: userId, team_id: teamId}))
+  //     .toPromise()
+  //     .then( (response) => {
+  //       this.projects.push(response.json());
+  //     })
+  //     .catch(this.handleError);
   }
 
   // MOCK DATA
@@ -148,26 +131,18 @@ export class ProjectsService {
                               phase_color: 'green',
                               phase_order: 1,
                               phase_status: 'In progress'
-                            }
-  testPhaseProject(): Promise<Phase> {
-    return Promise.resolve(this.testPhase);
-  }
+                            };
 
-  createPhase(projectId: number): Promise<Phase> {
-    return this.testPhaseProject()
-            .then(phase => {
-              this.phases.push(phase);
-              return phase;
-            });
-    // return this.http.post(
-    //         `${this.baseUrl}/api/project/${projectId}`,
-    //         JSON.stringify({projectId: projectId, phaseName: "Phase"}))
-    //         .toPromise()
-    //         .then( (response) => {
-    //           this.phases.push(response.json());
-    //           return response.json();
-    //         })
-    //         .catch(this.handleError);
+  createPhase(projectId: number): void {
+    this.phases.push(this.testPhase);
+    // this.http.post(
+    //   `${this.baseUrl}/api/project/${projectId}`,
+    //   JSON.stringify({projectId: projectId, phaseName: "Phase"}))
+    //   .toPromise()
+    //   .then( (response) => {
+    //     this.phases.push(response.json());
+    //   })
+    //   .catch(this.handleError);
   }
 
   createTask(phaseId: number, taskName: string): Promise<Task> {
@@ -183,16 +158,20 @@ export class ProjectsService {
 
 
   // Edit Information
-  editProjectName(projectId: number, projectName: string): Promise<string> {
-    return this.http.put(
-            `${this.baseUrl}/api/project/${projectId}`,
-            JSON.stringify({projectId: projectId, projectName: projectName}))
-            .toPromise()
-            .then( (response) => {
-              this.projects.find(project => project.id === projectId).project_name = projectName;
-              return response.json();
-            })
-            .catch(this.handleError);
+  editProjectName(projectId: number, projectName: string): void {
+    // this.http.put(
+    //   `${this.baseUrl}/api/project/${projectId}`,
+    //   JSON.stringify({projectId: projectId, projectName: projectName}))
+    //   .toPromise()
+    //   .then( (response) => {
+    //     this.projects.find(project => project.id === projectId).project_name = projectName;
+    //   })
+    //   .catch(this.handleError);
   }
 
+
+  // Delete Information
+  // deleteProject(projectId: number): void {
+  //   this.http.delete()
+  // }
 }
