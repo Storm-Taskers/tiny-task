@@ -14,12 +14,15 @@
 <hr/>
 
 <div class="container-project">
+  
 <!--Implement ngFor to create Projects-->
   <div *ngFor="let project of projects">
-    <div *ngIf="!project.complete" (click)="showDetails()" [routerLink]="['/projects', project.id]" class="current-project">
-      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png">
+    <div *ngIf="!project.complete"  class="current-project">
+      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
       <div>
-        {{ project.project_name }}
+        <div>
+          <inline-editor type="text" [(ngModel)]="editableText" (onSave)="saveEditable($event)" name="projectText" size="12"  min="1"> {{ project.project_name }}</inline-editor>
+        </div>
       </div>
     </div>
   </div>
