@@ -27,6 +27,7 @@ import { UserDetailsComponent } from './projects/project-details/project-user/us
 // Import Materials
 import { MaterialModule } from './material-modules/material.module';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
+import { TeamsComponent } from './teams/teams.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { InlineEditorModule } from '@qontu/ngx-inline-editor';
     TasksComponent,
     ProjectUserComponent,
     UserDetailsComponent,
-    TeamMembersComponent
+    TeamMembersComponent,
+    TeamsComponent
   ],
   imports: [
     BrowserModule,

@@ -14,14 +14,14 @@
 <hr/>
 
 <div class="container-project">
-  
+
 <!--Implement ngFor to create Projects-->
-  <div *ngFor="let project of projects">
+  <div *ngFor="let project of projectsService.projects">
     <div *ngIf="!project.complete"  class="current-project">
       <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
       <div>
         <div>
-          <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="saveEditable(project.id, $event)" name="projectText" size="15"  min="1"></inline-editor>
+          <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="editProjectName(project.id, $event)" name="projectText" size="15"  min="1"></inline-editor>
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
 <hr/>
 <div class="container-past-project">
 <!--Implement ngFor to create Projects-->
-  <div *ngFor="let project of projects">
+  <div *ngFor="let project of projectsService.projects">
     <div *ngIf="project.complete" [routerLink]="['/projects', project.id]" class="past-project">
       <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png">
       <div>
