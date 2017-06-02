@@ -185,7 +185,7 @@ Response Example:
   "project_info": {
     "id": 1,
     "user_id": "google-auth0-2903",
-    "team_id": "1",
+    "team_id": 1,
     "project_name": "Tremendous Task",
     "complete": "false"
   },
@@ -211,7 +211,7 @@ Gets Project Info
 Request Example:
 ```JSON
 {
-  "projectId": "1"
+  "projectId": 1
 }
 ```
 
