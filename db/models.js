@@ -16,7 +16,7 @@ const User_Profile = connection.define('user_profile', {
 Users.belongsTo(User_Profile, { foreignKey: { name: 'user_profile_id', targetKey: 'id', allowNull: false, unique: true } });
 
 const Teams = connection.define('teams', {
-  team_name: { type: Sequelize.STRING, allowNull: false }
+  team_name: { type: Sequelize.STRING, allowNull: true }
 });
 
 const Team_Users = connection.define('team_users', {

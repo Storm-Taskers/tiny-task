@@ -83,7 +83,9 @@ exports.addTask = (body, callback) => {
     task_status: body.task_status,
     phase_id: body.phase_id
   }).then((result) => {
-    callback(result);
+    callback(null, result);
+  }).catch((err) => {
+    callback(err, null);
   });
 };
 
@@ -118,7 +120,9 @@ exports.addPhases = (body, callback) => {
     user_id: body.auth_token,
     team_id: body.team_id
   }).then((result) => {
-    callback(result);
+    callback(null, result);
+  }).catch((err) => {
+    callback(err, null);
   });
 };
 
