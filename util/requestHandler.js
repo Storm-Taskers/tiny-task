@@ -1,5 +1,6 @@
 const helper = require('./helperFunctions.js');
 
+
 exports.users = {
   // retrieveTeam: (req, res) => {
   //   helper.retrieveTeam(req.params, (result) => {
@@ -66,8 +67,8 @@ exports.teams = {
       const team_id = team.id;
       helper.addTeamUser(req.body, team_id, (err, result) => {
         if (err) {
-          return res.status(500).send('server error');
-        } else if (!isSeed) {
+          return res.status(500).send(err);
+        } else if (typeof isSeed === 'function') {
           res.status(200).send('team added');
           res.end();
         } else {
@@ -115,21 +116,38 @@ exports.teams = {
 
 exports.projects = {
   createNewProjects: (req, res, isSeed) => {
-    helper.addProject(req.body, (err, result) => {
-      if (err) {
-          return res.status(500).send('server error');
-        } else if (!isSeed) {
-          res.status(200).send('project added');
-          res.end();
-        } else {
-          console.log('seed project added');
-          res.end();
-        }
+    let newProjects = {};
+    helper.addProject(req.body, (project) => {
+      newProjects['project_info'] = project;
+      helper.retrieveTeamById(project['team_id'], (team) => {
+        newProjects['team_info'] = team;
+        helper.retrieveTeamUsers(team[0].dataValues.id, (users) => {
+          newProjects['user_info'] = users;
+          console.log(newProjects['user_info'], 'users');
+          if (typeof isSeed === 'function') {
+            console.log(newProjects);
+            res.status(200).send(newProjects);
+            res.end();
+          } else {
+            console.log('seed project added');
+            res.end();
+          }
+        });
+      });
     });
   },
+
   retrieveProjectById: (req, res) => {
+    let returnData = {};
     helper.retrieveProjectById(req.params, (project) => {
-      res.send(project);
+      returnData['project_info'] = project;
+      helper.retrieveTeamById(project['team_id'], (team) => {
+        returnData['team_info'] = team;
+        helper.retrieveTeamUsers(team[0].dataValues.id, (users) => {
+          returnData['user_info'] = users;
+          res.send(returnData);
+        });
+      });
     });
   }
 };
