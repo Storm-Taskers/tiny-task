@@ -69,6 +69,12 @@ hr {
   opacity: .5;
 }
 
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 a.c-inline-editor {
   text-decoration: none;
   color: #428bca;
