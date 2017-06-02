@@ -28,7 +28,6 @@ import { UserDetailsComponent } from './projects/project-details/project-user/us
 import { MaterialModule } from './material-modules/material.module';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { TeamsComponent } from './teams/teams.component';
->>>>>>> Implement teams component and fix up API calls
 
 @NgModule({
   declarations: [
