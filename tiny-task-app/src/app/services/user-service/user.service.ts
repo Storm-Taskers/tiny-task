@@ -96,16 +96,16 @@ export class UserService {
   }
 
   addUserToProject(projectId: number, userId: string): Promise<User> {
-    return this.testUserAdd()
-            .then(user => user);
-    // return this.http.post(
-    //         `${this.baseUrl}/api/projects/${projectId}/users`,
-    //         JSON.stringify({projectId: projectId, userId: userId}))
-    //         .toPromise()
-    //         .then( (response) => {
-    //           this.usersOnProject.push(response.json());
-    //           return response.json();
-    //         })
-    //         .catch(this.handleError);
+    // return this.testUserAdd()
+    //         .then(user => user);
+    return this.http.post(
+            `${this.baseUrl}/api/projects/${projectId}/users`,
+            JSON.stringify({projectId: projectId, userId: userId}))
+            .toPromise()
+            .then( (response) => {
+              this.usersOnProject.push(response.json());
+              return response.json();
+            })
+            .catch(this.handleError);
   }
 }
