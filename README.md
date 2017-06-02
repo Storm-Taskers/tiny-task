@@ -9,7 +9,7 @@
 ## Table of Contents
 1. [API Routes](#routes)
   1. [User](#user)
-  2. [Project](#project)
+  1. [Project](#project)
 
 ## Routes
 Content-type: json/application
@@ -19,60 +19,72 @@ Content-type: json/application
 Retrieve User Profile
 
 Request Example:
-  {
-    "auth_token": "google-auth0-2903","
-  }
+```JSON
+{
+  "auth_token": "google-auth0-2903","
+}
+```
 
-Return Example:
-  {
-    user_profile: {
-      "full_name": "Kevin Nguyen",
-      "email": "kev_win@gmail.com",
-      "user_availability": "true",
-      "User_status": "Working"
-    },
-    project_ids: [1, 2, 3, 4]
-  }
+Response Example:
+```JSON
+{
+  "user_profile": {
+    "full_name": "Kevin Nguyen",
+    "email": "kev_win@gmail.com",
+    "user_availability": "true",
+    "User_status": "Working"
+  },
+  "project_ids": [1, 2, 3, 4]
+}
+```
 
 
 * ### `POST /api/users`
 Create a user
 
 Request Example:
-  {
-    "auth_token": "google-auth0-2903",
-    "full_name": "Kevin Nguyen",
-    "Email": "kevinn@tinytask.com",
-    "User_status": "slacking off",
-    "User_availability: "false"
-  }
+```JSON
+{
+  "auth_token": "google-auth0-2903",
+  "full_name": "Kevin Nguyen",
+  "Email": "kevinn@tinytask.com",
+  "User_status": "slacking off",
+  "User_availability: "false"
+}
+```
 
-Return Example:
-  {
-    something: "Hello"
-  }
+Response Example:
+```JSON
+{
+  "something": "Hello"
+}
+```
 
 * ### `PUT /api/users`
 Updates a user
 
 Request Example:
-  {
-    "auth_token": "google-auth0-2903",
-    "full_name": "Kevin Nguyen"
-  }
+```JSON
+{
+  "auth_token": "google-auth0-2903",
+  "full_name": "Kevin Nguyen"
+}
+```
 
-Return Example:
+Response Example:
   {}
 
 * ### `DELETE /api/users`
 Delete a User
 
 Request Example:
-  {
-    "auth_token": "google-auth0-2903",
-  }
+```JSON
+{
+  "auth_token": "google-auth0-2903",
+}
+```
 
-Return Example:
+Response Example:
   "Deleted User"
 
 ### Project
@@ -80,65 +92,75 @@ Return Example:
 Retrieve a project
 
 Request Example:
-  {
-    "projectId": "1"
-  }
+```JSON
+{
+  "projectId": 1
+}
+```
 
-Return Example:
-  {
-    project_info: {
-      "id": "1",
-      "user_id": "google-auth0-2903",
-      "team_id": "1",
-      "project_name": "Tremendous Task",
-      "complete": "false"
-    },
-    team_info: { 
-      "id": "1",
-      "team_name": "Storm Taskers"
-    },
-    "users_on_project": [
-      "1": {
-        "full_name": "Kevin Nguyen",
-        "email": "kev_win@gmail.com",
-        "user_availability": "true",
-        "User_status": "Working"
-      }
-    ]
-  }
+Response Example:
+```JSON
+{
+  "project_info": {
+    "id": 1,
+    "user_id": "google-auth0-2903",
+    "team_id": 1,
+    "project_name": "Tremendous Task",
+    "complete": false
+  },
+  "team_info": { 
+    "id": 1,
+    "team_name": "Storm Taskers"
+  },
+  "users_on_project": [
+    {
+      "id": 1,
+      "full_name": "Kevin Nguyen",
+      "email": "kev_win@gmail.com",
+      "user_availability": "true",
+      "User_status": "Working"
+    }
+  ]
+}
+```
 
 * ### `POST /api/project/:project_id`
 Create a project
 
 Request Example:
-  {
-    "project_name": "Tiny Task",
-    "auth_token": "google-auth0-2903",
-    "team_id": 1
-  }
+```JSON
+{
+  "project_name": "Tiny Task",
+  "auth_token": "google-auth0-2903",
+  "team_id": 1
+}
+```
 
-Return Example:
-  {
-    "project_info":{
-      "id": "1",
-      "user_id": "google-auth0-2903",
-      "team_id": "1",
-      "project_name": "Tremendous Task",
-      "complete": "false"
-    },
-    "team_info": { 
-      "id": "1",
-      "team_name": "Storm Taskers"
-    },
-    "users_on_project": [
-      "1": {
-        "full_name": "Kevin Nguyen",
-        "email": "kev_win@gmail.com",
-        "user_availability": "true",
-        "User_status": "Working"
-      }
-    ]
-  }
+Response Example:
+```JSON
+{
+  "project_info":{
+    "id": 1,
+    "user_id": "google-auth0-2903",
+    "team_id": 1,
+    "project_name": "Tremendous Task",
+    "complete": "false"
+  },
+  "team_info": { 
+    "id": 1,
+    "team_name": "Storm Taskers"
+  },
+  "users_on_project": [
+    {
+      "id": 1,
+      "full_name": "Kevin Nguyen",
+      "email": "kev_win@gmail.com",
+      "user_availability": "true",
+      "User_status": "Working"
+    }
+  ]
+}
+```
 
 * ### `PUT /api/project/:project_id`
 Update Project Info
@@ -148,46 +170,53 @@ Properties you can update:
   complete
  
 Request Example:
+```JSON
   {
-    "projectId": "1",
+    "projectId": 1,
     "projectChanges": {
       "projectName": "Tremendous Task"
     }
   }
- 
-Return Example:
-  {
-    "project_info": {
-      "id": "1",
-      "user_id": "google-auth0-2903",
-      "team_id": "1",
-      "project_name": "Tremendous Task",
-      "complete": "false"
-    },
-    "team_info": { 
-      "id": "1",
-      "team_name": "Storm Taskers"
-    },
-    "users_on_project": [
-      "1": {
-        "full_name": "Kevin Nguyen",
-        "email": "kev_win@gmail.com",
-        "user_availability": "true",
-        "User_status": "Working"
-      }
-    ]
-  }
+```
+
+Response Example:
+```JSON
+{
+  "project_info": {
+    "id": 1,
+    "user_id": "google-auth0-2903",
+    "team_id": 1,
+    "project_name": "Tremendous Task",
+    "complete": "false"
+  },
+  "team_info": { 
+    "id": "1",
+    "team_name": "Storm Taskers"
+  },
+  "users_on_project": [
+    {
+      "id": 1,
+      "full_name": "Kevin Nguyen",
+      "email": "kev_win@gmail.com",
+      "user_availability": "true",
+      "User_status": "Working"
+    }
+  ]
+}
+```
 
 * ### `DELETE /api/project/:project_id`
 Gets Project Info
  
 Request Example:
-  {
-    "projectId": "1"
-  }
- 
-Return Example:
-  "Delete Successful"
+```JSON
+{
+  "projectId": 1
+}
+```
+
+Response Example:
+e.g. `"Delete Successful"`
 
 
 

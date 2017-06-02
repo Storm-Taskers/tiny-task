@@ -48,8 +48,8 @@ export class ProjectsComponent implements OnInit {
       .then(project => this.projects.push(project));
   }
 
-  saveEditable(value: string): void {
+  saveEditable(projectId: number, value: string): void {
     //call to http service
-    console.log('http.service: ' + value);
+    console.log('http.service: ', projectId, value);
   }
 }
