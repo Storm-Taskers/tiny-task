@@ -11,8 +11,9 @@ import { User } from '../../projects/project-details/project-user/User';
 @Injectable()
 export class ProjectsService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = 'http://localhost:4200';
+  private baseUrl: string = 'http://localhost:8080';
 
+  public projectIds: number[] = [];
   // MOCK DATA
   public usersOnProject: User[] = [
     {
@@ -34,30 +35,7 @@ export class ProjectsService {
   ]
 
   // // MOCK DATA
-  public projects: Project[] = [
-    {
-      id: 1,
-      user_id: 't1',
-      team_id: 1,
-      project_name: 'Tiny Task',
-      complete: false
-    },
-    {
-      id: 2,
-      user_id: 't2',
-      team_id: 2,
-      project_name: 'Make Millions',
-      complete: false
-    },
-    {
-      id: 3,
-      user_id: 't3',
-      team_id: 3,
-      project_name: 'NOTED',
-      complete: true
-    }
-  ];
-  // public projects: Project[];
+  public projects: Project[];
 
   // MOCK DATA
   public phases: Phase[] = [
@@ -109,11 +87,11 @@ export class ProjectsService {
 
   // Fetch Information
   getProject(projectId: number): void {
-    this.http.get(`${this.baseUrl}/api/project/${projectId}`)
+    this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then((response) => {
-        this.usersOnProject
-        // this.projects.push(???)
+        console.log("Projects:", response.json());
+        this.projects.push(response.json().project_info);
       })
       .catch(this.handleError);
   }
@@ -146,24 +124,15 @@ export class ProjectsService {
   }
 
   // Post Information
-
-  // MOCK DATA
-  // public testProject: Project = {
-  //                                 id: 4,
-  //                                 user_id: 't4',
-  //                                 team_id: 1,
-  //                                 project_name: 'New Project',
-  //                                 complete: false
-  //                               }
-
   createProject(teamId: number, userId: string): void {
-    // this.projects.push(this.testProject);
     this.http.post(
-      `${this.baseUrl}/api/project`,
-      JSON.stringify({user_id: userId, team_id: teamId}))
+      `${this.baseUrl}/api/projects`,
+      JSON.stringify({project_name: 'New Project', user_id: userId, team_id: teamId}),
+      {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        this.projects.push(response.json());
+        this.projects.push(response.json().project_info);
+        this.projectIds.push(response.json().project_info.id);
       })
       .catch(this.handleError);
   }
@@ -203,14 +172,14 @@ export class ProjectsService {
 
   // Edit Information
   editProjectName(projectId: number, projectName: string): void {
-    // this.http.put(
-    //   `${this.baseUrl}/api/project/${projectId}`,
-    //   JSON.stringify({projectId: projectId, projectName: projectName}))
-    //   .toPromise()
-    //   .then( (response) => {
-    //     this.projects.find(project => project.id === projectId).project_name = projectName;
-    //   })
-    //   .catch(this.handleError);
+    this.http.put(
+      `${this.baseUrl}/api/projects/${projectId}`,
+      JSON.stringify({project_name: projectName}))
+      .toPromise()
+      .then( (response) => {
+        this.projects.find(project => project.id === projectId).project_name = projectName;
+      })
+      .catch(this.handleError);
   }
 
   editPhaseName(phaseId: number, phaseName: string): void {
@@ -259,7 +228,7 @@ export class ProjectsService {
 
   // Delete Information
   deleteProject(projectId: number): void {
-    this.http.delete(`${this.baseUrl}/api/project/${projectId}`)
+    this.http.delete(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then( (response) => {
         this.projects.splice(this.projects.findIndex(project => project.id === projectId, 1));

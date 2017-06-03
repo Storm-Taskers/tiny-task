@@ -12,9 +12,8 @@ export class UserService {
   private headers = new Headers({'Content-Type': 'application/JSON'});
   private baseUrl: string = 'http://localhost:8080';
 
-  public userId: string = 'test';
+  public userId: string = 'Brian';
   public userProfile: User;
-  public projectIds: number[];
   public teams: Team[];
   public currentTeam: Team = {id: 1, teamName: 'Tiny Task'}; // MOCK DATA
 
@@ -25,14 +24,14 @@ export class UserService {
     return Promise.reject(error.message || error);
   }
 
-  getUserInfo(token: string): void {
-    this.http.get(`${this.baseUrl}/api/users/${token}`)
-      .toPromise()
-      .then( (response) => {
-        this.userProfile = response.json();
-        this.projectIds = response.json().project_id;
-        this.userProfile = response.json().user_profile;
-      })
-      .catch(this.handleError);
-  }
+  getUserInfo(token: string): Promise<number[]> {
+    return this.http.get(`${this.baseUrl}/api/users/${token}`)
+            .toPromise()
+            .then( (response) => {
+              this.userProfile = response.json().user_profile;
+              // return response.json().project_ids;
+              return [1, 2, 3];
+            })
+            .catch(this.handleError);
+    }
 }
