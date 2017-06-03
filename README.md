@@ -32,7 +32,7 @@ Response Example:
     "full_name": "Kevin Nguyen",
     "email": "kev_win@gmail.com",
     "user_availability": "true",
-    "User_status": "Working"
+    "user_status": "Working"
   },
   "project_ids": [1, 2, 3, 4]
 }
