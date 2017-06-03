@@ -23,7 +23,8 @@ const seedData = [
       full_name: 'Kevin Nguyen',
       email: 'kevinN@tinytask.com',
       user_status: 'Slacking off',
-      user_availability: 'false'
+      user_availability: 'false',
+      user_color: 'red'
       }
     }, {end: () => {
           console.log('finished');
@@ -36,7 +37,8 @@ const seedData = [
       full_name: 'Brian Leung',
       email: 'brianl@tinytask.com',
       user_status: 'Eating a hot pocket',
-      user_availability: 'false'
+      user_availability: 'false',
+      user_color: 'yellow'
       }
     }, {end: () => {
           console.log('finished');
@@ -49,7 +51,8 @@ const seedData = [
       full_name: 'David Hsiao',
       email: 'davidh@tinytask.com',
       user_status: 'Working hard',
-      user_availability: 'true'
+      user_availability: 'true',
+      user_color: 'blue'
       }
     }, {end: () => {
           console.log('finished');
@@ -62,7 +65,8 @@ const seedData = [
       full_name: 'Beth Stevic',
       email: 'beths@tinytask.com',
       user_status: 'Working hard',
-      user_availability: 'true'
+      user_availability: 'true',
+      user_color: 'green'
       }
     }, {end: () => {
           console.log('finished');

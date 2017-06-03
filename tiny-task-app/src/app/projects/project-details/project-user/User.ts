@@ -4,4 +4,5 @@ export class User {
   email: string;
   user_availability: string;
   user_status: string;
+  user_color: string;
 }

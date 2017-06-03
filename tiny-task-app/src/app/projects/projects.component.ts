@@ -24,10 +24,7 @@ export class ProjectsComponent implements OnInit {
     this.navService.changeToProjectsPage();
 
     // this.userService.projectIds.forEach((projectId) => {
-    //   this.projectsService.getProject(projectId)
-    //     .then((project) => {
-    //       this.projects.push(project);
-    //     });
+    //   this.projectsService.getProject(projectId);
     // });
   }
 
