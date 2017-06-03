@@ -13,16 +13,10 @@ export class UserService {
   private baseUrl: string = 'http://localhost:8080';
 
   public userId: string = 'test';
-  // public userProfile: any;
-  public projectIds: number[] = [1, 2, 3];
+  public userProfile: User;
+  public projectIds: number[];
   public teams: Team[];
   public currentTeam: Team = {id: 1, teamName: 'Tiny Task'}; // MOCK DATA
-  // public usersOnTeam: User[]; Same as usersOnProject at the moment
-
-  public userProfile: any = {
-    full_name: 'Beth Stevic',
-    email: 'beth.s@tinytask.com'
-  }
 
   constructor(private http: Http) { }
 
@@ -31,16 +25,14 @@ export class UserService {
     return Promise.reject(error.message || error);
   }
 
-  getUserInfo(token: string): Promise<object> {
-    return this.http.get(`${this.baseUrl}/api/users/${token}`)
-            .toPromise()
-            .then( (response) => {
-              this.userProfile = response.json();
-              // this.projectIds =
-              // this.teams =
-              console.log(response.json())
-              return response.json() as object;
-            })
-            .catch(this.handleError);
+  getUserInfo(token: string): void {
+    this.http.get(`${this.baseUrl}/api/users/${token}`)
+      .toPromise()
+      .then( (response) => {
+        this.userProfile = response.json();
+        this.projectIds = response.json().project_id;
+        this.userProfile = response.json().user_profile;
+      })
+      .catch(this.handleError);
   }
 }

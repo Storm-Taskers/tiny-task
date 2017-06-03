@@ -25,11 +25,24 @@ export class PhasesComponent implements OnInit {
 
   editPhaseName(phaseId: number, newName: string): void {
     console.log(phaseId, newName);
+    this.projectsService.editPhaseName(phaseId, newName);
   }
 
-  deleteProject(phaseId: number): void {
+  deletePhase(phaseId: number): void {
     if (confirm('Are you sure you want to delete this?')) {
-      console.log(phaseId);
-    }  
+      this.projectsService.deletePhase(phaseId);
+    }
+  }
+
+  addNewTask(phaseId: number): void {
+    this.projectsService.createTask(phaseId)
+      .then((task) => {
+        this.phaseTasks.push(task);
+      });
+  }
+
+  deleteTask(taskId: number): void {
+    this.projectsService.deleteTask(taskId);
+    this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
   }
 }

@@ -1,11 +1,11 @@
 <div class="current-phases">
-<!--Implement ngFor to create Phase Details (task)-->
   <div class="project-header">
     <inline-editor type="text" [(ngModel)]="phase.phase_name" (onSave)="editPhaseName(phase.id, $event)" name="phase.phase_name" size="15"  min="1"></inline-editor>
-    <button md-icon-button (click)="deleteProject(phase.id)">
+    <button md-icon-button (click)="deletePhase(phase.id)">
       <i class="material-icons">delete_forever</i>
     </button>
   </div>
+<!--Implement ngFor to create Phase Details (task)-->
   <tasks
     *ngFor="let task of phaseTasks"
     [task]="task">

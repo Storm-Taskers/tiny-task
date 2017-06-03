@@ -1,10 +1,12 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/toPromise';
 
 import { Project } from '../../projects/Project';
 import { Phase } from '../../projects/project-details/phases/Phase';
 import { Task } from '../../projects/project-details/phases/tasks/Task';
 import { User } from '../../projects/project-details/project-user/User';
+
 
 @Injectable()
 export class ProjectsService {
@@ -18,14 +20,16 @@ export class ProjectsService {
       full_name: 'Kevin',
       email: 'kev_lose@gmail.com',
       user_availability: 'Available',
-      user_status: 'Not working hard'
+      user_status: 'Not working hard',
+      user_color: 'pink'
     },
     {
       id: 2,
       full_name: 'David',
       email: 'iLoveSL@gmail.com',
       user_availability: 'Available',
-      user_status: 'Very Sick'
+      user_status: 'Very Sick',
+      user_color: 'red'
     }
   ]
 
@@ -186,10 +190,10 @@ export class ProjectsService {
     //   .catch(this.handleError);
   }
 
-  createTask(phaseId: number, taskName: string): Promise<Task> {
+  createTask(phaseId: number): Promise<Task> {
     return this.http.post(
             `${this.baseUrl}/api/tasks/${phaseId}`,
-            JSON.stringify({phaseId: phaseId, taskName: taskName}))
+            JSON.stringify({phaseId: phaseId, taskName: 'New Task'}))
             .toPromise()
             .then( (response) => {
               return response.json();
@@ -220,13 +224,25 @@ export class ProjectsService {
     //   .catch(this.handleError);
   }
 
+  editTaskName(taskId: number, taskName: string): Promise<Task> {
+    return this.http.put(
+            `${this.baseUrl}/api/tasks/${taskId}`,
+            JSON.stringify({taskId: taskId, taskName: taskName}))
+            .toPromise()
+            .then(response => {
+              return response.json();
+            })
+            .catch(this.handleError);
+  }
+
   // MOCK DATA
   public testUser: User = {
                             id: 3,
                             full_name: 'Brian',
                             email: 'king@gmail.com',
                             user_availability: 'Available',
-                            user_status: 'Working too hard'
+                            user_status: 'Working too hard',
+                            user_color: 'Green'
                           }
 
   addUserToProject(projectId: number, userId: string): void {
@@ -243,13 +259,24 @@ export class ProjectsService {
 
   // Delete Information
   deleteProject(projectId: number): void {
-    this.http.delete(
-      `${this.baseUrl}/api/project/${projectId}`,
-      {headers: this.headers})
+    this.http.delete(`${this.baseUrl}/api/project/${projectId}`)
       .toPromise()
       .then( (response) => {
         this.projects.splice(this.projects.findIndex(project => project.id === projectId, 1));
       })
       .catch(this.handleError);
+  }
+
+  deletePhase(phaseId: number): void {
+    this.http.delete(`${this.baseUrl}/api/phase/${phaseId}`)
+      .toPromise()
+      .then( (response) => {
+        this.phases.splice(this.phases.findIndex(phase => phase.id === phaseId, 1));
+      })
+      .catch(this.handleError);
+  }
+
+  deleteTask(taskId: number): void {
+    this.http.delete(`${this.baseUrl}/api/tasks/${taskId}`);
   }
 }

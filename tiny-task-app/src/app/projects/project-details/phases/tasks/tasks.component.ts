@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { ProjectsService } from '../../../../services/projects-service/projects.service';
 
 import { Task } from './Task';
 
@@ -7,12 +9,16 @@ import { Task } from './Task';
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css']
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent {
   @Input() task: Task;
 
-  constructor() { }
+  constructor(private projectsService: ProjectsService) { }
 
-  ngOnInit() {
+  editTaskName(taskId: number, newName: string): void {
+    this.projectsService.editTaskName(taskId, newName)
+      .then((updatedTask) => {
+        this.task = updatedTask;
+      });
   }
 
 }

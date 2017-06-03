@@ -12,7 +12,6 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit() {
     // Stub 's' for user profile
-    // this.userService.getUserInfo('s')
-    //   .then(userProfile => this.userProfile = userProfile);
+    this.userService.getUserInfo('Brian');
   }
 }
