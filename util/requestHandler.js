@@ -5,9 +5,12 @@ exports.users = {
   retrieveUser: (req, res) => {
     var userData = {};
     helper.retrieveUser(req.params, (result) => {
-      userData.profile = result;
+      userData.user_profile = result;
       helper.retrieveProject(req.params, (projects) => {
-        userData.projects = projects;
+        let projectIds = projects.map((project) => {
+          return project.id;
+        });
+        userData.project_id = projectIds;
         res.send(userData);
       });
     });
