@@ -392,7 +392,7 @@ e.g. `"Delete Successful"`
 * #### `GET /api/project/:team_id`
 Retrieve a team
 // router.get('/api/teams', handler.teams.retrieveTeams);
-router.post('/teams', handler.teams.createNewTeams);
+//router.post('/teams', handler.teams.createNewTeams);
 // router.put('/api/teams', handler.teams.updateTeams);
 // router.delete('/api/teams', handler.teams.deleteTeams);
 
@@ -405,6 +405,7 @@ router.post('/teams', handler.teams.createNewTeams);
 // router.post('/api/announcements', handler.announcements.createNewAnnouncements);
 // router.put('/api/announcements', handler.announcements.updateAnnouncements);
 // router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
+
 
 // router.get('/resources', handler.resources.retrieveResources);
 // router.post('/resources', handler.resources.createNewResources);

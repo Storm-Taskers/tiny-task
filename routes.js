@@ -26,18 +26,17 @@ router.delete('/projects/:project_id', handler.projects.deleteProjects);
 
 
 //////////PHASES/////////////////
-router.get('/phases/:project_id', handler.phases.retrievePhasesByProjectId);
-router.post('/phases', handler.phases.createNewPhases);
-// router.put('/phases', handler.phases.updatePhases);
-// router.delete('/phases', handler.phases.deletePhases);
+//router.get('/phases/:project_id', handler.phases.retrievePhasesByProjectId);
+router.post('/phases/:project_id', handler.phases.createNewPhases);
+router.put('/phases/:phase_id', handler.phases.updatePhases);
+router.delete('/phases/:phase_id', handler.phases.deletePhases);
 
 
 //////////TASKS/////////////////
 router.post('/tasks', handler.tasks.createNewTasks);
-//router.get('/tasks/users/:auth_token', handler.tasks.retrieveTasksByUserId);
 router.get('/tasks/phase/:phase_id', handler.tasks.retrieveTasksByPhaseId);
-// router.put('/tasks', handler.tasks.updateTasks);
-// router.delete('/tasks', handler.tasks.deleteTasks);
+router.put('/tasks', handler.tasks.updateTasks);
+//router.delete('/tasks', handler.tasks.deleteTasks);
 
 
 //////////MESSAGES/////////////////
