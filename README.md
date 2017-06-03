@@ -169,7 +169,8 @@ Response Example:
       "user_availability": "true",
       "user_status": "Working"
     }
-  ]
+  ],
+  "phase_info": [] 
 }
 ```
 
@@ -211,6 +212,15 @@ Response Example:
       "email": "kev_win@gmail.com",
       "user_availability": "true",
       "user_status": "Working"
+    }
+  ],
+  "phase_info": [
+    {
+      "id": "1",
+      "phase_name": "Phase 1",
+      "phase_order": "1",
+      "phase_color": "blue",
+      "phase_status": "In progress"
     }
   ]
 }
