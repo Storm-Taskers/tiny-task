@@ -156,9 +156,17 @@ exports.updateProject = (project_id, project_change, callback) => {
   this.retrieveProjectById({project_id: project_id}, callback);
 };
 
-// exports.deleteProject = () => {
-
-// }
+exports.deleteProject = (params, callback) => {
+  models.Projects.destroy({
+    where: {
+      id: params.project_id
+    }
+  }).then((result) => {
+    callback(null, 'deleted');
+  }).catch((err) => {
+    callback(err, null);
+  });
+};
 
 
 exports.retrievePhases = (params, callback) => {

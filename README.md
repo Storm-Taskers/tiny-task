@@ -218,12 +218,14 @@ Request Example:
 Response Example:
 e.g. `"Delete Successful"`
 
-
-
+### Teams
+* ### `GET /api/project/:team_id`
+Retrieve a team
 // router.get('/api/teams', handler.teams.retrieveTeams);
 router.post('/teams', handler.teams.createNewTeams);
 // router.put('/api/teams', handler.teams.updateTeams);
 // router.delete('/api/teams', handler.teams.deleteTeams);
+
 
 // router.get('/api/messages', handler.messages.retrieveMessages);
 // router.post('/api/messages', handler.messages.createNewMessages);
