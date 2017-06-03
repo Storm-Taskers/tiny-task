@@ -22,7 +22,7 @@ router.put('/teams', handler.teams.updateTeams);
 router.get('/projects/:project_id', handler.projects.retrieveProjectById);
 router.post('/projects', handler.projects.createNewProjects);
 router.put('/projects/:project_id', handler.projects.updateProjects);
-// router.delete('/project/:project_id', handler.projects.deleteProjects);
+router.delete('/projects/:project_id', handler.projects.deleteProjects);
 
 
 //////////PHASES/////////////////

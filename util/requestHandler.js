@@ -160,9 +160,18 @@ exports.projects = {
         });
       });
     });
+  },
+
+  deleteProjects: (req, res) => {
+    helper.deleteProject(req.params, (err, message) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        res.send(message).end();
+      }
+    });
   }
 };
-
 
 
 exports.phases = {

@@ -26,9 +26,6 @@ const Team_Users = connection.define('team_users', {
 Users.hasMany(Team_Users, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
 Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 
-// Users.belongsToMany(Teams, { as: 'Users', through: 'Team_Users' })
-// Teams.belongsToMany(Users, { as: 'Teams', through: 'Team_Users' })
-
 const Projects = connection.define('projects', {
   project_name: { type: Sequelize.STRING, allowNull: false },
   complete: { type: Sequelize.BOOLEAN, default: false }
@@ -42,13 +39,13 @@ const Phases = connection.define('phases', {
   phase_order: { type: Sequelize.INTEGER, allowNull: false },
   phase_status: { type: Sequelize.STRING, allowNull: false },
 });
-Phases.belongsTo(Projects, { foreignKey: { name: 'project_id', targetKey: 'id' } });
+Phases.belongsTo(Projects, { foreignKey: { name: 'project_id', targetKey: 'id' }, onDelete: 'CASCADE' });
 
 const Tasks = connection.define('tasks', {
   task_name: { type: Sequelize.STRING, allowNull: false },
   task_status: { type: Sequelize.STRING, allowNull: false },
 });
-Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' } });
+Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' }, onDelete: 'CASCADE'});
 
 const User_Tasks = connection.define('user_tasks', {
   stage: { type: Sequelize.STRING, allowNull: false },
