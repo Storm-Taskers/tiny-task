@@ -77,8 +77,8 @@ hr {
 
 a.c-inline-editor {
   text-decoration: none;
-  color: #428bca;
-  border-bottom: dashed 1px #428bca;
+  color: white;
+  border-bottom: dashed 1px White;
   cursor: pointer;
   line-height: 2;
   margin-right: 5px;
