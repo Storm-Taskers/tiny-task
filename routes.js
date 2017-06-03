@@ -5,7 +5,6 @@ const handler = require('./util/requestHandler.js');
 // router.get('/login', -)
 
 //////////USERS/////////////////
-// router.get('/users/', handler.users.retrieveAll);
 router.get('/users/:auth_token', handler.users.retrieveUser);
 router.post('/users', handler.users.createNewUser);
 // router.put('/users', handler.users.updateUser);
@@ -13,17 +12,16 @@ router.post('/users', handler.users.createNewUser);
 
 
 //////////TEAMS/////////////////
-// router.get('/teams', handler.teams.retrieveTeams);
+router.get('/teams', handler.teams.retrieveTeams);
 router.post('/teams', handler.teams.createNewTeams);
 router.put('/teams', handler.teams.updateTeams);
 // router.delete('/api/teams', handler.teams.deleteTeams);
 
 
 //////////PROJECTS/////////////////
-// router.get('/projects/project:id/users', ) <---- all users for specific project
 router.get('/projects/:project_id', handler.projects.retrieveProjectById);
 router.post('/projects', handler.projects.createNewProjects);
-// router.put('/project/:project_id', handler.projects.updateProjects);
+router.put('/projects/:project_id', handler.projects.updateProjects);
 // router.delete('/project/:project_id', handler.projects.deleteProjects);
 
 

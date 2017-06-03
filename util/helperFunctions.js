@@ -93,7 +93,6 @@ exports.retrieveTeamUsers = (team_id, callback) => {
         }
       });
     })).then((userProfiles) => {
-      console.log(userProfiles, 'userProfiles');
       callback(userProfiles);
     });
   });
@@ -144,9 +143,18 @@ exports.addProject = (body, callback) => {
   });
 };
 
-// exports.updateProject = () => {
-
-// }
+exports.updateProject = (project_id, project_change, callback) => {
+  for(var key in project_change) {
+    models.Projects.update({
+      [key]: project_change[key]
+    }, {
+      where: {
+        id: project_id
+      }
+    });
+  }
+  this.retrieveProjectById({project_id: project_id}, callback);
+};
 
 // exports.deleteProject = () => {
 

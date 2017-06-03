@@ -2,10 +2,6 @@ const helper = require('./helperFunctions.js');
 
 
 exports.users = {
-  // retrieveTeam: (req, res) => {
-  //   helper.retrieveTeam(req.params, (result) => {
-  //     res.send(result);
-  //   })
   retrieveUser: (req, res) => {
     var userData = {};
     helper.retrieveUser(req.params, (result) => {
@@ -23,7 +19,7 @@ exports.users = {
       helper.addUsers(req.body, id, (err, result) => {
         if (err) {
           return res.status(500).send('server error');
-        } else if (!isSeed) {
+        } else if (typeof isSeed === 'function') {
           res.status(200).send('user added');
           res.end();
         } else {
@@ -79,15 +75,16 @@ exports.teams = {
     });
   },
 
-  // retrieveTeams: (req, res) => {
-  //   helper.retrieveTeam(req, () => {
-  //     res.end(JSON.stringify(res.body));
-  //   }).then((team) => {
-  //     res.status(200).send('team retrieved');
-  //   }).catch((err) => {
-  //       res.status(404).send(err, 'error retrieving team');
-  //     });
-  // },
+  retrieveTeams: (req, res) => {
+    var userData = {};
+    helper.retrieveUser(req.params, (result) => {
+      userData.profile = result;
+      helper.retrieveProject(req.params, (projects) => {
+        userData.projects = projects;
+        res.send(userData);
+      });
+    });
+  },
 
   updateTeams: (req, res, isSeed) => {
     helper.addTeamUser(req.body, req.body.team_id, (err, result) => {
@@ -149,8 +146,24 @@ exports.projects = {
         });
       });
     });
+  },
+
+  updateProjects: (req, res) => {
+    let updatedProject = {};
+    helper.updateProject(req.body.projectId, req.body.projectChanges, (project) => {
+      updatedProject['project_info'] = project;
+      helper.retrieveTeamById(project['team_id'], (team) => {
+        updatedProject['team_info'] = team;
+        helper.retrieveTeamUsers(team[0].dataValues.id, (users) => {
+          updatedProject['user_info'] = users;
+          res.send(updatedProject);
+        });
+      });
+    });
   }
 };
+
+
 
 exports.phases = {
   retrievePhasesByProjectId: (req, res) => {
