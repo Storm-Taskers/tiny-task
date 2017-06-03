@@ -22,6 +22,7 @@ const seedData = [
       auth_token: 'Kevin',
       full_name: 'Kevin Nguyen',
       email: 'kevinN@tinytask.com',
+      user_color: 'blue',
       user_status: 'Slacking off',
       user_availability: 'false'
       }
@@ -35,6 +36,7 @@ const seedData = [
       auth_token: 'Brian',
       full_name: 'Brian Leung',
       email: 'brianl@tinytask.com',
+      user_color: 'black',
       user_status: 'Eating a hot pocket',
       user_availability: 'false'
       }
@@ -48,6 +50,7 @@ const seedData = [
       auth_token: 'David',
       full_name: 'David Hsiao',
       email: 'davidh@tinytask.com',
+      user_color: 'yellow',
       user_status: 'Working hard',
       user_availability: 'true'
       }
@@ -61,6 +64,7 @@ const seedData = [
       auth_token: 'Beth',
       full_name: 'Beth Stevic',
       email: 'beths@tinytask.com',
+      user_color: 'green',
       user_status: 'Working hard',
       user_availability: 'true'
       }
@@ -116,7 +120,7 @@ const seedData = [
   () => {
     return handler.projects.createNewProjects({body: {
       project_name: 'Tiny Task',
-      auth_token: 'Kevin',
+      user_id: 'Kevin',
       team_id: 1
       }
     },{end: () => {
@@ -187,6 +191,7 @@ const seedData = [
     return handler.tasks.createNewTasks({body: {
       task_name: 'Create back-end',
       task_status: 'Finished',
+      task_color: 'green',
       phase_id: 1
       }
     }, {end: () => {
@@ -199,6 +204,7 @@ const seedData = [
     return handler.tasks.createNewTasks({body: {
       task_name: 'Create front-end',
       task_status: 'Finished',
+      task_color: 'blue',
       phase_id: 1
       }
     }, {end: () => {
@@ -211,6 +217,7 @@ const seedData = [
     return handler.tasks.createNewTasks({body: {
       task_name: 'Write more Tests',
       task_status: 'In progress',
+      task_color: 'yellow',
       phase_id: 2
       }
     }, {end: () => {
@@ -223,6 +230,7 @@ const seedData = [
     return handler.tasks.createNewTasks({body: {
       task_name: 'Write more functions',
       task_status: 'In progress',
+      task_color: 'orange',
       phase_id: 2
       }
     }, {end: () => {
@@ -235,6 +243,7 @@ const seedData = [
     return handler.tasks.createNewTasks({body: {
       task_name: 'Finish app',
       task_status: 'Not started',
+      task_color: 'red',
       phase_id: 3
       }
     }, {end: () => {
@@ -247,6 +256,7 @@ const seedData = [
     return handler.tasks.createNewTasks({body: {
       task_name: 'Make it pretty',
       task_status: 'Not started',
+      task_color: 'purple',
       phase_id: 3
       }
     }, {end: () => {

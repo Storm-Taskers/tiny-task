@@ -30,9 +30,17 @@ Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } });
 const Projects = connection.define('projects', {
   project_name: { type: Sequelize.STRING, allowNull: false },
   complete: { type: Sequelize.BOOLEAN, default: false }
-})
+});
+
 Projects.belongsTo(Users, { foreignKey: { name: 'user_id', target: 'auth_token' } });
 Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
+
+const User_Projects = connection.define('user_projects', {
+
+});
+
+Users.hasMany(User_Projects, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
+Projects.hasMany(User_Projects, { foreignKey: { name: 'project_id', targetKey: 'project_id' } });
 
 const Phases = connection.define('phases', {
   phase_name: { type: Sequelize.STRING, allowNull: false },
@@ -40,11 +48,13 @@ const Phases = connection.define('phases', {
   phase_order: { type: Sequelize.INTEGER, allowNull: false },
   phase_status: { type: Sequelize.STRING, allowNull: false },
 });
+
 Phases.belongsTo(Projects, { foreignKey: { name: 'project_id', targetKey: 'id' }, onDelete: 'CASCADE' });
 
 const Tasks = connection.define('tasks', {
   task_name: { type: Sequelize.STRING, allowNull: false },
   task_status: { type: Sequelize.STRING, allowNull: false },
+  task_color: { type: Sequelize.STRING, allowNull: false }
 });
 Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' }, onDelete: 'CASCADE'});
 
@@ -52,9 +62,9 @@ const User_Tasks = connection.define('user_tasks', {
   stage: { type: Sequelize.STRING, allowNull: false },
 });
 
-Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' });
-// Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } })
-//Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } })
+//Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' });
+Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } });
+Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
 
 const Messages = connection.define('messages', {
   message: { type: Sequelize.TEXT }

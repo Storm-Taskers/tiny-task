@@ -2,6 +2,8 @@ const mysql = require('mysql');
 const models = require('../db/models.js');
 
 
+
+
 exports.retrieveUser = (params, callback) => {
   models.Users.findOne({
     where: {
@@ -73,14 +75,11 @@ exports.addTeamUser = (body, team_id, callback) => {
     team_id: team_id,
     user_id: body.auth_token
   }).then((result) => {
-    callback(null, result);
-  }).catch((err) => {
-    callback(err, null);
+    callback(result);
   });
 };
 
 exports.retrieveTeamUsers = (team_id, callback) => {
-  let userInfo = [];
   models.Team_Users.findAll({
     where: {
       team_id: team_id
@@ -98,6 +97,16 @@ exports.retrieveTeamUsers = (team_id, callback) => {
   });
 };
 
+exports.retrieveUserTeams = (params, callback) => {
+  models.Team_Users.findAll({
+    where: {
+      user_id: params.auth_token
+    }
+  }).then((teams) => {
+    callback(teams);
+  });
+};
+
 // exports.updateTeam = () => {
 
 // }
@@ -106,7 +115,17 @@ exports.retrieveTeamUsers = (team_id, callback) => {
 
 // }
 
-exports.retrieveProject = (params, callback) => {
+exports.retrieveProjectByTeamId = (team_id, callback) => {
+  models.Projects.findAll({
+    where: {
+      team_id: team_id
+    }
+  }).then((projects) => {
+    callback(projects);
+  });
+};
+
+exports.retrieveProjectByUserId = (params, callback) => {
   models.Users.findOne({
     where: {
       auth_token: params.auth_token
@@ -135,7 +154,7 @@ exports.retrieveProjectById = (params, callback) => {
 exports.addProject = (body, callback) => {
   models.Projects.create({
     project_name: body.project_name,
-    user_id: body.auth_token,
+    user_id: body.user_id,
     team_id: body.team_id,
     complete: false
   }).then((result) => {
@@ -143,16 +162,18 @@ exports.addProject = (body, callback) => {
   });
 };
 
+
 exports.updateProject = (project_id, project_change, callback) => {
-  for(var key in project_change) {
-    models.Projects.update({
-      [key]: project_change[key]
-    }, {
-      where: {
-        id: project_id
-      }
+  models.Projects.findOne({
+    where: {
+      id: project_id
+    }
+  }).then((project) => {
+    project.updateAttributes({
+      project_name: project_change.project_name,
+      complete: project_change.complete
     });
-  }
+  });
   this.retrieveProjectById({project_id: project_id}, callback);
 };
 
@@ -167,6 +188,25 @@ exports.deleteProject = (params, callback) => {
     callback(err, null);
   });
 };
+
+// exports.addUserProject = (project_id, user_id, callback) => {
+//   models.User_Projects.create({
+//     project_id: project_id,
+//     user_id: body.auth_token
+//   }).then((result) => {
+//     callback(result);
+//   });
+// };
+
+// exports.retrieveUserProjects = (user_id, callback) => {
+//   models.User_Projects.findAll({
+//     where: {
+//       user_id: user_id
+//     }
+//   }).then((projects) => {
+//     callback(projects);
+//   });
+// };
 
 exports.retrievePhasesByProjectId = (project_id, callback)=> {
   return models.Phases.findAll({
@@ -225,7 +265,7 @@ exports.deletePhase = (params, callback) => {
 
 
 exports.retrieveTasksByPhaseId = (params, callback) => {
-  return models.tasks.findAll({
+  return models.Tasks.findAll({
     where: {
       phase_id: params.phase_id
     }
@@ -234,6 +274,15 @@ exports.retrieveTasksByPhaseId = (params, callback) => {
   });
 };
 
+exports.retrieveTaskUser = (task_id, callback) => {
+  models.User_Tasks.findAll({
+    where: {
+      task_id: task_id
+    }
+  }).then((users) => {
+    callback(users);
+  })
+}
 
 exports.addUserTasks = (body, x, callback) => {
   models.User_Tasks.create({
@@ -247,11 +296,10 @@ exports.addTask = (body, callback) => {
   models.Tasks.create({
     task_name: body.task_name,
     task_status: body.task_status,
+    task_color: body.task_color,
     phase_id: body.phase_id
   }).then((result) => {
-    callback(null, result);
-  }).catch((err) => {
-    callback(err, null);
+    callback(result);
   });
 };
 
