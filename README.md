@@ -49,7 +49,7 @@ Request Example:
   "full_name": "Kevin Nguyen",
   "email": "kevinn@tinytask.com",
   "user_status": "slacking off",
-  "user_availability: "false"
+  "user_availability: false
 }
 ```
 
