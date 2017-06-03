@@ -18,6 +18,7 @@ export class PhasesComponent implements OnInit {
   constructor(private projectsService: ProjectsService) { }
 
   ngOnInit() {
+    this.phaseTasks = this.projectsService.tasks;
     // this.projectsService.getPhaseTasks(this.phase.id)
     //   .then(tasks => this.phaseTasks = tasks);
   }
@@ -27,6 +28,8 @@ export class PhasesComponent implements OnInit {
   }
 
   deleteProject(phaseId: number): void {
-    console.log(phaseId);
+    if (confirm('Are you sure you want to delete this?')) {
+      console.log(phaseId);
+    }  
   }
 }
