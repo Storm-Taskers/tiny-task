@@ -277,6 +277,7 @@ export class ProjectsService {
   }
 
   deleteTask(taskId: number): void {
-    this.http.delete(`${this.baseUrl}/api/tasks/${taskId}`);
+    console.log(taskId);
+    // this.http.delete(`${this.baseUrl}/api/tasks/${taskId}`);
   }
 }

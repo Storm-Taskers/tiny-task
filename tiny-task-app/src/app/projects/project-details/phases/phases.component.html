@@ -6,8 +6,14 @@
     </button>
   </div>
 <!--Implement ngFor to create Phase Details (task)-->
-  <tasks
-    *ngFor="let task of phaseTasks"
-    [task]="task">
-  </tasks>
+  <div *ngFor="let task of phaseTasks" class="task">
+    <div class="task-container">
+      <tasks
+        [task]="task">
+      </tasks>
+      <button md-icon-button (click)="deleteTask(task.id)" >
+        <i class="material-icons">library_delete</i>
+      </button>
+    </div>
+  </div>
 </div>
