@@ -22,4 +22,11 @@ export class PhasesComponent implements OnInit {
     //   .then(tasks => this.phaseTasks = tasks);
   }
 
+  editPhaseName(phaseId: number, newName: string): void {
+    console.log(phaseId, newName);
+  }
+
+  deleteProject(phaseId: number): void {
+    console.log(phaseId);
+  }
 }

@@ -55,6 +55,27 @@ export class ProjectsService {
     }
   ];
 
+  public tasks: Task[] = [
+    {
+      id: 1,
+      task_name: 'Start Project',
+      phase_id: 1,
+      task_status: 'Not Finished'
+    },
+    {
+      id: 2,
+      task_name: 'Finish Project',
+      phase_id: 1,
+      task_status: 'Not finished'
+    },
+    {
+      id: 3,
+      task_name: 'Get phases done',
+      phase_id: 2,
+      task_status: "Not finished"
+    }
+  ];
+
   constructor(private http: Http) { }
 
   private handleError(error: any): Promise<any> {
@@ -156,7 +177,6 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-
   // Edit Information
   editProjectName(projectId: number, projectName: string): void {
     // this.http.put(
@@ -169,6 +189,16 @@ export class ProjectsService {
     //   .catch(this.handleError);
   }
 
+  editPhaseName(phaseId: number, projectName: string): void {
+    // this.http.put(
+    //   `${this.baseUrl}/api/phases/${phaseId}`,
+    //   JSON.stringify({phase_name: projectName}))
+    //   .toPromise()
+    //   .then( (response) => {
+    //     this.projects.find(project => project.id === projectId).project_name = projectName;
+    //   })
+    //   .catch(this.handleError);
+  }
 
   // Delete Information
   deleteProject(projectId: number): Promise<void> {
