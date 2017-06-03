@@ -227,14 +227,7 @@ Response Example:
 ```
 
 * #### `DELETE /api/projects/:project_id`
-Gets Project Info
-
-Request Example:
-```JSON
-{
-  "projectId": 1
-}
-```
+Delete Project Info
 
 Response Example:
 e.g. `"Delete Successful"`
