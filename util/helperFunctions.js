@@ -168,44 +168,61 @@ exports.deleteProject = (params, callback) => {
   });
 };
 
-
-exports.retrievePhases = (params, callback) => {
+exports.retrievePhasesByProjectId = (project_id, callback)=> {
   return models.Phases.findAll({
     where: {
-      project_id: params.project_id
+      project_id: project_id
     }
   }).then((phases) => {
     callback(phases);
   });
 };
 
-exports.addPhases = (body, callback) => {
+exports.addPhases = (req, callback) => {
   models.Phases.create({
-    phase_name: body.phase_name,
-    phase_order: body.phase_order,
-    phase_status: body.phase_status,
-    phase_color: body.phase_color,
-    project_id: body.project_id,
-    user_id: body.auth_token,
-    team_id: body.team_id
-  }).then((result) => {
-    callback(null, result);
+    project_id: req.params.project_id,
+    phase_name: req.body.phase_name,
+    phase_order: req.body.phase_order,
+    phase_status: req.body.phase_status,
+    phase_color: req.body.phase_color
+  }).then((phase) => {
+    callback(null, phase.dataValues);
   }).catch((err) => {
     callback(err, null);
   });
 };
 
-// exports.updatePhase = () => {
+exports.updatePhase = (req, callback) => {
+  models.Phases.findOne({
+    where: {
+      id: req.params.phase_id
+    }
+  }).then((phase) => {
+    phase.updateAttributes({
+      phase_name: req.body.phase_name,
+      phase_order: req.body.phase_order,
+      phase_status: req.body.phase_status,
+      phase_color: req.body.phase_color
+    }).then((phase) => {
+      callback(null, phase.dataValues);
+    }).catch((err) => {
+      callback(err, null);
+    });
+  });
+};
 
-// }
+exports.deletePhase = (params, callback) => {
+  models.Phases.destroy({
+    where: {
+      id: params.phase_id
+    }
+  }).then((result) => {
+    callback(null, 'deleted');
+  }).catch((err) => {
+    callback(err, null);
+  });
+};
 
-// exports.deletePhase = () => {
-
-// }
-
-// exports.retrieveTask = () => {
-
-// }
 
 exports.retrieveTasksByPhaseId = (params, callback) => {
   return models.tasks.findAll({

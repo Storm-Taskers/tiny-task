@@ -125,50 +125,62 @@ const seedData = [
     }, true);
   },
 
-    () => {
-    return handler.phases.createNewPhases({body: {
-      phase_name: 'Phase 1',
-      phase_order: 1,
-      phase_status: 'Finished',
-      phase_color: 'blue',
-      project_id: 1,
-      auth_token: 'Kevin',
-      team_id: 1
+() => {
+    return handler.phases.createNewPhases({
+      params: {
+        project_id: 1
+      },
+      body: {
+        phase_name: 'Phase 1',
+        phase_order: 1,
+        phase_status: 'Finished',
+        phase_color: 'blue',
+        auth_token: 'Kevin',
+        team_id: 1
       }
-    }, {end: () => {
-      console.log('seed phase added');
-      }
-    }, true);
+    }, {
+        end: () => {
+          console.log('seed phase added');
+        }
+      }, true);
   },
-    () => {
-    return handler.phases.createNewPhases({body: {
-      phase_name: 'Phase 2',
-      phase_order: 2,
-      phase_status: 'In progress',
-      phase_color: 'green',
-      project_id: 1,
-      auth_token: 'Kevin',
-      team_id: 1
+  () => {
+    return handler.phases.createNewPhases({
+      params: {
+        project_id: 1
+      },
+      body: {
+        phase_name: 'Phase 2',
+        phase_order: 2,
+        phase_status: 'In progress',
+        phase_color: 'green',
+        auth_token: 'Kevin',
+        team_id: 1
       }
-    }, {end: () => {
-      console.log('seed phase added');
-      }
-    }, true);
+    }, {
+        end: () => {
+          console.log('seed phase added');
+        }
+      }, true);
   },
-    () => {
-    return handler.phases.createNewPhases({body: {
-      phase_name: 'Phase 3',
-      phase_order: 3,
-      phase_status: 'Not started',
-      phase_color: 'yellow',
-      project_id: 1,
-      auth_token: 'Kevin',
-      team_id: 1
+  () => {
+    return handler.phases.createNewPhases({
+      params: {
+        project_id: 1
+      },
+      body: {
+        phase_name: 'Phase 3',
+        phase_order: 3,
+        phase_status: 'Not started',
+        phase_color: 'yellow',
+        auth_token: 'Kevin',
+        team_id: 1
       }
-    }, {end: () => {
-      console.log('seed phase added');
-      }
-    }, true);
+    }, {
+        end: () => {
+          console.log('seed phase added');
+        }
+      }, true);
   },
 
   () => {

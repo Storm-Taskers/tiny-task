@@ -10,7 +10,8 @@ const User_Profile = connection.define('user_profile', {
   full_name: { type: Sequelize.STRING, allowNull: false },
   email: { type: Sequelize.STRING },
   user_status: { type: Sequelize.STRING },
-  user_availability: { type: Sequelize.STRING }
+  user_availability: { type: Sequelize.STRING },
+  user_color: { type: Sequelize.STRING }
 });
 
 Users.belongsTo(User_Profile, { foreignKey: { name: 'user_profile_id', targetKey: 'id', allowNull: false, unique: true } });

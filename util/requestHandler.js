@@ -115,14 +115,12 @@ exports.projects = {
   createNewProjects: (req, res, isSeed) => {
     let newProjects = {};
     helper.addProject(req.body, (project) => {
-      newProjects['project_info'] = project;
-      helper.retrieveTeamById(project['team_id'], (team) => {
-        newProjects['team_info'] = team;
+      newProjects.project_info = project;
+      helper.retrieveTeamById(project.team_id, (team) => {
+        newProjects.team_info = team;
         helper.retrieveTeamUsers(team[0].dataValues.id, (users) => {
-          newProjects['user_info'] = users;
-          console.log(newProjects['user_info'], 'users');
+          newProjects.user_info = users;
           if (typeof isSeed === 'function') {
-            console.log(newProjects);
             res.status(200).send(newProjects);
             res.end();
           } else {
@@ -137,12 +135,15 @@ exports.projects = {
   retrieveProjectById: (req, res) => {
     let returnData = {};
     helper.retrieveProjectById(req.params, (project) => {
-      returnData['project_info'] = project;
-      helper.retrieveTeamById(project['team_id'], (team) => {
-        returnData['team_info'] = team;
+      returnData.project_info = project;
+      helper.retrieveTeamById(project.team_id, (team) => {
+        returnData.team_info = team;
         helper.retrieveTeamUsers(team[0].dataValues.id, (users) => {
-          returnData['user_info'] = users;
-          res.send(returnData);
+          returnData.user_info = users;
+          helper.retrievePhasesByProjectId(returnData.project_info.id, (phases) => {
+            returnData.phase_info = phases;
+            res.send(returnData);
+          });
         });
       });
     });
@@ -151,11 +152,11 @@ exports.projects = {
   updateProjects: (req, res) => {
     let updatedProject = {};
     helper.updateProject(req.body.projectId, req.body.projectChanges, (project) => {
-      updatedProject['project_info'] = project;
-      helper.retrieveTeamById(project['team_id'], (team) => {
-        updatedProject['team_info'] = team;
+      updatedProject.project_info = project;
+      helper.retrieveTeamById(project.team_id, (team) => {
+        updatedProject.team_info = team;
         helper.retrieveTeamUsers(team[0].dataValues.id, (users) => {
-          updatedProject['user_info'] = users;
+          updatedProject.user_info = users;
           res.send(updatedProject);
         });
       });
@@ -182,29 +183,39 @@ exports.phases = {
   },
 
   createNewPhases: (req, res, isSeed) => {
-    helper.addPhases(req.body, (err, result) => {
+    helper.addPhases(req, (err, result) => {
       if (err) {
-          return res.status(500).send('server error');
-        } else if (!isSeed) {
-          res.status(200).send('phase added');
-          res.end();
-        } else {
-          console.log('seed phase added');
-          res.end();
-        }
+        return res.status(500).send('server error');
+      } else if (typeof isSeed === 'function') {
+        res.status(200).send(result);
+        res.end();
+      } else {
+        console.log('seed phase added');
+        res.end();
+      }
     });
   },
 
   deletePhases: (req, res) => {
-    helper.deletePhase(req, () => {
-      res.end(JSON.stringify(res.body));
-    })
-      .then((phase) => {
-        res.status(200).send('phase deleted');
-      })
-      .catch((err) => {
-        res.status(404).send(err, 'error on deleting phase');
-      });
+    helper.deletePhase(req.params, (err, message) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        res.send(message).end();
+      }
+    });
+  },
+
+  updatePhases: (req, res) => {
+    helper.updatePhase(req, (err, result) => {
+      if (err) {
+        return res.status(500).send('server error');
+      } else {
+        console.log('seed phase updated');
+        res.status(200).send(result);
+        res.end();
+      }
+    });
   }
 };
 
@@ -227,16 +238,16 @@ exports.tasks = {
     //});
   },
 
-  // retrieveTasksByUserId: (req, res) => {
-
-  // },
-
   retrieveTasksByPhaseId: (req, res) => {
     helper.retrieveTasksByPhaseId(req.params, (tasks) => {
       res.send(tasks);
     });
 
-  }
+  },
+
+  updateTasks: (req, res) => {
+
+  },
 };
 
 // exports.messages = {
