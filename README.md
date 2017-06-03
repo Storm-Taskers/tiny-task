@@ -47,20 +47,9 @@ Request Example:
 {
   "auth_token": "google-auth0-2903",
   "full_name": "Kevin Nguyen",
-<<<<<<< b76ab2009e3973afa94494250e5067a3edd21544
   "email": "kevinn@tinytask.com",
   "user_status": "slacking off",
   "user_availability: "false"
-=======
-  "Email": "kevinn@tinytask.com",
-<<<<<<< 53a85b009ff5839c0e7f413c56729fa7f31f71a9
-  "User_status": "slacking off",
-  "User_availability: false
->>>>>>> Fix syntax error
-=======
-  "user_status": "slacking off",
-  "user_availability: false
->>>>>>> Fix syntax error
 }
 ```
 
