@@ -47,16 +47,16 @@ Request Example:
 {
   "auth_token": "google-auth0-2903",
   "full_name": "Kevin Nguyen",
-  "Email": "kevinn@tinytask.com",
-  "User_status": "slacking off",
-  "User_availability: "false"
+  "email": "kevinn@tinytask.com",
+  "user_status": "slacking off",
+  "user_availability: "false"
 }
 ```
 
 Response Example:
 ```JSON
 {
-  "something": "Hello"
+  "something": "User Added"
 }
 ```
 

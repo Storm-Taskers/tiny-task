@@ -93,7 +93,6 @@ exports.retrieveTeamUsers = (team_id, callback) => {
         }
       });
     })).then((userProfiles) => {
-      console.log(userProfiles, 'userProfiles');
       callback(userProfiles);
     });
   });
@@ -146,7 +145,6 @@ exports.addProject = (body, callback) => {
 
 exports.updateProject = (project_id, project_change, callback) => {
   for(var key in project_change) {
-    console.log(key, 'key');
     models.Projects.update({
       [key]: project_change[key]
     }, {
