@@ -278,7 +278,7 @@ Response Example:
 } 
 ```
 
-`DELETE /api/phases/:project_id/:phase_id`
+* #### `DELETE /api/phases/:project_id/:phase_id`
 Delete a phase for a project
 
 Response Example:
@@ -307,7 +307,7 @@ Response Example:
  }, 
  "user_info": [
    {
-      "id": 1 
+      "id": 1, 
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": true,
@@ -368,7 +368,7 @@ Response Example:
  }, 
  "user_info": [
   {
-    "id": 1 
+    "id": 1, 
     "full_name": "Kevin Nguyen",
     "email": "kev_win@gmail.com",
     "user_availability": true,
