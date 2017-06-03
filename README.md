@@ -170,7 +170,7 @@ Response Example:
       "user_status": "Working"
     }
   ],
-  "phase_info": [] 
+  "phase_info": []
 }
 ```
 
@@ -238,7 +238,7 @@ Create a phase for a project
 
 Request Example:
 ```JSON
-{	
+{
   "phase_name": "Setup Phase",
   "phase_order": 1,
   "phase_color": "blue",
@@ -248,13 +248,13 @@ Request Example:
 
 Response Example:
 ```JSON
-{	
+{
   "id": 1,
   "phase_name": "Setup Phase",
   "phase_order": 1,
   "phase_color": "blue",
   "phase_status": "In progress"
-} 
+}
 ```
 
 * #### `PUT /api/phases/:phase_id`
@@ -262,7 +262,7 @@ Update a phase for a project
 
 Request Example:
 ```JSON
-{	
+{
   "phase_name": "New Setup Phase Name",
   "phase_order": 1,
   "phase_color": "Green",
@@ -272,13 +272,13 @@ Request Example:
 
 Response Example:
 ```JSON
-{	
+{
   "id": 1,
   "phase_name": "New Setup Phase Name",
   "phase_order": 1,
   "phase_color": "Green",
   "phase_status": "In progress"
-} 
+}
 ```
 
 * #### `DELETE /api/phases/:project_id/:phase_id`
@@ -294,38 +294,6 @@ Retrieve a task
 
 Request Example:
 ```JSON
-{	
-  "task_name": "Take Medicine",
-  "task_status": "Completed"
-}
-```
-
-Response Example:
-```JSON
-{	
- "task_info": {
-  "id": 1,
-  "task_name": "Take Medicine",
-  "task_status": "Completed"
- }, 
- "user_info": [
-   {
-      "id": 1, 
-      "full_name": "Kevin Nguyen",
-      "email": "kev_win@gmail.com",
-      "user_availability": true,
-      "user_status": "Working",
-	    "user_color": "blue"
-    }
-  ] 
-}
-```
-
-* #### `POST /api/tasks/:phase_id`
-Create a task for a phase
-
-Request Example:
-```JSON	
 {
   "task_name": "Take Medicine",
   "task_status": "Completed"
@@ -334,13 +302,45 @@ Request Example:
 
 Response Example:
 ```JSON
-{	
+{
  "task_info": {
   "id": 1,
   "task_name": "Take Medicine",
   "task_status": "Completed"
- }, 
- "user_info": [] 
+ },
+ "user_info": [
+   {
+      "id": 1,
+      "full_name": "Kevin Nguyen",
+      "email": "kev_win@gmail.com",
+      "user_availability": true,
+      "user_status": "Working",
+	    "user_color": "blue"
+    }
+  ]
+}
+```
+
+* #### `POST /api/tasks/:phase_id`
+Create a task for a phase
+
+Request Example:
+```JSON
+{
+  "task_name": "Take Medicine",
+  "task_status": "Completed"
+}
+```
+
+Response Example:
+```JSON
+{
+ "task_info": {
+  "id": 1,
+  "task_name": "Take Medicine",
+  "task_status": "Completed"
+ },
+ "user_info": []
 }
 ```
 
@@ -363,22 +363,22 @@ Request Example:
 
 Response Example:
 ```JSON
-{	
+{
  "task_info": {
   "id": 1,
   "task_name": "Take Medicine",
   "task_status": "Completed"
- }, 
+ },
  "user_info": [
   {
-    "id": 1, 
+    "id": 1,
     "full_name": "Kevin Nguyen",
     "email": "kev_win@gmail.com",
     "user_availability": true,
     "user_status": "Working",
     "user_color": "blue"
   }
- ] 
+ ]
 }
 ```
 

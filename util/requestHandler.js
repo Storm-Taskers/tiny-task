@@ -1,17 +1,30 @@
 const helper = require('./helperFunctions.js');
+const Promise = require('bluebird');
+
+
+exports.extractProjectId = (teams, callback) => {
+  Promise.all(teams.map((team => {
+    return new Promise((resolve, reject) => {
+      helper.retrieveProjectByTeamId(team.dataValues.team_id, (project) => {
+      resolve(project[0].dataValues.id);
+      });
+    });
+  }))).then((results) => {
+    callback(results);
+  });
+};
 
 
 exports.users = {
   retrieveUser: (req, res) => {
     var userData = {};
-    helper.retrieveUser(req.params, (result) => {
-      userData.user_profile = result;
-      helper.retrieveProject(req.params, (projects) => {
-        let projectIds = projects.map((project) => {
-          return project.id;
+    helper.retrieveUser(req.params, (userProfile) => {
+      userData.user_profile = userProfile;
+      helper.retrieveUserTeams(req.params, (teams) => {
+        this.extractProjectId(teams, (projectId) => {
+          userData.project_id = projectId;
+          res.send(userData);
         });
-        userData.project_id = projectIds;
-        res.send(userData);
       });
     });
   },
@@ -79,7 +92,7 @@ exports.teams = {
   },
 
   retrieveTeams: (req, res) => {
-    var userData = {};
+    let userData = {};
     helper.retrieveUser(req.params, (result) => {
       userData.profile = result;
       helper.retrieveProject(req.params, (projects) => {
@@ -90,11 +103,14 @@ exports.teams = {
   },
 
   updateTeams: (req, res, isSeed) => {
-    helper.addTeamUser(req.body, req.body.team_id, (err, result) => {
-        if (err) {
-          return res.status(500).send('server error');
-        } else if (!isSeed) {
-          res.status(200).send('team added');
+    let updatedTeam = {};
+    helper.addTeamUser(req.body, req.body.team_id, (teamUsers) => {
+      updatedTeam.team_user_info = teamUsers;
+      // helper.updateProject(req.project_id, {userId: req.body.auth_token}, (project) => {
+      //   updatedTeam.project_info = project;
+      // });
+        if (typeof isSeed === 'function') {
+          res.status(200).send(updatedTeam);
           res.end();
         } else {
           console.log('seed team added');
@@ -224,13 +240,11 @@ exports.phases = {
 
 exports.tasks = {
   createNewTasks: (req, res, isSeed) => {
-    helper.addTask(req.body, (err, result) => {
+    helper.addTask(req.body, (result) => {
     //helper.addTask(req.body, (task) => {
       //const x = task.id;
       //return helper.addUserTasks(req.body, x, (err, result) => {
-        if (err) {
-          return res.status(500).send('server error');
-        } else if (!isSeed) {
+        if (typeof isSeed === 'function') {
           res.status(200).send('task added');
           res.end();
         } else {
@@ -242,8 +256,18 @@ exports.tasks = {
   },
 
   retrieveTasksByPhaseId: (req, res) => {
+    let taskData = {};
     helper.retrieveTasksByPhaseId(req.params, (tasks) => {
-      res.send(tasks);
+      taskData.task_info = tasks;
+      for(let i = 0; i < tasks.length; i++) {
+        console.log(tasks[i].id, 'task id');
+        helper.retrieveTaskUser(tasks[i].id, (users) => {
+          taskData.user_info.i = users;
+        })
+      }
+      //do forEach on tasks, for each userId in array
+        //helper.retrieveUserProfile
+      res.send(taskData);
     });
 
   },
