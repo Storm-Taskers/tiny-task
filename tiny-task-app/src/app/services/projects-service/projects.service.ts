@@ -171,7 +171,12 @@ export class ProjectsService {
 
 
   // Delete Information
-  // deleteProject(projectId: number): void {
-  //   this.http.delete()
-  // }
+  deleteProject(projectId: number): Promise<void> {
+    return this.http.delete(
+      `${this.baseUrl}/api/project/${projectId}`, 
+      {headers: this.headers})
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);  
+  }
 }

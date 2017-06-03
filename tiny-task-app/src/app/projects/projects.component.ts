@@ -12,7 +12,6 @@ import { NavService } from '../services/nav-service/nav.service';
 })
 
 export class ProjectsComponent implements OnInit {
-
   constructor(
     private projectsService: ProjectsService,
     private userService: UserService,
@@ -40,6 +39,12 @@ export class ProjectsComponent implements OnInit {
     let teamId: number = this.userService.currentTeam.id;
     let userId: string = this.userService.userId;
     this.projectsService.createProject(teamId, userId);
+  }
+
+  deleteProject(projectId: number): void {
+    if (confirm('Are you sure you want to delete this?')) {
+      this.projectsService.deleteProject(projectId);
+    }
   }
 
   editProjectName(projectId: number, newName: string): void {
