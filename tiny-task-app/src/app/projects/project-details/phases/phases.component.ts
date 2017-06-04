@@ -24,7 +24,6 @@ export class PhasesComponent implements OnInit {
   }
 
   editPhaseName(phaseId: number, newName: string): void {
-    console.log(phaseId, newName);
     this.projectsService.editPhaseName(phaseId, newName);
   }
 
