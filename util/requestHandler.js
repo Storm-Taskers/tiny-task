@@ -22,7 +22,7 @@ exports.extractProjectId = (teams, callback) => {
 exports.users = {
   retrieveUser: (req, res) => {
     var userData = {};
-    helper.retrieveUser(req.params, (userProfile) => {
+    helper.retrieveUser(req.params.auth_token, (userProfile) => {
       userData.user_profile = userProfile;
       helper.retrieveUserTeams(req.params, (teams) => {
         this.extractProjectId(teams, (projectIds) => {
@@ -81,10 +81,8 @@ exports.teams = {
   createNewTeams: (req, res, isSeed) => {
     helper.addTeam(req.body, (team) => {
       const team_id = team.id;
-      helper.addTeamUser(req.body, team_id, (err, result) => {
-        if (err) {
-          return res.status(500).send(err);
-        } else if (typeof isSeed === 'function') {
+      helper.addTeamUser(req.body, team_id, (result) => {
+        if (typeof isSeed === 'function') {
           res.status(200).send('team added');
           res.end();
         } else {
@@ -97,7 +95,7 @@ exports.teams = {
 
   retrieveTeams: (req, res) => {
     let userData = {};
-    helper.retrieveUser(req.params, (result) => {
+    helper.retrieveUser(req.params.auth_token, (result) => {
       userData.profile = result;
       helper.retrieveProject(req.params, (projects) => {
         userData.projects = projects;
@@ -110,9 +108,6 @@ exports.teams = {
     let updatedTeam = {};
     helper.addTeamUser(req.body, req.body.team_id, (teamUsers) => {
       updatedTeam.team_user_info = teamUsers;
-      // helper.updateProject(req.project_id, {userId: req.body.auth_token}, (project) => {
-      //   updatedTeam.project_info = project;
-      // });
         if (typeof isSeed === 'function') {
           res.status(200).send(updatedTeam);
           res.end();
@@ -244,19 +239,15 @@ exports.phases = {
 
 exports.tasks = {
   createNewTasks: (req, res, isSeed) => {
-    helper.addTask(req.body, (result) => {
-    //helper.addTask(req.body, (task) => {
-      //const x = task.id;
-      //return helper.addUserTasks(req.body, x, (err, result) => {
-        if (typeof isSeed === 'function') {
-          res.status(200).send('task added');
-          res.end();
-        } else {
-          console.log('seed task added');
-          res.end();
-        }
-      });
-    //});
+    helper.addTask(req.body, req.params.phase_id, (result) => {
+      if (typeof isSeed === 'function') {
+        res.status(200).send(result);
+        res.end();
+      } else {
+        console.log('seed task added');
+        res.end();
+      }
+    });
   },
 
   retrieveTasksByPhaseId: (req, res) => {
@@ -264,20 +255,44 @@ exports.tasks = {
     helper.retrieveTasksByPhaseId(req.params, (tasks) => {
       taskData.task_info = tasks;
       for(let i = 0; i < tasks.length; i++) {
-        console.log(tasks[i].id, 'task id');
         helper.retrieveTaskUser(tasks[i].id, (users) => {
           taskData.user_info.i = users;
         })
       }
-      //do forEach on tasks, for each userId in array
-        //helper.retrieveUserProfile
       res.send(taskData);
     });
 
   },
 
-  updateTasks: (req, res) => {
-
+  updateTasks: (req, res, isSeed) => {
+    let updatedTask = {};
+    if(req.body.user_id) {
+      helper.addUserTasks(req.body.user_id, req.body.stage, req.params.task_id, (addedUser) => {
+        helper.retrieveTaskUser(req.params.task_id, (users) => {
+          for(let i = 0; i < users.length; i++) {
+            helper.retrieveUser(users.user_id, (userProfile) => {
+              updatedTask.user_info = userProfile;
+            })
+          }
+          helper.retrieveTaskByTaskId(req.params.task_id, (task) => {
+            updatedTask.task_info = task;
+          })
+        })
+        if(typeof isSeed === 'function') {
+          res.status(200).send(updatedTask);
+        } else {
+          console.log('seed user added');
+        }
+      })
+    } else {
+      helper.updateTask(req.params.task_id, req.body.taskChanges, (task) => {
+        if(typeof isSeed === 'function') {
+          res.status(200).send(task);
+        } else {
+          console.log('seed task updated');
+        }
+      });
+    };
   },
 };
 

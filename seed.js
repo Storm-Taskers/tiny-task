@@ -267,6 +267,77 @@ const seedData = [
       console.log('seed task created');
       }
     }, true);
+  },
+
+  () => {
+    return handler.tasks.updateTasks({body: {
+      user_id: 'Kevin',
+      task_id: 1,
+      stage: 'Not started'
+      }
+    }, {end: () => {
+      console.log('seed task updated');
+      }
+    }, true);
+  },
+    () => {
+    return handler.tasks.updateTasks({body: {
+      user_id: 'Brian',
+      task_id: 2,
+      stage: 'Not started'
+      }
+    }, {end: () => {
+      console.log('seed task updated');
+      }
+    }, true);
+  },
+
+    () => {
+    return handler.tasks.updateTasks({body: {
+      user_id: 'Beth',
+      task_id: 3,
+      stage: 'Not started'
+      }
+    }, {end: () => {
+      console.log('seed task updated');
+      }
+    }, true);
+  },
+
+    () => {
+    return handler.tasks.updateTasks({body: {
+      user_id: 'Kevin',
+      task_id: 4,
+      stage: 'Not started'
+      }
+    }, {end: () => {
+      console.log('seed task updated');
+      }
+    }, true);
+  },
+
+    () => {
+    return handler.tasks.updateTasks({body: {
+      user_id: 'Brian',
+      task_id: 5,
+      stage: 'Not started'
+      }
+    }, {end: () => {
+      console.log('seed task updated');
+      }
+    }, true);
+  },
+
+    () => {
+    return handler.tasks.updateTasks({body: {
+      user_id: 'Beth',
+      task_id: 6,
+      stage: 'Not started'
+      }
+    }, {end: () => {
+      console.log('seed task updated');
+      }
+    }, true);
   }
 ];
 

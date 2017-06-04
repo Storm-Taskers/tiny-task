@@ -4,12 +4,14 @@ const models = require('../db/models.js');
 
 
 
-exports.retrieveUser = (params, callback) => {
+exports.retrieveUser = (userId, callback) => {
+  console.log(userId, 'userId');
   models.Users.findOne({
     where: {
-      auth_token: params.auth_token
+      auth_token: userId
     }
   }).then((user) => {
+    console.log(user, 'should be userProfile')
     return models.User_Profile.findOne({
       where: {
         id: user.user_profile_id
@@ -189,25 +191,6 @@ exports.deleteProject = (params, callback) => {
   });
 };
 
-// exports.addUserProject = (project_id, user_id, callback) => {
-//   models.User_Projects.create({
-//     project_id: project_id,
-//     user_id: body.auth_token
-//   }).then((result) => {
-//     callback(result);
-//   });
-// };
-
-// exports.retrieveUserProjects = (user_id, callback) => {
-//   models.User_Projects.findAll({
-//     where: {
-//       user_id: user_id
-//     }
-//   }).then((projects) => {
-//     callback(projects);
-//   });
-// };
-
 exports.retrievePhasesByProjectId = (project_id, callback)=> {
   return models.Phases.findAll({
     where: {
@@ -270,6 +253,16 @@ exports.retrieveTasksByPhaseId = (params, callback) => {
   });
 };
 
+exports.retrieveTaskByTaskId = (task_id, callback) => {
+  return models.Tasks.findOne({
+    where: {
+      id: task_id
+    }
+  }).then((task) => {
+    callback(task);
+  })
+}
+
 exports.retrieveTaskUser = (task_id, callback) => {
   models.User_Tasks.findAll({
     where: {
@@ -277,31 +270,54 @@ exports.retrieveTaskUser = (task_id, callback) => {
     }
   }).then((users) => {
     callback(users);
-  })
-}
-
-exports.addUserTasks = (body, x, callback) => {
-  models.User_Tasks.create({
-    user_id: body.auth_token,
-    task_id: x,
-    stage: body.stage
   });
 };
 
-exports.addTask = (body, callback) => {
+exports.addUserTasks = (user_id, stage, task_id, callback) => {
+  models.User_Tasks.create({
+    user_id: user_id,
+    task_id: task_id,
+    stage: stage
+  }).then((results) => {
+    callback(results);
+  });
+};
+
+exports.addTask = (body, phase_id, callback) => {
   models.Tasks.create({
     task_name: body.task_name,
     task_status: body.task_status,
     task_color: body.task_color,
-    phase_id: body.phase_id
+    phase_id: phase_id
   }).then((result) => {
     callback(result);
   });
 };
 
-// exports.updateTask = () => {
-
-// }
+exports.updateTask = (task_id, changes, callback) => {
+  let taskId = task_id;
+  console.log(changes)
+  models.Tasks.findOne({
+    where: {
+      id: taskId
+    }
+  }).then((task) => {
+    task.updateAttributes({
+      task_name: changes.task_name,
+      task_status: changes.task_status,
+      task_color: changes.task_color,
+      phase_id: changes.phase_id
+    }).then((task) => {
+      models.Tasks.findOne({
+        where: {
+        id: taskId
+        }
+      }).then((task) => {
+      callback(task);
+      });
+    });
+  });
+};
 
 // exports.deleteTask = () => {
 
