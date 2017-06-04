@@ -265,24 +265,25 @@ exports.tasks = {
   },
 
   updateTasks: (req, res, isSeed) => {
-    let updatedTask = {};
+    let updatedTask = {
+      user_info: []
+    };
     if(req.body.user_id) {
       helper.addUserTasks(req.body.user_id, req.body.stage, req.params.task_id, (addedUser) => {
         helper.retrieveTaskUser(req.params.task_id, (users) => {
-          for(let i = 0; i < users.length; i++) {
-            helper.retrieveUser(users.user_id, (userProfile) => {
-              updatedTask.user_info = userProfile;
-            })
+          for(var i = 0; i < users.length; i++) {
+            updatedTask.user_info.push(users[i].dataValues.user_id)
           }
           helper.retrieveTaskByTaskId(req.params.task_id, (task) => {
             updatedTask.task_info = task;
+            if(typeof isSeed === 'function') {
+              console.log('sent');
+              res.status(200).send(updatedTask);
+            } else {
+              console.log('seed user added');
+            }
           })
         })
-        if(typeof isSeed === 'function') {
-          res.status(200).send(updatedTask);
-        } else {
-          console.log('seed user added');
-        }
       })
     } else {
       helper.updateTask(req.params.task_id, req.body.taskChanges, (task) => {
