@@ -222,9 +222,9 @@ exports.addPhases = (req, callback) => {
   models.Phases.create({
     project_id: req.params.project_id,
     phase_name: req.body.phase_name,
-    phase_order: req.body.phase_order,
-    phase_status: req.body.phase_status,
-    phase_color: req.body.phase_color
+    phase_order: 1,
+    phase_status: 'In Progress',
+    phase_color: 'red'
   }).then((phase) => {
     callback(null, phase.dataValues);
   }).catch((err) => {
@@ -238,12 +238,7 @@ exports.updatePhase = (req, callback) => {
       id: req.params.phase_id
     }
   }).then((phase) => {
-    phase.updateAttributes({
-      phase_name: req.body.phase_name,
-      phase_order: req.body.phase_order,
-      phase_status: req.body.phase_status,
-      phase_color: req.body.phase_color
-    }).then((phase) => {
+    phase.updateAttributes(req.body).then((phase) => {
       callback(null, phase.dataValues);
     }).catch((err) => {
       callback(err, null);
@@ -252,6 +247,7 @@ exports.updatePhase = (req, callback) => {
 };
 
 exports.deletePhase = (params, callback) => {
+  console.log(params);
   models.Phases.destroy({
     where: {
       id: params.phase_id

@@ -35,27 +35,10 @@ export class ProjectsService {
   ]
 
   // // MOCK DATA
-  public projects: Project[];
+  public projects: Project[] = [];
 
   // MOCK DATA
-  public phases: Phase[] = [
-    {
-      id: 1,
-      project_id: 1,
-      phase_name: 'First MVP',
-      phase_color: 'green',
-      phase_order: 1,
-      phase_status: 'In progress'
-    },
-    {
-      id: 2,
-      project_id: 1,
-      phase_name: 'Second MVP',
-      phase_color: 'red',
-      phase_order: 2,
-      phase_status: 'Not Started'
-    }
-  ];
+  public phases: Phase[] = [];
 
   public tasks: Task[] = [
     {
@@ -90,18 +73,20 @@ export class ProjectsService {
     this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then((response) => {
+        this.phases = response.json().phase_info;
         this.projects.push(response.json().project_info);
       })
       .catch(this.handleError);
   }
 
   getPhases(projectId: number): void {
-    // this.http.get(`${this.baseUrl}/api/phases/${projectId}`)
-    //   .toPromise()
-    //   .then((response) => {
-    //     this.phases = response.json();
-    //   })
-    //   .catch(this.handleError);
+    this.http.get(`${this.baseUrl}/api/phases/${projectId}`)
+      .toPromise()
+      .then((response) => {
+        console.log(response.json());
+        this.phases = response.json();
+      })
+      .catch(this.handleError);
   }
 
   getPhaseTasks(phaseId: number): Promise<Task[]> {
@@ -137,25 +122,25 @@ export class ProjectsService {
   }
 
   // MOCK DATA
-  public testPhase: Phase = {
-                              id: 3,
-                              project_id: 1,
-                              phase_name: 'New Phase',
-                              phase_color: 'green',
-                              phase_order: 1,
-                              phase_status: 'In progress'
-                            };
+  // public testPhase: Phase = {
+  //                             id: 3,
+  //                             project_id: 1,
+  //                             phase_name: 'New Phase',
+  //                             phase_color: 'green',
+  //                             phase_order: 1,
+  //                             phase_status: 'In progress'
+  //                           };
 
   createPhase(projectId: number): void {
-    this.phases.push(this.testPhase);
-    // this.http.post(
-    //   `${this.baseUrl}/api/project/${projectId}`,
-    //   JSON.stringify({projectId: projectId, phaseName: "Phase"}))
-    //   .toPromise()
-    //   .then( (response) => {
-    //     this.phases.push(response.json());
-    //   })
-    //   .catch(this.handleError);
+    this.http.post(
+      `${this.baseUrl}/api/phases/${projectId}`,
+      JSON.stringify({phase_name: "New Phase"}),
+      {headers: this.headers})
+      .toPromise()
+      .then( (response) => {
+        this.phases.push(response.json());
+      })
+      .catch(this.handleError);
   }
 
   createTask(phaseId: number): Promise<Task> {
@@ -164,6 +149,7 @@ export class ProjectsService {
             JSON.stringify({phaseId: phaseId, taskName: 'New Task'}))
             .toPromise()
             .then( (response) => {
+              console.log(response);
               return response.json();
             })
             .catch(this.handleError);
@@ -183,14 +169,15 @@ export class ProjectsService {
   }
 
   editPhaseName(phaseId: number, phaseName: string): void {
-    // this.http.put(
-    //   `${this.baseUrl}/api/phases/${phaseId}`,
-    //   JSON.stringify({phase_name: projectName}))
-    //   .toPromise()
-    //   .then( (response) => {
-    //     this.phases.find(phase => phase.id === phaseId).phase_name = phaseName;
-    //   })
-    //   .catch(this.handleError);
+    this.http.put(
+      `${this.baseUrl}/api/phases/${phaseId}`,
+      JSON.stringify({phase_name: phaseName}),
+      {headers: this.headers})
+      .toPromise()
+      .then( (response) => {
+        this.phases.find(phase => phase.id === phaseId).phase_name = phaseName;
+      })
+      .catch(this.handleError);
   }
 
   editTaskName(taskId: number, taskName: string): Promise<Task> {
@@ -238,7 +225,7 @@ export class ProjectsService {
   }
 
   deletePhase(phaseId: number): void {
-    this.http.delete(`${this.baseUrl}/api/phase/${phaseId}`)
+    this.http.delete(`${this.baseUrl}/api/phases/${phaseId}`)
       .toPromise()
       .then( (response) => {
         let phaseToRemove = this.phases.findIndex(phase => phase.id === phaseId);
