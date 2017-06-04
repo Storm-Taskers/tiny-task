@@ -4,4 +4,6 @@ export class Project {
   team_id: number;
   project_name: string;
   complete: boolean;
+  createdAt: string;
+  updatedAt: string;
 }

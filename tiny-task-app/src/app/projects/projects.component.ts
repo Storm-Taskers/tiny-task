@@ -23,9 +23,13 @@ export class ProjectsComponent implements OnInit {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
 
-    // this.userService.projectIds.forEach((projectId) => {
-    //   this.projectsService.getProject(projectId);
-    // });
+    this.projectsService.projects = [];
+
+    setTimeout(() => {
+      this.projectsService.projectIds.forEach((projectId) => {
+        this.projectsService.getProject(projectId);
+      });
+    }, 1000);
   }
 
   showDetails(): void {
