@@ -49,7 +49,7 @@ Request Example:
 {
   "auth_token": "google-auth0-2903",
   "full_name": "Kevin Nguyen",
-  "email": "kevinn@tinytask.com",
+  "email": "kevin@tinytask.com",
   "user_status": "slacking off",
   "user_availability: false
 }
