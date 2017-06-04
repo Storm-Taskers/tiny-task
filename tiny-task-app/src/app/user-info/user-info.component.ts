@@ -18,6 +18,8 @@ export class UserInfoComponent implements OnInit {
   ngOnInit() {
     // Stub 'Brian' for user profile
     this.userService.getUserInfo('Brian')
-      .then(projectIds => this.projectsService.projectIds = projectIds);
+      .then(projectIds => {
+        this.projectsService.projectIds = projectIds;
+      });
   }
 }

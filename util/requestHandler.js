@@ -6,11 +6,15 @@ exports.extractProjectId = (teams, callback) => {
   Promise.all(teams.map((team => {
     return new Promise((resolve, reject) => {
       helper.retrieveProjectByTeamId(team.dataValues.team_id, (project) => {
-      resolve(project[0].dataValues.id);
+      resolve(project);
       });
     });
   }))).then((results) => {
-    callback(results);
+    let idArray = [];
+    results[0].forEach((project) => {
+      idArray.push(project.id);
+    });
+    callback(idArray);
   });
 };
 
@@ -21,8 +25,8 @@ exports.users = {
     helper.retrieveUser(req.params, (userProfile) => {
       userData.user_profile = userProfile;
       helper.retrieveUserTeams(req.params, (teams) => {
-        this.extractProjectId(teams, (projectId) => {
-          userData.project_id = projectId;
+        this.extractProjectId(teams, (projectIds) => {
+          userData.project_id = projectIds;
           res.send(userData);
         });
       });

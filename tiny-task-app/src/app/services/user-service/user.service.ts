@@ -29,8 +29,7 @@ export class UserService {
             .toPromise()
             .then( (response) => {
               this.userProfile = response.json().user_profile;
-              // return response.json().project_ids;
-              return [1, 2, 3];
+              return response.json().project_id;
             })
             .catch(this.handleError);
     }

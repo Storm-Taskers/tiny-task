@@ -25,9 +25,11 @@ export class ProjectsComponent implements OnInit {
 
     this.projectsService.projects = [];
 
-    this.projectsService.projectIds.forEach((projectId) => {
-      this.projectsService.getProject(projectId);
-    });
+    setTimeout(() => {
+      this.projectsService.projectIds.forEach((projectId) => {
+        this.projectsService.getProject(projectId);
+      });
+    }, 1000);
   }
 
   showDetails(): void {

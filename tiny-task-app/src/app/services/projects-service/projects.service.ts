@@ -90,7 +90,6 @@ export class ProjectsService {
     this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then((response) => {
-        console.log("Projects:", response.json());
         this.projects.push(response.json().project_info);
       })
       .catch(this.handleError);
@@ -174,7 +173,8 @@ export class ProjectsService {
   editProjectName(projectId: number, projectName: string): void {
     this.http.put(
       `${this.baseUrl}/api/projects/${projectId}`,
-      JSON.stringify({project_name: projectName}))
+      JSON.stringify({projectId: projectId, projectChanges: {project_name: projectName}}),
+      {headers: this.headers})
       .toPromise()
       .then( (response) => {
         this.projects.find(project => project.id === projectId).project_name = projectName;
@@ -231,7 +231,8 @@ export class ProjectsService {
     this.http.delete(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then( (response) => {
-        this.projects.splice(this.projects.findIndex(project => project.id === projectId, 1));
+        let projectToRemove = this.projects.findIndex(project => project.id === projectId);
+        this.projects.splice(projectToRemove, 1);
       })
       .catch(this.handleError);
   }
@@ -240,7 +241,8 @@ export class ProjectsService {
     this.http.delete(`${this.baseUrl}/api/phase/${phaseId}`)
       .toPromise()
       .then( (response) => {
-        this.phases.splice(this.phases.findIndex(phase => phase.id === phaseId, 1));
+        let phaseToRemove = this.phases.findIndex(phase => phase.id === phaseId);
+        this.phases.splice(phaseToRemove, 1);
       })
       .catch(this.handleError);
   }
