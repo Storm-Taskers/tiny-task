@@ -61,19 +61,19 @@ exports.retrieveTeamById = (team_id, callback) => {
   });
 };
 
-exports.addTeam = (body, callback) => {
+exports.addTeam = (team_name, user_id, callback) => {
   models.Teams.create({
-    team_name: body.team_name,
-    user_id: body.auth_token
+    team_name: team_name,
+    user_id: user_id
   }).then((result) => {
     callback(result);
   });
 };
 
-exports.addTeamUser = (body, team_id, callback) => {
+exports.addTeamUser = (user_id, team_id, callback) => {
   models.Team_Users.create({
     team_id: team_id,
-    user_id: body.auth_token
+    user_id: user_id
   }).then((result) => {
     callback(result);
   });
@@ -107,13 +107,16 @@ exports.retrieveUserTeams = (params, callback) => {
   });
 };
 
-// exports.updateTeam = () => {
-
-// }
-
-// exports.deleteTeam = () => {
-
-// }
+exports.deleteTeam = (team_id, callback) => {
+  console.log(team_id, 'should be sent id');
+  models.Teams.destroy({
+    where: {
+      id: team_id
+    }
+  }).then(() => {
+    callback('team deleted');
+  });
+};
 
 exports.retrieveProjectByTeamId = (team_id, callback) => {
   models.Projects.findAll({

@@ -79,11 +79,15 @@ exports.users = {
 
 exports.teams = {
   createNewTeams: (req, res, isSeed) => {
-    helper.addTeam(req.body, (team) => {
+    let teamData = {};
+    helper.addTeam(req.body.team_name, req.body.user_id, (team) => {
+      teamData.team_info = team;
       const team_id = team.id;
-      helper.addTeamUser(req.body, team_id, (result) => {
+      helper.addTeamUser(req.body.user_id, team_id, (user) => {
+        console.log(user, 'user');
+        teamData.user_info = user;
         if (typeof isSeed === 'function') {
-          res.status(200).send('team added');
+          res.status(200).send(teamData);
           res.end();
         } else {
           console.log('seed team added');
@@ -94,37 +98,42 @@ exports.teams = {
   },
 
   retrieveTeams: (req, res) => {
-    let userData = {};
-    helper.retrieveUser(req.params.auth_token, (result) => {
-      userData.profile = result;
-      helper.retrieveProject(req.params, (projects) => {
-        userData.projects = projects;
-        res.send(userData);
+    let teamData = {};
+    helper.retrieveTeamById(req.params.team_id, (result) => {
+      teamData.team_info = result;
+      helper.retrieveProjectByTeamId(req.params.team_id, (projects) => {
+        teamData.projects = projects;
+        helper.retrieveTeamUsers(req.params.team_id, (users) => {
+          teamData.user_info = users;
+          res.send(teamData);
+        });
       });
     });
   },
 
   updateTeams: (req, res, isSeed) => {
     let updatedTeam = {};
-    helper.addTeamUser(req.body, req.body.team_id, (teamUsers) => {
-      updatedTeam.team_user_info = teamUsers;
-        if (typeof isSeed === 'function') {
-          res.status(200).send(updatedTeam);
-          res.end();
-        } else {
-          console.log('seed team added');
-          res.end();
-        }
+    helper.addTeamUser(req.body.user_id, req.params.team_id, (teamUsers) => {
+      helper.retrieveTeamById(req.params.team_id, (team) => {
+        updatedTeam.team_info = team;
+        helper.retrieveTeamUsers(req.params.team_id, (users) => {
+          updatedTeam.user_info = users;
+          if (typeof isSeed === 'function') {
+            res.status(200).send(updatedTeam);
+            res.end();
+          } else {
+            console.log('seed team added');
+            res.end();
+          }
+        });
       });
+    });
   },
 
   deleteTeams: (req, res) => {
-    helper.deleteTeam(req, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((team) => {
-      res.status(200).send('team deleted');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on deleting team');
+    console.log(req.params.team_id, 'should be team_id');
+    helper.deleteTeam(req.params.team_id, (message) => {
+      res.status(200).send(message);
     });
   }
 };

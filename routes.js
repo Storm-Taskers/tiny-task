@@ -12,10 +12,10 @@ router.post('/users', handler.users.createNewUser);
 
 
 //////////TEAMS/////////////////
-router.get('/teams', handler.teams.retrieveTeams);
+router.get('/teams/:team_id', handler.teams.retrieveTeams);
 router.post('/teams', handler.teams.createNewTeams);
-router.put('/teams', handler.teams.updateTeams);
-// router.delete('/api/teams', handler.teams.deleteTeams);
+router.put('/teams/:team_id', handler.teams.updateTeams);
+router.delete('/teams/:team_id', handler.teams.deleteTeams);
 
 
 //////////PROJECTS/////////////////
@@ -26,7 +26,6 @@ router.delete('/projects/:project_id', handler.projects.deleteProjects);
 
 
 //////////PHASES/////////////////
-//router.get('/phases/:project_id', handler.phases.retrievePhasesByProjectId);
 router.post('/phases/:project_id', handler.phases.createNewPhases);
 router.put('/phases/:phase_id', handler.phases.updatePhases);
 router.delete('/phases/:phase_id', handler.phases.deletePhases);
