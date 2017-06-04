@@ -192,11 +192,10 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks({body: {
+    return handler.tasks.createNewTasks({params: {phase_id: 1}, body: {
       task_name: 'Create back-end',
       task_status: 'Finished',
-      task_color: 'green',
-      phase_id: 1
+      task_color: 'green'
       }
     }, {end: () => {
       console.log('seed task created');
@@ -205,11 +204,10 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks({body: {
+    return handler.tasks.createNewTasks({params: {phase_id: 1}, body: {
       task_name: 'Create front-end',
       task_status: 'Finished',
-      task_color: 'blue',
-      phase_id: 1
+      task_color: 'blue'
       }
     }, {end: () => {
       console.log('seed task created');
@@ -218,11 +216,10 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks({body: {
+    return handler.tasks.createNewTasks({params: {phase_id: 2}, body: {
       task_name: 'Write more Tests',
       task_status: 'In progress',
-      task_color: 'yellow',
-      phase_id: 2
+      task_color: 'yellow'
       }
     }, {end: () => {
       console.log('seed task created');
@@ -231,11 +228,10 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks({body: {
+    return handler.tasks.createNewTasks({params: {phase_id: 2}, body: {
       task_name: 'Write more functions',
       task_status: 'In progress',
-      task_color: 'orange',
-      phase_id: 2
+      task_color: 'orange'
       }
     }, {end: () => {
       console.log('seed task created');
@@ -244,11 +240,10 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks({body: {
+    return handler.tasks.createNewTasks({params: {phase_id: 3}, body: {
       task_name: 'Finish app',
       task_status: 'Not started',
-      task_color: 'red',
-      phase_id: 3
+      task_color: 'red'
       }
     }, {end: () => {
       console.log('seed task created');
@@ -257,11 +252,10 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks({body: {
+    return handler.tasks.createNewTasks({params: {phase_id: 3}, body: {
       task_name: 'Make it pretty',
       task_status: 'Not started',
-      task_color: 'purple',
-      phase_id: 3
+      task_color: 'purple'
       }
     }, {end: () => {
       console.log('seed task created');
@@ -270,9 +264,8 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.updateTasks({body: {
+    return handler.tasks.updateTasks({params: {task_id: 1}, body: {
       user_id: 'Kevin',
-      task_id: 1,
       stage: 'Not started'
       }
     }, {end: () => {
@@ -281,9 +274,8 @@ const seedData = [
     }, true);
   },
     () => {
-    return handler.tasks.updateTasks({body: {
+    return handler.tasks.updateTasks({params: {task_id: 2}, body: {
       user_id: 'Brian',
-      task_id: 2,
       stage: 'Not started'
       }
     }, {end: () => {
@@ -293,9 +285,8 @@ const seedData = [
   },
 
     () => {
-    return handler.tasks.updateTasks({body: {
+    return handler.tasks.updateTasks({params: {task_id: 3}, body: {
       user_id: 'Beth',
-      task_id: 3,
       stage: 'Not started'
       }
     }, {end: () => {
@@ -305,9 +296,8 @@ const seedData = [
   },
 
     () => {
-    return handler.tasks.updateTasks({body: {
+    return handler.tasks.updateTasks({params: {task_id: 4}, body: {
       user_id: 'Kevin',
-      task_id: 4,
       stage: 'Not started'
       }
     }, {end: () => {
@@ -317,9 +307,8 @@ const seedData = [
   },
 
     () => {
-    return handler.tasks.updateTasks({body: {
+    return handler.tasks.updateTasks({params: {task_id: 5}, body: {
       user_id: 'Brian',
-      task_id: 5,
       stage: 'Not started'
       }
     }, {end: () => {
@@ -329,9 +318,8 @@ const seedData = [
   },
 
     () => {
-    return handler.tasks.updateTasks({body: {
+    return handler.tasks.updateTasks({params: {task_id: 6}, body: {
       user_id: 'Beth',
-      task_id: 6,
       stage: 'Not started'
       }
     }, {end: () => {

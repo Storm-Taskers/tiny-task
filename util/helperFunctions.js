@@ -5,13 +5,11 @@ const models = require('../db/models.js');
 
 
 exports.retrieveUser = (userId, callback) => {
-  console.log(userId, 'userId');
   models.Users.findOne({
     where: {
       auth_token: userId
     }
   }).then((user) => {
-    console.log(user, 'should be userProfile')
     return models.User_Profile.findOne({
       where: {
         id: user.user_profile_id
