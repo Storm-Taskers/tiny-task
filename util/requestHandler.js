@@ -295,6 +295,12 @@ exports.tasks = {
       });
     };
   },
+
+  deleteTasks: (req, res) => {
+    helper.deleteTask(req.params.task_id, (message) => {
+      res.status(200).send(message);
+    })
+  }
 };
 
 // exports.messages = {

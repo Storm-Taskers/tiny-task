@@ -228,7 +228,6 @@ exports.updatePhase = (req, callback) => {
 };
 
 exports.deletePhase = (params, callback) => {
-  console.log(params);
   models.Phases.destroy({
     where: {
       id: params.phase_id
@@ -317,9 +316,15 @@ exports.updateTask = (task_id, changes, callback) => {
   });
 };
 
-// exports.deleteTask = () => {
-
-// }
+exports.deleteTask = (task_id, callback) => {
+  models.Tasks.destroy({
+    where: {
+      id: task_id
+    }
+  }).then(() => {
+    callback('taskDeleted')
+  });
+};
 
 
 

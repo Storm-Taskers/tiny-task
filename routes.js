@@ -36,7 +36,7 @@ router.delete('/phases/:phase_id', handler.phases.deletePhases);
 router.get('/tasks/:phase_id', handler.tasks.retrieveTasksByPhaseId);
 router.post('/tasks/:phase_id', handler.tasks.createNewTasks);
 router.put('/tasks/:task_id', handler.tasks.updateTasks);
-//router.delete('/tasks', handler.tasks.deleteTasks);
+router.delete('/tasks/:task_id', handler.tasks.deleteTasks);
 
 
 //////////MESSAGES/////////////////
