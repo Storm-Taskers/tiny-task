@@ -1,3 +1,21 @@
-<p>
-  teams works!
-</p>
+<div class="header">
+  <h2 class="h2-header">My Teams
+    <button md-icon-button (click)="addNewTeam(name)">
+      <i class="material-icons">library_add</i>
+    </button>
+    <input [(ngModel)]="name" placeholder="Enter New Team Name">
+  </h2>
+<!--Render Dropdown Menu-->
+</div>
+<hr/>
+
+<div class="container-team">
+<!--Implement ngFor to create Teams-->
+<div *ngFor="let team of teamService.userTeams">
+  <button md-icon-button >
+    <i class="material-icons">library_delete</i>
+  </button>
+  <div [routerLink]="['/teams', team.id] >
+    <div>{{ team.name }}</div>
+  </div>
+</div>
