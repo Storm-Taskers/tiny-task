@@ -32,10 +32,12 @@ Content-type: json/application
   ```JSON
   {
     "user_profile": {
+      "id": 1,
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": "true",
-      "user_status": "Working"
+      "user_status": "Working",
+      "user_color": null
     },
     "project_ids": [1, 2, 3, 4]
   }
