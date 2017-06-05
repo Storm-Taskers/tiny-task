@@ -15,6 +15,4 @@ export class TeamService {
   setCurrentTeam(team: Team): void {
     this.currentTeam = team;
   }
-
-
 }
