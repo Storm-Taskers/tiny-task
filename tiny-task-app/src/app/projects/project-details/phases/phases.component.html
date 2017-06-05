@@ -1,19 +1,28 @@
 <div class="current-phases">
   <div class="project-header">
     <inline-editor type="text" [(ngModel)]="phase.phase_name" (onSave)="editPhaseName(phase.id, $event)" name="phase.phase_name" size="15"  min="1"></inline-editor>
-    <button md-icon-button (click)="deletePhase(phase.id)">
-      <i class="material-icons">delete_forever</i>
-    </button>
+  <button md-icon-button [mdMenuTriggerFor]="menu">
+   <i class="material-icons">more_vert</i>
+  </button>
   </div>
+  <md-menu #menu="mdMenu">
+    <button md-menu-item (click)="deletePhase(phase.id)">
+      <i class="material-icons">delete_forever</i>
+      <span>Delete Phase</span>
+    </button>
+  </md-menu>
 <!--Implement ngFor to create Phase Details (task)-->
   <div *ngFor="let task of phaseTasks" >
     <div class="task-container task">
       <tasks
         [task]="task">
       </tasks>
-      <button md-icon-button (click)="deleteTask(task.id)">
-        <i class="material-icons">delete</i>
-      </button>
     </div>
+  </div>
+  <div class="phase-footer">
+    <button md-icon-button disableRipple (click)="addNewProject()">
+      <i class="material-icons">library_add</i>
+      ADD A TASK
+    </button>
   </div>
 </div>
