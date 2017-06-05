@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/bethstevic/tiny-task#readme",
   "dependencies": {
+    "auth0-js": "^8.7.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "chai-http": "^3.0.0",
