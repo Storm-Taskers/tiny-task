@@ -42,13 +42,55 @@ exports.addUserProfile = (body, callback) => {
   });
 };
 
-// exports.updateUser = () => {
+exports.deleteUserProfiles = (params, callback) => {
+  models.Users
+    .findOne({
+      where: {
+        auth_token: params.auth_token
+      }
+    })
+    .then(user => {
+      models.User_Profile
+        .destroy({
+          where: {
+            id: user.dataValues.user_profile_id
+          }
+        })
+        .then(result => {
+          callback(null, "deleted");
+        })
+        .catch(err => {
+          callback(err, null);
+        });
+    });
+};
 
-// }
-
-// exports.deleteUser = () => {
-
-// }
+exports.updateUserProfiles = (params, body, callback) => {
+  models.Users
+    .findOne({
+      where: {
+        auth_token: params.auth_token
+      }
+    })
+    .then(user => {
+      models.User_Profile
+        .findOne({
+          where: {
+            id: user.dataValues.user_profile_id
+          }
+        })
+        .then(userProfile => {
+          userProfile
+            .updateAttributes(body)
+            .then(userProfile => {
+              callback(null, userProfile.dataValues);
+            })
+            .catch(err => {
+              callback(err, null);
+            });
+        });
+    });
+  };
 
 
 exports.retrieveTeamById = (team_id, callback) => {
@@ -61,19 +103,19 @@ exports.retrieveTeamById = (team_id, callback) => {
   });
 };
 
-exports.addTeam = (body, callback) => {
+exports.addTeam = (team_name, user_id, callback) => {
   models.Teams.create({
-    team_name: body.team_name,
-    user_id: body.auth_token
+    team_name: team_name,
+    user_id: user_id
   }).then((result) => {
     callback(result);
   });
 };
 
-exports.addTeamUser = (body, team_id, callback) => {
+exports.addTeamUser = (user_id, team_id, callback) => {
   models.Team_Users.create({
     team_id: team_id,
-    user_id: body.auth_token
+    user_id: user_id
   }).then((result) => {
     callback(result);
   });
@@ -97,23 +139,27 @@ exports.retrieveTeamUsers = (team_id, callback) => {
   });
 };
 
-exports.retrieveUserTeams = (params, callback) => {
+exports.retrieveUserTeams = (user_id, callback) => {
+  //console.log(user_id, 'userId');
   models.Team_Users.findAll({
     where: {
-      user_id: params.auth_token
+      user_id: user_id
     }
   }).then((teams) => {
+    //console.log(teams, 'teams inside helper function');
     callback(teams);
   });
 };
 
-// exports.updateTeam = () => {
-
-// }
-
-// exports.deleteTeam = () => {
-
-// }
+exports.deleteTeam = (team_id, callback) => {
+  models.Teams.destroy({
+    where: {
+      id: team_id
+    }
+  }).then(() => {
+    callback('team deleted');
+  });
+};
 
 exports.retrieveProjectByTeamId = (team_id, callback) => {
   models.Projects.findAll({
@@ -228,7 +274,6 @@ exports.updatePhase = (req, callback) => {
 };
 
 exports.deletePhase = (params, callback) => {
-  console.log(params);
   models.Phases.destroy({
     where: {
       id: params.phase_id
@@ -317,9 +362,15 @@ exports.updateTask = (task_id, changes, callback) => {
   });
 };
 
-// exports.deleteTask = () => {
-
-// }
+exports.deleteTask = (task_id, callback) => {
+  models.Tasks.destroy({
+    where: {
+      id: task_id
+    }
+  }).then(() => {
+    callback('taskDeleted')
+  });
+};
 
 
 

@@ -1,12 +1,17 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 
-const connection = new Sequelize('tiny_task', 'root', '');
+const connection = new Sequelize("tiny_task", "root", "");
 
-const Users = connection.define('users', {
-  auth_token: { type: Sequelize.STRING, unique: true, allowNull: false, primaryKey: true },
+const Users = connection.define("users", {
+  auth_token: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+    primaryKey: true
+  }
 });
 
-const User_Profile = connection.define('user_profile', {
+const User_Profile = connection.define("user_profile", {
   full_name: { type: Sequelize.STRING, allowNull: false },
   email: { type: Sequelize.STRING },
   user_status: { type: Sequelize.STRING },
@@ -14,79 +19,131 @@ const User_Profile = connection.define('user_profile', {
   user_color: { type: Sequelize.STRING }
 });
 
-Users.belongsTo(User_Profile, { foreignKey: { name: 'user_profile_id', targetKey: 'id', allowNull: false, unique: true } });
+Users.belongsTo(User_Profile, {
+  foreignKey: {
+    name: "user_profile_id",
+    targetKey: "id",
+    allowNull: false,
+    unique: true
+  },
+  onDelete: "CASCADE"
+});
 
-const Teams = connection.define('teams', {
+const Teams = connection.define("teams", {
   team_name: { type: Sequelize.STRING, allowNull: true }
 });
 
-const Team_Users = connection.define('team_users', {
+const Team_Users = connection.define("team_users", {});
 
+Users.hasMany(Team_Users, {
+  foreignKey: { name: "user_id", targetKey: "auth_token" },
+  onDelete: "CASCADE"
+});
+Teams.hasMany(Team_Users, {
+  foreignKey: { name: "team_id", targetKey: "id" },
+  onDelete: "CASCADE"
 });
 
-Users.hasMany(Team_Users, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
-Teams.hasMany(Team_Users, { foreignKey: { name: 'team_id', targetKey: 'id' } });
-
-const Projects = connection.define('projects', {
+const Projects = connection.define("projects", {
   project_name: { type: Sequelize.STRING, allowNull: false },
   complete: { type: Sequelize.BOOLEAN, default: false }
 });
 
-Projects.belongsTo(Users, { foreignKey: { name: 'user_id', target: 'auth_token' } });
-Projects.belongsTo(Teams, { foreignKey: { name: 'team_id', targetKey: 'id' } });
+Projects.belongsTo(Users, {
+  foreignKey: { name: "user_id", target: "auth_token" },
+  onDelete: "CASCADE"
+});
+Projects.belongsTo(Teams, {
+  foreignKey: { name: "team_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
 
-const Phases = connection.define('phases', {
+const Phases = connection.define("phases", {
   phase_name: { type: Sequelize.STRING, allowNull: false },
   phase_color: { type: Sequelize.STRING, allowNull: false },
   phase_order: { type: Sequelize.INTEGER, allowNull: false },
-  phase_status: { type: Sequelize.STRING, allowNull: false },
+  phase_status: { type: Sequelize.STRING, allowNull: false }
 });
 
-Phases.belongsTo(Projects, { foreignKey: { name: 'project_id', targetKey: 'id' }, onDelete: 'CASCADE' });
+Phases.belongsTo(Projects, {
+  foreignKey: { name: "project_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
 
-const Tasks = connection.define('tasks', {
+const Tasks = connection.define("tasks", {
   task_name: { type: Sequelize.STRING },
   task_status: { type: Sequelize.STRING },
   task_color: { type: Sequelize.STRING }
 });
-Tasks.belongsTo(Phases, { foreignKey: { name: 'phase_id', targetKey: 'id' }, onDelete: 'CASCADE'});
+Tasks.belongsTo(Phases, {
+  foreignKey: { name: "phase_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
 
-const User_Tasks = connection.define('user_tasks', {
-  stage: { type: Sequelize.STRING, allowNull: false },
+const User_Tasks = connection.define("user_tasks", {
+  stage: { type: Sequelize.STRING, allowNull: false }
 });
 
 //Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' });
-Tasks.hasMany(User_Tasks, { foreignKey: { name: 'task_id', targetKey: 'id' } });
-Users.hasMany(User_Tasks, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
+Tasks.hasMany(User_Tasks, {
+  foreignKey: { name: "task_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
+Users.hasMany(User_Tasks, {
+  foreignKey: { name: "user_id", targetKey: "auth_token" },
+  onDelete: "CASCADE"
+});
 
-const Messages = connection.define('messages', {
+const Messages = connection.define("messages", {
   message: { type: Sequelize.TEXT }
 });
-Users.hasMany(Messages, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
-Teams.hasMany(Messages, { foreignKey: { name: 'team_id', targetKey: 'id' } });
-
-const Announcements = connection.define('announcements', {
-  announcement: { type: Sequelize.STRING, allowNull: false },
+Users.hasMany(Messages, {
+  foreignKey: { name: "user_id", targetKey: "auth_token" },
+  onDelete: "CASCADE"
 });
-Users.hasMany(Announcements, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
-Teams.hasMany(Announcements, { foreignKey: { name: 'team_id', targetKey: 'id' } });
+Teams.hasMany(Messages, {
+  foreignKey: { name: "team_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
 
-const Shared_Resources = connection.define('shared_resources', {
+const Announcements = connection.define("announcements", {
+  announcement: { type: Sequelize.STRING, allowNull: false }
+});
+Users.hasMany(Announcements, {
+  foreignKey: { name: "user_id", targetKey: "auth_token" },
+  onDelete: "CASCADE"
+});
+Teams.hasMany(Announcements, {
+  foreignKey: { name: "team_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
+
+const Shared_Resources = connection.define("shared_resources", {
   resource: { type: Sequelize.STRING, allowNull: false },
   type: { type: Sequelize.STRING, allowNull: false }
 });
-Users.hasMany(Shared_Resources, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
-Teams.hasMany(Shared_Resources, { foreignKey: { name: 'team_id', targetKey: 'id' } });
-
-const Team_Colors = connection.define('team_colors', {
-  color: { type: Sequelize.STRING, allowNull: false },
+Users.hasMany(Shared_Resources, {
+  foreignKey: { name: "user_id", targetKey: "auth_token" },
+  onDelete: "CASCADE"
 });
-Users.hasMany(Team_Colors, { foreignKey: { name: 'user_id', targetKey: 'auth_token' } });
-Teams.hasMany(Team_Colors, { foreignKey: { name: 'team_id', targetKey: 'id' } });
+Teams.hasMany(Shared_Resources, {
+  foreignKey: { name: "team_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
 
-connection.sync({
-}).then(() => {
-}).catch((error) => {
+const Team_Colors = connection.define("team_colors", {
+  color: { type: Sequelize.STRING, allowNull: false }
+});
+Users.hasMany(Team_Colors, {
+  foreignKey: { name: "user_id", targetKey: "auth_token" },
+  onDelete: "CASCADE"
+});
+Teams.hasMany(Team_Colors, {
+  foreignKey: { name: "team_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
+
+connection.sync({}).then(() => {}).catch(error => {
   console.log(error);
 });
 
