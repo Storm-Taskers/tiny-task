@@ -36,12 +36,13 @@ export class ProjectsService {
     }
   ]
 
-  // // MOCK DATA
   public projects: Project[] = [];
 
-  // MOCK DATA
+  public currentProject: Project;
+
   public phases: Phase[] = [];
 
+  // MOCK DATA
   public tasks: Task[] = [
     {
       id: 1,
@@ -77,6 +78,7 @@ export class ProjectsService {
       .then((response) => {
         this.phases = response.json().phase_info;
         this.projects.push(response.json().project_info);
+        this.currentProject = response.json().project_info;
       })
       .catch(this.handleError);
   }
