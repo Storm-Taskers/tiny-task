@@ -6,16 +6,16 @@ const handler = require('./util/requestHandler.js');
 
 //////////USERS/////////////////
 router.get('/users/:auth_token', handler.users.retrieveUser);
-router.post('/users', handler.users.createNewUser);
-// router.put('/users', handler.users.updateUser);
-// router.delete('/users', handler.users.deleteUser);
+router.post('/users/', handler.users.createNewUser);
+router.put('/users/:auth_token', handler.users.updateUser);
+router.delete('/users/:auth_token', handler.users.deleteUser);
 
 
 //////////TEAMS/////////////////
-router.get('/teams', handler.teams.retrieveTeams);
+router.get('/teams/:team_id', handler.teams.retrieveTeams);
 router.post('/teams', handler.teams.createNewTeams);
-router.put('/teams', handler.teams.updateTeams);
-// router.delete('/api/teams', handler.teams.deleteTeams);
+router.put('/teams/:team_id', handler.teams.updateTeams);
+router.delete('/teams/:team_id', handler.teams.deleteTeams);
 
 
 //////////PROJECTS/////////////////
@@ -26,17 +26,16 @@ router.delete('/projects/:project_id', handler.projects.deleteProjects);
 
 
 //////////PHASES/////////////////
-//router.get('/phases/:project_id', handler.phases.retrievePhasesByProjectId);
 router.post('/phases/:project_id', handler.phases.createNewPhases);
 router.put('/phases/:phase_id', handler.phases.updatePhases);
 router.delete('/phases/:phase_id', handler.phases.deletePhases);
 
 
 //////////TASKS/////////////////
-//router.post('/tasks', handler.tasks.createNewTasks);
 router.get('/tasks/:phase_id', handler.tasks.retrieveTasksByPhaseId);
-//router.put('/tasks', handler.tasks.updateTasks);
-//router.delete('/tasks', handler.tasks.deleteTasks);
+router.post('/tasks/:phase_id', handler.tasks.createNewTasks);
+router.put('/tasks/:task_id', handler.tasks.updateTasks);
+router.delete('/tasks/:task_id', handler.tasks.deleteTasks);
 
 
 //////////MESSAGES/////////////////

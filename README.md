@@ -9,6 +9,7 @@
 ## Table of Contents
 1. [API Routes](#routes)
     1. [Users](#users)
+    1. [Teams](#teams)
     1. [Projects](#projects)
     1. [Phases](#phases)
     1. [Tasks](#tasks)
@@ -17,384 +18,454 @@
 Content-type: json/application
 
 ### Users
-* #### `GET /api/users/:auth_token`
-Retrieve User Profile
+  * #### `GET /api/users/:auth_token`
+  Retrieve User Profile
 
-Request Example:
-```JSON
-{
-  "auth_token": "google-auth0-2903","
-}
-```
+  Request Example:
+  ```JSON
+  {
+    "auth_token": "google-auth0-2903","
+  }
+  ```
 
-Response Example:
-```JSON
-{
-  "user_profile": {
+  Response Example:
+  ```JSON
+  {
+    "user_profile": {
+      "id": 1,
+      "full_name": "Kevin Nguyen",
+      "email": "kev_win@gmail.com",
+      "user_availability": "true",
+      "user_status": "Working",
+      "user_color": null
+    },
+    "project_ids": [1, 2, 3, 4]
+  }
+  ```
+
+
+  * #### `POST /api/users`
+  Create a user
+
+  Request Example:
+  ```JSON
+  {
+    "auth_token": "google-auth0-2903",
     "full_name": "Kevin Nguyen",
-    "email": "kev_win@gmail.com",
-    "user_availability": "true",
-    "user_status": "Working"
-  },
-  "project_ids": [1, 2, 3, 4]
-}
-```
+    "email": "kevin@tinytask.com",
+    "user_status": "slacking off",
+    "user_availability: false
+  }
+  ```
+
+  Response Example:
+  ```JSON
+  {
+    "something": "User Added"
+  }
+  ```
+
+  * #### `PUT /api/users`
+  Updates a user
+
+  Request Example:
+  ```JSON
+  {
+    "auth_token": "google-auth0-2903",
+    "full_name": "Kevin Nguyen"
+  }
+  ```
+
+  Response Example:
+    {}
+
+  * #### `DELETE /api/users`
+  Delete a User
+
+  Request Example:
+  ```JSON
+  {
+    "auth_token": "google-auth0-2903",
+  }
+  ```
+
+  Response Example:
+    "Deleted User"
+
+### Teams
+  * #### `GET /api/teams/:team_id`
+
+  To Back End:
+    {
+    "project_id": 1,
+    "user_id": "auth_token of creating user"
+    }
 
 
-* #### `POST /api/users`
-Create a user
+  To Front End
+    {
+    team_info {
+      “id”: 3,
+      “team_name”: “something”,
+      }
+      project_info {
+        “id”: 1,
+        “project_name”: “Tiny Task”,
+        “complete”: false
+        “user_id”: “Kevin”,
+        "team_id”: 1
+      }
+        User_info: [
+        {user1 profile info},
+        {user2 profile info}
+      ]
+    }
+  * #### `POST /api/teams`
+  To Back End
+    {
+    "user_id": "Beth",
+    "team_name": "Storm Taskers" <= Team Name May Be Null
+    }
 
-Request Example:
-```JSON
-{
-  "auth_token": "google-auth0-2903",
-  "full_name": "Kevin Nguyen",
-  "email": "kevin@tinytask.com",
-  "user_status": "slacking off",
-  "user_availability: false
-}
-```
+  To Front End
+    {
+      "team_info": {
+        "id": 6,
+        "team_name": "Test2",
+        "updatedAt": "2017-06-04T20:23:07.000Z",
+        "createdAt": "2017-06-04T20:23:07.000Z"
+      },
+      "user_info": {
+        "id": 8,
+        "team_id": 6,
+        "user_id": "Beth",
+        "updatedAt": "2017-06-04T20:23:07.000Z",
+        "createdAt": "2017-06-04T20:23:07.000Z"
+      }
+    }
+  * #### `PUT/api/teams/:team_id`
+  **Add or remove a team user
+  To Back End
+    {
+    "user_id": "auth_token of user to be added",
+    "remove": false <= if you want to remove a user, send true
+    }
 
-Response Example:
-```JSON
-{
-  "something": "User Added"
-}
-```
+  To Front End
+    {
+    "team_info": {
+      “id”: 3,
+      “team_name”: “something”
+      },
+    "user_info": {
+      {user_profile},
+      {user_profile}
+      }
+    }
 
-* #### `PUT /api/users`
-Updates a user
-
-Request Example:
-```JSON
-{
-  "auth_token": "google-auth0-2903",
-  "full_name": "Kevin Nguyen"
-}
-```
-
-Response Example:
-  {}
-
-* #### `DELETE /api/users`
-Delete a User
-
-Request Example:
-```JSON
-{
-  "auth_token": "google-auth0-2903",
-}
-```
-
-Response Example:
-  "Deleted User"
+  * #### `DELETE /api/teams/:team_id`
+  Remove a team
+    no needs to be sent or recieved
 
 ### Projects
-* #### `GET /api/projects/:project_id`
-Retrieve a project
+  * #### `GET /api/projects/:project_id`
+  Retrieve a project
 
-Request Example:
-```JSON
-{
-  "projectId": 1
-}
-```
-
-Response Example:
-```JSON
-{
-  "project_info": {
-    "id": 1,
-    "user_id": "google-auth0-2903",
-    "team_id": 1,
-    "project_name": "Tremendous Task",
-    "complete": false
-  },
-  "team_info": {
-    "id": 1,
-    "team_name": "Storm Taskers"
-  },
-  "user_info": [
-    {
-      "id": 1,
-      "full_name": "Kevin Nguyen",
-      "email": "kev_win@gmail.com",
-      "user_availability": "true",
-      "user_status": "Working"
-    }
-  ],
-  "phase_info": [
-    {
-      "id": "1",
-      "phase_name": "Phase 1",
-      "phase_order": "1",
-      "phase_color": "blue",
-      "phase_status": "In progress"
-    }
-  ],
-}
-```
-
-* #### `POST /api/projects/`
-Create a project
-
-Request Example:
-```JSON
-{
-  "project_name": "Tiny Task",
-  "auth_token": "google-auth0-2903",
-  "team_id": 1
-}
-```
-
-Response Example:
-```JSON
-{
-  "project_info":{
-    "id": 1,
-    "user_id": "google-auth0-2903",
-    "team_id": 1,
-    "project_name": "Tremendous Task",
-    "complete": "false"
-  },
-  "team_info": {
-    "id": 1,
-    "team_name": "Storm Taskers"
-  },
-  "user_info": [
-    {
-      "id": 1,
-      "full_name": "Kevin Nguyen",
-      "email": "kev_win@gmail.com",
-      "user_availability": "true",
-      "user_status": "Working"
-    }
-  ],
-  "phase_info": []
-}
-```
-
-* #### `PUT /api/projects/:project_id`
-Update Project Info
-
-Properties you can update:
-  project_name,
-  complete
-
-Request Example:
-```JSON
+  Request Example:
+  ```JSON
   {
-    "projectId": 1,
-    "projectChanges": {
-      "project_name": "Tremendous Task"
-    }
+    "projectId": 1
   }
-```
+  ```
 
-Response Example:
-```JSON
-{
-  "project_info": {
-    "id": 1,
-    "user_id": "google-auth0-2903",
-    "team_id": 1,
-    "project_name": "Tremendous Task",
-    "complete": "false"
-  },
-  "team_info": {
-    "id": "1",
-    "team_name": "Storm Taskers"
-  },
-  "user_info": [
-    {
+  Response Example:
+  ```JSON
+  {
+    "project_info": {
       "id": 1,
-      "full_name": "Kevin Nguyen",
-      "email": "kev_win@gmail.com",
-      "user_availability": "true",
-      "user_status": "Working"
-    }
-  ],
-  "phase_info": [
+      "user_id": "google-auth0-2903",
+      "team_id": 1,
+      "project_name": "Tremendous Task",
+      "complete": false
+    },
+    "team_info": {
+      "id": 1,
+      "team_name": "Storm Taskers"
+    },
+    "user_info": [
+      {
+        "id": 1,
+        "full_name": "Kevin Nguyen",
+        "email": "kev_win@gmail.com",
+        "user_availability": "true",
+        "user_status": "Working"
+      }
+    ],
+    "phase_info": [
+      {
+        "id": "1",
+        "phase_name": "Phase 1",
+        "phase_order": "1",
+        "phase_color": "blue",
+        "phase_status": "In progress"
+      }
+    ],
+  }
+  ```
+
+  * #### `POST /api/projects/`
+  Create a project
+
+  Request Example:
+  ```JSON
+  {
+    "project_name": "Tiny Task",
+    "auth_token": "google-auth0-2903",
+    "team_id": 1
+  }
+  ```
+
+  Response Example:
+  ```JSON
+  {
+    "project_info":{
+      "id": 1,
+      "user_id": "google-auth0-2903",
+      "team_id": 1,
+      "project_name": "Tremendous Task",
+      "complete": "false"
+    },
+    "team_info": {
+      "id": 1,
+      "team_name": "Storm Taskers"
+    },
+    "user_info": [
+      {
+        "id": 1,
+        "full_name": "Kevin Nguyen",
+        "email": "kev_win@gmail.com",
+        "user_availability": "true",
+        "user_status": "Working"
+      }
+    ],
+    "phase_info": []
+  }
+  ```
+
+  * #### `PUT /api/projects/:project_id`
+  Update Project Info
+
+  Properties you can update:
+    project_name,
+    complete
+
+  Request Example:
+  ```JSON
     {
-      "id": "1",
-      "phase_name": "Phase 1",
-      "phase_order": "1",
-      "phase_color": "blue",
-      "phase_status": "In progress"
+      "projectId": 1,
+      "projectChanges": {
+        "project_name": "Tremendous Task"
+      }
     }
-  ]
-}
-```
+  ```
 
-* #### `DELETE /api/projects/:project_id`
-Delete Project Info
+  Response Example:
+  ```JSON
+  {
+    "project_info": {
+      "id": 1,
+      "user_id": "google-auth0-2903",
+      "team_id": 1,
+      "project_name": "Tremendous Task",
+      "complete": "false"
+    },
+    "team_info": {
+      "id": "1",
+      "team_name": "Storm Taskers"
+    },
+    "user_info": [
+      {
+        "id": 1,
+        "full_name": "Kevin Nguyen",
+        "email": "kev_win@gmail.com",
+        "user_availability": "true",
+        "user_status": "Working"
+      }
+    ],
+    "phase_info": [
+      {
+        "id": "1",
+        "phase_name": "Phase 1",
+        "phase_order": "1",
+        "phase_color": "blue",
+        "phase_status": "In progress"
+      }
+    ]
+  }
+  ```
 
-Response Example:
-e.g. `"Delete Successful"`
+  * #### `DELETE /api/projects/:project_id`
+  Delete Project Info
+
+  Response Example:
+  e.g. `"Delete Successful"`
 
 ### Phases
-* #### `POST /api/phases/:project_id`
-Create a phase for a project
+  * #### `POST /api/phases/:project_id`
+  Create a phase for a project
 
-Request Example:
-```JSON
-{
-  "phase_name": "Setup Phase",
-  "phase_order": 1,
-  "phase_color": "blue",
-  "phase_status": "In progress"
-}
-```
+  Request Example:
+  ```JSON
+  {
+    "phase_name": "Setup Phase",
+    "phase_order": 1,
+    "phase_color": "blue",
+    "phase_status": "In progress"
+  }
+  ```
 
-Response Example:
-```JSON
-{
-  "id": 1,
-  "phase_name": "Setup Phase",
-  "phase_order": 1,
-  "phase_color": "blue",
-  "phase_status": "In progress"
-}
-```
+  Response Example:
+  ```JSON
+  {
+    "id": 1,
+    "phase_name": "Setup Phase",
+    "phase_order": 1,
+    "phase_color": "blue",
+    "phase_status": "In progress"
+  }
+  ```
 
-* #### `PUT /api/phases/:phase_id`
-Update a phase for a project
+  * #### `PUT /api/phases/:phase_id`
+  Update a phase for a project
 
-Request Example:
-```JSON
-{
-  "phase_name": "New Setup Phase Name",
-  "phase_order": 1,
-  "phase_color": "Green",
-  "phase_status": "In progress"
-}
-```
+  Request Example:
+  ```JSON
+  {
+    "phase_name": "New Setup Phase Name",
+    "phase_order": 1,
+    "phase_color": "Green",
+    "phase_status": "In progress"
+  }
+  ```
 
-Response Example:
-```JSON
-{
-  "id": 1,
-  "phase_name": "New Setup Phase Name",
-  "phase_order": 1,
-  "phase_color": "Green",
-  "phase_status": "In progress"
-}
-```
+  Response Example:
+  ```JSON
+  {
+    "id": 1,
+    "phase_name": "New Setup Phase Name",
+    "phase_order": 1,
+    "phase_color": "Green",
+    "phase_status": "In progress"
+  }
+  ```
 
-* #### `DELETE /api/phases/:project_id/:phase_id`
-Delete a phase for a project
+  * #### `DELETE /api/phases/:project_id/:phase_id`
+  Delete a phase for a project
 
-Response Example:
-e.g. `"Delete Successful"`
+  Response Example:
+  e.g. `"Delete Successful"`
 
 
 ### Tasks
-* #### `GET /api/tasks/:task_id`
-Retrieve a task
+  * #### `GET /api/tasks/:task_id`
+  Retrieve a task
 
-Request Example:
-```JSON
-{
-  "task_name": "Take Medicine",
-  "task_status": "Completed"
-}
-```
+  Request Example:
+  ```JSON
+  {
+    "task_name": "Take Medicine",
+    "task_status": "Completed"
+  }
+  ```
 
-Response Example:
-```JSON
-{
- "task_info": {
-  "id": 1,
-  "task_name": "Take Medicine",
-  "task_status": "Completed"
- },
- "user_info": [
-   {
+  Response Example:
+  ```JSON
+  {
+   "task_info": {
+    "id": 1,
+    "task_name": "Take Medicine",
+    "task_status": "Completed"
+   },
+   "user_info": [
+     {
+        "id": 1,
+        "full_name": "Kevin Nguyen",
+        "email": "kev_win@gmail.com",
+        "user_availability": true,
+        "user_status": "Working",
+  	    "user_color": "blue"
+      }
+    ]
+  }
+  ```
+
+  * #### `POST /api/tasks/:phase_id`
+  Create a task for a phase
+
+  Request Example:
+  ```JSON
+  {
+    "task_name": "Take Medicine",
+    "task_status": "Completed"
+  }
+  ```
+
+  Response Example:
+  ```JSON
+  {
+   "task_info": {
+    "id": 1,
+    "task_name": "Take Medicine",
+    "task_status": "Completed"
+   },
+   "user_info": []
+  }
+  ```
+
+  * #### `PUT /api/tasks/:task_id`
+  Update a task
+  note: user_id must default to an empty array
+
+  Request Example:
+  ```JSON
+  {
+    "task_name": "Take Medicine",
+    "task_status": "Completed",
+    "user_id": [
+      {
+        "id": 1
+      }
+    ]
+  }
+  ```
+
+  Response Example:
+  ```JSON
+  {
+   "task_info": {
+    "id": 1,
+    "task_name": "Take Medicine",
+    "task_status": "Completed"
+   },
+   "user_info": [
+    {
       "id": 1,
       "full_name": "Kevin Nguyen",
       "email": "kev_win@gmail.com",
       "user_availability": true,
       "user_status": "Working",
-	    "user_color": "blue"
+      "user_color": "blue"
     }
-  ]
-}
-```
-
-* #### `POST /api/tasks/:phase_id`
-Create a task for a phase
-
-Request Example:
-```JSON
-{
-  "task_name": "Take Medicine",
-  "task_status": "Completed"
-}
-```
-
-Response Example:
-```JSON
-{
- "task_info": {
-  "id": 1,
-  "task_name": "Take Medicine",
-  "task_status": "Completed"
- },
- "user_info": []
-}
-```
-
-* #### `PUT /api/tasks/:task_id`
-Update a task
-note: user_id must default to an empty array
-
-Request Example:
-```JSON
-{
-  "task_name": "Take Medicine",
-  "task_status": "Completed",
-  "user_id": [
-    {
-      "id": 1
-    }
-  ]
-}
-```
-
-Response Example:
-```JSON
-{
- "task_info": {
-  "id": 1,
-  "task_name": "Take Medicine",
-  "task_status": "Completed"
- },
- "user_info": [
-  {
-    "id": 1,
-    "full_name": "Kevin Nguyen",
-    "email": "kev_win@gmail.com",
-    "user_availability": true,
-    "user_status": "Working",
-    "user_color": "blue"
+   ]
   }
- ]
-}
-```
+  ```
 
-* #### `DELETE /api/tasks/:task_id`
-Delete a task
+  * #### `DELETE /api/tasks/:task_id`
+  Delete a task
 
-Response Example:
-e.g. `"Delete Successful"`
+  Response Example:
+  e.g. `"Delete Successful"`
 
-### Teams
-* #### `GET /api/project/:team_id`
-Retrieve a team
-// router.get('/api/teams', handler.teams.retrieveTeams);
-//router.post('/teams', handler.teams.createNewTeams);
-// router.put('/api/teams', handler.teams.updateTeams);
-// router.delete('/api/teams', handler.teams.deleteTeams);
 
 
 // router.get('/api/messages', handler.messages.retrieveMessages);
