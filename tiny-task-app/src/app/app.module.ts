@@ -28,6 +28,8 @@ import { UserDetailsComponent } from './projects/project-details/project-user/us
 import { MaterialModule } from './material-modules/material.module';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { TeamsComponent } from './teams/teams.component';
+import { TeamDetailsComponent } from './teams/team-details/team-details.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { TeamsComponent } from './teams/teams.component';
     ProjectUserComponent,
     UserDetailsComponent,
     TeamMembersComponent,
-    TeamsComponent
+    TeamsComponent,
+    TeamDetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

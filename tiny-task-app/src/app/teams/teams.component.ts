@@ -12,7 +12,6 @@ import { Team } from './Team';
 })
 
 export class TeamsComponent implements OnInit {
-  public userTeams: Team[];
 
   constructor(
     private teamService: TeamService,
@@ -20,6 +19,13 @@ export class TeamsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.teamService.getUserTeams(this.userService.userId);
   }
 
+  addNewTeam(teamName: string): void {
+    console.log(teamName);
+    this.teamService.makeNewTeam(this.userService.userId, teamName);
+  }
+
+  // deleteTeam()
 }

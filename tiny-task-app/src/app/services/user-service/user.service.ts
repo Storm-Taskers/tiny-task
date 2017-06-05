@@ -1,11 +1,11 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
-import { Team } from '../../teams/Team';
+// Import ReactiveJS toPromise
+import 'rxjs/add/operator/toPromise';
+
 import { User } from '../../projects/project-details/project-user/User';
 
-// Import ReactiveJS Observables
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UserService {
@@ -14,8 +14,6 @@ export class UserService {
 
   public userId: string = 'Brian';
   public userProfile: User;
-  public teams: Team[];
-  public currentTeam: Team = {id: 1, teamName: 'Tiny Task'}; // MOCK DATA
 
   constructor(private http: Http) { }
 
