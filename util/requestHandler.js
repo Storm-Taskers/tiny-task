@@ -3,13 +3,16 @@ const Promise = require('bluebird');
 
 
 exports.extractProjectId = (teams, callback) => {
+  console.log(teams, 'teams');
   Promise.all(teams.map((team => {
     return new Promise((resolve, reject) => {
       helper.retrieveProjectByTeamId(team.dataValues.team_id, (project) => {
+        console.log(project, 'project');
       resolve(project);
       });
     });
   }))).then((results) => {
+    console.log(results, 'results');
     let idArray = [];
     results[0].forEach((project) => {
       idArray.push(project.id);
@@ -21,11 +24,15 @@ exports.extractProjectId = (teams, callback) => {
 
 exports.users = {
   retrieveUser: (req, res) => {
+    console.log(req.params.auth_token);
     var userData = {};
     helper.retrieveUser(req.params.auth_token, (userProfile) => {
+      console.log(userProfile, 'userProfile');
       userData.user_profile = userProfile;
-      helper.retrieveUserTeams(req.params, (teams) => {
+      helper.retrieveUserTeams(req.params.auth_token, (teams) => {
+        console.log(teams, 'teams in retrieve User');
         this.extractProjectId(teams, (projectIds) => {
+          console.log(projectIds, 'projectIds');
           userData.project_id = projectIds;
           res.send(userData);
         });
@@ -49,32 +56,52 @@ exports.users = {
       });
     });
   },
-
-  updateUser: (req, res) => {
-    helper.updateUser(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    });
-    helper.updateUserProfile(req.body, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((user) => {
-      res.status(200).send('user updated');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on updating user');
-    });
-  },
-
   deleteUser: (req, res) => {
-    helper.deleteUser(req, () => {
-      res.end(JSON.stringify(res.body));
-    });
-    helper.deleteUserProfile(req, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((user) => {
-      res.status(200).send('user deleted');
-    }).catch((err) => {
-      res.status(404).send(err, 'error on deleting user');
-    });
-  }
+      helper.deleteUserProfiles(req.params, (err, result) => {
+        if (err) {
+          res.status(500).send("server error");
+        } else {
+          res.status(200).send("user deleted");
+          res.end();
+        }
+      });
+    },
+
+    updateUser: (req, res) => {
+      helper.updateUserProfiles(req.params, req.body, (err, message) => {
+        if (err) {
+          res.status(500).send("server error");
+        } else {
+          res.status(200).send(message);
+          res.end();
+        }
+      });
+    }
+  // updateUser: (req, res) => {
+  //   helper.updateUser(req.body, () => {
+  //     res.end(JSON.stringify(res.body));
+  //   });
+  //   helper.updateUserProfile(req.body, () => {
+  //     res.end(JSON.stringify(res.body));
+  //   }).then((user) => {
+  //     res.status(200).send('user updated');
+  //   }).catch((err) => {
+  //     res.status(404).send(err, 'error on updating user');
+  //   });
+  // },
+
+  // deleteUser: (req, res) => {
+  //   helper.deleteUser(req, () => {
+  //     res.end(JSON.stringify(res.body));
+  //   });
+  //   helper.deleteUserProfile(req, () => {
+  //     res.end(JSON.stringify(res.body));
+  //   }).then((user) => {
+  //     res.status(200).send('user deleted');
+  //   }).catch((err) => {
+  //     res.status(404).send(err, 'error on deleting user');
+  //   });
+  // }
 };
 
 exports.teams = {
@@ -84,7 +111,6 @@ exports.teams = {
       teamData.team_info = team;
       const team_id = team.id;
       helper.addTeamUser(req.body.user_id, team_id, (user) => {
-        console.log(user, 'user');
         teamData.user_info = user;
         if (typeof isSeed === 'function') {
           res.status(200).send(teamData);

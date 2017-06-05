@@ -6,9 +6,9 @@ const handler = require('./util/requestHandler.js');
 
 //////////USERS/////////////////
 router.get('/users/:auth_token', handler.users.retrieveUser);
-router.post('/users', handler.users.createNewUser);
-// router.put('/users', handler.users.updateUser);
-// router.delete('/users', handler.users.deleteUser);
+router.post('/users/', handler.users.createNewUser);
+router.put('/users/:auth_token', handler.users.updateUser);
+router.delete('/users/:auth_token', handler.users.deleteUser);
 
 
 //////////TEAMS/////////////////

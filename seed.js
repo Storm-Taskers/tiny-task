@@ -81,7 +81,7 @@ const seedData = [
   () => {
     return handler.teams.createNewTeams({body: {
       team_name: 'Storm Taskers',
-      auth_token: 'Kevin'
+      user_id: 'Kevin'
       }
     }, {end: () => {
           console.log('seed team added');
@@ -90,9 +90,8 @@ const seedData = [
   },
 
   () => {
-    return handler.teams.updateTeams({body: {
-      team_id: 1,
-      auth_token: 'Brian'
+    return handler.teams.updateTeams({params: {team_id: 1}, body: {
+      user_id: 'Brian'
       }
     }, {end: () => {
           console.log('seed team updated');
@@ -101,9 +100,8 @@ const seedData = [
   },
 
   () => {
-    return handler.teams.updateTeams({body: {
-      team_id: 1,
-      auth_token: 'David'
+    return handler.teams.updateTeams({params: {team_id: 1}, body: {
+      user_id: 'David'
       }
     }, {end: () => {
           console.log('seed team updated');
@@ -111,9 +109,8 @@ const seedData = [
     }, true);
   },
   () => {
-    return handler.teams.updateTeams({body: {
-      team_id: 1,
-      auth_token: 'Beth'
+    return handler.teams.updateTeams({params: {team_id: 1}, body: {
+      user_id: 'Beth'
       }
     }, {end: () => {
           console.log('seed team updated');
