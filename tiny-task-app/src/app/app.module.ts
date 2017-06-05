@@ -14,7 +14,7 @@ import { UserService } from './services/user-service/user.service';
 import { ProjectsService } from './services/projects-service/projects.service';
 import { NavService } from './services/nav-service/nav.service';
 import { TeamService } from './services/team-service/team.service';
-import { AuthService } from './services/auth/auth.service';
+import { AuthService } from './services/auth-service/auth.service';
 
 // Import application sub-components
 import { UserInfoComponent } from './user-info/user-info.component';
