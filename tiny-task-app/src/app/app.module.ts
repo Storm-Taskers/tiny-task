@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+
 // Bootstrap top-level application
 import { AppComponent } from './app.component';
+import { Auth0Component } from './auth0/auth0.component';
 import { AppRouterModule } from './router-modules/app-router.module';
 
 // Import application services
@@ -12,6 +14,7 @@ import { UserService } from './services/user-service/user.service';
 import { ProjectsService } from './services/projects-service/projects.service';
 import { NavService } from './services/nav-service/nav.service';
 import { TeamService } from './services/team-service/team.service';
+import { AuthService } from './services/auth/auth.service';
 
 // Import application sub-components
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -29,6 +32,7 @@ import { MaterialModule } from './material-modules/material.module';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { TeamsComponent } from './teams/teams.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +45,8 @@ import { TeamsComponent } from './teams/teams.component';
     ProjectUserComponent,
     UserDetailsComponent,
     TeamMembersComponent,
-    TeamsComponent
+    TeamsComponent,
+    Auth0Component
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,7 @@ import { TeamsComponent } from './teams/teams.component';
     MaterialModule,
     InlineEditorModule
   ],
-  providers: [UserService, ProjectsService, NavService, TeamService],
+  providers: [UserService, ProjectsService, NavService, TeamService, AuthService],
   bootstrap: [AppComponent]
 })
 
