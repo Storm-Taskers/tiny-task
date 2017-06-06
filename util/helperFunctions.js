@@ -151,6 +151,28 @@ exports.retrieveUserTeams = (user_id, callback) => {
   });
 };
 
+exports.getUserTeams = (user_id, callback) => {
+  models.Team_Users
+    .findAll({
+      where: {
+        user_id: user_id
+      }
+    })
+    .then(userTeams => {
+      return Promise.all(
+        userTeams.map(userTeam => {
+          return models.Teams.findAll({
+            where: {
+              id: userTeam.dataValues.team_id
+            }
+          });
+        })
+      ).then(Teams => {
+        callback(Teams);
+      });
+    });
+};
+
 exports.deleteTeam = (team_id, callback) => {
   models.Teams.destroy({
     where: {
@@ -327,6 +349,7 @@ exports.addUserTasks = (user_id, stage, task_id, callback) => {
 };
 
 exports.addTask = (body, phase_id, callback) => {
+  console.log(body.task_name);
   models.Tasks.create({
     task_name: body.task_name,
     task_status: body.task_status,
