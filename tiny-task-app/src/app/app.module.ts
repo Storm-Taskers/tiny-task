@@ -2,12 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 
 // Bootstrap top-level application
 import { AppComponent } from './app.component';
 import { Auth0Component } from './auth0/auth0.component';
 import { AppRouterModule } from './router-modules/app-router.module';
+import { HomeComponent } from './auth0/home/home.component';
+
+import { ROUTES } from './auth0/auth0.routes';
 
 // Import application services
 import { UserService } from './services/user-service/user.service';
@@ -26,6 +30,7 @@ import { ProjectUserComponent } from './projects/project-details/project-user/pr
 import { TeamMembersComponent } from './projects/project-details/team-members/team-members.component';
 import { TasksComponent } from './projects/project-details/phases/tasks/tasks.component';
 import { UserDetailsComponent } from './projects/project-details/project-user/user-details/user-details.component';
+import { CallbackComponent } from './auth0/callback/callback.component';
 
 // Import Materials
 import { MaterialModule } from './material-modules/material.module';
@@ -46,7 +51,9 @@ import { TeamsComponent } from './teams/teams.component';
     UserDetailsComponent,
     TeamMembersComponent,
     TeamsComponent,
-    Auth0Component
+    Auth0Component,
+    HomeComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -54,10 +61,11 @@ import { TeamsComponent } from './teams/teams.component';
     HttpModule,
     AppRouterModule,
     MaterialModule,
-    InlineEditorModule
+    InlineEditorModule,
+    RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [UserService, ProjectsService, NavService, TeamService, AuthService],
   bootstrap: [AppComponent]
 })
 
-export class AppModule {}
+export class AppModule { }

@@ -16,6 +16,7 @@ router.get('/teams/:team_id', handler.teams.retrieveTeams);
 router.post('/teams', handler.teams.createNewTeams);
 router.put('/teams/:team_id', handler.teams.updateTeams);
 router.delete('/teams/:team_id', handler.teams.deleteTeams);
+router.get("/teams/users/:auth_token", handler.users.getUserTeams);
 
 
 //////////PROJECTS/////////////////
