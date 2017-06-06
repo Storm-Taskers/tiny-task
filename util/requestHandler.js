@@ -76,6 +76,12 @@ exports.users = {
           res.end();
         }
       });
+    },
+    
+    getUserTeams: (req, res) => {
+      helper.getUserTeams(req.params.auth_token, result => {
+        res.send(result);
+      });
     }
   // updateUser: (req, res) => {
   //   helper.updateUser(req.body, () => {
@@ -274,6 +280,7 @@ exports.phases = {
 
 exports.tasks = {
   createNewTasks: (req, res, isSeed) => {
+    console.log(req.body);
     helper.addTask(req.body, req.params.phase_id, (result) => {
       if (typeof isSeed === 'function') {
         res.status(200).send(result);
@@ -291,7 +298,9 @@ exports.tasks = {
       taskData.task_info = tasks;
       for(let i = 0; i < tasks.length; i++) {
         helper.retrieveTaskUser(tasks[i].id, (users) => {
-          taskData.user_info.i = users;
+          if(users.length !== 0) {
+            taskData.user_info[i] = users;
+          }
         })
       }
       res.send(taskData);
@@ -332,6 +341,8 @@ exports.tasks = {
   },
 
   deleteTasks: (req, res) => {
+    console.log('hello');
+    console.log(req.params.task_id)
     helper.deleteTask(req.params.task_id, (message) => {
       res.status(200).send(message);
     })

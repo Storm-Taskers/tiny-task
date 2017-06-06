@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 // Bootstrap top-level application
 import { AppComponent } from './app.component';
+import { Auth0Component } from './auth0/auth0.component';
 import { AppRouterModule } from './router-modules/app-router.module';
 
 // Import application services
@@ -12,6 +13,7 @@ import { UserService } from './services/user-service/user.service';
 import { ProjectsService } from './services/projects-service/projects.service';
 import { NavService } from './services/nav-service/nav.service';
 import { TeamService } from './services/team-service/team.service';
+import { AuthService } from './services/auth-service/auth.service';
 
 // Import application sub-components
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -31,6 +33,7 @@ import { TeamsComponent } from './teams/teams.component';
 import { TeamDetailsComponent } from './teams/team-details/team-details.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +48,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     TeamMembersComponent,
     TeamsComponent,
     TeamDetailsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    Auth0Component
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MaterialModule,
     InlineEditorModule
   ],
-  providers: [UserService, ProjectsService, NavService, TeamService],
+  providers: [UserService, ProjectsService, NavService, TeamService, AuthService],
   bootstrap: [AppComponent]
 })
 

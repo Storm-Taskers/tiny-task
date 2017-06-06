@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { MdButtonModule, MdSelectModule } from '@angular/material';
+import { MdButtonModule, MdSelectModule, MdMenuModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -8,11 +8,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     MdButtonModule,
     MdSelectModule,
+    MdMenuModule,
     BrowserAnimationsModule
   ],
   exports: [ 
     MdButtonModule,
     MdSelectModule,
+    MdMenuModule,
     BrowserAnimationsModule 
   ],
   declarations: []
