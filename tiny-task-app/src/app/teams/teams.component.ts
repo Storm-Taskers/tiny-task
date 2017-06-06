@@ -24,8 +24,10 @@ export class TeamsComponent implements OnInit {
   }
 
   addNewTeam(teamName: string): void {
-    this.teamService.makeNewTeam(this.userService.userId, teamName);
-    this.nameField = '';
+    if (teamName !== '' && typeof teamName !== 'undefined') {
+      this.teamService.makeNewTeam(this.userService.userId, teamName);
+      this.nameField = '';
+    }
   }
 
   deleteTeam(teamId: number): void {
