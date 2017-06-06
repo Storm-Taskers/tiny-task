@@ -23,9 +23,10 @@ export class TeamsComponent implements OnInit {
   }
 
   addNewTeam(teamName: string): void {
-    console.log(teamName);
     this.teamService.makeNewTeam(this.userService.userId, teamName);
   }
 
-  // deleteTeam()
+  deleteTeam(teamId: number): void {
+    this.teamService.deleteTeam(teamId);
+  }
 }

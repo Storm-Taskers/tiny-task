@@ -12,8 +12,12 @@ export class TeamService {
   private headers = new Headers({'Content-type': 'application/JSON'});
   private baseUrl: string = 'http://localhost:8080';
   public userTeams: Team[] = [];
-  // public currentTeam: Team;
-  public currentTeam: Team = {id: 1, teamName: 'Tiny Task'};
+
+
+  // Current Team Information
+  public currentTeam: Team = {id: 1, teamName: 'Tiny Task'}; // Mock
+  public selectedTeamInfo: any;
+
 
   constructor(private http: Http) { }
 
@@ -28,17 +32,26 @@ export class TeamService {
 
   // Get Information
   getUserTeams(userId: string): void {
-    this.http.get(`${this.baseUrl}/teams/${userId}`)
+    this.http.get(`${this.baseUrl}/teams/user/${userId}`)
       .toPromise()
       .then((response) => {this.userTeams = response.json()})
+      .catch(this.handleError);
+  }
+
+  getTeamInfo(teamId: number): void {
+    this.http.get(`${this.baseUrl}/teams/${teamId}`)
+      .toPromise()
+      .then((response) => {
+        this.selectedTeamInfo = response.json();
+      })
       .catch(this.handleError);
   }
 
   // Post Information
   makeNewTeam(userId: string, teamName: string): void {
     this.http.post(
-      `${this.baseUrl}/teams/${userId}`,
-      JSON.stringify({teamName: teamName}),
+      `${this.baseUrl}/teams`,
+      JSON.stringify({user_id: userId, team_name: teamName}),
       {headers: this.headers})
       .toPromise()
       .then((response) => {

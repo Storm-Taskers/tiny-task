@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 
 import { ProjectsService } from '../../services/projects-service/projects.service';
 import { UserService } from '../../services/user-service/user.service';
@@ -15,8 +14,8 @@ import { TeamService } from '../../services/team-service/team.service';
 })
 
 export class ProjectDetailsComponent implements OnInit {
-  currentProjectId: number;
- 
+  selectedProjectId: number;
+
   constructor(
     private projectsService: ProjectsService,
     private userService: UserService,
@@ -35,7 +34,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.navService.changeToDetailsPage();
 
     // Get Current Project Id
-    this.route.params.subscribe(params => this.currentProjectId = +params['id']);
+    this.route.params.subscribe(params => this.selectedProjectId = +params['id']);
 
     // Get Project Info
     this.route.params.subscribe(params => this.projectsService.getProject(+params['id']));
@@ -48,10 +47,10 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   addNewProjectUser(): void {
-    this.projectsService.addUserToProject(this.currentProjectId, '3'); // Mock User ID
+    this.projectsService.addUserToProject(this.selectedProjectId, '3'); // Mock User ID
   }
 
   addNewPhase(): void {
-    this.projectsService.createPhase(this.currentProjectId);
+    this.projectsService.createPhase(this.selectedProjectId);
   }
 }
