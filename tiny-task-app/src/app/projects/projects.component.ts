@@ -37,9 +37,9 @@ export class ProjectsComponent implements OnInit {
   }
 
   addNewProject(): void {
-    let teamId: number = this.userService.currentTeam.id;
+    let teamId: number = this.teamService.currentTeam.id;
     let userId: string = this.userService.userId;
-    
+
     this.projectsService.createProject(teamId, userId);
   }
 

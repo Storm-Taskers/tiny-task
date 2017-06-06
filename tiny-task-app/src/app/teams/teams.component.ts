@@ -12,7 +12,7 @@ import { Team } from './Team';
 })
 
 export class TeamsComponent implements OnInit {
-  public userTeams: Team[];
+  public nameField: string;
 
   constructor(
     private teamService: TeamService,
@@ -20,6 +20,19 @@ export class TeamsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.teamService.getUserTeams(this.userService.userId);
   }
 
+  addNewTeam(teamName: string): void {
+    if (teamName !== '' && typeof teamName !== 'undefined') {
+      this.teamService.makeNewTeam(this.userService.userId, teamName);
+      this.nameField = '';
+    }
+  }
+
+  deleteTeam(teamId: number): void {
+    if (confirm('Are you sure you want to delete?')) {
+      this.teamService.deleteTeam(teamId);
+    }
+  }
 }

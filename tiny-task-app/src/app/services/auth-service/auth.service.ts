@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
@@ -51,6 +50,7 @@ export class AuthService {
         self.userProfile = profile;
       }
       cb(err, profile);
+
     });
   }
 

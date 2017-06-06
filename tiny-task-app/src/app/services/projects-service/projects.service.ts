@@ -1,5 +1,7 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+
+// Import ReactiveJS toPromise
 import 'rxjs/add/operator/toPromise';
 
 import { Project } from '../../projects/Project';
@@ -34,12 +36,11 @@ export class ProjectsService {
     }
   ]
 
-  // // MOCK DATA
   public projects: Project[] = [];
-
-  // MOCK DATA
+  public currentProject: Project;
   public phases: Phase[] = [];
 
+  // MOCK DATA
   public tasks: Task[] = [
     {
       id: 1,
@@ -75,6 +76,7 @@ export class ProjectsService {
       .then((response) => {
         this.phases = response.json().phase_info;
         this.projects.push(response.json().project_info);
+        this.currentProject = response.json().project_info;
       })
       .catch(this.handleError);
   }
@@ -89,8 +91,17 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  getPhaseTasks(phaseId: number): Promise<Task[]> {
-    return this.http.get(`${this.baseUrl}/api/tasks/phase/${phaseId}`)
+  // getPhaseTasks(phaseId: number): Promise<Task[]> {
+  //   return this.http.get(`${this.baseUrl}/api/tasks/phase/${phaseId}`)
+  //           .toPromise()
+  //           .then((response) => {
+  //             return response.json();
+  //           })
+  //           .catch(this.handleError);
+  // }
+
+  getTasks(phaseId: number): Promise<Task[]> {
+    return this.http.get(`${this.baseUrl}/api/tasks/${phaseId}`)
             .toPromise()
             .then((response) => {
               return response.json();
@@ -121,16 +132,6 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  // MOCK DATA
-  // public testPhase: Phase = {
-  //                             id: 3,
-  //                             project_id: 1,
-  //                             phase_name: 'New Phase',
-  //                             phase_color: 'green',
-  //                             phase_order: 1,
-  //                             phase_status: 'In progress'
-  //                           };
-
   createPhase(projectId: number): void {
     this.http.post(
       `${this.baseUrl}/api/phases/${projectId}`,
@@ -146,7 +147,8 @@ export class ProjectsService {
   createTask(phaseId: number): Promise<Task> {
     return this.http.post(
             `${this.baseUrl}/api/tasks/${phaseId}`,
-            JSON.stringify({phaseId: phaseId, taskName: 'New Task'}))
+            JSON.stringify({task_name: 'New Task'}),
+            {headers: this.headers})
             .toPromise()
             .then( (response) => {
               console.log(response);
@@ -183,7 +185,11 @@ export class ProjectsService {
   editTaskName(taskId: number, taskName: string): Promise<Task> {
     return this.http.put(
             `${this.baseUrl}/api/tasks/${taskId}`,
-            JSON.stringify({taskId: taskId, taskName: taskName}))
+            JSON.stringify({taskChanges: {
+                task_name: taskName
+              }
+            }),
+            {headers: this.headers})
             .toPromise()
             .then(response => {
               return response.json();
@@ -235,7 +241,10 @@ export class ProjectsService {
   }
 
   deleteTask(taskId: number): void {
-    console.log(taskId);
-    // this.http.delete(`${this.baseUrl}/api/tasks/${taskId}`);
+    this.http.delete(`${this.baseUrl}/api/tasks/${taskId}`)
+      .toPromise()
+      .then( (response) => {
+      })
+      .catch(this.handleError);;
   }
 }

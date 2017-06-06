@@ -159,6 +159,7 @@ exports.getUserTeams = (user_id, callback) => {
     })
     .then(userTeams => {
       return Promise.all(
+
         userTeams.map((userTeam) => {
           return models.Teams.findAll({
             where: {
@@ -166,6 +167,7 @@ exports.getUserTeams = (user_id, callback) => {
             }
           });
         })
+
       ).then((Teams) => {
         console.log(Teams, 'in helpers');
         callback(Teams);
