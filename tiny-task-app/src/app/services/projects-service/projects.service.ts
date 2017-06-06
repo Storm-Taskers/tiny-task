@@ -37,9 +37,7 @@ export class ProjectsService {
   ]
 
   public projects: Project[] = [];
-
   public currentProject: Project;
-
   public phases: Phase[] = [];
 
   // MOCK DATA
@@ -134,16 +132,6 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  // MOCK DATA
-  // public testPhase: Phase = {
-  //                             id: 3,
-  //                             project_id: 1,
-  //                             phase_name: 'New Phase',
-  //                             phase_color: 'green',
-  //                             phase_order: 1,
-  //                             phase_status: 'In progress'
-  //                           };
-
   createPhase(projectId: number): void {
     this.http.post(
       `${this.baseUrl}/api/phases/${projectId}`,
@@ -198,7 +186,7 @@ export class ProjectsService {
     return this.http.put(
             `${this.baseUrl}/api/tasks/${taskId}`,
             JSON.stringify({taskChanges: {
-                task_name: taskName 
+                task_name: taskName
               }
             }),
             {headers: this.headers})

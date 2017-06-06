@@ -77,10 +77,18 @@ exports.users = {
         }
       });
     },
-    
+
     getUserTeams: (req, res) => {
-      helper.getUserTeams(req.params.auth_token, result => {
-        res.send(result);
+      let userTeamData = [];
+      helper.getUserTeams(req.params.auth_token, results => {
+        console.log(results[0]);
+        if ( results ) {
+          results.map(result => {
+            console.log(result[0]);
+            userTeamData.push(result[0].dataValues)
+          });
+        }
+        res.send(userTeamData);
       });
     }
   // updateUser: (req, res) => {
