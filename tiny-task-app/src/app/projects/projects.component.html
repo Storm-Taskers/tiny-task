@@ -20,13 +20,19 @@
       <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
       <div>
         <div class="project-header">
-          <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="editProjectName(project.id, $event)" name="projectText" size="15"  min="1"></inline-editor>
-          <button md-icon-button (click)="deleteProject(project.id, project.project_name)">
-            <i class="material-icons">delete_forever</i>
+          <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="editProjectName(project.id, $event)" name="projectText" size="15"  min="1" placeholder="Project Name"></inline-editor>
+          <button md-icon-button [mdMenuTriggerFor]="menu">
+            <i class="material-icons">more_vert</i>
           </button>
         </div>
       </div>
     </div>
+    <md-menu #menu="mdMenu">
+      <button md-menu-item (click)="deleteProject(project.id)">
+        <i class="material-icons">delete_forever</i>
+        <span>Delete Project</span>
+      </button>
+    </md-menu>
   </div>
 </div>
 

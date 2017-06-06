@@ -39,12 +39,12 @@
   align-items: center;
 }
 
-.mat-icon-button {
-  padding: 0;
-  min-width: 0;
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  line-height: 40px;
-  border-radius: 50%;
+a.c-inline-editor {
+  text-decoration: none;
+  color: white;
+  border-bottom: dashed 1px White;
+  cursor: pointer;
+  line-height: 2;
+  margin-right: 5px;
+  margin-left: 5px;
 }
