@@ -5,6 +5,10 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
+#inlineEditWrapper {
+  max-width: 220px;
+  word-wrap: break-word;
+}
 .menu-item {
   display: flex;
   align-items: center;
