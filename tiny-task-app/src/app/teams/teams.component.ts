@@ -12,6 +12,7 @@ import { Team } from './Team';
 })
 
 export class TeamsComponent implements OnInit {
+  public nameField: string;
 
   constructor(
     private teamService: TeamService,
@@ -24,9 +25,12 @@ export class TeamsComponent implements OnInit {
 
   addNewTeam(teamName: string): void {
     this.teamService.makeNewTeam(this.userService.userId, teamName);
+    this.nameField = '';
   }
 
   deleteTeam(teamId: number): void {
-    this.teamService.deleteTeam(teamId);
+    if (confirm('Are you sure you want to delete?')) {
+      this.teamService.deleteTeam(teamId);
+    }
   }
 }

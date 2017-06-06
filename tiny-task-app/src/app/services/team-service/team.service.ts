@@ -18,7 +18,6 @@ export class TeamService {
   public currentTeam: Team = {id: 1, teamName: 'Tiny Task'}; // Mock
   public selectedTeamInfo: any;
 
-
   constructor(private http: Http) { }
 
   private handleError(error: any): Promise<any> {
@@ -32,14 +31,16 @@ export class TeamService {
 
   // Get Information
   getUserTeams(userId: string): void {
-    this.http.get(`${this.baseUrl}/teams/user/${userId}`)
+    this.http.get(`${this.baseUrl}/api/teams/users/${userId}`)
       .toPromise()
-      .then((response) => {this.userTeams = response.json()})
+      .then((response) => {
+        this.userTeams = response.json()
+      })
       .catch(this.handleError);
   }
 
   getTeamInfo(teamId: number): void {
-    this.http.get(`${this.baseUrl}/teams/${teamId}`)
+    this.http.get(`${this.baseUrl}/api/teams/${teamId}`)
       .toPromise()
       .then((response) => {
         this.selectedTeamInfo = response.json();
@@ -50,12 +51,12 @@ export class TeamService {
   // Post Information
   makeNewTeam(userId: string, teamName: string): void {
     this.http.post(
-      `${this.baseUrl}/teams`,
+      `${this.baseUrl}/api/teams`,
       JSON.stringify({user_id: userId, team_name: teamName}),
       {headers: this.headers})
       .toPromise()
       .then((response) => {
-        this.userTeams.push(response.json())
+        this.userTeams.push(response.json().team_info)
       })
       .catch(this.handleError);
   }
@@ -63,7 +64,7 @@ export class TeamService {
   // Delete Information
   deleteTeam(teamId: number): void {
     this.http.delete(
-      `${this.baseUrl}/teams/${teamId}`,
+      `${this.baseUrl}/api/teams/${teamId}`,
       {headers: this.headers})
       .toPromise()
       .then((response) => {
