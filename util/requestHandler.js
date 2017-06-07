@@ -437,7 +437,7 @@ exports.announcements = {
     });
   },
   deleteAnnouncements: (req, res) => {
-    helper.deleteAnnouncement(req.params.task_id, message => {
+    helper.deleteAnnouncement(req.params, message => {
       res.status(200).send(message);
     });
   }

@@ -529,7 +529,7 @@ exports.addAnnouncement = (req, callback) => {
       user_id: req.body.user_id,
       team_id: req.body.team_id
     })
-    .then(phase => {
+    .then(announcement => {
       callback(null, announcement.dataValues);
     })
     .catch(err => {
@@ -569,7 +569,7 @@ exports.updateAnnouncement = (req, callback) => {
 };
 
 exports.deleteAnnouncement = (params, callback) => {
-  models.Annoucements
+  models.Announcements
     .destroy({
       where: {
         id: params.announcement_id
