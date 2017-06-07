@@ -82,7 +82,7 @@ export class ProjectsService {
   }
 
   // Post Information
-  createProject(teamId: number, userId: string): void {
+  createProject(teamId: number, userId: number): void {
     this.http.post(
       `${this.baseUrl}/api/projects`,
       JSON.stringify({project_name: 'New Project', user_id: userId, team_id: teamId}),
