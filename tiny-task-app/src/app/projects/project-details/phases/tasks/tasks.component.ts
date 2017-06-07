@@ -21,4 +21,8 @@ export class TasksComponent {
         this.task = updatedTask;
       });
   }
+
+  handleError(): void {
+    alert("144 Character Limit Exceeded");
+  }
 }

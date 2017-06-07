@@ -16,7 +16,7 @@ export class ProjectsComponent implements OnInit {
     private projectsService: ProjectsService,
     private userService: UserService,
     private teamService: TeamService,
-    private navService: NavService
+    private navService: NavService,
   ) { }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class ProjectsComponent implements OnInit {
     this.projectsService.createProject(teamId, userId);
   }
 
-  deleteProject(projectId: number, projectName): void {
+  deleteProject(projectId: number, projectName: string): void {
     if (confirm(`Are you sure you want to delete "${projectName}"?`)) {
       this.projectsService.deleteProject(projectId);
     }
@@ -51,5 +51,17 @@ export class ProjectsComponent implements OnInit {
 
   editProjectName(projectId: number, newName: string): void {
     this.projectsService.editProjectName(projectId, newName);
+  }
+
+  updateProjectOrder($event: any) {
+    console.log(this.projectsService.projects);
+  }
+
+  toggleCompleteProject(projectId: number, projectName: string, projectCompleted: boolean): void {
+    this.projectsService.editProjectCompleteStatus(projectId, projectName, !projectCompleted);
+  }
+
+  handleError(): void {
+    alert("50 Character Limit Exceeded");
   }
 }

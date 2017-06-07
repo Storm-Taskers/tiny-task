@@ -300,8 +300,7 @@ exports.tasks = {
       }
       res.send(taskData);
     });
-
-    },
+  },
 
   // retrieveTasksByPhaseId: (req, res) => {
   //   let taskData = {};

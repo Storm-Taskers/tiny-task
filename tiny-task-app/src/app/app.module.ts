@@ -38,7 +38,7 @@ import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { TeamsComponent } from './teams/teams.component';
 import { TeamDetailsComponent } from './teams/team-details/team-details.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { DndModule } from 'ng2-dnd';
 
 
 @NgModule({
@@ -67,7 +67,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AppRouterModule,
     MaterialModule,
     InlineEditorModule,
-    RouterModule.forRoot(ROUTES, { useHash: true })
+    RouterModule.forRoot(ROUTES, { useHash: true }),
+    DndModule.forRoot()
   ],
   providers: [UserService, ProjectsService, NavService, TeamService, AuthService],
   bootstrap: [AppComponent]

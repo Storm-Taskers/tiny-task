@@ -21,28 +21,8 @@ export class ProjectsService {
   public currentProject: Project;
   public phases: Phase[] = [];
   public usersOnProject: User[];
+  public tasks: Task[];
 
-  // MOCK DATA
-  public tasks: Task[] = [
-    {
-      id: 1,
-      task_name: 'Start Project',
-      phase_id: 1,
-      task_status: 'Not Finished'
-    },
-    {
-      id: 2,
-      task_name: 'Finish Project',
-      phase_id: 1,
-      task_status: 'Not finished'
-    },
-    {
-      id: 3,
-      task_name: 'Get phases done',
-      phase_id: 2,
-      task_status: "Not finished"
-    }
-  ];
 
   constructor(private http: Http) { }
 
@@ -64,15 +44,15 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  getPhases(projectId: number): void {
-    this.http.get(`${this.baseUrl}/api/phases/${projectId}`)
-      .toPromise()
-      .then((response) => {
-        console.log(response.json());
-        this.phases = response.json();
-      })
-      .catch(this.handleError);
-  }
+  // getPhases(projectId: number): void {
+  //   this.http.get(`${this.baseUrl}/api/phases/${projectId}`)
+  //     .toPromise()
+  //     .then((response) => {
+  //       console.log(response.json());
+  //       this.phases = response.json();
+  //     })
+  //     .catch(this.handleError);
+  // }
 
   // getPhaseTasks(phaseId: number): Promise<Task[]> {
   //   return this.http.get(`${this.baseUrl}/api/tasks/phase/${phaseId}`)
@@ -152,6 +132,19 @@ export class ProjectsService {
       })
       .catch(this.handleError);
   }
+
+  editProjectCompleteStatus(projectId: number, projectName: string, projectCompleted: boolean): void {
+    this.http.put(
+      `${this.baseUrl}/api/projects/${projectId}`,
+      JSON.stringify({projectId: projectId, projectChanges: {project_name: projectName, complete: projectCompleted}}),
+      {headers: this.headers})
+      .toPromise()
+      .then( (response) => {
+        this.projects.find(project => project.id === projectId).complete = projectCompleted;
+      })
+      .catch(this.handleError);
+  }
+
 
   editPhaseName(phaseId: number, phaseName: string): void {
     this.http.put(

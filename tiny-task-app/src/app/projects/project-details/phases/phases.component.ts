@@ -14,6 +14,7 @@ import { Task } from './tasks/Task';
 export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
   phaseTasks: Task[];
+  dragOperation: boolean = true;
 
   constructor(private projectsService: ProjectsService) { }
 
@@ -43,5 +44,9 @@ export class PhasesComponent implements OnInit {
   deleteTask(taskId: number): void {
     this.projectsService.deleteTask(taskId);
     this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
+  }
+  
+  handleError(): void {
+    alert("50 Character Limit Exceeded");
   }
 }
