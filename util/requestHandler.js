@@ -3,12 +3,10 @@ const Promise = require('bluebird');
 
 
 exports.extractProjectId = (teams, callback) => {
-  console.log(teams, 'teams');
   Promise.all(teams.map((team => {
     return new Promise((resolve, reject) => {
       helper.retrieveProjectByTeamId(team.dataValues.team_id, (project) => {
-        console.log(project, 'project');
-      resolve(project);
+        resolve(project);
       });
     });
   }))).then((results) => {
@@ -86,8 +84,14 @@ exports.users = {
     },
 
     getUserTeams: (req, res) => {
-      helper.getUserTeams(req.params.user_id, (result) => {
-        res.send(result);
+      let userTeamData = [];
+      helper.getUserTeams(req.params.user_id, results => {
+        if ( results ) {
+          results.map(result => {
+            userTeamData.push(result[0].dataValues)
+          });
+        }
+        res.send(userTeamData);
       });
     },
 
@@ -123,7 +127,7 @@ exports.teams = {
     helper.retrieveTeamById(req.params.team_id, (result) => {
       teamData.team_info = result;
       helper.retrieveProjectByTeamId(req.params.team_id, (projects) => {
-        teamData.projects = projects;
+        teamData.projects = projects[0];
         helper.retrieveTeamUsers(req.params.team_id, (users) => {
           teamData.user_info = users;
           res.send(teamData);
@@ -153,7 +157,6 @@ exports.teams = {
   },
 
   deleteTeams: (req, res) => {
-    console.log(req.params.team_id, 'should be team_id');
     helper.deleteTeam(req.params.team_id, (message) => {
       res.status(200).send(message);
     });
@@ -273,7 +276,6 @@ exports.phases = {
 
 exports.tasks = {
   createNewTasks: (req, res, isSeed) => {
-    console.log(req.body);
     helper.addTask(req.body, req.params.phase_id, (result) => {
       if (typeof isSeed === 'function') {
         res.status(200).send(result);
@@ -286,16 +288,18 @@ exports.tasks = {
   },
 
   retrieveTasksByPhaseId: (req, res) => {
-      let taskData = {};
-      helper.retrieveTasksByPhaseId(req.params, (tasks) => {
-        taskData.task_info = tasks;
-        for(let i = 0; i < tasks.length; i++) {
-          helper.retrieveTaskUser(tasks[i].id, (users) => {
-            taskData.user_info.i = users;
-          })
-        }
-        res.send(taskData);
-      });
+    let taskData = {user_info: []};
+    helper.retrieveTasksByPhaseId(req.params, (tasks) => {
+      taskData.task_info = tasks;
+      for (let i = 0; i < tasks.length; i++) {
+        helper.retrieveTaskUser(tasks[i].id, (users) => {
+          if(users.length !== 0) {
+            taskData.user_info[i] = users;
+          }
+        })
+      }
+      res.send(taskData);
+    });
 
     },
 
@@ -359,8 +363,6 @@ exports.tasks = {
   },
 
   deleteTasks: (req, res) => {
-    console.log('hello');
-    console.log(req.params.task_id)
     helper.deleteTask(req.params.task_id, (message) => {
       res.status(200).send(message);
     })

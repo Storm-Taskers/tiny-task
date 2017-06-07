@@ -1,9 +1,6 @@
 <div class="header">
   <h2 class="h2-header">
-    Tiny Task Team Members
-    <button md-icon-button (click)="addNewProjectUser()">
-     <i class="material-icons">library_add</i>
-    </button>
+    {{ projectsService.currentProject?.project_name }} Team Members
   </h2>
 </div>
 

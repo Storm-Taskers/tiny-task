@@ -18,9 +18,9 @@ export class PhasesComponent implements OnInit {
   constructor(private projectsService: ProjectsService) { }
 
   ngOnInit() {
-    this.phaseTasks = this.projectsService.tasks;
-    // this.projectsService.getPhaseTasks(this.phase.id)
-    //   .then(tasks => this.phaseTasks = tasks);
+    this.projectsService.getTasks(this.phase.id).then((result: any) => {
+      this.phaseTasks = result.task_info;
+    });
   }
 
   editPhaseName(phaseId: number, newName: string): void {
@@ -28,7 +28,7 @@ export class PhasesComponent implements OnInit {
   }
 
   deletePhase(phaseId: number): void {
-    if (confirm('Are you sure you want to delete this?')) {
+    if (confirm('Are you sure you want to delete this phase?')) {
       this.projectsService.deletePhase(phaseId);
     }
   }

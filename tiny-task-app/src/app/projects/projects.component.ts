@@ -37,14 +37,14 @@ export class ProjectsComponent implements OnInit {
   }
 
   addNewProject(): void {
-    let teamId: number = this.userService.currentTeam.id;
+    let teamId: number = this.teamService.currentTeam.id;
     let userId: string = this.userService.userId;
-    
+
     this.projectsService.createProject(teamId, userId);
   }
 
-  deleteProject(projectId: number): void {
-    if (confirm('Are you sure you want to delete this?')) {
+  deleteProject(projectId: number, projectName): void {
+    if (confirm(`Are you sure you want to delete "${projectName}"?`)) {
       this.projectsService.deleteProject(projectId);
     }
   }

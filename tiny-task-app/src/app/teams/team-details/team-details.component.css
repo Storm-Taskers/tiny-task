@@ -1,0 +1,6 @@
+.container-team-users, .user {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}

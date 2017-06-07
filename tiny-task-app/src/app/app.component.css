@@ -16,7 +16,7 @@ hr {
 .pageView {
   background-color: white;
   grid-area: content;
-  padding: 20px;  
+  padding: 20px;
 }
 
 .user-info {
@@ -56,4 +56,3 @@ a:hover, a:active {
   margin: 0;
   height: 95vh;
 }
-

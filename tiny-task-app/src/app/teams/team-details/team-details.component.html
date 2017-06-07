@@ -1,0 +1,15 @@
+<div class="header">
+  <h2 class="h2-header">
+    {{ teamService.selectedTeamInfo?.team_name }}
+  </h2>
+</div>
+<hr/>
+
+<div class="container-team-users">
+    <user
+      *ngFor="let user of teamService.selectedTeamUserInfo"
+      [user]="user"
+      [teamMenu]="true"
+      [removeFromTeam]="removeFromTeam()">
+    </user>
+</div>
