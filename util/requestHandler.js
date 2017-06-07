@@ -6,13 +6,11 @@ exports.extractProjectId = (teams, callback) => {
   Promise.all(teams.map((team => {
     return new Promise((resolve, reject) => {
       helper.retrieveProjectByTeamId(team.dataValues.team_id, (project) => {
-        resolve(project);
+      resolve(project);
       });
     });
   }))).then((results) => {
     let idArray = [];
-    console.log(results, 'results');
-    console.log(results[0], 'results[0]');
     results[0].forEach((project) => {
       idArray.push(project.id);
     });
@@ -100,7 +98,29 @@ exports.users = {
     //   helper.retrieveTaskUser(req.params.user_id, (tasks) => {
 
     //   });
-    // }
+    // },
+
+    deleteTeamUsers: (req, res) => {
+      helper.deleteTeamUser(req.params.user_id, req.params.team_id, (err, message) => {
+        if (err) {
+          res.status(500).send("server error");
+        } else {
+          res.status(200).send(message);
+          res.end();
+        }
+      });
+    },
+
+    deleteTaskUsers: (req, res) => {
+      helper.deleteTaskUser(req.params.user_id, req.params.task_id, (err, message) => {
+        if (err) {
+          res.status(500).send("server error");
+        } else {
+          res.status(200).send(message);
+          res.end();
+        }
+      });
+    }
 };
 
 exports.teams = {
@@ -342,7 +362,6 @@ exports.tasks = {
           helper.retrieveTaskByTaskId(req.params.task_id, (task) => {
             updatedTask.task_info = task;
             if(typeof isSeed === 'function') {
-              console.log('sent');
               res.status(200).send(updatedTask);
             } else {
               console.log('seed user added');

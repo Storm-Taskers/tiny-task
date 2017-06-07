@@ -50,7 +50,7 @@ Content-type: json/application
   Request Example:
   ```JSON
   {
-    "auth_token": "google-auth0-2903",
+    "user_id": "1",
     "full_name": "Kevin Nguyen",
     "email": "kevin@tinytask.com",
     "user_status": "slacking off",
@@ -71,7 +71,7 @@ Content-type: json/application
   Request Example:
   ```JSON
   {
-    "auth_token": "google-auth0-2903",
+    "user_id": "1",
     "full_name": "Kevin Nguyen"
   }
   ```
@@ -85,7 +85,7 @@ Content-type: json/application
   Request Example:
   ```JSON
   {
-    "auth_token": "google-auth0-2903",
+    "user_id": "1",
   }
   ```
 
@@ -98,7 +98,7 @@ Content-type: json/application
   To Back End:
     {
     "project_id": 1,
-    "user_id": "auth_token of creating user"
+    "user_id": "user_id of creating user"
     }
 
 
@@ -123,7 +123,7 @@ Content-type: json/application
   * #### `POST /api/teams`
   To Back End
     {
-    "user_id": "Beth",
+    "user_id": "4",
     "team_name": "Storm Taskers" <= Team Name May Be Null
     }
 
@@ -138,7 +138,7 @@ Content-type: json/application
       "user_info": {
         "id": 8,
         "team_id": 6,
-        "user_id": "Beth",
+        "user_id": "4",
         "updatedAt": "2017-06-04T20:23:07.000Z",
         "createdAt": "2017-06-04T20:23:07.000Z"
       }
@@ -147,7 +147,7 @@ Content-type: json/application
   **Add or remove a team user
   To Back End
     {
-    "user_id": "auth_token of user to be added",
+    "user_id": "user_id of user to be added",
     "remove": false <= if you want to remove a user, send true
     }
 
@@ -220,7 +220,7 @@ Content-type: json/application
   ```JSON
   {
     "project_name": "Tiny Task",
-    "auth_token": "google-auth0-2903",
+    "user_id": "1",
     "team_id": 1
   }
   ```
@@ -230,7 +230,7 @@ Content-type: json/application
   {
     "project_info":{
       "id": 1,
-      "user_id": "google-auth0-2903",
+      "user_id": "1",
       "team_id": 1,
       "project_name": "Tremendous Task",
       "complete": "false"
@@ -274,7 +274,7 @@ Content-type: json/application
   {
     "project_info": {
       "id": 1,
-      "user_id": "google-auth0-2903",
+      "user_id": "1",
       "team_id": 1,
       "project_name": "Tremendous Task",
       "complete": "false"

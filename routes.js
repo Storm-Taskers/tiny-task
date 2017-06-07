@@ -16,6 +16,7 @@ router.get("/teams/users/:user_id", handler.users.getUserTeams);
 router.post('/teams', handler.teams.createNewTeams);
 router.put('/teams/:team_id', handler.teams.updateTeams);
 router.delete('/teams/:team_id', handler.teams.deleteTeams);
+router.delete('/teams/users/:user_id/:team_id', handler.users.deleteTeamUsers);
 
 //////////PROJECTS/////////////////
 router.get('/projects/:project_id', handler.projects.retrieveProjectById);
@@ -36,6 +37,7 @@ router.get('/tasks/:phase_id', handler.tasks.retrieveTasksByPhaseId);
 router.post('/tasks/:phase_id', handler.tasks.createNewTasks);
 router.put('/tasks/:task_id', handler.tasks.updateTasks);
 router.delete('/tasks/:task_id', handler.tasks.deleteTasks);
+router.delete('/tasks/users/:user_id/:task_id', handler.users.deleteTaskUsers);
 
 
 

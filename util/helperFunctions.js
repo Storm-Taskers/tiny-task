@@ -180,6 +180,19 @@ exports.getUserTeams = (user_id, callback) => {
     });
 };
 
+exports.deleteTeamUser = (user_id, team_id, callback) => {
+  models.Team_Users.destroy({
+    where: {
+      user_id: user_id,
+      team_id: team_id
+    }
+  }).then((result) => {
+    callback(null, 'user deleted from team');
+  }).catch((err) => {
+    callback(err, null);
+  });
+};
+
 exports.deleteTeam = (team_id, callback) => {
   models.Teams.destroy({
     where: {
@@ -401,6 +414,19 @@ exports.updateTask = (task_id, changes, callback) => {
     });
   });
 };
+
+exports.deleteTaskUser = (user_id, task_id, callback) => {
+  models.User_Tasks.destroy({
+    where: {
+      user_id: user_id,
+      task_id: task_id
+    }
+  }).then((result) => {
+    callback(null, 'user deleted from task');
+  }).catch((err) => {
+    callback(err, null);
+  })
+}
 
 exports.deleteTask = (task_id, callback) => {
   models.Tasks.destroy({
