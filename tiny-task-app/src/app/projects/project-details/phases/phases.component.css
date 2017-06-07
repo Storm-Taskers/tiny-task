@@ -1,6 +1,8 @@
 .current-phases {
   color: white;
+  cursor: move;
   min-width: 220px;
+  height: auto;
   background-color: hsla(2, 81%, 65%, 1);
   border-radius: 6px;
   padding: 7px;
@@ -37,4 +39,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+
+.helloworld:hover {
+  background-color: yellow;
 }

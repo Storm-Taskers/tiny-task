@@ -1,6 +1,6 @@
 <div class="current-phases">
   <div class="project-header">
-    <inline-editor type="text" [(ngModel)]="phase.phase_name" (onSave)="editPhaseName(phase.id, $event)" name="phase.phase_name" size="15"  min="1">
+    <inline-editor type="text" [(ngModel)]="phase.phase_name" (onSave)="editPhaseName(phase.id, $event)" name="phase.phase_name" size="15"  min="1" max="10">
     </inline-editor>
     <button md-icon-button [mdMenuTriggerFor]="menu">
       <i class="material-icons">more_vert</i>
@@ -15,13 +15,15 @@
     </button>
   </md-menu>
 <!--Implement ngFor to create Phase Details (task)-->
-  <div *ngFor="let task of phaseTasks" >
+<div dnd-sortable-container [sortableData]="phaseTasks">
+  <div *ngFor="let task of phaseTasks; let i = index" dnd-sortable [sortableIndex]="i">
     <div class="task-container task">
       <tasks
         [task]="task">
       </tasks>
     </div>
   </div>
+</div>
   <div class="phase-footer">
     <button md-icon-button disableRipple (click)="addNewTask(phase.id)">
       <i class="material-icons">library_add</i>

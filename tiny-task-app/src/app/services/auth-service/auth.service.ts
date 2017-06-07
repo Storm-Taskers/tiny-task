@@ -6,7 +6,7 @@ import auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
-
+  
   auth0 = new auth0.WebAuth({
     clientID: 'WCqZCPIb7LQzup2tz-RKh-jurybqDAbL',
     domain: 'tinytask.auth0.com',
@@ -19,7 +19,7 @@ export class AuthService {
   userProfile: any;
 
   constructor(public router: Router) {}
-
+  
   public login(): void {
     this.auth0.authorize();
   }

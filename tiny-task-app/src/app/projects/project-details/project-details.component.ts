@@ -15,6 +15,7 @@ import { TeamService } from '../../services/team-service/team.service';
 
 export class ProjectDetailsComponent implements OnInit {
   selectedProjectId: number;
+  value: number = 33;
 
   constructor(
     private projectsService: ProjectsService,

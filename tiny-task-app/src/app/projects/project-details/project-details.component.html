@@ -1,7 +1,12 @@
 <div class="header">
-  <h2 class="h2-header">
+  <div class="h2-header">
+  <h2>
     {{ projectsService.currentProject?.project_name }} Team Members
   </h2>
+  <button md-icon-button (click)="addNewProjectUser()">
+     <i class="material-icons">library_add</i>
+  </button>
+  </div>
 </div>
 
 <hr/>
@@ -14,19 +19,30 @@
 </div>
 
 <div class="header">
-  <h2 class="h2-header">
-    Project Phases
+  <div class="h2-header">
+    <h2>
+      Project Phases
+    </h2>
     <button md-icon-button (click)="addNewPhase()" >
       <i class="material-icons">library_add</i>
     </button>
-  </h2>
+    <md-progress-bar
+        class="example-margin"
+        [color]="blue"
+        [mode]="determinate"
+        [value]="value"
+        [bufferValue]="bufferValue">
+    </md-progress-bar>
+  </div>
 </div>
-<hr/>
 
-<div class="container-phases">
+<hr/>
+<div class="container-phases" >
 <!--Implement ngFor to create Phases-->
-  <phases
-    *ngFor="let phase of projectsService.phases"
-    [phase]="phase">
-  </phases>
+  <div class="phases" dnd-sortable-container [sortableData]="projectsService.phases">
+    <phases
+      *ngFor="let phase of projectsService.phases; let i = index" dnd-sortable [sortableIndex]="i"
+      [phase]="phase">
+    </phases>
+  </div>
 </div>
