@@ -55,7 +55,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     TeamMembersComponent,
     TeamsComponent,
     HomeComponent,
-    CallbackComponent
+    CallbackComponent,
     TeamDetailsComponent,
     PageNotFoundComponent,
     Auth0Component
