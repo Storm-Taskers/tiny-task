@@ -12,8 +12,9 @@ exports.extractProjectId = (teams, callback) => {
       });
     });
   }))).then((results) => {
-    console.log(results, 'results');
     let idArray = [];
+    console.log(results, 'results');
+    console.log(results[0], 'results[0]');
     results[0].forEach((project) => {
       idArray.push(project.id);
     });
@@ -24,20 +25,25 @@ exports.extractProjectId = (teams, callback) => {
 
 exports.users = {
   retrieveUser: (req, res) => {
-    console.log(req.params.auth_token);
-    var userData = {};
-    helper.retrieveUser(req.params.auth_token, (userProfile) => {
-      console.log(userProfile, 'userProfile');
-      userData.user_profile = userProfile;
-      helper.retrieveUserTeams(req.params.auth_token, (teams) => {
-        console.log(teams, 'teams in retrieve User');
-        this.extractProjectId(teams, (projectIds) => {
-          console.log(projectIds, 'projectIds');
-          userData.project_id = projectIds;
+    if(req.params.query) {
+      console.log('placeholder for query');
+    } else {
+      var userData = {};
+      helper.retrieveUser(req.params.auth_token, (userProfile) => {
+        if(userProfile.length === 0) {
           res.send(userData);
-        });
+        } else {
+          userData.user_profile = userProfile;
+          console.log(userProfile.id, 'userId');
+          helper.retrieveUserTeams(userProfile.id, (teams) => {
+            this.extractProjectId(teams, (projectIds) => {
+              userData.project_id = projectIds;
+              res.send(userData);
+            });
+          });
+        }
       });
-    });
+    }
   },
 
   createNewUser: (req, res, isSeed) => {
@@ -56,8 +62,9 @@ exports.users = {
       });
     });
   },
+
   deleteUser: (req, res) => {
-      helper.deleteUserProfiles(req.params, (err, result) => {
+      helper.deleteUserProfiles(req.params.user_id, (err, result) => {
         if (err) {
           res.status(500).send("server error");
         } else {
@@ -79,36 +86,17 @@ exports.users = {
     },
 
     getUserTeams: (req, res) => {
-      helper.getUserTeams(req.params.auth_token, (result) => {
-        console.log(result, 'result');
+      helper.getUserTeams(req.params.user_id, (result) => {
         res.send(result);
       });
-    }
-  // updateUser: (req, res) => {
-  //   helper.updateUser(req.body, () => {
-  //     res.end(JSON.stringify(res.body));
-  //   });
-  //   helper.updateUserProfile(req.body, () => {
-  //     res.end(JSON.stringify(res.body));
-  //   }).then((user) => {
-  //     res.status(200).send('user updated');
-  //   }).catch((err) => {
-  //     res.status(404).send(err, 'error on updating user');
-  //   });
-  // },
+    },
 
-  // deleteUser: (req, res) => {
-  //   helper.deleteUser(req, () => {
-  //     res.end(JSON.stringify(res.body));
-  //   });
-  //   helper.deleteUserProfile(req, () => {
-  //     res.end(JSON.stringify(res.body));
-  //   }).then((user) => {
-  //     res.status(200).send('user deleted');
-  //   }).catch((err) => {
-  //     res.status(404).send(err, 'error on deleting user');
-  //   });
-  // }
+    // getUserTasks: (req, res) => {
+    //   let userTaskData = {};
+    //   helper.retrieveTaskUser(req.params.user_id, (tasks) => {
+
+    //   });
+    // }
 };
 
 exports.teams = {
@@ -150,6 +138,7 @@ exports.teams = {
       helper.retrieveTeamById(req.params.team_id, (team) => {
         updatedTeam.team_info = team;
         helper.retrieveTeamUsers(req.params.team_id, (users) => {
+          console.log(users, 'users');
           updatedTeam.user_info = users;
           if (typeof isSeed === 'function') {
             res.status(200).send(updatedTeam);
@@ -209,9 +198,11 @@ exports.projects = {
     });
   },
 
+  //need to return tasks as well^^^^^^^^^^^
+
   updateProjects: (req, res) => {
     let updatedProject = {};
-    helper.updateProject(req.body.projectId, req.body.projectChanges, (project) => {
+    helper.updateProject(req.params.project_id, req.body.projectChanges, (project) => {
       updatedProject.project_info = project;
       helper.retrieveTeamById(project.team_id, (team) => {
         updatedProject.team_info = team;
@@ -222,9 +213,10 @@ exports.projects = {
       });
     });
   },
+  //need to return tasks as well^^^^^^^^^^^
 
   deleteProjects: (req, res) => {
-    helper.deleteProject(req.params, (err, message) => {
+    helper.deleteProject(req.params.project_id, (err, message) => {
       if (err) {
         return res.status(500).send(err);
       } else {
@@ -294,20 +286,45 @@ exports.tasks = {
   },
 
   retrieveTasksByPhaseId: (req, res) => {
-    let taskData = {};
-    helper.retrieveTasksByPhaseId(req.params, (tasks) => {
-      taskData.task_info = tasks;
-      for(let i = 0; i < tasks.length; i++) {
-        helper.retrieveTaskUser(tasks[i].id, (users) => {
-          if(users.length !== 0) {
-            taskData.user_info[i] = users;
-          }
-        })
-      }
-      res.send(taskData);
-    });
+      let taskData = {};
+      helper.retrieveTasksByPhaseId(req.params, (tasks) => {
+        taskData.task_info = tasks;
+        for(let i = 0; i < tasks.length; i++) {
+          helper.retrieveTaskUser(tasks[i].id, (users) => {
+            taskData.user_info.i = users;
+          })
+        }
+        res.send(taskData);
+      });
 
-  },
+    },
+
+  // retrieveTasksByPhaseId: (req, res) => {
+  //   let taskData = {};
+  //   helper.retrieveTasksByPhaseId(req.params, (taskObj) => {
+  //     return new Promise ((resolve, reject) => {
+  //       taskData.task_info = taskObj;
+  //       for(let i = 0; i < taskObj.length; i++) {
+  //         console.log(taskObj[i], i, 'should be each');
+  //       taskData.task_info.taskObj[i].userProfiles = [];
+  //         helper.retrieveTaskUser(taskObj[i].id, (users) => {
+  //           if(users[0].dataValues.length !== 0) {
+  //             for(let key in users) {
+  //               helper.retrieveUser(users[key].dataValues.user_id, (userProfile) => {
+  //                 taskObj[i].userProfiles.push(userProfile);
+  //               })
+  //             }
+  //           }
+  //         })
+  //       }
+  //       resolve(taskObj);
+  //     }).then((taskObj) => {
+  //       //taskData.task_info = taskObj;
+  //     }).then((taskData) => {
+  //       res.send(taskData);
+  //     })
+  //   })
+  // },
 
   updateTasks: (req, res, isSeed) => {
     let updatedTask = {

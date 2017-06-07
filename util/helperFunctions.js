@@ -4,19 +4,24 @@ const models = require('../db/models.js');
 
 
 
-exports.retrieveUser = (userId, callback) => {
+exports.retrieveUser = (authToken, callback) => {
   models.Users.findOne({
     where: {
-      auth_token: userId
+      auth_token: authToken
     }
   }).then((user) => {
-    return models.User_Profile.findOne({
-      where: {
-        id: user.user_profile_id
-      }
-    });
-  }).then((user_profile) => {
-    callback(user_profile);
+    if(user === null) {
+      console.log('try this');
+      callback(user);
+    } else {
+      return models.User_Profile.findOne({
+        where: {
+          id: user.user_profile_id
+        }
+      }).then((user_profile) => {
+        callback(user_profile);
+      });
+    }
   });
 };
 
@@ -42,11 +47,11 @@ exports.addUserProfile = (body, callback) => {
   });
 };
 
-exports.deleteUserProfiles = (params, callback) => {
+exports.deleteUserProfiles = (user_id, callback) => {
   models.Users
     .findOne({
       where: {
-        auth_token: params.auth_token
+        user_profile_id: user_id
       }
     })
     .then(user => {
@@ -69,7 +74,7 @@ exports.updateUserProfiles = (params, body, callback) => {
   models.Users
     .findOne({
       where: {
-        auth_token: params.auth_token
+        user_profile_id: params.user_id
       }
     })
     .then(user => {
@@ -130,17 +135,18 @@ exports.retrieveTeamUsers = (team_id, callback) => {
     return Promise.all(users.map((user) => {
       return models.User_Profile.findAll({
         where: {
-          id: user.dataValues.id
+          id: user.dataValues.user_id
         }
       });
     })).then((userProfiles) => {
+      console.log(userProfiles, 'userProfiles');
       callback(userProfiles);
     });
   });
 };
 
 exports.retrieveUserTeams = (user_id, callback) => {
-  //console.log(user_id, 'userId');
+  console.log(user_id, 'user_id');
   models.Team_Users.findAll({
     where: {
       user_id: user_id
@@ -196,12 +202,12 @@ exports.retrieveProjectByTeamId = (team_id, callback) => {
 exports.retrieveProjectByUserId = (params, callback) => {
   models.Users.findOne({
     where: {
-      auth_token: params.auth_token
+      user_id: params.user_id
     }
   }).then((user) => {
     return models.Projects.findAll({
       where: {
-        user_id: user.auth_token
+        user_id: user.user_id
       }
     });
   }).then((projects) => {
@@ -245,10 +251,10 @@ exports.updateProject = (project_id, project_change, callback) => {
   this.retrieveProjectById({project_id: project_id}, callback);
 };
 
-exports.deleteProject = (params, callback) => {
+exports.deleteProject = (project_id, callback) => {
   models.Projects.destroy({
     where: {
-      id: params.project_id
+      id: project_id
     }
   }).then((result) => {
     callback(null, 'deleted');
@@ -325,7 +331,17 @@ exports.retrieveTaskByTaskId = (task_id, callback) => {
     }
   }).then((task) => {
     callback(task);
-  })
+  });
+}
+
+retrieveTasksByUserId = (user_id, callback) => {
+  return models.User_Tasks.findAll({
+    where: {
+      user_id: user_id
+    }
+  }).then((task) => {
+    callback(task);
+  });
 }
 
 exports.retrieveTaskUser = (task_id, callback) => {

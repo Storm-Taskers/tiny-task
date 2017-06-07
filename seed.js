@@ -24,8 +24,7 @@ const seedData = [
       email: 'kevinN@tinytask.com',
       user_color: 'blue',
       user_status: 'Slacking off',
-      user_availability: 'false',
-      user_color: 'red'
+      user_availability: 'false'
       }
     }, {end: () => {
           console.log('finished');
@@ -39,8 +38,7 @@ const seedData = [
       email: 'brianl@tinytask.com',
       user_color: 'black',
       user_status: 'Eating a hot pocket',
-      user_availability: 'false',
-      user_color: 'yellow'
+      user_availability: 'false'
       }
     }, {end: () => {
           console.log('finished');
@@ -54,8 +52,7 @@ const seedData = [
       email: 'davidh@tinytask.com',
       user_color: 'yellow',
       user_status: 'Working hard',
-      user_availability: 'true',
-      user_color: 'blue'
+      user_availability: 'true'
       }
     }, {end: () => {
           console.log('finished');
@@ -69,8 +66,7 @@ const seedData = [
       email: 'beths@tinytask.com',
       user_color: 'green',
       user_status: 'Working hard',
-      user_availability: 'true',
-      user_color: 'green'
+      user_availability: 'true'
       }
     }, {end: () => {
           console.log('finished');
@@ -81,7 +77,7 @@ const seedData = [
   () => {
     return handler.teams.createNewTeams({body: {
       team_name: 'Storm Taskers',
-      user_id: 'Kevin'
+      user_id: '1'
       }
     }, {end: () => {
           console.log('seed team added');
@@ -91,7 +87,7 @@ const seedData = [
 
   () => {
     return handler.teams.updateTeams({params: {team_id: 1}, body: {
-      user_id: 'Brian'
+      user_id: '2'
       }
     }, {end: () => {
           console.log('seed team updated');
@@ -101,7 +97,7 @@ const seedData = [
 
   () => {
     return handler.teams.updateTeams({params: {team_id: 1}, body: {
-      user_id: 'David'
+      user_id: '3'
       }
     }, {end: () => {
           console.log('seed team updated');
@@ -110,7 +106,7 @@ const seedData = [
   },
   () => {
     return handler.teams.updateTeams({params: {team_id: 1}, body: {
-      user_id: 'Beth'
+      user_id: '4'
       }
     }, {end: () => {
           console.log('seed team updated');
@@ -121,7 +117,7 @@ const seedData = [
   () => {
     return handler.projects.createNewProjects({body: {
       project_name: 'Tiny Task',
-      user_id: 'Kevin',
+      user_id: '1',
       team_id: 1
       }
     },{end: () => {
@@ -140,7 +136,7 @@ const seedData = [
         phase_order: 1,
         phase_status: 'Finished',
         phase_color: 'blue',
-        auth_token: 'Kevin',
+        user_id: '1',
         team_id: 1
       }
     }, {
@@ -159,7 +155,7 @@ const seedData = [
         phase_order: 2,
         phase_status: 'In progress',
         phase_color: 'green',
-        auth_token: 'Kevin',
+        user_id: '1',
         team_id: 1
       }
     }, {
@@ -178,7 +174,7 @@ const seedData = [
         phase_order: 3,
         phase_status: 'Not started',
         phase_color: 'yellow',
-        auth_token: 'Kevin',
+        user_id: '1',
         team_id: 1
       }
     }, {
@@ -262,7 +258,7 @@ const seedData = [
 
   () => {
     return handler.tasks.updateTasks({params: {task_id: 1}, body: {
-      user_id: 'Kevin',
+      user_id: '1',
       stage: 'Not started'
       }
     }, {end: () => {
@@ -272,7 +268,7 @@ const seedData = [
   },
     () => {
     return handler.tasks.updateTasks({params: {task_id: 2}, body: {
-      user_id: 'Brian',
+      user_id: '2',
       stage: 'Not started'
       }
     }, {end: () => {
@@ -283,7 +279,7 @@ const seedData = [
 
     () => {
     return handler.tasks.updateTasks({params: {task_id: 3}, body: {
-      user_id: 'Beth',
+      user_id: '4',
       stage: 'Not started'
       }
     }, {end: () => {
@@ -294,7 +290,7 @@ const seedData = [
 
     () => {
     return handler.tasks.updateTasks({params: {task_id: 4}, body: {
-      user_id: 'Kevin',
+      user_id: '1',
       stage: 'Not started'
       }
     }, {end: () => {
@@ -305,7 +301,7 @@ const seedData = [
 
     () => {
     return handler.tasks.updateTasks({params: {task_id: 5}, body: {
-      user_id: 'Brian',
+      user_id: '2',
       stage: 'Not started'
       }
     }, {end: () => {
@@ -316,7 +312,7 @@ const seedData = [
 
     () => {
     return handler.tasks.updateTasks({params: {task_id: 6}, body: {
-      user_id: 'Beth',
+      user_id: '3',
       stage: 'Not started'
       }
     }, {end: () => {
