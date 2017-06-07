@@ -549,6 +549,25 @@ exports.getAnnouncementsByTeamId = (params, callback) => {
     });
 };
 
+exports.updateAnnouncement = (req, callback) => {
+  models.Announcemnts
+    .findOne({
+      where: {
+        id: req.params.announcement_id
+      }
+    })
+    .then(announcement => {
+      announcement
+        .updateAttributes(req.body)
+        .then(announcement => {
+          callback(null, announcement.dataValues);
+        })
+        .catch(err => {
+          callback(err, null);
+        });
+    });
+};
+
 exports.deleteAnnouncement = (params, callback) => {
   models.Annoucements
     .destroy({

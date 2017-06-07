@@ -42,8 +42,14 @@ router.get(
   handler.announcements.retrieveAnnouncements
 );
 router.post("/api/announcements", handler.announcements.createNewAnnouncements);
-// router.put('/api/announcements', handler.announcements.updateAnnouncements);
-// router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
+router.put(
+  "/api/announcements/:announcement_id",
+  handler.announcements.updateAnnouncements
+);
+router.delete(
+  "/api/announcements/:announcement_id",
+  handler.announcements.deleteAnnouncements
+);
 
 //////////MESSAGES/////////////////
 // router.get('/api/messages', handler.messages.retrieveMessages);

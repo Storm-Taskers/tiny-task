@@ -426,16 +426,15 @@ exports.announcements = {
     });
   },
   updateAnnouncements: (req, res) => {
-    helper
-      .updateAnnouncement(req.body, () => {
-        res.end(JSON.stringify(res.body));
-      })
-      .then(announcement => {
-        res.status(200).send("announcement updated");
-      })
-      .catch(err => {
-        res.status(404).send(err, "error on updating announcement");
-      });
+    helper.updateAnnouncement(req, (err, result) => {
+      if (err) {
+        return res.status(500).send("server error");
+      } else {
+        console.log("seed announcement updated");
+        res.status(200).send(result);
+        res.end();
+      }
+    });
   },
   deleteAnnouncements: (req, res) => {
     helper.deleteAnnouncement(req.params.task_id, message => {
