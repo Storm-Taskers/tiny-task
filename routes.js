@@ -36,16 +36,16 @@ router.put("/tasks/:task_id", handler.tasks.updateTasks);
 router.delete("/tasks/:task_id", handler.tasks.deleteTasks);
 router.delete("/tasks/users/:user_id/:task_id", handler.users.deleteTaskUsers);
 
+////////ANNOUNCEMENTS/////////////////
+// router.get('/api/announcements', handler.announcements.retrieveAnnouncements);
+router.post("/api/announcements", handler.announcements.createNewAnnouncements);
+// router.put('/api/announcements', handler.announcements.updateAnnouncements);
+// router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
+
 //////////MESSAGES/////////////////
 // router.get('/api/messages', handler.messages.retrieveMessages);
 // router.post('/api/messages', handler.messages.createNewMessages);
 // router.delete('/api/messages', handler.messages.deleteMessages);
-
-//////////ANNOUNCEMENTS/////////////////
-// router.get('/api/announcements', handler.announcements.retrieveAnnouncements);
-// router.post('/api/announcements', handler.announcements.createNewAnnouncements);
-// router.put('/api/announcements', handler.announcements.updateAnnouncements);
-// router.delete('/api/announcements', handler.announcements.deleteAnnouncements);
 
 //////////RESOURCES/////////////////
 // router.get('/resources', handler.resources.retrieveResources);

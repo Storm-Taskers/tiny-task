@@ -522,13 +522,20 @@ exports.deleteTask = (task_id, callback) => {
 
 // }
 
-// exports.addAnnouncement = () => {
-//   models.Announcements.create({
-//     announcement: body.announcement
-//   }).then((result) => {
-//     callback(result);
-//   });
-// }
+exports.addAnnouncement = (req, callback) => {
+  models.Announcements
+    .create({
+      announcement: req.body.announcement,
+      user_id: req.body.user_id,
+      team_id: req.body.team_id,
+    })
+    .then(phase => {
+      callback(null, announcement.dataValues);
+    })
+    .catch(err => {
+      callback(err, null);
+    });
+};
 
 // exports.retrieveAnnouncement = () => {
 
