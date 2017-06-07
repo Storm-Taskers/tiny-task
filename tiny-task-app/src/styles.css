@@ -4,3 +4,12 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
+
+.menu-item {
+  display: flex;
+  align-items: center;
+}
+
+i.material-icons {
+  margin-right: 5px;
+}

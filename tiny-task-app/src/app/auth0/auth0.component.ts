@@ -13,6 +13,7 @@ export class Auth0Component implements OnInit {
     auth.handleAuthentication();
   }
 
+
   ngOnInit() {
   }
 

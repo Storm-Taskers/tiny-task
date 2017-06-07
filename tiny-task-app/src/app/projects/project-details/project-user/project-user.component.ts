@@ -9,6 +9,8 @@ import { User } from './User';
 })
 export class ProjectUserComponent implements OnInit {
   @Input() user: User;
+  @Input() teamMenu: boolean;
+  @Input() removeFromTeam;
 
   constructor() { }
 

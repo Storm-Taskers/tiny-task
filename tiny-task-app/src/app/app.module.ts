@@ -36,6 +36,9 @@ import { CallbackComponent } from './auth0/callback/callback.component';
 import { MaterialModule } from './material-modules/material.module';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { TeamsComponent } from './teams/teams.component';
+import { TeamDetailsComponent } from './teams/team-details/team-details.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 
 
 @NgModule({
@@ -51,9 +54,11 @@ import { TeamsComponent } from './teams/teams.component';
     UserDetailsComponent,
     TeamMembersComponent,
     TeamsComponent,
-    Auth0Component,
     HomeComponent,
-    CallbackComponent
+    CallbackComponent,
+    TeamDetailsComponent,
+    PageNotFoundComponent,
+    Auth0Component
   ],
   imports: [
     BrowserModule,

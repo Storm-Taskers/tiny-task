@@ -139,8 +139,7 @@ exports.retrieveTeamUsers = (team_id, callback) => {
         }
       });
     })).then((userProfiles) => {
-      console.log(userProfiles, 'userProfiles');
-      callback(userProfiles);
+      callback(userProfiles.map((user) => (user[0])));
     });
   });
 };
@@ -165,6 +164,7 @@ exports.getUserTeams = (user_id, callback) => {
     })
     .then(userTeams => {
       return Promise.all(
+
         userTeams.map((userTeam) => {
           return models.Teams.findAll({
             where: {
@@ -172,6 +172,7 @@ exports.getUserTeams = (user_id, callback) => {
             }
           });
         })
+
       ).then((Teams) => {
         console.log(Teams, 'in helpers');
         callback(Teams);

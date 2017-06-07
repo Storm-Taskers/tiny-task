@@ -17,6 +17,7 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit() {
     // Stub 'Brian' for user profile
+    console.log('Initiated');
     this.userService.getUserInfo('Brian')
       .then(projectIds => {
         this.projectsService.projectIds = projectIds;

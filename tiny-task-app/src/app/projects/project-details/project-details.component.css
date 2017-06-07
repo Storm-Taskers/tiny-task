@@ -23,7 +23,7 @@ hr {
   justify-content: space-between;
 }
 
-.container-team-members, .container-phases{
+.container-team-members, .container-phases {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
