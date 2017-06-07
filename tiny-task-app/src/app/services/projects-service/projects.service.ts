@@ -133,6 +133,19 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
+  editProjectCompleteStatus(projectId: number, projectName: string, projectCompleted: boolean): void {
+    this.http.put(
+      `${this.baseUrl}/api/projects/${projectId}`,
+      JSON.stringify({projectId: projectId, projectChanges: {project_name: projectName, complete: projectCompleted}}),
+      {headers: this.headers})
+      .toPromise()
+      .then( (response) => {
+        this.projects.find(project => project.id === projectId).complete = projectCompleted;
+      })
+      .catch(this.handleError);
+  }
+
+
   editPhaseName(phaseId: number, phaseName: string): void {
     this.http.put(
       `${this.baseUrl}/api/phases/${phaseId}`,

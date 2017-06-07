@@ -16,7 +16,7 @@
 <div class="container-project" dnd-sortable-container [sortableData]="projectsService.projects">
 <!--Implement ngFor to create Projects-->
   <div *ngFor="let project of projectsService.projects; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateProjectOrder()">
-    <div *ngIf="!project.complete"  class="current-project">
+    <div *ngIf="!project.complete" class="current-project">
       <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
       <div>
         <div class="project-header">
@@ -34,7 +34,7 @@
           <span>Delete Project</span>
         </div>
       </button>
-      <button md-menu-item (click)="toggleCompleteProject(project.id)">
+      <button md-menu-item (click)="toggleCompleteProject(project.id, project.project_name, project.complete)">
         <div class="menu-item">
           <i class="material-icons">done_all</i>
           <span>Project Finished</span>
