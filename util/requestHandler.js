@@ -96,7 +96,19 @@ exports.users = {
     //   helper.retrieveTaskUser(req.params.user_id, (tasks) => {
 
     //   });
-    // }
+    // },
+
+    deleteTeamUsers: (req, res) => {
+      helper.deleteTeamUser(req.params.user_id, (result) => {
+        res.send(result);
+      });
+    },
+
+    deleteTaskUsers: (req, res) => {
+      helper.deleteTaskUser(req.params.user_id, (result) => {
+        res.send(result);
+      });
+    }
 };
 
 exports.teams = {
