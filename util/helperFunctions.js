@@ -146,7 +146,6 @@ exports.retrieveUserTeams = (user_id, callback) => {
       user_id: user_id
     }
   }).then((teams) => {
-    //console.log(teams, 'teams inside helper function');
     callback(teams);
   });
 };
@@ -160,14 +159,17 @@ exports.getUserTeams = (user_id, callback) => {
     })
     .then(userTeams => {
       return Promise.all(
-        userTeams.map(userTeam => {
+
+        userTeams.map((userTeam) => {
           return models.Teams.findAll({
             where: {
               id: userTeam.dataValues.team_id
             }
           });
         })
-      ).then(Teams => {
+
+      ).then((Teams) => {
+        console.log(Teams, 'in helpers');
         callback(Teams);
       });
     });
