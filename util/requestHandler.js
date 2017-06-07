@@ -408,12 +408,8 @@ exports.tasks = {
 
 exports.announcements = {
   retrieveAnnouncements: (req, res) => {
-    helper.retrieveAnnouncement(req, () => {
-      res.end(JSON.stringify(res.body));
-    }).then((announcement) => {
-      res.status(200).send('announcement retrieved');
-    }).catch((err) => {
-      res.status(404).send(err, 'error retrieving announcement');
+    helper.getAnnouncementsByTeamId(req.params, announcement => {
+      res.send(announcement);
     });
   },
   createNewAnnouncements: (req, res) => {

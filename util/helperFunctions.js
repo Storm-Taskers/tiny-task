@@ -537,9 +537,17 @@ exports.addAnnouncement = (req, callback) => {
     });
 };
 
-// exports.retrieveAnnouncement = () => {
-
-// }
+exports.getAnnouncementsByTeamId = (params, callback) => {
+    return models.Announcements
+    .findAll({
+      where: {
+        team_id: params.team_id
+      }
+    })
+    .then(announcements => {
+      callback(announcements);
+    });
+}
 
 // exports.deleteAnnouncement = () => {
 
