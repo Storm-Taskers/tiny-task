@@ -7,14 +7,11 @@ exports.extractProjectId = (teams, callback) => {
   Promise.all(teams.map((team => {
     return new Promise((resolve, reject) => {
       helper.retrieveProjectByTeamId(team.dataValues.team_id, (project) => {
-        console.log(project, 'project');
       resolve(project);
       });
     });
   }))).then((results) => {
     let idArray = [];
-    console.log(results, 'results');
-    console.log(results[0], 'results[0]');
     results[0].forEach((project) => {
       idArray.push(project.id);
     });
@@ -99,14 +96,24 @@ exports.users = {
     // },
 
     deleteTeamUsers: (req, res) => {
-      helper.deleteTeamUser(req.params.user_id, (result) => {
-        res.send(result);
+      helper.deleteTeamUser(req.params.user_id, req.params.team_id, (err, message) => {
+        if (err) {
+          res.status(500).send("server error");
+        } else {
+          res.status(200).send(message);
+          res.end();
+        }
       });
     },
 
     deleteTaskUsers: (req, res) => {
-      helper.deleteTaskUser(req.params.user_id, (result) => {
-        res.send(result);
+      helper.deleteTaskUser(req.params.user_id, req.params.task_id, (err, message) => {
+        if (err) {
+          res.status(500).send("server error");
+        } else {
+          res.status(200).send(message);
+          res.end();
+        }
       });
     }
 };
@@ -285,7 +292,6 @@ exports.phases = {
 
 exports.tasks = {
   createNewTasks: (req, res, isSeed) => {
-    console.log(req.body);
     helper.addTask(req.body, req.params.phase_id, (result) => {
       if (typeof isSeed === 'function') {
         res.status(200).send(result);
@@ -351,7 +357,6 @@ exports.tasks = {
           helper.retrieveTaskByTaskId(req.params.task_id, (task) => {
             updatedTask.task_info = task;
             if(typeof isSeed === 'function') {
-              console.log('sent');
               res.status(200).send(updatedTask);
             } else {
               console.log('seed user added');
@@ -371,8 +376,6 @@ exports.tasks = {
   },
 
   deleteTasks: (req, res) => {
-    console.log('hello');
-    console.log(req.params.task_id)
     helper.deleteTask(req.params.task_id, (message) => {
       res.status(200).send(message);
     })
