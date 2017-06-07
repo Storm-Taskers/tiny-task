@@ -27,4 +27,9 @@ export class TeamDetailsComponent implements OnInit {
     this.route.params.subscribe(params => this.teamService.getTeamInfo(+params['id']));
   }
 
+  removeFromTeam(): any {
+    return (userId: number) => {
+      return this.teamService.removeFromTeam(userId)
+    };
+  }
 }
