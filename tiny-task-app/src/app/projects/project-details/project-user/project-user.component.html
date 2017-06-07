@@ -1,9 +1,9 @@
-<div class="current-team-members" [class.projectMenu]="projectMenu === true">
-  <span>{{ user.full_name }}</span>
-  <i class="material-icons md-48" >account_circle</i>
-  <span class="status">Status:</span>
-  <span class="status">{{ user.user_status }}</span>
-  <div *ngIf="teamMenu === true">
+<div *ngIf="teamMenu === true; else projectMenu">
+  <div class="current-team-members">
+    <span>{{ user.full_name }}</span>
+    <i class="material-icons md-48" >account_circle</i>
+    <span class="status">Status:</span>
+    <span class="status">{{ user.user_status }}</span>
     <button md-icon-button [mdMenuTriggerFor]="menu">
       <i class="material-icons">more_horiz</i>
     </button>
@@ -23,3 +23,12 @@
     </md-menu>
   </div>
 </div>
+
+<ng-template #projectMenu>
+  <div class="current-team-members projectMenu">
+    <span>{{ user.full_name }}</span>
+    <i class="material-icons md-48" >account_circle</i>
+    <span class="status">Status:</span>
+    <span class="status">{{ user.user_status }}</span>
+  </div>
+<ng-template>
