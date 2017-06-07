@@ -527,7 +527,7 @@ exports.addAnnouncement = (req, callback) => {
     .create({
       announcement: req.body.announcement,
       user_id: req.body.user_id,
-      team_id: req.body.team_id,
+      team_id: req.body.team_id
     })
     .then(phase => {
       callback(null, announcement.dataValues);
@@ -538,7 +538,7 @@ exports.addAnnouncement = (req, callback) => {
 };
 
 exports.getAnnouncementsByTeamId = (params, callback) => {
-    return models.Announcements
+  return models.Announcements
     .findAll({
       where: {
         team_id: params.team_id
@@ -547,11 +547,19 @@ exports.getAnnouncementsByTeamId = (params, callback) => {
     .then(announcements => {
       callback(announcements);
     });
-}
+};
 
-// exports.deleteAnnouncement = () => {
-
-// }
+exports.deleteAnnouncement = (params, callback) => {
+  models.Annoucements
+    .destroy({
+      where: {
+        id: params.announcement_id
+      }
+    })
+    .then(() => {
+      callback("announcementDeleted");
+    });
+};
 
 // exports.createNewResources = () => {
 //   models.Resources.create({

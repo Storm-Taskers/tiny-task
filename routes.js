@@ -38,7 +38,7 @@ router.delete("/tasks/users/:user_id/:task_id", handler.users.deleteTaskUsers);
 
 ////////ANNOUNCEMENTS/////////////////
 router.get(
-  "/api/announcements/team_id",
+  "/api/announcements/:team_id",
   handler.announcements.retrieveAnnouncements
 );
 router.post("/api/announcements", handler.announcements.createNewAnnouncements);
