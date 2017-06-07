@@ -550,7 +550,7 @@ exports.getAnnouncementsByTeamId = (params, callback) => {
 };
 
 exports.updateAnnouncement = (req, callback) => {
-  models.Announcemnts
+  models.Announcements
     .findOne({
       where: {
         id: req.params.announcement_id
