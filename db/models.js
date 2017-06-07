@@ -35,8 +35,8 @@ const Teams = connection.define("teams", {
 
 const Team_Users = connection.define("team_users", {});
 
-Users.hasMany(Team_Users, {
-  foreignKey: { name: "user_id", targetKey: "auth_token" },
+User_Profile.hasMany(Team_Users, {
+  foreignKey: { name: "user_id", targetKey: "id" },
   onDelete: "CASCADE"
 });
 Teams.hasMany(Team_Users, {
@@ -49,8 +49,8 @@ const Projects = connection.define("projects", {
   complete: { type: Sequelize.BOOLEAN, default: false }
 });
 
-Projects.belongsTo(Users, {
-  foreignKey: { name: "user_id", target: "auth_token" },
+Projects.belongsTo(User_Profile, {
+  foreignKey: { name: "user_id", target: "id" },
   onDelete: "CASCADE"
 });
 Projects.belongsTo(Teams, {
@@ -84,21 +84,25 @@ const User_Tasks = connection.define("user_tasks", {
   stage: { type: Sequelize.STRING, allowNull: false }
 });
 
-//Users.belongsToMany(Tasks, { as: 'Users', through: 'User_Tasks' });
 Tasks.hasMany(User_Tasks, {
   foreignKey: { name: "task_id", targetKey: "id" },
   onDelete: "CASCADE"
 });
-Users.hasMany(User_Tasks, {
-  foreignKey: { name: "user_id", targetKey: "auth_token" },
+User_Profile.hasMany(User_Tasks, {
+  foreignKey: { name: "user_id", targetKey: "id" },
+  onDelete: "CASCADE"
+});
+
+Teams.hasMany(User_Tasks, {
+  foreignKey: { name: "team_id", targetKey: "id" },
   onDelete: "CASCADE"
 });
 
 const Messages = connection.define("messages", {
   message: { type: Sequelize.TEXT }
 });
-Users.hasMany(Messages, {
-  foreignKey: { name: "user_id", targetKey: "auth_token" },
+User_Profile.hasMany(Messages, {
+  foreignKey: { name: "user_id", targetKey: "id" },
   onDelete: "CASCADE"
 });
 Teams.hasMany(Messages, {
