@@ -13,9 +13,9 @@
 </div>
 <hr/>
 
-<div class="container-project" dnd-sortable-container [sortableData]="projectsService.projects">
+<div class="container-project" [dragula]='"first-bag"'>
 <!--Implement ngFor to create Projects-->
-  <div *ngFor="let project of projectsService.projects; let i = index" dnd-sortable [sortableIndex]="i">
+  <div *ngFor="let project of projectsService.projects">
     <div *ngIf="!project.complete"  class="current-project">
       <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
       <div>
