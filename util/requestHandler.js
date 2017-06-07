@@ -30,9 +30,8 @@ exports.users = {
           res.send(userData);
         } else {
           userData.user_profile = userProfile;
-          console.log(userProfile.id, "userId");
-          helper.retrieveUserTeams(userProfile.id, teams => {
-            this.extractProjectId(teams, projectIds => {
+          helper.retrieveUserTeams(userProfile.id, (teams) => {
+            this.extractProjectId(teams, (projectIds) => {
               userData.project_id = projectIds;
               res.send(userData);
             });
