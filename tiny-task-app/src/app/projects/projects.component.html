@@ -21,7 +21,7 @@
       <div>
         <div class="project-header">
           <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="editProjectName(project.id, $event)" name="projectText" size="15"  min="1"></inline-editor>
-          <button md-icon-button (click)="deleteProject(project.id)">
+          <button md-icon-button (click)="deleteProject(project.id, project.project_name)">
             <i class="material-icons">delete_forever</i>
           </button>
         </div>

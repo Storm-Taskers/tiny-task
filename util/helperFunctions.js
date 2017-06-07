@@ -134,7 +134,7 @@ exports.retrieveTeamUsers = (team_id, callback) => {
         }
       });
     })).then((userProfiles) => {
-      callback(userProfiles);
+      callback(userProfiles.map((user) => (user[0])));
     });
   });
 };

@@ -30,8 +30,8 @@ export class TeamsComponent implements OnInit {
     }
   }
 
-  deleteTeam(teamId: number): void {
-    if (confirm('Are you sure you want to delete?')) {
+  deleteTeam(teamId: number, teamName: string): void {
+    if (confirm(`Are you sure you want to delete "${teamName}"?`)) {
       this.teamService.deleteTeam(teamId);
     }
   }

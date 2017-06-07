@@ -11,11 +11,12 @@
 
 <div class="container-team">
 <!--Implement ngFor to create Teams-->
-  <div *ngFor="let team of teamService.userTeams" class="team">
-    <div [routerLink]="['/teams', team.id]">
-      {{ team.team_name }}
-    </div>
-    <button md-icon-button (click)="deleteTeam(team.id)" >
+  <div
+    *ngFor="let team of teamService.userTeams"
+    [routerLink]="['/teams', team.id]"
+    class="team">
+    {{ team.team_name }}
+    <button md-icon-button (click)="deleteTeam(team.id, team.team_name); $event.stopPropagation()" >
       <i class="material-icons">delete</i>
     </button>
   </div>

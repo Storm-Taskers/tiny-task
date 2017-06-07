@@ -28,7 +28,7 @@ export class PhasesComponent implements OnInit {
   }
 
   deletePhase(phaseId: number): void {
-    if (confirm('Are you sure you want to delete this phase?')) { 
+    if (confirm('Are you sure you want to delete this phase?')) {
       this.projectsService.deletePhase(phaseId);
     }
   }

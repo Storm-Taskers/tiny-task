@@ -16,29 +16,11 @@ export class ProjectsService {
   private baseUrl: string = 'http://localhost:8080';
 
   public projectIds: number[] = [];
-  // MOCK DATA
-  public usersOnProject: User[] = [
-    {
-      id: 1,
-      full_name: 'Kevin',
-      email: 'kev_lose@gmail.com',
-      user_availability: 'Available',
-      user_status: 'Not working hard',
-      user_color: 'pink'
-    },
-    {
-      id: 2,
-      full_name: 'David',
-      email: 'iLoveSL@gmail.com',
-      user_availability: 'Available',
-      user_status: 'Very Sick',
-      user_color: 'red'
-    }
-  ]
 
   public projects: Project[] = [];
   public currentProject: Project;
   public phases: Phase[] = [];
+  public usersOnProject: User[];
 
   // MOCK DATA
   public tasks: Task[] = [
@@ -74,6 +56,7 @@ export class ProjectsService {
     this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then((response) => {
+        this.usersOnProject = response.json().user_info;
         this.phases = response.json().phase_info;
         this.projects.push(response.json().project_info);
         this.currentProject = response.json().project_info;
@@ -206,18 +189,6 @@ export class ProjectsService {
                             user_status: 'Working too hard',
                             user_color: 'Green'
                           }
-
-  addUserToProject(projectId: number, userId: string): void {
-    this.usersOnProject.push(this.testUser);
-    // this.http.post(
-    //   `${this.baseUrl}/api/projects/${projectId}/users`,
-    //   JSON.stringify({projectId: projectId, userId: userId}))
-    //   .toPromise()
-    //   .then( (response) => {
-    //     this.usersOnProject.push(response.json());
-    //   })
-    //   .catch(this.handleError);
-  }
 
   // Delete Information
   deleteProject(projectId: number): void {
