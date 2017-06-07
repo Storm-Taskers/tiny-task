@@ -39,8 +39,6 @@ import { TeamsComponent } from './teams/teams.component';
 import { TeamDetailsComponent } from './teams/team-details/team-details.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DndModule } from 'ng2-dnd';
-import { DragulaModule, DragulaService } from 'ng2-dragula/ng2-dragula';
-
 
 
 @NgModule({
@@ -70,10 +68,9 @@ import { DragulaModule, DragulaService } from 'ng2-dragula/ng2-dragula';
     MaterialModule,
     InlineEditorModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
-    DragulaModule,
     DndModule.forRoot()
   ],
-  providers: [UserService, ProjectsService, NavService, TeamService, AuthService, DragulaService],
+  providers: [UserService, ProjectsService, NavService, TeamService, AuthService],
   bootstrap: [AppComponent]
 })
 

@@ -8,7 +8,6 @@
   </button>
   </div>
 </div>
-
 <hr/>
 <div class="container-team-members">
 <!--Implement ngFor to create each User-->
@@ -20,10 +19,11 @@
 
 <div class="header">
   <div class="h2-header">
+    Drag Containers <input type="checkbox" [(ngModel)]="dragOperation"/>
     <h2>
       Project Phases
     </h2>
-    <button md-icon-button (click)="addNewPhase()" >
+    <button md-icon-button (click)="addNewPhase()">
       <i class="material-icons">library_add</i>
     </button>
     <md-progress-bar
@@ -35,14 +35,15 @@
     </md-progress-bar>
   </div>
 </div>
-
 <hr/>
 <div class="container-phases" >
 <!--Implement ngFor to create Phases-->
   <div class="phases" dnd-sortable-container [sortableData]="projectsService.phases">
-    <phases
-      *ngFor="let phase of projectsService.phases; let i = index" dnd-sortable [sortableIndex]="i"
-      [phase]="phase">
-    </phases>
+    <div *ngFor="let phase of projectsService.phases; let i = index" dnd-sortable [sortableIndex]="i"
+      (onDropSuccess)="updatePhaseOrder()" [dragEnabled]="dragOperation">
+      <phases 
+        [phase]="phase">
+      </phases>
+    <div>
   </div>
 </div>

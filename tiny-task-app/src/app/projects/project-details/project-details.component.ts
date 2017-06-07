@@ -16,6 +16,7 @@ import { TeamService } from '../../services/team-service/team.service';
 export class ProjectDetailsComponent implements OnInit {
   selectedProjectId: number;
   value: number = 33;
+  dragOperation: boolean = true;
 
   constructor(
     private projectsService: ProjectsService,
@@ -24,7 +25,7 @@ export class ProjectDetailsComponent implements OnInit {
     private teamService: TeamService,
     private route: ActivatedRoute,
     private location: Location
-   ) { }
+   ) {}
 
   goBack(): void {
     this.location.back();
@@ -43,5 +44,9 @@ export class ProjectDetailsComponent implements OnInit {
 
   addNewPhase(): void {
     this.projectsService.createPhase(this.selectedProjectId);
+  }
+
+  updatePhaseOrder(): void {
+    console.log(this.projectsService.phases);
   }
 }

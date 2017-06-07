@@ -16,7 +16,7 @@ export class ProjectsComponent implements OnInit {
     private projectsService: ProjectsService,
     private userService: UserService,
     private teamService: TeamService,
-    private navService: NavService
+    private navService: NavService,
   ) { }
 
   ngOnInit() {
@@ -51,5 +51,17 @@ export class ProjectsComponent implements OnInit {
 
   editProjectName(projectId: number, newName: string): void {
     this.projectsService.editProjectName(projectId, newName);
+  }
+
+  updateProjectOrder($event: any) {
+    console.log(this.projectsService.projects);
+  }
+
+  toggleCompleteProject(projectId: number): void {
+    console.log(projectId);
+  }
+
+  handleError(): void {
+    alert("50 Character Limit Exceeded");
   }
 }
