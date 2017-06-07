@@ -1,9 +1,6 @@
 <div class="header">
   <h2 class="h2-header">
     {{ projectsService.currentProject?.project_name }} Team Members
-    <button md-icon-button (click)="addNewProjectUser()">
-     <i class="material-icons">library_add</i>
-    </button>
   </h2>
 </div>
 
@@ -12,7 +9,8 @@
 <!--Implement ngFor to create each User-->
   <user
     *ngFor="let user of projectsService.usersOnProject"
-    [user]="user">
+    [user]="user"
+    [projectMenu]="true">
   </user>
 </div>
 

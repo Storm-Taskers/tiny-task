@@ -38,16 +38,6 @@ export class ProjectDetailsComponent implements OnInit {
 
     // Get Project Info
     this.route.params.subscribe(params => this.projectsService.getProject(+params['id']));
-
-    // // Get Project Phases
-    // this.route.params.subscribe(params => this.projectsService.getPhases(+params['id']));
-
-    // // Get Users on Project
-    // this.route.params.subscribe(params => this.userService.getUsersOnProject(+params['id']));
-  }
-
-  addNewProjectUser(): void {
-    this.projectsService.addUserToProject(this.selectedProjectId, '3'); // Mock User ID
   }
 
   addNewPhase(): void {

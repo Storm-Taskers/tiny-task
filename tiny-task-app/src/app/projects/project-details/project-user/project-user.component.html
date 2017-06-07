@@ -1,6 +1,25 @@
-<div class="current-team-members">
+<div class="current-team-members" [class.projectMenu]="projectMenu === true">
   <span>{{ user.full_name }}</span>
   <i class="material-icons md-48" >account_circle</i>
   <span class="status">Status:</span>
   <span class="status">{{ user.user_status }}</span>
+  <div *ngIf="teamMenu === true">
+    <button md-icon-button [mdMenuTriggerFor]="menu">
+      <i class="material-icons">more_horiz</i>
+    </button>
+    <md-menu #menu="mdMenu">
+        <button md-menu-item disableRipple>
+          <div class="menu-item">
+            <i class="material-icons">navigate_next</i>
+            <span>Show User Projects</span>
+          </div>
+        </button>
+        <button md-menu-item disableRipple (click)="removeFromTeam(user.id)">
+          <div class="menu-item">
+            <i class="material-icons">delete_forever</i>
+            <span>Remove From Team</span>
+          </div>
+        </button>
+    </md-menu>
+  </div>
 </div>

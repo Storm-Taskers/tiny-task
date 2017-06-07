@@ -43,8 +43,8 @@ export class ProjectsComponent implements OnInit {
     this.projectsService.createProject(teamId, userId);
   }
 
-  deleteProject(projectId: number): void {
-    if (confirm('Are you sure you want to delete this?')) {
+  deleteProject(projectId: number, projectName): void {
+    if (confirm(`Are you sure you want to delete "${projectName}"?`)) {
       this.projectsService.deleteProject(projectId);
     }
   }

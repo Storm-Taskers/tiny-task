@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 import { Team } from '../../teams/Team';
+import { User } from '../../projects/project-details/project-user/User';
 
 
 @Injectable()
@@ -15,8 +16,9 @@ export class TeamService {
 
 
   // Current Team Information
-  public currentTeam: Team = {id: 1, teamName: 'Tiny Task'}; // Mock
-  public selectedTeamInfo: any;
+  public currentTeam: Team = {id: 1, team_name: 'Tiny Task'}; // Mock
+  public selectedTeamInfo: Team;
+  public selectedTeamUserInfo: User[] = [];
 
   constructor(private http: Http) { }
 
@@ -43,7 +45,8 @@ export class TeamService {
     this.http.get(`${this.baseUrl}/api/teams/${teamId}`)
       .toPromise()
       .then((response) => {
-        this.selectedTeamInfo = response.json();
+        this.selectedTeamInfo = response.json().team_info[0];
+        this.selectedTeamUserInfo = response.json().user_info;
       })
       .catch(this.handleError);
   }
@@ -74,4 +77,8 @@ export class TeamService {
       .catch(this.handleError);
   }
 
+  removeFromTeam(userId: number): void {
+    let indexToDelete = this.selectedTeamUserInfo.findIndex((user) => user.id === userId);
+    this.selectedTeamUserInfo.splice(indexToDelete, 1);
+  }
 }
