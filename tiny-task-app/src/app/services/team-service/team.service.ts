@@ -1,8 +1,10 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-// Import ReactiveJS toPromise
+// Import Observable Operators
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 import { Team } from '../../teams/Team';
 import { User } from '../../projects/project-details/project-user/User';
@@ -49,6 +51,15 @@ export class TeamService {
         this.selectedTeamUserInfo = response.json().user_info;
       })
       .catch(this.handleError);
+  }
+
+  findAllUsers(user: string): Observable<any> {
+    return this.http.get(
+            `${this.baseUrl}/api/users/search/${user}`)
+            .map(response => {
+              this.selectedTeamUserInfo.push(response.json());
+              return response.json()
+            });
   }
 
   // Post Information
