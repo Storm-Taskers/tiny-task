@@ -473,6 +473,24 @@ const seedData = [
       },
       true
     );
+  },
+
+  () => {
+    return handlerAnnouncements.announcements.createNewAnnouncements(
+      {
+        body: {
+          announcement: "Warriors 17 NBA Champs",
+          user_id: "1",
+          team_id: 1
+        }
+      },
+      {
+        end: () => {
+          console.log("seed announcement added");
+        }
+      },
+      true
+    );
   }
 ];
 

@@ -1,4 +1,4 @@
-const helper = require('../helpers/announcements.js');
+const helper = require("../helpers/announcements.js");
 
 exports.announcements = {
   retrieveAnnouncements: (req, res) => {
@@ -6,7 +6,7 @@ exports.announcements = {
       res.send(announcements);
     });
   },
-  createNewAnnouncements: (req, res) => {
+  createNewAnnouncements: (req, res, isSeed) => {
     helper.addAnnouncement(req, (err, result) => {
       if (err) {
         return res.status(500).send("server error");
