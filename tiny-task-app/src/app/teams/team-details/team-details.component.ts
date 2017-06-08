@@ -23,7 +23,7 @@ import { User } from '../../projects/project-details/project-user/User';
 })
 export class TeamDetailsComponent implements OnInit {
   private teamId: number;
-  private users: any; // placeholder
+  private users: Observable<User[]>; // placeholder
 
   private memberSearchTerms = new Subject<string>();
 
@@ -32,8 +32,6 @@ export class TeamDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location
   ) { }
-
-
 
   ngOnInit() {
     // Get Current Team Id
@@ -46,10 +44,10 @@ export class TeamDetailsComponent implements OnInit {
     this.users = this.memberSearchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap(user => user ? this.teamService.findAllUsers(user) : Observable.of<any>([]))
+      .switchMap(user => user ? this.teamService.findAllUsers(user) : Observable.of<User[]>([]))
       .catch(error => {
         console.log(error);
-        return Observable.of<any>([]);
+        return Observable.of<User[]>([]);
       });
   }
 

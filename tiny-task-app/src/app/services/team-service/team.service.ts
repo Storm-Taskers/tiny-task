@@ -75,6 +75,11 @@ export class TeamService {
       .catch(this.handleError);
   }
 
+  // Edit Information
+  addTeamMember(): void {
+
+  }
+
   // Delete Information
   deleteTeam(teamId: number): void {
     this.http.delete(
