@@ -1,8 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+
+// Import Observable Class Extensions
+import 'rxjs/add/observable/of';
+
+// Import Observable Operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import { TeamService } from '../../services/team-service/team.service';
+
+import { User } from '../../projects/project-details/project-user/User';
 
 @Component({
   selector: 'app-team-details',
@@ -11,6 +23,10 @@ import { TeamService } from '../../services/team-service/team.service';
 })
 export class TeamDetailsComponent implements OnInit {
   private teamId: number;
+  private users: Observable<User[]>;
+  private render: boolean = false;
+
+  private memberSearchTerms = new Subject<string>();
 
   constructor(
     private teamService: TeamService,
@@ -18,18 +34,39 @@ export class TeamDetailsComponent implements OnInit {
     private location: Location
   ) { }
 
-
   ngOnInit() {
     // Get Current Team Id
     this.route.params.subscribe(params => this.teamId = +params['id']);
 
     // Get Team Info
     this.route.params.subscribe(params => this.teamService.getTeamInfo(+params['id']));
+
+    // Set Up Member Search Observable
+    this.users = this.memberSearchTerms
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap(user => user ? this.teamService.findAllUsers(user) : Observable.of<User[]>([]))
+      .catch(error => {
+        console.log(error);
+        return Observable.of<User[]>([]);
+      });
+  }
+
+  renderTeamAdd(): void {
+    this.render = !this.render;
   }
 
   removeFromTeam(): any {
-    return (userId: number) => {
-      return this.teamService.removeFromTeam(userId)
+    return (teamId: number, userId: number) => {
+      return this.teamService.removeFromTeam(this.teamId, userId);
     };
+  }
+
+  searchMembers(name: string): void {
+    this.memberSearchTerms.next(name);
+  }
+
+  addTeamUser(user: User): void {
+    this.teamService.addTeamMember(this.teamId, user.id);
   }
 }

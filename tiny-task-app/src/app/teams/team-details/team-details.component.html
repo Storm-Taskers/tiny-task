@@ -2,6 +2,19 @@
   <h2 class="h2-header">
     {{ teamService.selectedTeamInfo?.team_name }}
   </h2>
+  <button md-icon-button (click)="renderTeamAdd()">
+     <i class="material-icons">library_add</i>
+  </button>
+  <div *ngIf="render">
+    <input #searchMembers id="search-box" (keyup)="searchMembers(searchMembers.value)" placeholder="Enter Name To Add">
+    <div class="search-results">
+      <div
+        *ngFor="let user of allUsers | async"
+        (click)="addTeamUser(user)"
+        class="member-result">
+      </div>
+    </div>
+  </div>
 </div>
 <hr/>
 

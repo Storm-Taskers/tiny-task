@@ -1,8 +1,10 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-// Import ReactiveJS toPromise
+// Import Observable Operators
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 import { Team } from '../../teams/Team';
 import { User } from '../../projects/project-details/project-user/User';
@@ -51,6 +53,15 @@ export class TeamService {
       .catch(this.handleError);
   }
 
+  findAllUsers(user: string): Observable<User[]> {
+    return this.http.get(
+            `${this.baseUrl}/api/users/search/${user}`)
+            .map(response => {
+              this.selectedTeamUserInfo.push(response.json());
+              return response.json()
+            });
+  }
+
   // Post Information
   makeNewTeam(userId: number, teamName: string): void {
     this.http.post(
@@ -60,6 +71,19 @@ export class TeamService {
       .toPromise()
       .then((response) => {
         this.userTeams.push(response.json().team_info)
+      })
+      .catch(this.handleError);
+  }
+
+  // Edit Information
+  addTeamMember(teamId: number, userId: number): void {
+    this.http.put(
+      `${this.baseUrl}/api/teams/${teamId}`,
+      JSON.stringify({user_id: userId, remove: false}),
+      {headers: this.headers})
+      .toPromise()
+      .then((response) => {
+        this.selectedTeamUserInfo = response.json().user_info;
       })
       .catch(this.handleError);
   }
@@ -77,8 +101,15 @@ export class TeamService {
       .catch(this.handleError);
   }
 
-  removeFromTeam(userId: number): void {
-    let indexToDelete = this.selectedTeamUserInfo.findIndex((user) => user.id === userId);
-    this.selectedTeamUserInfo.splice(indexToDelete, 1);
+  removeFromTeam(teamId: number, userId: number): void {
+    this.http.put(
+      `${this.baseUrl}/api/teams/${teamId}`,
+      JSON.stringify({user_id: userId, remove: true}),
+      {headers: this.headers})
+      .toPromise()
+      .then((response) => {
+        this.selectedTeamUserInfo = response.json().user_info;
+      })
+      .catch(this.handleError);
   }
 }
