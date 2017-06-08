@@ -76,8 +76,16 @@ export class TeamService {
   }
 
   // Edit Information
-  addTeamMember(): void {
-
+  addTeamMember(teamId: number, userId: number): void {
+    this.http.put(
+      `${this.baseUrl}/api/teams/${teamId}`,
+      JSON.stringify({user_id: userId, remove: false}),
+      {headers: this.headers})
+      .toPromise()
+      .then((response) => {
+        this.selectedTeamUserInfo = response.json().user_info;
+      })
+      .catch(this.handleError);
   }
 
   // Delete Information
@@ -93,8 +101,15 @@ export class TeamService {
       .catch(this.handleError);
   }
 
-  removeFromTeam(userId: number): void {
-    let indexToDelete = this.selectedTeamUserInfo.findIndex((user) => user.id === userId);
-    this.selectedTeamUserInfo.splice(indexToDelete, 1);
+  removeFromTeam(teamId: number, userId: number): void {
+    this.http.put(
+      `${this.baseUrl}/api/teams/${teamId}`,
+      JSON.stringify({user_id: userId, remove: true}),
+      {headers: this.headers})
+      .toPromise()
+      .then((response) => {
+        this.selectedTeamUserInfo = response.json().user_info;
+      })
+      .catch(this.handleError);
   }
 }

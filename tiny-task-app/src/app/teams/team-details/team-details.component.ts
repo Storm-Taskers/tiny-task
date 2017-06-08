@@ -23,7 +23,8 @@ import { User } from '../../projects/project-details/project-user/User';
 })
 export class TeamDetailsComponent implements OnInit {
   private teamId: number;
-  private users: Observable<User[]>; // placeholder
+  private users: Observable<User[]>;
+  private render: boolean = false;
 
   private memberSearchTerms = new Subject<string>();
 
@@ -51,9 +52,13 @@ export class TeamDetailsComponent implements OnInit {
       });
   }
 
+  renderTeamAdd(): void {
+    this.render = !this.render;
+  }
+
   removeFromTeam(): any {
-    return (userId: number) => {
-      return this.teamService.removeFromTeam(userId)
+    return (teamId: number, userId: number) => {
+      return this.teamService.removeFromTeam(this.teamId, userId);
     };
   }
 
@@ -61,7 +66,7 @@ export class TeamDetailsComponent implements OnInit {
     this.memberSearchTerms.next(name);
   }
 
-  addTeamUser(): void {
-
+  addTeamUser(user: User): void {
+    this.teamService.addTeamMember(this.teamId, user.id);
   }
 }
