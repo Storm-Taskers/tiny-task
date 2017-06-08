@@ -22,6 +22,9 @@ export class ProjectsService {
   public phases: Phase[] = [];
   public usersOnProject: User[];
   public tasks: Task[];
+  public totalWeight: number;
+  public completeWeight: number;
+  public progress: number;
 
 
   constructor(private http: Http) { }
@@ -40,33 +43,26 @@ export class ProjectsService {
         this.phases = response.json().phase_info;
         this.projects.push(response.json().project_info);
         this.currentProject = response.json().project_info;
+        this.totalWeight = 0;
+        this.completeWeight = 0;
+        this.progress = 0;
       })
       .catch(this.handleError);
   }
-
-  // getPhases(projectId: number): void {
-  //   this.http.get(`${this.baseUrl}/api/phases/${projectId}`)
-  //     .toPromise()
-  //     .then((response) => {
-  //       console.log(response.json());
-  //       this.phases = response.json();
-  //     })
-  //     .catch(this.handleError);
-  // }
-
-  // getPhaseTasks(phaseId: number): Promise<Task[]> {
-  //   return this.http.get(`${this.baseUrl}/api/tasks/phase/${phaseId}`)
-  //           .toPromise()
-  //           .then((response) => {
-  //             return response.json();
-  //           })
-  //           .catch(this.handleError);
-  // }
 
   getTasks(phaseId: number): Promise<Task[]> {
     return this.http.get(`${this.baseUrl}/api/tasks/${phaseId}`)
             .toPromise()
             .then((response) => {
+              response.json().task_info.forEach((task) => {
+                if ( task.complete ) {
+                  this.completeWeight += task.task_weight;
+                }
+
+                this.totalWeight += task.task_weight;
+                this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
+              });
+
               return response.json();
             })
             .catch(this.handleError);
@@ -114,7 +110,8 @@ export class ProjectsService {
             {headers: this.headers})
             .toPromise()
             .then( (response) => {
-              console.log(response);
+              this.totalWeight += 1;
+              this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
               return response.json();
             })
             .catch(this.handleError);
@@ -194,20 +191,34 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  deletePhase(phaseId: number): void {
+  deletePhase(phaseId: number, tasks: Task[]): void {
     this.http.delete(`${this.baseUrl}/api/phases/${phaseId}`)
       .toPromise()
       .then( (response) => {
         let phaseToRemove = this.phases.findIndex(phase => phase.id === phaseId);
         this.phases.splice(phaseToRemove, 1);
+        tasks.forEach((task) => {
+          if ( task.complete ) {
+            this.completeWeight -= task.task_weight;
+          }
+
+          this.totalWeight -= task.task_weight;
+        });
+        this.progress = this.totalWeight !== 0 ? Math.floor((this.completeWeight / this.totalWeight) * 100) : 0;
       })
       .catch(this.handleError);
   }
 
-  deleteTask(taskId: number): void {
+  deleteTask(taskId: number, task: Task): void {
     this.http.delete(`${this.baseUrl}/api/tasks/${taskId}`)
       .toPromise()
       .then( (response) => {
+        if ( task.complete ) {
+          this.completeWeight -= task.task_weight;
+        }
+
+        this.totalWeight -= task.task_weight;
+        this.progress = this.totalWeight !== 0 ? Math.floor((this.completeWeight / this.totalWeight) * 100) : 0;
       })
       .catch(this.handleError);;
   }

@@ -56,6 +56,7 @@ exports.addTask = (body, phase_id, callback) => {
   models.Tasks.create({
       task_name: body.task_name,
       task_color: body.task_color,
+      complete: body.complete || false,
       phase_id: phase_id
     }).then((result) => {
       callback(result);

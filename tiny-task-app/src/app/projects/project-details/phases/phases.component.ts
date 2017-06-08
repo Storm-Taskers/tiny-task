@@ -21,7 +21,6 @@ export class PhasesComponent implements OnInit {
   ngOnInit() {
     this.projectsService.getTasks(this.phase.id).then((result: any) => {
       this.phaseTasks = result.task_info;
-      console.log(this.phaseTasks);
     });
   }
 
@@ -31,7 +30,8 @@ export class PhasesComponent implements OnInit {
 
   deletePhase(phaseId: number): void {
     if (confirm('Are you sure you want to delete this phase?')) {
-      this.projectsService.deletePhase(phaseId);
+      console.log(this.phaseTasks);
+      this.projectsService.deletePhase(phaseId, this.phaseTasks);
     }
   }
 
@@ -42,8 +42,8 @@ export class PhasesComponent implements OnInit {
       });
   }
 
-  deleteTask(taskId: number): void {
-    this.projectsService.deleteTask(taskId);
+  deleteTask(taskId: number, task: Task): void {
+    this.projectsService.deleteTask(taskId, task);
     this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
   }
 
