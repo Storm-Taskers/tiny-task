@@ -32,7 +32,7 @@ export class TeamService {
   }
 
   // Get Information
-  getUserTeams(userId: string): void {
+  getUserTeams(userId: number): void {
     this.http.get(`${this.baseUrl}/api/teams/users/${userId}`)
       .toPromise()
       .then((response) => {
@@ -52,7 +52,7 @@ export class TeamService {
   }
 
   // Post Information
-  makeNewTeam(userId: string, teamName: string): void {
+  makeNewTeam(userId: number, teamName: string): void {
     this.http.post(
       `${this.baseUrl}/api/teams`,
       JSON.stringify({user_id: userId, team_name: teamName}),

@@ -40,7 +40,6 @@ import { TeamDetailsComponent } from './teams/team-details/team-details.componen
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DndModule } from 'ng2-dnd';
 
-
 @NgModule({
   declarations: [
     AppComponent,

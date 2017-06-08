@@ -12,7 +12,7 @@ export class UserService {
   private headers = new Headers({'Content-Type': 'application/JSON'});
   private baseUrl: string = 'http://localhost:8080';
 
-  public userId: string = 'Brian';
+  public userId: number;
   public userProfile: User;
 
   constructor(private http: Http) { }
@@ -27,6 +27,7 @@ export class UserService {
             .toPromise()
             .then( (response) => {
               this.userProfile = response.json().user_profile;
+              this.userId = response.json().user_profile.id;
               return response.json().project_id;
             })
             .catch(this.handleError);
