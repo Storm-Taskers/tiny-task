@@ -21,6 +21,7 @@ export class PhasesComponent implements OnInit {
   ngOnInit() {
     this.projectsService.getTasks(this.phase.id).then((result: any) => {
       this.phaseTasks = result.task_info;
+      console.log(this.phaseTasks);
     });
   }
 
@@ -45,7 +46,7 @@ export class PhasesComponent implements OnInit {
     this.projectsService.deleteTask(taskId);
     this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
   }
-  
+
   handleError(): void {
     alert("50 Character Limit Exceeded");
   }

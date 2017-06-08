@@ -263,7 +263,6 @@ const seedData = [
         params: { phase_id: 1 },
         body: {
           task_name: "Create back-end",
-          task_status: "Finished",
           task_color: "green"
         }
       },
@@ -282,7 +281,6 @@ const seedData = [
         params: { phase_id: 1 },
         body: {
           task_name: "Create front-end",
-          task_status: "Finished",
           task_color: "blue"
         }
       },
@@ -301,7 +299,7 @@ const seedData = [
         params: { phase_id: 2 },
         body: {
           task_name: "Write more Tests",
-          task_status: "In progress",
+          complete: true,
           task_color: "yellow"
         }
       },
@@ -320,7 +318,7 @@ const seedData = [
         params: { phase_id: 2 },
         body: {
           task_name: "Write more functions",
-          task_status: "In progress",
+          complete: true,
           task_color: "orange"
         }
       },
@@ -339,7 +337,6 @@ const seedData = [
         params: { phase_id: 3 },
         body: {
           task_name: "Finish app",
-          task_status: "Not started",
           task_color: "red"
         }
       },
@@ -358,7 +355,7 @@ const seedData = [
         params: { phase_id: 3 },
         body: {
           task_name: "Make it pretty",
-          task_status: "Not started",
+          complete: true,
           task_color: "purple"
         }
       },

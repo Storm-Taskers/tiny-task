@@ -55,7 +55,6 @@ exports.addTask = (body, phase_id, callback) => {
   console.log(body.task_name);
   models.Tasks.create({
       task_name: body.task_name,
-      task_status: body.task_status,
       task_color: body.task_color,
       phase_id: phase_id
     }).then((result) => {
@@ -73,7 +72,8 @@ exports.updateTask = (task_id, changes, callback) => {
     }).then(task => {
       task.updateAttributes({
           task_name: changes.task_name,
-          task_status: changes.task_status,
+          complete: changes.complete,
+          task_weight: changes.task_weight,
           task_color: changes.task_color,
           phase_id: changes.phase_id
         }).then(task => {

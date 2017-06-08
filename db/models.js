@@ -47,7 +47,7 @@ Teams.hasMany(Team_Users, {
 const Projects = connection.define("projects", {
   project_name: { type: Sequelize.STRING, allowNull: false },
   phase_order: { type: Sequelize.STRING, allowNull: true },
-  complete: { type: Sequelize.BOOLEAN, default: false }
+  complete: { type: Sequelize.BOOLEAN, defaultValue: false }
 });
 
 Projects.belongsTo(User_Profile, {
@@ -73,8 +73,9 @@ Phases.belongsTo(Projects, {
 
 const Tasks = connection.define("tasks", {
   task_name: { type: Sequelize.STRING },
-  task_status: { type: Sequelize.STRING },
-  task_color: { type: Sequelize.STRING }
+  complete: { type: Sequelize.BOOLEAN, defaultValue: false },
+  task_color: { type: Sequelize.STRING },
+  task_weight: { type: Sequelize.INTEGER, defaultValue: 1 }
 });
 Tasks.belongsTo(Phases, {
   foreignKey: { name: "phase_id", targetKey: "id" },
