@@ -43,6 +43,24 @@ exports.addUserProfile = (body, callback) => {
     });
 };
 
+exports.searchUsers = (queryString, callback) => {
+  let numToSplit = queryString.length;
+  let result = [];
+  models.User_Profile.findAll().then((users) => {
+    users.forEach((user) => {
+      let toSearch = user.dataValues.full_name.slice(0, numToSplit).toLowerCase();
+      if(toSearch === queryString) {
+        result.push(user);
+        console.log(result, 'inside forEach');
+      }
+    });
+  }).then((something) => {
+      console.log(result, 'result');
+      callback(result);
+    });
+
+};
+
 exports.deleteUserProfiles = (user_id, callback) => {
   models.Users.findOne({
     where: {
