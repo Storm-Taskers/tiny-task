@@ -65,7 +65,6 @@ exports.addTask = (body, phase_id, callback) => {
 
 exports.updateTask = (task_id, changes, callback) => {
   let taskId = task_id;
-  console.log(changes);
   models.Tasks.findOne({
       where: {
         id: taskId

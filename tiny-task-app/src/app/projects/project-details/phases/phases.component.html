@@ -33,29 +33,31 @@
           <span>Assign to User</span>
         </div>
       </button>
+
       <button md-menu-item disableRipple [mdMenuTriggerFor]="menu2">
         <div class="menu-item">
           <i class="material-icons">assignment_ind</i>
           <span>Task Difficulty</span>
         </div>
       </button>
-      <md-menu #menu2="mdMenu">
-        <select>
-          <option>hello</option>
-        </select>
-      </md-menu>
+
+        <md-menu #menu2="mdMenu">
+        </md-menu>
+        
       <button md-menu-item disableRipple (click)="toggleTaskComplete(task.id, task)">
         <div class="menu-item">
           <i class="material-icons">done</i>
           <span>Task Completed</span>
         </div>
       </button>
+
       <button md-menu-item disableRipple (click)="deleteTask(task.id, task)">
         <div class="menu-item">
           <i class="material-icons">delete_forever</i>
           <span>Delete Task</span>
         </div>
       </button>
+      
     </md-menu>
   </div>
 </div>

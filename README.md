@@ -439,7 +439,7 @@ Content-type: json/application
   ```JSON
   { "taskChanges": {
       "task_name": "Take Medicine",
-      "task_status": "Completed",
+      "complete": true,
       "user_id": [
         {
           "id": 1
@@ -455,7 +455,7 @@ Content-type: json/application
    "task_info": {
     "id": 1,
     "task_name": "Take Medicine",
-    "task_status": "Completed"
+    "complete": false
    },
    "user_info": [
     {

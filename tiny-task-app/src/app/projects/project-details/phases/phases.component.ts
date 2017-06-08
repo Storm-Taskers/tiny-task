@@ -48,7 +48,8 @@ export class PhasesComponent implements OnInit {
   }
 
   toggleTaskComplete(taskId: number, task: Task) {
-    console.log(taskId, task);
+    this.projectsService.updateTaskStatus(taskId, !task.complete); 
+    this.phaseTasks.find(task => task.id === taskId).complete = !task.complete;
   }
 
   handleError(): void {
