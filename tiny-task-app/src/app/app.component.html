@@ -4,28 +4,28 @@
   </header>
 <!--Render User Profile-->
   <div class="user-info">
-    <auth0>
-
-    </auth0>
+    <!--<auth0></auth0>-->
     <user-info></user-info>
   </div>
 <!--Render Nav Bar-->
   <div class="container-nav">
     <nav class="nav-bar">
       <div class="col">
-        <a routerLink="teams" (click)="navService.changeToProjectsPage()" >TEAMS</a>
+        <a routerLink="teams" (click)="navService.changeToProjectsPage()" ><i class="material-icons">recent_actors</i>TEAMS</a>
         <hr/>
-        <a routerLink="projects">PROJECTS</a>
+        <a routerLink="projects"><i class="material-icons">note</i>PROJECTS</a>
         <hr/>
-        <a routerLink="">CALENDAR</a>
+        <a routerLink=""><i class="material-icons">date_range</i>CALENDAR</a>
       </div>
       <div *ngIf="navService.currentPage !== 'projects'" class="col">
         <hr/>
-        <a routerLink="">BULLETIN BOARD</a>
+        <div class="nav-items">
+          <a routerLink=""><i class="material-icons">forum</i>BULLETIN BOARD</a>
+        </div>
         <hr/>
-        <a routerLink="">MEETING ROOM</a>
-        <hr/>
-        <a routerLink="">RESOURCES</a>
+        <div class="nav-items">
+          <a routerLink=""><i class="material-icons">folder_shared</i>RESOURCES</a>
+        </div>
       </div>
     </nav>
   </div>
