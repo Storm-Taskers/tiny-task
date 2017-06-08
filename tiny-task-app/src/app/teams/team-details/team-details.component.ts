@@ -57,7 +57,7 @@ export class TeamDetailsComponent implements OnInit {
   }
 
   removeFromTeam(): any {
-    return (teamId: number, userId: number) => {
+    return (userId: number) => {
       return this.teamService.removeFromTeam(this.teamId, userId);
     };
   }

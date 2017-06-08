@@ -108,7 +108,8 @@ export class TeamService {
       {headers: this.headers})
       .toPromise()
       .then((response) => {
-        this.selectedTeamUserInfo = response.json().user_info;
+        let indexMemberToDelete = this.selectedTeamUserInfo.findIndex(member => member.id === userId);
+        this.selectedTeamUserInfo.splice(indexMemberToDelete, 1);
       })
       .catch(this.handleError);
   }
