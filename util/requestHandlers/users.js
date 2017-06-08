@@ -42,6 +42,13 @@ exports.users = {
     }
   },
 
+  searchUser: (req, res) => {
+    let query_string = req.params.query_string.toLowerCase();
+    helperUsers.searchUsers(query_string, (userList) => {
+      res.status(200).send(userList).end();
+    });
+  },
+
   createNewUser: (req, res, isSeed) => {
     helperUsers.addUserProfile(req.body, (user_profile) => {
       const id = user_profile.id;

@@ -36,21 +36,27 @@ exports.teams = {
 
   updateTeams: (req, res, isSeed) => {
     let updatedTeam = {};
-    helperTeams.addTeamUser(req.body.user_id, req.params.team_id, (teamUsers) => {
-      helperTeams.retrieveTeamById(req.params.team_id, team => {
-        updatedTeam.team_info = team;
-        helperTeams.retrieveTeamUsers(req.params.team_id, (users) => {
-          updatedTeam.user_info = users;
-          if (typeof isSeed === "function") {
-            res.status(200).send(updatedTeam);
-            res.end();
-          } else {
-            console.log("seed team added");
-            res.end();
-          }
+    if(req.body.remove){
+      helperTeams.deleteTeamUser(req.body.user_id, req.params.team_id, (message) => {
+        res.status(200).send(message).end();
+      });
+    } else {
+      helperTeams.addTeamUser(req.body.user_id, req.params.team_id, (teamUsers) => {
+        helperTeams.retrieveTeamById(req.params.team_id, team => {
+          updatedTeam.team_info = team;
+          helperTeams.retrieveTeamUsers(req.params.team_id, (users) => {
+            updatedTeam.user_info = users;
+            if (typeof isSeed === "function") {
+              res.status(200).send(updatedTeam);
+              res.end();
+            } else {
+              console.log("seed team added");
+              res.end();
+            }
+          });
         });
       });
-    });
+    }
   },
 
   deleteTeams: (req, res) => {
