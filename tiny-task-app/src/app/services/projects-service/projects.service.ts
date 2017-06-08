@@ -175,20 +175,16 @@ export class ProjectsService {
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        //this.tasks.find(task => task.id === taskId).complete = taskStatus;
+        if ( response.json().complete ) {
+          this.completeWeight += response.json().task_weight;
+        } else {
+          this.completeWeight -= response.json().task_weight;
+        }
+        this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
       })
-    .catch(this.handleError);
+      .catch(this.handleError);
   }
 
-  // MOCK DATA
-  public testUser: User = {
-                            id: 3,
-                            full_name: 'Brian',
-                            email: 'king@gmail.com',
-                            user_availability: 'Available',
-                            user_status: 'Working too hard',
-                            user_color: 'Green'
-                          }
 
   // Delete Information
   deleteProject(projectId: number): void {
