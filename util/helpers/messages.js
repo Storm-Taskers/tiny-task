@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+//const mysql = require('mysql');
 const models = require('../../db/models.js');
 
 // exports.addMessage = () => {

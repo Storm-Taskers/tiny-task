@@ -61,7 +61,7 @@ Content-type: json/application
   Response Example:
   ```JSON
   {
-    "something": "User Added"
+     "User Added"
   }
   ```
 
@@ -77,7 +77,15 @@ Content-type: json/application
   ```
 
   Response Example:
-    {}
+  {
+    "id": 4,
+    "full_name": "Test User",
+    "email": "test@testing.com",
+    "user_status": "Working hard",
+    "user_availability": "true",
+    "user_color": "green",
+  }
+  ```
 
   * #### `DELETE /api/users`
   Delete a User
@@ -165,7 +173,7 @@ Content-type: json/application
 
   * #### `DELETE /api/teams/:team_id`
   Remove a team
-    no needs to be sent or recieved
+    nothing needs to be sent or recieved
 
 ### Projects
   * #### `GET /api/projects/:project_id`
@@ -186,6 +194,7 @@ Content-type: json/application
       "user_id": "google-auth0-2903",
       "team_id": 1,
       "project_name": "Tremendous Task",
+      "phase_order": "1, 2, 3"
       "complete": false
     },
     "team_info": {
@@ -205,7 +214,6 @@ Content-type: json/application
       {
         "id": "1",
         "phase_name": "Phase 1",
-        "phase_order": "1",
         "phase_color": "blue",
         "phase_status": "In progress"
       }
@@ -221,7 +229,7 @@ Content-type: json/application
   {
     "project_name": "Tiny Task",
     "user_id": "1",
-    "team_id": 1
+    "team_id": 1,
   }
   ```
 
@@ -262,7 +270,6 @@ Content-type: json/application
   Request Example:
   ```JSON
     {
-      "projectId": 1,
       "projectChanges": {
         "project_name": "Tremendous Task"
       }
@@ -318,9 +325,10 @@ Content-type: json/application
   ```JSON
   {
     "phase_name": "Setup Phase",
-    "phase_order": 1,
     "phase_color": "blue",
-    "phase_status": "In progress"
+    "phase_status": "In progress",
+    "user_id": "2",
+    "team_id": "1"s
   }
   ```
 
@@ -328,8 +336,8 @@ Content-type: json/application
   ```JSON
   {
     "id": 1,
+    "project_id": "1"
     "phase_name": "Setup Phase",
-    "phase_order": 1,
     "phase_color": "blue",
     "phase_status": "In progress"
   }
@@ -406,7 +414,8 @@ Content-type: json/application
   ```JSON
   {
     "task_name": "Take Medicine",
-    "task_status": "Completed"
+    "task_status": "Completed",
+    "task_color": "green"
   }
   ```
 
@@ -428,14 +437,15 @@ Content-type: json/application
 
   Request Example:
   ```JSON
-  {
-    "task_name": "Take Medicine",
-    "task_status": "Completed",
-    "user_id": [
-      {
-        "id": 1
-      }
-    ]
+  { "taskChanges": {
+      "task_name": "Take Medicine",
+      "task_status": "Completed",
+      "user_id": [
+        {
+          "id": 1
+        }
+      ]
+    }
   }
   ```
 
