@@ -53,7 +53,7 @@ export class TeamService {
       .catch(this.handleError);
   }
 
-  findAllUsers(user: string): Observable<any> {
+  findAllUsers(user: string): Observable<User[]> {
     return this.http.get(
             `${this.baseUrl}/api/users/search/${user}`)
             .map(response => {

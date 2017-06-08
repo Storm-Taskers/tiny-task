@@ -4,15 +4,17 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-// Observable Class Extensions
+// Import Observable Class Extensions
 import 'rxjs/add/observable/of';
 
-// Observable Operators
+// Import Observable Operators
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import { TeamService } from '../../services/team-service/team.service';
+
+import { User } from '../../projects/project-details/project-user/User';
 
 @Component({
   selector: 'app-team-details',
@@ -39,6 +41,16 @@ export class TeamDetailsComponent implements OnInit {
 
     // Get Team Info
     this.route.params.subscribe(params => this.teamService.getTeamInfo(+params['id']));
+
+    // Set Up Member Search Observable
+    this.users = this.memberSearchTerms
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap(user => user ? this.teamService.findAllUsers(user) : Observable.of<any>([]))
+      .catch(error => {
+        console.log(error);
+        return Observable.of<any>([]);
+      });
   }
 
   removeFromTeam(): any {
