@@ -17,7 +17,7 @@
 <!--Implement ngFor to create Phase Details (task)-->
 <div dnd-sortable-container [sortableData]="phaseTasks">
   <div *ngFor="let task of phaseTasks; let i = index" dnd-sortable [sortableIndex]="i">
-    <div class="task-container task">
+    <div [ngClass]="!task.complete ? 'task-container task': 'task-container task-completed'">
       <tasks
         [task]="task">
       </tasks>
