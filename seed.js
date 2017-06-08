@@ -10,12 +10,18 @@ to use:
   in terminal write 'npm run seed' to seed the database
 */
 
-const Chance = require("chance");
-const handler = require("./util/requestHandler.js");
+const handlerUsers = require("./util/requestHandlers/users.js");
+const handlerTeams = require("./util/requestHandlers/teams.js");
+const handlerProjects = require("./util/requestHandlers/projects.js");
+const handlerPhases = require("./util/requestHandlers/phases.js");
+const handlerTasks = require("./util/requestHandlers/tasks.js");
+const handlerAnnouncements = require("./util/requestHandlers/announcements.js");
+const handlerMessages = require("./util/requestHandlers/messages.js");
+const handlerResources = require("./util/requestHandlers/resources.js");
 
 const seedData = [
   () => {
-    return handler.users.createNewUser(
+    return handlerUsers.users.createNewUser(
       {
         body: {
           auth_token: "Kevin",
@@ -35,7 +41,7 @@ const seedData = [
     );
   },
   () => {
-    return handler.users.createNewUser(
+    return handlerUsers.users.createNewUser(
       {
         body: {
           auth_token: "Brian",
@@ -55,7 +61,7 @@ const seedData = [
     );
   },
   () => {
-    return handler.users.createNewUser(
+    return handlerUsers.users.createNewUser(
       {
         body: {
           auth_token: "David",
@@ -75,7 +81,7 @@ const seedData = [
     );
   },
   () => {
-    return handler.users.createNewUser(
+    return handlerUsers.users.createNewUser(
       {
         body: {
           auth_token: "Beth",
@@ -96,7 +102,7 @@ const seedData = [
   },
 
   () => {
-    return handler.teams.createNewTeams(
+    return handlerTeams.teams.createNewTeams(
       {
         body: {
           team_name: "Storm Taskers",
@@ -113,7 +119,7 @@ const seedData = [
   },
 
   () => {
-    return handler.teams.updateTeams(
+    return handlerTeams.teams.updateTeams(
       {
         params: { team_id: 1 },
         body: {
@@ -130,7 +136,7 @@ const seedData = [
   },
 
   () => {
-    return handler.teams.updateTeams(
+    return handlerTeams.teams.updateTeams(
       {
         params: { team_id: 1 },
         body: {
@@ -146,7 +152,7 @@ const seedData = [
     );
   },
   () => {
-    return handler.teams.updateTeams(
+    return handlerTeams.teams.updateTeams(
       {
         params: { team_id: 1 },
         body: {
@@ -163,12 +169,13 @@ const seedData = [
   },
 
   () => {
-    return handler.projects.createNewProjects(
+    return handlerProjects.projects.createNewProjects(
       {
         body: {
           project_name: "Tiny Task",
           user_id: "1",
-          team_id: 1
+          team_id: 1,
+          phase_order: "1, 2, 3"
         }
       },
       {
@@ -181,7 +188,7 @@ const seedData = [
   },
 
   () => {
-    return handler.phases.createNewPhases(
+    return handlerPhases.phases.createNewPhases(
       {
         params: {
           project_id: 1
@@ -191,7 +198,7 @@ const seedData = [
           phase_order: 1,
           phase_status: "Finished",
           phase_color: "blue",
-          user_id: "1",
+          user_id: 1,
           team_id: 1
         }
       },
@@ -204,7 +211,7 @@ const seedData = [
     );
   },
   () => {
-    return handler.phases.createNewPhases(
+    return handlerPhases.phases.createNewPhases(
       {
         params: {
           project_id: 1
@@ -227,7 +234,7 @@ const seedData = [
     );
   },
   () => {
-    return handler.phases.createNewPhases(
+    return handlerPhases.phases.createNewPhases(
       {
         params: {
           project_id: 1
@@ -251,7 +258,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks(
+    return handlerTasks.tasks.createNewTasks(
       {
         params: { phase_id: 1 },
         body: {
@@ -270,7 +277,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks(
+    return handlerTasks.tasks.createNewTasks(
       {
         params: { phase_id: 1 },
         body: {
@@ -289,7 +296,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks(
+    return handlerTasks.tasks.createNewTasks(
       {
         params: { phase_id: 2 },
         body: {
@@ -308,7 +315,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks(
+    return handlerTasks.tasks.createNewTasks(
       {
         params: { phase_id: 2 },
         body: {
@@ -327,7 +334,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks(
+    return handlerTasks.tasks.createNewTasks(
       {
         params: { phase_id: 3 },
         body: {
@@ -346,7 +353,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.createNewTasks(
+    return handlerTasks.tasks.createNewTasks(
       {
         params: { phase_id: 3 },
         body: {
@@ -365,7 +372,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.updateTasks(
+    return handlerTasks.tasks.updateTasks(
       {
         params: { task_id: 1 },
         body: {
@@ -382,7 +389,7 @@ const seedData = [
     );
   },
   () => {
-    return handler.tasks.updateTasks(
+    return handlerTasks.tasks.updateTasks(
       {
         params: { task_id: 2 },
         body: {
@@ -400,7 +407,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.updateTasks(
+    return handlerTasks.tasks.updateTasks(
       {
         params: { task_id: 3 },
         body: {
@@ -418,7 +425,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.updateTasks(
+    return handlerTasks.tasks.updateTasks(
       {
         params: { task_id: 4 },
         body: {
@@ -436,7 +443,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.updateTasks(
+    return handlerTasks.tasks.updateTasks(
       {
         params: { task_id: 5 },
         body: {
@@ -454,7 +461,7 @@ const seedData = [
   },
 
   () => {
-    return handler.tasks.updateTasks(
+    return handlerTasks.tasks.updateTasks(
       {
         params: { task_id: 6 },
         body: {
