@@ -30,9 +30,10 @@
         class="example-margin"
         [color]="blue"
         [mode]="determinate"
-        [value]="value"
+        [value]="projectsService.progress"
         [bufferValue]="bufferValue">
     </md-progress-bar>
+    <h2 class="percent">{{ projectsService.progress + '%' }}</h2>
   </div>
 </div>
 <hr/>
@@ -41,7 +42,7 @@
   <div class="phases" dnd-sortable-container [sortableData]="projectsService.phases">
     <div *ngFor="let phase of projectsService.phases; let i = index" dnd-sortable [sortableIndex]="i"
       (onDropSuccess)="updatePhaseOrder()" [dragEnabled]="dragOperation">
-      <phases 
+      <phases
         [phase]="phase">
       </phases>
     <div>

@@ -4,6 +4,7 @@ const helperTeam = require('../helpers/teams.js');
 const helperPhases = require('../helpers/phases.js');
 
 exports.reorderPhases = (phases, phaseOrder, callback) => {
+  if(phaseOrder === null) { phaseOrder = ''; }
   phaseOrder = phaseOrder.split(' ');
   let result = [];
   for(let i = 0; i < phaseOrder.length; i++) {

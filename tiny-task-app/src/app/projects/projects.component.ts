@@ -29,7 +29,7 @@ export class ProjectsComponent implements OnInit {
       this.projectsService.projectIds.forEach((projectId) => {
         this.projectsService.getProject(projectId);
       });
-    }, 1000);
+    }, 500);
   }
 
   showDetails(): void {

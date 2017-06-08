@@ -28,7 +28,7 @@
       </div>
     </div>
     <md-menu #menu="mdMenu">
-      <button md-menu-item (click)="deleteProject(project.id)">
+      <button md-menu-item (click)="deleteProject(project.id, project.project_name)">
         <div class="menu-item">
           <i class="material-icons">delete_forever</i>
           <span>Delete Project</span>
@@ -60,7 +60,7 @@
         </button>
       </div>
        <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="deleteProject(project.id)">
+        <button md-menu-item (click)="deleteProject(project.id, project.project_name)">
           <div class="menu-item">
             <i class="material-icons">delete_forever</i>
             <span>Delete Project</span>

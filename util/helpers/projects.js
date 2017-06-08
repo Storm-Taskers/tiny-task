@@ -42,8 +42,7 @@ exports.addProject = (body, callback) => {
       project_name: body.project_name,
       user_id: body.user_id,
       team_id: body.team_id,
-      phase_order: body.phase_order,
-      complete: false
+      phase_order: body.phase_order
     }).then(result => {
       callback(result);
     });

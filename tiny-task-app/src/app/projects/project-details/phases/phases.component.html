@@ -26,7 +26,7 @@
       </button>
     </div>
     <md-menu #menu="mdMenu">
-      <button md-menu-item disableRipple (click)="deleteTask(task.id)">
+      <button md-menu-item disableRipple (click)="deleteTask(task.id, task)">
         <div class="menu-item">
           <i class="material-icons">delete_forever</i>
           <span>Delete Task</span>
