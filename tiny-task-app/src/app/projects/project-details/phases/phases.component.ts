@@ -47,6 +47,11 @@ export class PhasesComponent implements OnInit {
     this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
   }
 
+  toggleTaskComplete(taskId: number, task: Task) {
+    this.projectsService.updateTaskStatus(taskId, !task.complete); 
+    this.phaseTasks.find(task => task.id === taskId).complete = !task.complete;
+  }
+
   handleError(): void {
     alert("50 Character Limit Exceeded");
   }

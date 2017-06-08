@@ -103,14 +103,17 @@ Content-type: json/application
 ### Teams
   * #### `GET /api/teams/:team_id`
 
-  To Back End:
+  Request Example:
+
+  ```JSON
     {
     "project_id": 1,
     "user_id": "user_id of creating user"
     }
+  ```
 
-
-  To Front End
+  Response Example:
+  ```JSON
     {
     team_info {
       “id”: 3,
@@ -128,14 +131,20 @@ Content-type: json/application
         {user2 profile info}
       ]
     }
+  ```
   * #### `POST /api/teams`
-  To Back End
+
+  Request Example:
+
+  ```JSON
     {
     "user_id": "4",
     "team_name": "Storm Taskers" <= Team Name May Be Null
     }
+  ```
 
-  To Front End
+  Response Example:
+  ```JSON
     {
       "team_info": {
         "id": 6,
@@ -151,15 +160,20 @@ Content-type: json/application
         "createdAt": "2017-06-04T20:23:07.000Z"
       }
     }
+  ```
   * #### `PUT/api/teams/:team_id`
   **Add or remove a team user
-  To Back End
+  Request Example:
+
+  ```JSON
     {
     "user_id": "user_id of user to be added",
     "remove": false <= if you want to remove a user, send true
     }
-
-  To Front End
+  ```
+  Response Example:
+  
+  ```JSON
     {
     "team_info": {
       “id”: 3,
@@ -170,6 +184,7 @@ Content-type: json/application
       {user_profile}
       }
     }
+  ```
 
   * #### `DELETE /api/teams/:team_id`
   Remove a team
@@ -194,7 +209,7 @@ Content-type: json/application
       "user_id": "google-auth0-2903",
       "team_id": 1,
       "project_name": "Tremendous Task",
-      "phase_order": "1, 2, 3"
+      "phase_order": "1, 2, 3",
       "complete": false
     },
     "team_info": {
@@ -328,7 +343,7 @@ Content-type: json/application
     "phase_color": "blue",
     "phase_status": "In progress",
     "user_id": "2",
-    "team_id": "1"s
+    "team_id": "1"
   }
   ```
 
@@ -336,7 +351,7 @@ Content-type: json/application
   ```JSON
   {
     "id": 1,
-    "project_id": "1"
+    "project_id": "1",
     "phase_name": "Setup Phase",
     "phase_color": "blue",
     "phase_status": "In progress"
@@ -439,7 +454,7 @@ Content-type: json/application
   ```JSON
   { "taskChanges": {
       "task_name": "Take Medicine",
-      "task_status": "Completed",
+      "complete": true,
       "user_id": [
         {
           "id": 1
@@ -455,7 +470,7 @@ Content-type: json/application
    "task_info": {
     "id": 1,
     "task_name": "Take Medicine",
-    "task_status": "Completed"
+    "complete": false
    },
    "user_info": [
     {

@@ -168,6 +168,18 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
+  updateTaskStatus(taskId: number, taskStatus: boolean): void {
+    this.http.put(
+      `${this.baseUrl}/api/tasks/${taskId}`,
+      JSON.stringify({taskChanges: {complete: taskStatus}}),
+      {headers: this.headers})
+      .toPromise()
+      .then( (response) => {
+        //this.tasks.find(task => task.id === taskId).complete = taskStatus;
+      })
+    .catch(this.handleError);
+  }
+
   // MOCK DATA
   public testUser: User = {
                             id: 3,
