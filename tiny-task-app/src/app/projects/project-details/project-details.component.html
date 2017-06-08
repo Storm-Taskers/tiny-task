@@ -1,11 +1,8 @@
 <div class="header">
   <div class="h2-header">
-  <h2>
-    {{ projectsService.currentProject?.project_name }} Team Members
-  </h2>
-  <button md-icon-button (click)="addNewProjectUser()">
-     <i class="material-icons">library_add</i>
-  </button>
+    <h2>
+      {{ projectsService.currentProject?.project_name }} Team Members
+    </h2>
   </div>
 </div>
 <hr/>
@@ -21,7 +18,7 @@
   <div class="h2-header">
     <!--Drag Containers <input type="checkbox" [(ngModel)]="dragOperation"/>-->
     <h2>
-      Project Phases
+      Project Board
     </h2>
     <button md-icon-button (click)="addNewPhase()">
       <i class="material-icons">library_add</i>
