@@ -194,7 +194,7 @@ Content-type: json/application
       "user_id": "google-auth0-2903",
       "team_id": 1,
       "project_name": "Tremendous Task",
-      "phase_order": "1, 2, 3"
+      "phase_order": "1, 2, 3",
       "complete": false
     },
     "team_info": {
@@ -328,7 +328,7 @@ Content-type: json/application
     "phase_color": "blue",
     "phase_status": "In progress",
     "user_id": "2",
-    "team_id": "1"s
+    "team_id": "1"
   }
   ```
 
@@ -336,7 +336,7 @@ Content-type: json/application
   ```JSON
   {
     "id": 1,
-    "project_id": "1"
+    "project_id": "1",
     "phase_name": "Setup Phase",
     "phase_color": "blue",
     "phase_status": "In progress"
