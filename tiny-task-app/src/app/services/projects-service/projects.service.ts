@@ -38,7 +38,7 @@ export class ProjectsService {
   getProject(projectId: number): void {
     this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
-      .then((response) => {
+      .then( (response) => {
         this.usersOnProject = response.json().user_info;
         this.phases = response.json().phase_info;
         this.projects.push(response.json().project_info);
@@ -62,7 +62,6 @@ export class ProjectsService {
                 this.totalWeight += task.task_weight;
                 this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
               });
-
               return response.json();
             })
             .catch(this.handleError);
@@ -71,7 +70,7 @@ export class ProjectsService {
   getUserTasks(token: string): Promise<Task[]> {
     return this.http.get(`${this.baseUrl}/api/tasks/user/${token}`)
             .toPromise()
-            .then((response) => {
+            .then( (response) => {
               return response.json();
             })
             .catch(this.handleError);
@@ -141,7 +140,6 @@ export class ProjectsService {
       })
       .catch(this.handleError);
   }
-
 
   editPhaseName(phaseId: number, phaseName: string): void {
     this.http.put(

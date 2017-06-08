@@ -4,7 +4,10 @@ const helperTeam = require('../helpers/teams.js');
 const helperPhases = require('../helpers/phases.js');
 
 exports.reorderPhases = (phases, phaseOrder, callback) => {
-  if(phaseOrder === null) { phaseOrder = ''; }
+  if(phaseOrder === null) {
+    phaseOrder = '';
+  }
+  
   phaseOrder = phaseOrder.split(' ');
   let result = [];
   for(let i = 0; i < phaseOrder.length; i++) {
@@ -42,15 +45,12 @@ exports.projects = {
   retrieveProjectById: (req, res) => {
     let returnData = {};
     helperProject.retrieveProjectById(req.params.project_id, (project) => {
-      console.log(project, 'project');
       returnData.project_info = project;
       helperTeam.retrieveTeamById(project.team_id, (team) => {
         returnData.team_info = team;
         helperTeam.retrieveTeamUsers(team[0].dataValues.id, (users) => {
           returnData.user_info = users;
           helperPhases.retrievePhasesByProjectId(req.params.project_id, (phases) => {
-            console.log(phases, 'phases');
-            console.log(returnData.project_info.dataValues.phase_order, 'phaseOrder');
             this.reorderPhases(phases, returnData.project_info.dataValues.phase_order, (result) => {
               returnData.phase_info = result;
               res.send(returnData).end();

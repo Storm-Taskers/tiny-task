@@ -1,5 +1,6 @@
 <div class="info">
-  <div>{{ userService.userProfile?.full_name }}</div>
-  <div>{{ userService.userProfile?.email }}</div>
+  <div class="user-name">{{ userService.userProfile?.full_name }}</div>
+  <div class="email">{{ userService.userProfile?.email }}</div>
+  <i class="material-icons md-48">account_circle</i>
+  <a routerLink="profile">Account Settings</a>
 </div>
-<a routerLink="profile">Account Settings</a>
