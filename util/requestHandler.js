@@ -19,6 +19,20 @@ exports.extractProjectId = (teams, callback) => {
   });
 };
 
+exports.reorderPhases = (phases, phaseOrder, callback) => {
+  phaseOrder = phaseOrder.split(' ');
+  let result = [];
+  for(let i = 0; i < phaseOrder.length; i++) {
+    phaseOrder[i] = parseInt(phaseOrder[i]);
+    for(let j = 0; j < phases.length; j++) {
+      if(phases[j].id == phaseOrder[i]) {
+        result.push(phases[j]);
+      }
+    }
+  }
+    callback(result);
+  },
+
 exports.users = {
   retrieveUser: (req, res) => {
     if (req.params.query) {
@@ -30,9 +44,8 @@ exports.users = {
           res.send(userData);
         } else {
           userData.user_profile = userProfile;
-          console.log(userProfile.id, "userId");
-          helper.retrieveUserTeams(userProfile.id, teams => {
-            this.extractProjectId(teams, projectIds => {
+          helper.retrieveUserTeams(userProfile.id, (teams) => {
+            this.extractProjectId(teams, (projectIds) => {
               userData.project_id = projectIds;
               res.send(userData);
             });
@@ -214,19 +227,20 @@ exports.projects = {
 
   retrieveProjectById: (req, res) => {
     let returnData = {};
-    helper.retrieveProjectById(req.params, project => {
+    helper.retrieveProjectById(req.params.project_id, (project) => {
       returnData.project_info = project;
-      helper.retrieveTeamById(project.team_id, team => {
+      helper.retrieveTeamById(project.team_id, (team) => {
         returnData.team_info = team;
-        helper.retrieveTeamUsers(team[0].dataValues.id, users => {
+        helper.retrieveTeamUsers(team[0].dataValues.id, (users) => {
           returnData.user_info = users;
-          helper.retrievePhasesByProjectId(
-            returnData.project_info.id,
-            phases => {
-              returnData.phase_info = phases;
-              res.send(returnData);
-            }
-          );
+          helper.retrievePhasesByProjectId(req.params.project_id, (phases) => {
+            this.reorderPhases(phases, returnData.project_info.dataValues.phase_order, (result) => {
+              console.log(result, 'result');
+              returnData.phase_info = result;
+              //console.log(returnData, 'return Data');
+              res.send(returnData).end();
+            });
+          });
         });
       });
     });
@@ -236,22 +250,25 @@ exports.projects = {
 
   updateProjects: (req, res) => {
     let updatedProject = {};
-    helper.updateProject(
-      req.params.project_id,
-      req.body.projectChanges,
-      project => {
+    helper.updateProject(req.params.project_id, req.body.projectChanges, (project) => {
         updatedProject.project_info = project;
-        helper.retrieveTeamById(project.team_id, team => {
+        helper.retrieveTeamById(project.team_id, (team) => {
           updatedProject.team_info = team;
           helper.retrieveTeamUsers(team[0].dataValues.id, users => {
             updatedProject.user_info = users;
-            res.send(updatedProject);
+            res.send(updatedProject).end();
           });
         });
       }
     );
   },
   //need to return tasks as well^^^^^^^^^^^
+
+  updatePhaseOrder: (req, res) => {
+    helper.updatePhaseOrder(req.params.project_id, req.body.phase_order, (message) => {
+      res.status(200).send(messsage).end();
+    })
+  },
 
   deleteProjects: (req, res) => {
     helper.deleteProject(req.params.project_id, (err, message) => {
@@ -265,11 +282,6 @@ exports.projects = {
 };
 
 exports.phases = {
-  retrievePhasesByProjectId: (req, res) => {
-    helper.retrievePhases(req.params, phases => {
-      res.send(phases);
-    });
-  },
 
   createNewPhases: (req, res, isSeed) => {
     helper.addPhases(req, (err, result) => {

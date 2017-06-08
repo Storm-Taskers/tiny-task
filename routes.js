@@ -21,6 +21,7 @@ router.delete("/teams/users/:user_id/:team_id", handler.users.deleteTeamUsers);
 router.get("/projects/:project_id", handler.projects.retrieveProjectById);
 router.post("/projects", handler.projects.createNewProjects);
 router.put("/projects/:project_id", handler.projects.updateProjects);
+router.put("/projects/phases/:project_id", handler.projects.updatePhaseOrder);
 router.delete("/projects/:project_id", handler.projects.deleteProjects);
 
 //////////PHASES/////////////////

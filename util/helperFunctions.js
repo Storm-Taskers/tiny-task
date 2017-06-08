@@ -254,11 +254,11 @@ exports.retrieveProjectByUserId = (params, callback) => {
     });
 };
 
-exports.retrieveProjectById = (params, callback) => {
+exports.retrieveProjectById = (project_id, callback) => {
   return models.Projects
     .findOne({
       where: {
-        id: params.project_id
+        id: project_id
       }
     })
     .then(project => {
@@ -285,14 +285,27 @@ exports.updateProject = (project_id, project_change, callback) => {
       where: {
         id: project_id
       }
-    })
-    .then(project => {
+    }).then(project => {
       project.updateAttributes({
         project_name: project_change.project_name,
         complete: project_change.complete
       });
     });
   this.retrieveProjectById({ project_id: project_id }, callback);
+};
+
+exports.updatePhaseOrder = (project_id, phase_order, callback) => {
+  models.Projects.findOne({
+    where: {
+      id: project_id
+    }
+  }).then((project) => {
+    project.updateAttributes({
+      phase_order: phase_order
+    }).then((result) => {
+      callback('phase order updated');
+    })
+  });
 };
 
 exports.deleteProject = (project_id, callback) => {
@@ -357,6 +370,7 @@ exports.updatePhase = (req, callback) => {
         });
     });
 };
+
 
 exports.deletePhase = (params, callback) => {
   models.Phases
