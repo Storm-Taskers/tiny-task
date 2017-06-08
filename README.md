@@ -103,14 +103,17 @@ Content-type: json/application
 ### Teams
   * #### `GET /api/teams/:team_id`
 
-  To Back End:
+  Request Example:
+
+  ```JSON
     {
     "project_id": 1,
     "user_id": "user_id of creating user"
     }
+  ```
 
-
-  To Front End
+  Response Example:
+  ```JSON
     {
     team_info {
       “id”: 3,
@@ -128,14 +131,20 @@ Content-type: json/application
         {user2 profile info}
       ]
     }
+  ```
   * #### `POST /api/teams`
-  To Back End
+
+  Request Example:
+
+  ```JSON
     {
     "user_id": "4",
     "team_name": "Storm Taskers" <= Team Name May Be Null
     }
+  ```
 
-  To Front End
+  Response Example:
+  ```JSON
     {
       "team_info": {
         "id": 6,
@@ -151,15 +160,20 @@ Content-type: json/application
         "createdAt": "2017-06-04T20:23:07.000Z"
       }
     }
+  ```
   * #### `PUT/api/teams/:team_id`
   **Add or remove a team user
-  To Back End
+  Request Example:
+
+  ```JSON
     {
     "user_id": "user_id of user to be added",
     "remove": false <= if you want to remove a user, send true
     }
-
-  To Front End
+  ```
+  Response Example:
+  
+  ```JSON
     {
     "team_info": {
       “id”: 3,
@@ -170,6 +184,7 @@ Content-type: json/application
       {user_profile}
       }
     }
+  ```
 
   * #### `DELETE /api/teams/:team_id`
   Remove a team
