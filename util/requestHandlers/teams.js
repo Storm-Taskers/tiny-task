@@ -45,6 +45,7 @@ exports.teams = {
         helperTeams.retrieveTeamById(req.params.team_id, team => {
           updatedTeam.team_info = team;
           helperTeams.retrieveTeamUsers(req.params.team_id, (users) => {
+            console.log(users, "USSSEEEEERRRRRRS");
             updatedTeam.user_info = users;
             if (typeof isSeed === "function") {
               res.status(200).send(updatedTeam);

@@ -67,7 +67,8 @@ export class TeamDetailsComponent implements OnInit {
   }
 
   addTeamUser(user: User): void {
-    console.log(user);
-    // this.teamService.addTeamMember(this.teamId, user.id);
+    if ( this.teamService.selectedTeamUserInfo.findIndex(selected => selected.id === user.id) === -1 ) {
+      this.teamService.addTeamMember(this.teamId, user.id);
+    }
   }
 }

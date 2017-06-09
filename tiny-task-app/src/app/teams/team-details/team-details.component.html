@@ -10,7 +10,7 @@
     <div class="search-results">
       <div
         *ngFor="let user of users | async"
-        (click)="addTeamUser(user.id)"
+        (click)="addTeamUser(user)"
         class="member-result">
         {{ user.full_name }}
       </div>

@@ -32,10 +32,15 @@ exports.users = {
         } else {
           userData.user_profile = userProfile;
           helperTeams.retrieveUserTeams(userProfile.id, (teams) => {
-            this.extractProjectId(teams, (projectIds) => {
-              userData.project_id = projectIds;
+            if (teams.length !== 0) {
+              this.extractProjectId(teams, (projectIds) => {
+                userData.project_id = projectIds;
+                res.send(userData);
+              });
+            } else {
+              userData.project_id = [];
               res.send(userData);
-            });
+            }
           });
         }
       });
