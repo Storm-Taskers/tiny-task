@@ -56,10 +56,7 @@ export class TeamService {
   findAllUsers(user: string): Observable<User[]> {
     return this.http.get(
             `${this.baseUrl}/api/users/search/${user}`)
-            .map(response => {
-              this.selectedTeamUserInfo.push(response.json());
-              return response.json()
-            });
+            .map(response => response.json() as User[]);
   }
 
   // Post Information

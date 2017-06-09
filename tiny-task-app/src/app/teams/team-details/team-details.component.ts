@@ -23,9 +23,9 @@ import { User } from '../../projects/project-details/project-user/User';
 })
 export class TeamDetailsComponent implements OnInit {
   private teamId: number;
-  private users: Observable<User[]>;
   private render: boolean = false;
 
+  public users: Observable<User[]>;
   private memberSearchTerms = new Subject<string>();
 
   constructor(
@@ -45,9 +45,9 @@ export class TeamDetailsComponent implements OnInit {
     this.users = this.memberSearchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap(user => user ? this.teamService.findAllUsers(user) : Observable.of<User[]>([]))
+      .switchMap(term => term ? this.teamService.findAllUsers(term) : Observable.of<User[]>([]))
       .catch(error => {
-        console.log(error);
+        console.error(error);
         return Observable.of<User[]>([]);
       });
   }
@@ -67,6 +67,7 @@ export class TeamDetailsComponent implements OnInit {
   }
 
   addTeamUser(user: User): void {
-    this.teamService.addTeamMember(this.teamId, user.id);
+    console.log(user);
+    // this.teamService.addTeamMember(this.teamId, user.id);
   }
 }

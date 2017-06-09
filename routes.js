@@ -12,7 +12,7 @@ const handlerResources = require("./util/requestHandlers/resources.js");
 
 //////////USERS/////////////////
 router.get("/users/:auth_token", handlerUsers.users.retrieveUser);
-router.get("/users/search/:query_string", handlerUsers.users.searchUser);
+router.get("/users/search/:query", handlerUsers.users.searchUser);
 router.post("/users/", handlerUsers.users.createNewUser);
 router.put("/users/:user_id", handlerUsers.users.updateUser);
 router.delete("/users/:user_id", handlerUsers.users.deleteUser);

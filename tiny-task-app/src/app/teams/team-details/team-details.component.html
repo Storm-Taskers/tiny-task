@@ -9,9 +9,10 @@
     <input #search id="search-box" (keyup)="searchMembers(search.value)" placeholder="Enter Name To Add">
     <div class="search-results">
       <div
-        *ngFor="let user of allUsers | async"
-        (click)="addTeamUser(user)"
+        *ngFor="let user of users | async"
+        (click)="addTeamUser(user.id)"
         class="member-result">
+        {{ user.full_name }}
       </div>
     </div>
   </div>

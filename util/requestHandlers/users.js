@@ -43,8 +43,9 @@ exports.users = {
   },
 
   searchUser: (req, res) => {
-    let query_string = req.params.query_string.toLowerCase();
-    helperUsers.searchUsers(query_string, (userList) => {
+    let query = req.params.query.toLowerCase();
+    helperUsers.searchUsers(query, (userList) => {
+      console.log(userList, 'BLAAEJKLADFLSK')
       res.status(200).send(userList).end();
     });
   },
