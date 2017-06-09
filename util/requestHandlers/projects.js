@@ -52,7 +52,6 @@ exports.projects = {
           returnData.user_info = users;
           helperPhases.retrievePhasesByProjectId(req.params.project_id, (phases) => {
             returnData.phase_info = phases;
-            console.log(returnData.project_info.dataValues.phase_order, 'phaseOrder');
             this.reorderPhases(phases, returnData.project_info.dataValues.phase_order, (result) => {
               returnData.phase_order = result;
               res.send(returnData).end();
