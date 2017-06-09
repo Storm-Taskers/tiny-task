@@ -110,7 +110,11 @@ const helperPhases = require("../helpers/phases.js");
 
   retrieveProjectsByTeam: (req, res) => {
     helperProject.retrieveProjectByTeamId(req.params.team_id, projects => {
-      res.send(projects);
+      let idArr = [];
+      projects.forEach(project => {
+        idArr.push(project.id);
+      });
+      res.send(idArr);
     });
   }
 });

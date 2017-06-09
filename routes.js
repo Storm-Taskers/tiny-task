@@ -16,6 +16,10 @@ router.get("/users/search/:query", handlerUsers.users.searchUser);
 router.post("/users/", handlerUsers.users.createNewUser);
 router.put("/users/:user_id", handlerUsers.users.updateUser);
 router.delete("/users/:user_id", handlerUsers.users.deleteUser);
+router.get(
+  "/users/projects/:user_id",
+  handlerUsers.users.retrieveUserProjectID
+);
 
 //////////TEAMS/////////////////
 router.get("/teams/:team_id", handlerTeams.teams.retrieveTeams);
