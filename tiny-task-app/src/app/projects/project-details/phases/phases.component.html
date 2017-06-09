@@ -26,7 +26,14 @@
       </button>
     </div>
     <!--menu-->
-    <md-menu #menu="mdMenu">  
+    <md-menu #menu="mdMenu">
+      <button md-menu-item disableRipple (click)="toggleTaskComplete(task.id, task)">
+        <div class="menu-item">
+          <i class="material-icons">done</i>
+          <span>Task Completed</span>
+        </div>
+      </button>
+
       <button md-menu-item disableRipple (click)="deleteTask(task.id, task)">
         <div class="menu-item">
           <i class="material-icons">assignment_ind</i>
@@ -44,13 +51,6 @@
         <md-menu #menu2="mdMenu">
         </md-menu>
         
-      <button md-menu-item disableRipple (click)="toggleTaskComplete(task.id, task)">
-        <div class="menu-item">
-          <i class="material-icons">done</i>
-          <span>Task Completed</span>
-        </div>
-      </button>
-
       <button md-menu-item disableRipple (click)="deleteTask(task.id, task)">
         <div class="menu-item">
           <i class="material-icons">delete_forever</i>

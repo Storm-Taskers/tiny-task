@@ -52,7 +52,6 @@ exports.addUserTasks = (user_id, stage, task_id, callback) => {
 };
 
 exports.addTask = (body, phase_id, callback) => {
-  console.log(body.task_name);
   models.Tasks.create({
       task_name: body.task_name,
       task_color: body.task_color,

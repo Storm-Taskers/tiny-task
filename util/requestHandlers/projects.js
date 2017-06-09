@@ -48,20 +48,12 @@ const helperPhases = require("../helpers/phases.js");
         returnData.team_info = team;
         helperTeam.retrieveTeamUsers(team[0].dataValues.id, users => {
           returnData.user_info = users;
-          helperPhases.retrievePhasesByProjectId(
-            req.params.project_id,
-            phases => {
-              returnData.phase_info = phases;
-              this.reorderPhases(
-                phases,
-                returnData.project_info.dataValues.phase_order,
-                result => {
-                  returnData.phase_order = result;
-                  res.send(returnData).end();
-                }
-              );
-            }
-          );
+          helperPhases.retrievePhasesByProjectId(req.params.project_id, (phases) => {
+            this.reorderPhases(phases, returnData.project_info.dataValues.phase_order, (result) => {
+              returnData.phase_info = result;
+              res.send(returnData).end();
+            });
+          });
         });
       });
     });
@@ -89,13 +81,9 @@ const helperPhases = require("../helpers/phases.js");
   //need to return tasks & phases as well^^^^^^^^^^^
 
   updatePhaseOrder: (req, res) => {
-    helperProject.updatePhaseOrder(
-      req.params.project_id,
-      req.body.phase_order,
-      message => {
-        res.status(200).send(messsage).end();
-      }
-    );
+    helperProject.updatePhaseOrder(req.params.project_id, req.body.phase_order, (message) => {
+      res.status(200).send(message).end();
+    });
   },
 
   deleteProjects: (req, res) => {
