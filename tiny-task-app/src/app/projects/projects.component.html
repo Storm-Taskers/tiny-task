@@ -5,10 +5,15 @@
     </button>
   </h2>
 <!--Render Dropdown Menu-->
-  <md-select floatPlaceholder="never">
-    <md-option [value]="1">--Select a Team--</md-option>
-    <md-option [value]="2">--All--</md-option>
-    <md-option [value]="3">Tiny Task</md-option>
+  <md-select placeHolder="Select a Team" [(ngModel)]="value" (change)="setTeamProjects($event)">
+    <md-option value="selected" selected="selected">--Select a Team--</md-option>
+    <md-option value="all">--All--</md-option>
+    <md-option
+      *ngFor="let team of teamService.userTeams"
+      [value]="team"
+      >
+      {{ team.team_name }}
+    </md-option>
   </md-select>
 </div>
 <hr/>

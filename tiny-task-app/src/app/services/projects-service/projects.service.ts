@@ -76,6 +76,14 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
+  getTeamProjects(teamId: number): void {
+    // Change Project Ids
+  }
+
+  getUserProjects(userId: number): void {
+    // Change Project Ids
+  }
+
   // Post Information
   createProject(teamId: number, userId: number): void {
     this.http.post(
