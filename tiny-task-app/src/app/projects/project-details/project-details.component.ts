@@ -47,7 +47,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   updatePhaseOrder(projectId: number): void {
     let phaseOrder = '';
-    
+
     this.projectsService.phases.forEach( (phase, index) => {
       if(index === this.projectsService.phases.length - 1) {
         phaseOrder += phase.id;
@@ -55,7 +55,7 @@ export class ProjectDetailsComponent implements OnInit {
         phaseOrder += phase.id + ' ';
       }
     })
-    
+
     this.projectsService.updatePhaseOrder(this.selectedProjectId, phaseOrder);
   }
 }

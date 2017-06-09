@@ -21,20 +21,30 @@ export class ProjectsComponent implements OnInit {
     private navService: NavService,
   ) { }
 
+
   ngOnInit() {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
 
-    this.userService.userUpdate.subscribe( (userData) => {
-      // Team Rendering
-      this.teamService.getUserTeams(userData.user_profile.id);
+    this.projectsService.projects = [];
 
-      // Project Rendering
-      this.projectsService.projectIds = userData.project_id;
-      this.projectsService.projectIds.forEach((projectId) => {
-        this.projectsService.getProject(projectId);
+    if ( !this.userService.userId ) {
+      this.userService.userUpdate.subscribe( (userData) => {
+        // Team Rendering
+        this.teamService.getUserTeams(userData.user_profile.id);
+
+        // Project Rendering
+        this.projectsService.projectIds = userData.project_id;
+        this.projectsService.projectIds.forEach((projectId) => {
+          this.projectsService.getProject(projectId);
+        });
       });
-    });
+    } else {
+      this.teamService.getUserTeams(this.userService.userId);
+      this.projectsService.projectIds.forEach((projectId) => {
+          this.projectsService.getProject(projectId);
+      });
+    }
   }
 
   showDetails(): void {

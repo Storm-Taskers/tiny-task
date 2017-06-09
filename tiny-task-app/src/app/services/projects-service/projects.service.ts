@@ -39,9 +39,9 @@ export class ProjectsService {
     this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then( (response) => {
+        this.projects.push(response.json().project_info);
         this.usersOnProject = response.json().user_info;
         this.phases = response.json().phase_info;
-        this.projects.push(response.json().project_info);
         this.currentProject = response.json().project_info;
         this.totalWeight = 0;
         this.completeWeight = 0;
