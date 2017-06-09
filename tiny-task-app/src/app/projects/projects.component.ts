@@ -25,17 +25,16 @@ export class ProjectsComponent implements OnInit {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
 
-    // Team Rendering
-    this.teamService.getUserTeams(this.userService.userId);
+    this.userService.userUpdate.subscribe( (userData) => {
+      // Team Rendering
+      this.teamService.getUserTeams(userData.user_profile.id);
 
-    // Project Rendering
-    this.projectsService.projects = [];
-
-    setTimeout(() => {
+      // Project Rendering
+      this.projectsService.projectIds = userData.project_id;
       this.projectsService.projectIds.forEach((projectId) => {
         this.projectsService.getProject(projectId);
       });
-    }, 500);
+    });
   }
 
   showDetails(): void {

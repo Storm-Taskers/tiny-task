@@ -24,6 +24,7 @@ import { User } from '../../projects/project-details/project-user/User';
 export class TeamDetailsComponent implements OnInit {
   private teamId: number;
   private render: boolean = false;
+  private term: string;
 
   public users: Observable<User[]>;
   private memberSearchTerms = new Subject<string>();
@@ -67,6 +68,8 @@ export class TeamDetailsComponent implements OnInit {
   }
 
   addTeamUser(user: User): void {
+    this.term = '';
+    this.memberSearchTerms.next('');
     if ( this.teamService.selectedTeamUserInfo.findIndex(selected => selected.id === user.id) === -1 ) {
       this.teamService.addTeamMember(this.teamId, user.id);
     }
