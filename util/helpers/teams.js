@@ -50,7 +50,6 @@ exports.retrieveTeamUsers = (team_id, callback) => {
 };
 
 exports.retrieveUserTeams = (user_id, callback) => {
-  console.log(user_id, "user_id");
   models.Team_Users.findAll({
       where: {
         user_id: user_id
