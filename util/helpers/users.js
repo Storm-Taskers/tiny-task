@@ -51,13 +51,12 @@ exports.searchUsers = (queryString, callback) => {
       let toSearch = user.dataValues.full_name.slice(0, numToSplit).toLowerCase();
       if(toSearch === queryString) {
         result.push(user);
-        console.log(result, 'inside forEach');
       }
     });
-  }).then((something) => {
-      console.log(result, 'result');
+  })
+  .then((something) => {
       callback(result);
-    });
+  });
 
 };
 

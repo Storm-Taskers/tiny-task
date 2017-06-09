@@ -1,6 +1,8 @@
 const Sequelize = require("sequelize");
 
-const connection = new Sequelize("tiny_task", "root", "");
+const connection = new Sequelize("tiny_task", "root", "", {
+  logging: false
+});
 
 const Users = connection.define("users", {
   auth_token: {
