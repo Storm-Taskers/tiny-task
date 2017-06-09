@@ -185,6 +185,14 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
+  updatePhaseOrder(projectId: number, phaseOrder: string): void {
+    this.http.put(`${this.baseUrl}/api/projects/phases/${projectId}`, JSON.stringify({phase_order: phaseOrder}),
+    {headers: this.headers})
+    .toPromise()
+    .then( (response) => {
+    })
+    .catch(this.handleError);
+  }
 
   // Delete Information
   deleteProject(projectId: number): void {
