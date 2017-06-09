@@ -1,14 +1,17 @@
-const helperUsers = require('../helpers/users.js');
-const helperProjects = require('../helpers/projects.js');
-const helperTeams = require('../helpers/teams.js');
+const helperUsers = require("../helpers/users.js");
+const helperProjects = require("../helpers/projects.js");
+const helperTeams = require("../helpers/teams.js");
 
 exports.extractProjectId = (teams, callback) => {
   Promise.all(
     teams.map(team => {
       return new Promise((resolve, reject) => {
-        helperProjects.retrieveProjectByTeamId(team.dataValues.team_id, (project) => {
-          resolve(project);
-        });
+        helperProjects.retrieveProjectByTeamId(
+          team.dataValues.team_id,
+          project => {
+            resolve(project);
+          }
+        );
       });
     })
   ).then(results => {
@@ -26,14 +29,14 @@ exports.users = {
       console.log("placeholder for query");
     } else {
       var userData = {};
-      helperUsers.retrieveUser(req.params.auth_token, (userProfile) => {
+      helperUsers.retrieveUser(req.params.auth_token, userProfile => {
         if (userProfile.length === 0) {
           res.send(userData);
         } else {
           userData.user_profile = userProfile;
-          helperTeams.retrieveUserTeams(userProfile.id, (teams) => {
+          helperTeams.retrieveUserTeams(userProfile.id, teams => {
             if (teams.length !== 0) {
-              this.extractProjectId(teams, (projectIds) => {
+              this.extractProjectId(teams, projectIds => {
                 userData.project_id = projectIds;
                 res.send(userData);
               });
@@ -49,13 +52,13 @@ exports.users = {
 
   searchUser: (req, res) => {
     let query = req.params.query.toLowerCase();
-    helperUsers.searchUsers(query, (userList) => {
+    helperUsers.searchUsers(query, userList => {
       res.status(200).send(userList).end();
     });
   },
 
   createNewUser: (req, res, isSeed) => {
-    helperUsers.addUserProfile(req.body, (user_profile) => {
+    helperUsers.addUserProfile(req.body, user_profile => {
       const id = user_profile.id;
       helperUsers.addUsers(req.body, id, (err, result) => {
         if (err) {
@@ -95,7 +98,7 @@ exports.users = {
 
   getUserTeams: (req, res) => {
     let userTeamData = [];
-    helperTeams.getUserTeams(req.params.user_id, (results) => {
+    helperTeams.getUserTeams(req.params.user_id, results => {
       if (results) {
         results.map(result => {
           userTeamData.push(result[0].dataValues);
@@ -128,7 +131,10 @@ exports.users = {
   },
 
   deleteTaskUsers: (req, res) => {
-    helperUsers.deleteTaskUser(req.params.user_id, req.params.task_id, (err, message) => {
+    helperUsers.deleteTaskUser(
+      req.params.user_id,
+      req.params.task_id,
+      (err, message) => {
         if (err) {
           res.status(500).send("server error");
         } else {
@@ -137,14 +143,17 @@ exports.users = {
         }
       }
     );
+  },
+
+  retrieveUserProjectID: (req, res) => {
+    helperTeams.retrieveUserTeams(req.params.user_id, teams => {
+      if (teams.length !== 0) {
+        this.extractProjectId(teams, projectIds => {
+          res.send(projectIds);
+        });
+      } else {
+        res.send([]);
+      }
+    });
   }
 };
-
-
-
-
-
-
-
-
-

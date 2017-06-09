@@ -117,8 +117,8 @@ Teams.hasMany(Messages, {
 const Announcements = connection.define("announcements", {
   announcement: { type: Sequelize.STRING, allowNull: false }
 });
-Users.hasMany(Announcements, {
-  foreignKey: { name: "user_id", targetKey: "auth_token" },
+User_Profile.hasMany(Announcements, {
+  foreignKey: { name: "user_id", targetKey: "id" },
   onDelete: "CASCADE"
 });
 Teams.hasMany(Announcements, {
