@@ -20,7 +20,10 @@ export class TeamsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.teamService.getUserTeams(this.userService.userId);
+    this.userService.userUpdate.subscribe( (userData) => {
+      // Team Rendering
+      this.teamService.getUserTeams(userData.user_profile.id);
+    });
   }
 
   addNewTeam(teamName: string): void {

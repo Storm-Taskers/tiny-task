@@ -12,6 +12,8 @@ import { NavService } from '../services/nav-service/nav.service';
 })
 
 export class ProjectsComponent implements OnInit {
+  private value: any;
+
   constructor(
     private projectsService: ProjectsService,
     private userService: UserService,
@@ -19,17 +21,30 @@ export class ProjectsComponent implements OnInit {
     private navService: NavService,
   ) { }
 
+
   ngOnInit() {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
 
     this.projectsService.projects = [];
 
-    setTimeout(() => {
-      this.projectsService.projectIds.forEach((projectId) => {
-        this.projectsService.getProject(projectId);
+    if ( !this.userService.userId ) {
+      this.userService.userUpdate.subscribe( (userData) => {
+        // Team Rendering
+        this.teamService.getUserTeams(userData.user_profile.id);
+
+        // Project Rendering
+        this.projectsService.projectIds = userData.project_id;
+        this.projectsService.projectIds.forEach((projectId) => {
+          this.projectsService.getProject(projectId);
+        });
       });
-    }, 500);
+    } else {
+      this.teamService.getUserTeams(this.userService.userId);
+      this.projectsService.projectIds.forEach((projectId) => {
+          this.projectsService.getProject(projectId);
+      });
+    }
   }
 
   showDetails(): void {
@@ -46,6 +61,15 @@ export class ProjectsComponent implements OnInit {
   deleteProject(projectId: number, projectName: string): void {
     if (confirm(`Are you sure you want to delete "${projectName}"?`)) {
       this.projectsService.deleteProject(projectId);
+    }
+  }
+
+  setTeamProjects(event: Event): void {
+    if ( this.value !== 'selected' && this.value !== 'all' ) {
+      this.teamService.setCurrentTeam(this.value);
+      this.projectsService.getTeamProjects(this.value.id);
+    } else {
+      this.projectsService.getUserProjects(this.userService.userId);
     }
   }
 
