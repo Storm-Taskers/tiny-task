@@ -77,11 +77,21 @@ export class ProjectsService {
   }
 
   getTeamProjects(teamId: number): void {
-    // Change Project Ids
+    this.http.get(`${this.baseUrl}/api/projects/teams/${teamId}`)
+      .toPromise()
+      .then( (response) => {
+        this.projectIds = response.json();
+      })
+      .catch(this.handleError);
   }
 
   getUserProjects(userId: number): void {
-    // Change Project Ids
+    this.http.get(`${this.baseUrl}/api/users/projects/${userId}`)
+      .toPromise()
+      .then( (response) => {
+        this.projectIds = response.json();
+      })
+      .catch(this.handleError);
   }
 
   // Post Information
