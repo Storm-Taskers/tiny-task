@@ -56,10 +56,7 @@ export class TeamService {
   findAllUsers(user: string): Observable<User[]> {
     return this.http.get(
             `${this.baseUrl}/api/users/search/${user}`)
-            .map(response => {
-              this.selectedTeamUserInfo.push(response.json());
-              return response.json()
-            });
+            .map(response => response.json() as User[]);
   }
 
   // Post Information
@@ -108,7 +105,8 @@ export class TeamService {
       {headers: this.headers})
       .toPromise()
       .then((response) => {
-        this.selectedTeamUserInfo = response.json().user_info;
+        let indexMemberToDelete = this.selectedTeamUserInfo.findIndex(member => member.id === userId);
+        this.selectedTeamUserInfo.splice(indexMemberToDelete, 1);
       })
       .catch(this.handleError);
   }

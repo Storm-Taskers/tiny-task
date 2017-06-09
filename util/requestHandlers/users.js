@@ -32,10 +32,15 @@ exports.users = {
         } else {
           userData.user_profile = userProfile;
           helperTeams.retrieveUserTeams(userProfile.id, (teams) => {
-            this.extractProjectId(teams, (projectIds) => {
-              userData.project_id = projectIds;
+            if (teams.length !== 0) {
+              this.extractProjectId(teams, (projectIds) => {
+                userData.project_id = projectIds;
+                res.send(userData);
+              });
+            } else {
+              userData.project_id = [];
               res.send(userData);
-            });
+            }
           });
         }
       });
@@ -43,8 +48,8 @@ exports.users = {
   },
 
   searchUser: (req, res) => {
-    let query_string = req.params.query_string.toLowerCase();
-    helperUsers.searchUsers(query_string, (userList) => {
+    let query = req.params.query.toLowerCase();
+    helperUsers.searchUsers(query, (userList) => {
       res.status(200).send(userList).end();
     });
   },
