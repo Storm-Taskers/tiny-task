@@ -33,6 +33,7 @@
     "sequelize": "^3.30.4"
   },
   "devDependencies": {
-    "@angular/cli": "^1.0.6"
+    "@angular/cli": "^1.0.6",
+    "nodemon": "^1.11.0"
   }
 }
