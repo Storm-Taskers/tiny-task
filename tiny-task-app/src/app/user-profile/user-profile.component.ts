@@ -11,16 +11,9 @@ import { AuthService } from '../services/auth-service/auth.service';
 export class UserProfileComponent implements OnInit {
   profile: any;
 
-  constructor(public auth: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    if (this.auth.userProfile) {
-      this.profile = this.auth.userProfile;
-    } else {
-      this.auth.getProfile((err, profile) => {
-        this.profile = profile;
-      });
-    }
   }
 
 }
