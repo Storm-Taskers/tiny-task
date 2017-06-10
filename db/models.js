@@ -1,7 +1,15 @@
 const Sequelize = require("sequelize");
 
-const connection = new Sequelize("tiny_task", "root", "", {
-  logging: false
+// const connection = new Sequelize("tiny_task", "root", "", {
+//   logging: false
+// });
+
+const connection = new Sequelize("heroku_117a59f899c5677" || "tiny_task",
+        "bethstevic" || "root",
+        "Panera24" || "", {
+    host: process.env.HOST || 'localhost',
+    port: process.env.PORT || '3306',
+    dialect: 'mysql'
 });
 
 const Users = connection.define("users", {
