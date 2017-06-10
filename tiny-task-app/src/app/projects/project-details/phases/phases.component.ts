@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ProjectsService } from '../../../services/projects-service/projects.service';
 
@@ -54,4 +54,18 @@ export class PhasesComponent implements OnInit {
   handleError(): void {
     alert("50 Character Limit Exceeded");
   }
+
+  @Output() dragOperationChange = new EventEmitter();
+
+  disableDrag(): void { 
+    this.dragOperation = false;
+    this.dragOperationChange.emit(this.dragOperation);
+  }
+
+  enableDrag(): void {
+    this.dragOperation = true;
+    this.dragOperationChange.emit(this.dragOperation);
+  }
+
+
 }

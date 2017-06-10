@@ -4,8 +4,8 @@
   </header>-->
 <!--Render User Profile-->
   <div class="user-info">
-    <!--<auth0></auth0>-->
-    <user-info></user-info>
+    <auth0 *ngIf="!authService.isAuthenticated()"></auth0>
+    <user-info *ngIf="authService.isAuthenticated()"></user-info>
   </div>
 <!--Render Nav Bar-->
   <div class="container-nav">

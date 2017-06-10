@@ -3,4 +3,10 @@
   <div class="email">{{ userService.userProfile?.email }}</div>
   <i class="material-icons md-48">account_circle</i>
   <a routerLink="profile">Account Settings</a>
+  <button
+    class="btn btn-primary btn-margin"
+    *ngIf="authService.isAuthenticated()"
+    (click)="authService.logout()">
+      Log Out
+  </button>
 </div>
