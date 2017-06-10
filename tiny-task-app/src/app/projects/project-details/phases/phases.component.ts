@@ -13,8 +13,20 @@ import { Task } from './tasks/Task';
 
 export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
+  @Input () dragOperation: boolean = true;
   phaseTasks: Task[];
-  dragOperation: boolean = true;
+  
+  @Output() dragOperationChange = new EventEmitter();
+
+  disableDrag(): void { 
+    this.dragOperation = false;
+    this.dragOperationChange.emit(this.dragOperation);
+  }
+
+  enableDrag(): void {
+    this.dragOperation = true;
+    this.dragOperationChange.emit(this.dragOperation);
+  }
 
   constructor(private projectsService: ProjectsService) { }
 
@@ -54,18 +66,4 @@ export class PhasesComponent implements OnInit {
   handleError(): void {
     alert("50 Character Limit Exceeded");
   }
-
-  @Output() dragOperationChange = new EventEmitter();
-
-  disableDrag(): void { 
-    this.dragOperation = false;
-    this.dragOperationChange.emit(this.dragOperation);
-  }
-
-  enableDrag(): void {
-    this.dragOperation = true;
-    this.dragOperationChange.emit(this.dragOperation);
-  }
-
-
 }
