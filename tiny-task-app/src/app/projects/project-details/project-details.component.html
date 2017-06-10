@@ -39,7 +39,9 @@
     <div *ngFor="let phase of projectsService.phases; let i = index" dnd-sortable [sortableIndex]="i"
       (onDropSuccess)="updatePhaseOrder()" [dragEnabled]="dragOperation">
       <phases
-        [phase]="phase">
+        [phase]="phase"
+        [(dragOperation)]="dragOperation"
+      >
       </phases>
     <div>
   </div>
