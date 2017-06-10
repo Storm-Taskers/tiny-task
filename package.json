@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha spec/server-database.js -w",
-    "start": "nodemon",
+    "start": "npm install; npm install --prefix tiny-task-app; node server.js; ng-serve --prefix tiny-task-app",
     "seed": "node seed.js"
   },
   "repository": {
