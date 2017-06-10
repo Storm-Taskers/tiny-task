@@ -5,7 +5,10 @@ const Sequelize = require("sequelize");
 // });
 
 const connection = new Sequelize("heroku_117a59f899c5677" || "tiny_task",
-        "bethstevic" || "root", "" );
+        "bethstevic" || "root", "", {
+          host: "localhost",
+          dialect: "mysql"
+        } );
 
 const Users = connection.define("users", {
   auth_token: {
