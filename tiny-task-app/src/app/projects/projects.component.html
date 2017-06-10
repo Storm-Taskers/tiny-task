@@ -5,11 +5,10 @@
     </button>
   </h2>
 <!--Render Dropdown Menu-->
-  <md-select placeHolder="Select a Team" [(ngModel)]="value" (change)="setTeamProjects($event)">
-    <md-option value="selected" selected="selected">--Select a Team--</md-option>
+  <md-select placeholder="Filter Projects by Team" [(ngModel)]="value" (change)="setTeamProjects($event)">
     <md-option value="all">--All--</md-option>
     <md-option
-      *ngFor="let team of teamService.userTeams"
+      *ngFor="let team of teamService.userTeams;"
       [value]="team"
       >
       {{ team.team_name }}
