@@ -6,7 +6,7 @@ const Sequelize = require("sequelize");
 
 const connection = new Sequelize("heroku_117a59f899c5677" || "tiny_task",
         "bethstevic" || "root",
-        "Panera24" || "", );
+        "Panera24" || "" );
 
 const Users = connection.define("users", {
   auth_token: {
