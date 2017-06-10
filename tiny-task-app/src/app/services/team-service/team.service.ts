@@ -16,7 +16,6 @@ export class TeamService {
   private baseUrl: string = 'http://localhost:8080';
   public userTeams: Team[] = [];
 
-
   // Current Team Information
   public currentTeam: Team = {id: 1, team_name: 'Tiny Task'}; // Mock
   public selectedTeamInfo: Team;

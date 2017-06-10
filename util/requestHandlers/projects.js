@@ -18,8 +18,13 @@ const helperPhases = require("../helpers/phases.js");
       }
     }
   }
+  if(result.length === 0) {
+    result = phases;
+  }
   callback(result);
-}), (exports.projects = {
+}), 
+
+(exports.projects = {
   createNewProjects: (req, res, isSeed) => {
     let newProjects = {};
     helperProject.addProject(req.body, project => {
