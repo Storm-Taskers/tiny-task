@@ -64,9 +64,15 @@ export class ProjectsComponent implements OnInit {
   }
 
   setTeamProjects(event: Event): void {
+    this.projectsService.projects = [];
     if ( this.value !== 'selected' && this.value !== 'all' ) {
       this.teamService.setCurrentTeam(this.value);
-      this.projectsService.getTeamProjects(this.value.id);
+
+      this.projectsService.getTeamProjects(this.value.id).then(() => {
+        this.projectsService.projectIds.forEach((projectId) => {
+          this.projectsService.getProject(projectId);
+        })
+      });
     } else {
       this.projectsService.getUserProjects(this.userService.userId);
     }
