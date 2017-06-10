@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-
 import { ProjectsService } from '../services/projects-service/projects.service';
 import { UserService } from '../services/user-service/user.service';
 import { TeamService } from '../services/team-service/team.service';
@@ -12,7 +11,7 @@ import { NavService } from '../services/nav-service/nav.service';
 })
 
 export class ProjectsComponent implements OnInit {
-  private value: any;
+  private value: any = 'all';
 
   constructor(
     private projectsService: ProjectsService,
