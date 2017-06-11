@@ -16,9 +16,11 @@ exports.extractProjectId = (teams, callback) => {
     })
   ).then(results => {
     let idArray = [];
-    results[0].forEach(project => {
-      idArray.push(project.id);
-    });
+    for (var i = 0; i < results.length; i++) {
+      results[i].forEach(project => {
+        idArray.push(project.id);
+      });
+    }
     callback(idArray);
   });
 };
