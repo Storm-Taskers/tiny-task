@@ -1,6 +1,33 @@
-h2 {
-  display: inline;
+hr {
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+h1, h2 {
+  white-space: nowrap;
   padding: 0px;
   margin: 0px;
   cursor: default;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.h2-header, .h3-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 80%;
+}
+
+.availability {
+  font-style: italic;
+}
+
+.container-tasks {
 }

@@ -67,10 +67,11 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-  getUserTasks(token: string): Promise<Task[]> {
-    return this.http.get(`${this.baseUrl}/api/tasks/user/${token}`)
+  getUserTasks(userId: number): Promise<Task[]> {
+    return this.http.get(`${this.baseUrl}/api/tasks/user/${userId}`)
             .toPromise()
             .then( (response) => {
+              console.log(response.json());
               return response.json();
             })
             .catch(this.handleError);
