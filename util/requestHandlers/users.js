@@ -15,12 +15,19 @@ exports.extractProjectId = (teams, callback) => {
       });
     })
   ).then(results => {
+    let projectsArr = [];
     let idArray = [];
     for (var i = 0; i < results.length; i++) {
       results[i].forEach(project => {
-        idArray.push(project.id);
+        projectsArr.push(project.dataValues);
       });
     }
+    projectsArr.sort((projectA, projectB) => {
+      return projectB.updatedAt - projectA.updatedAt;
+    });
+    projectsArr.forEach(project => {
+      idArray.push(project.id);
+    });
     callback(idArray);
   });
 };
