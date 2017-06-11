@@ -3,12 +3,14 @@ const Sequelize = require("sequelize");
 // const connection = new Sequelize("tiny_task", "root", "", {
 //   logging: false
 // });
+//mysql://bethstevic:''@us-cdbr-azure-west-a.cleardb.com/heroku_117a59f899c5677?reconnect=true
+
 
 const connection = new Sequelize("heroku_117a59f899c5677" || "tiny_task",
-        "bethstevic" || "root", "", {
-          host: "localhost",
-          dialect: "mysql",
-          _socket: '/var/run/mysqld/mysqld.sock'
+        "bc4f4387ccab9d" || "root", "74c98b07" || "", {
+          host: "us-cdbr-east.cleardb.com/heroku_db" || "localhost",
+          port: 3600,
+          dialect: "mysql"
         } );
 
 const Users = connection.define("users", {
