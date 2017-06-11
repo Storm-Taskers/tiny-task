@@ -7,7 +7,7 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ProjectDetailsComponent } from '../projects/project-details/project-details.component';
 import { TeamsComponent } from '../teams/teams.component';
 import { TeamDetailsComponent } from '../teams/team-details/team-details.component';
-import { TeamMembersComponent} from '../projects/project-details/team-members/team-members.component';
+import { TeamMembersComponent} from '../teams/team-details/team-members/team-members.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 // Routes to components
