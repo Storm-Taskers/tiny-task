@@ -7,7 +7,15 @@ const Sequelize = require("sequelize");
 //host: "us-cdbr-east.cleardb.com" || "localhost",
 //"heroku_117a59f899c5677" || "tiny_task", "bc4f4387ccab9d" || "root", "74c98b07" || ""
 
-const connection = new Sequelize("mysql://bc4f4387ccab9d:74c98b07@us-cdbr-east.cleardb.com/heroku_117a59f899c5677?reconnect=true", {
+//var sequelize = new Sequelize(heroku_1daa39da0, b6d6c6e874, b3f7###, {
+//   host: 'us-cdbr-east-04.cleardb.com',
+//   port: 3600,
+//   dialect: 'mysql',
+// })
+
+const connection = new Sequelize("heroku_117a59f899c5677", "bc4f4387ccab9d", "74c98b07",  {
+          host: 'us-cdbr-east-04.cleardb.com',
+          port: 3600,
           dialect: "mysql"
         } );
 
