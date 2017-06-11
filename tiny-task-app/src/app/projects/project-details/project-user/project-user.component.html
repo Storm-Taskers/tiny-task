@@ -25,7 +25,7 @@
 </div>
 
 <ng-template #projectMenu>
-  <div class="current-team-members projectMenu">
+  <div class="current-team-members projectMenu" [routerLink]="['teams/member', user.id]">
     <span>{{ user.full_name }}</span>
     <i class="material-icons md-48" >account_circle</i>
     <span class="status">Status:</span>
