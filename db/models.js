@@ -7,7 +7,7 @@ const Sequelize = require("sequelize");
 //host: "us-cdbr-east.cleardb.com" || "localhost",
 //"heroku_117a59f899c5677" || "tiny_task", "bc4f4387ccab9d" || "root", "74c98b07" || ""
 
-const connection = new Sequelize("mysql://bc4f4387ccab9d:74c98b07@us-cdbr-east.cleardb.com/heroku_db?reconnect=true", {
+const connection = new Sequelize("mysql://bc4f4387ccab9d:74c98b07@us-cdbr-east.cleardb.com/heroku_117a59f899c5677?reconnect=true", {
           dialect: "mysql"
         } );
 
