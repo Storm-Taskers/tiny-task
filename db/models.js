@@ -7,7 +7,8 @@ const Sequelize = require("sequelize");
 const connection = new Sequelize("heroku_117a59f899c5677" || "tiny_task",
         "bethstevic" || "root", "", {
           host: "localhost",
-          dialect: "mysql"
+          dialect: "mysql",
+          _socket: '/var/run/mysqld/mysqld.sock'
         } );
 
 const Users = connection.define("users", {
