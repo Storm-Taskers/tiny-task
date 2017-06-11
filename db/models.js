@@ -8,8 +8,6 @@ const Sequelize = require("sequelize");
 //"heroku_117a59f899c5677" || "tiny_task", "bc4f4387ccab9d" || "root", "74c98b07" || ""
 
 const connection = new Sequelize("mysql://adffdadf2341:adf4234@us-cdbr-east.cleardb.com/heroku_db?reconnect=true", {
-          port: match[4],
-          host: match[3],
           dialect: "mysql"
         } );
 
