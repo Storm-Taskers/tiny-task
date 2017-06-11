@@ -9,7 +9,6 @@ const Sequelize = require("sequelize");
 const connection = new Sequelize("heroku_117a59f899c5677" || "tiny_task",
         "bc4f4387ccab9d" || "root", "74c98b07" || "", {
           host: "us-cdbr-east.cleardb.com" || "localhost",
-          port: 3600,
           dialect: "mysql"
         } );
 
