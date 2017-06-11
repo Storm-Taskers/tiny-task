@@ -85,11 +85,10 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  getUserProjects(userId: number): void {
-    this.http.get(`${this.baseUrl}/api/users/projects/${userId}`)
+  getUserProjects(userId: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/api/users/projects/${userId}`)
       .toPromise()
       .then( (response) => {
-        console.log(response.json());
         this.projectIds = response.json();
       })
       .catch(this.handleError);
