@@ -33,7 +33,7 @@
     "pg": "^6.2.4",
     "request": "^2.81.0",
     "sequelize": "^3.30.4",
-    "@angular/cli": "^1.0.6",
+    "@angular/cli": "^1.0.6"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
