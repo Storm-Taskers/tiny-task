@@ -7,7 +7,8 @@
     "test": "mocha spec/server-database.js -w",
     "start": "node server.js",
     "seed": "node seed.js",
-    "postinstall": "ng build --aot -prod --prefix tiny-task-app"
+    "postinstall": "ng build --aot -prod --prefix tiny-task-app",
+    "engines": { "node": "6.10.2", "npm": "3.10.10" }
   },
   "repository": {
     "type": "git",
