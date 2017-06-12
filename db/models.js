@@ -15,16 +15,39 @@ const Sequelize = require("sequelize");
 
 // const connection = new Sequelize("tiny_task", "root", "");
 
-const connection = new Sequelize("heroku_117a59f899c5677", "bc4f4387ccab9d", "ec3dcd6835dab72",
- { host: 'us-cdbr-east-04.cleardb.com',
-   // port: process.env.PORT || 8000,
-   // dialect: 'mysql',
-   //  pool: {
-   //    max: 5,
-   //    min: 0,
-   //    idle: 10000
-   //  },
-  });
+// const connection = new Sequelize("heroku_117a59f899c5677", "bc4f4387ccab9d", "ec3dcd6835dab72",
+//  { host: 'us-cdbr-east-04.cleardb.com',
+//    // port: process.env.PORT || 8000,
+//    // dialect: 'mysql',
+//    //  pool: {
+//    //    max: 5,
+//    //    min: 0,
+//    //    idle: 10000
+//    //  },
+//   });
+let connection;
+  if (process.env.DATABASE_URL) {
+    // the application is executed on Heroku ... use the postgres database
+    connection = new Sequelize(process.env.DATABASE_URL, {
+      dialect:  'postgres',
+      protocol: 'postgres',
+      port:     match[4],
+      host:     match[3],
+      logging:  false
+    });
+  } else {
+    // the application is executed on the local machine ... use mysql
+    connection = new Sequelize("tiny_task", "root", "");
+  }
+
+  // global.db = {
+  //   Sequelize: Sequelize,
+  //   connection: connection,
+  //   User:connection.import(__dirname + '/user')
+  //   // add your other models here
+  // }
+
+
 
 const Users = connection.define("users", {
   auth_token: {
