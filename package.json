@@ -5,10 +5,11 @@
   "main": "server.js",
   "engines": { "node": "6.10.2", "npm": "3.10.10" },
   "scripts": {
+    "preinstall": "npm install --prefix tiny-task-app",
     "test": "mocha spec/server-database.js -w",
     "start": "node server.js",
     "seed": "node seed.js",
-    "postinstall": "ng build --aot -prod --prefix tiny-task-app"
+    "postinstall": "ng build --aot -prod"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,7 @@
     "pg": "^6.2.4",
     "request": "^2.81.0",
     "sequelize": "^3.30.4",
-    "@angular/cli": "^1.0.6"
+    "@angular/cli": "1.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
