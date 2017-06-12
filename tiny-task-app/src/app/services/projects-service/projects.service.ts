@@ -68,10 +68,9 @@ export class ProjectsService {
   }
 
   getUserTasks(userId: number): Promise<Task[]> {
-    return this.http.get(`${this.baseUrl}/api/tasks/user/${userId}`)
+    return this.http.get(`${this.baseUrl}/api/tasks/users/${userId}`)
             .toPromise()
             .then( (response) => {
-              console.log(response.json());
               return response.json();
             })
             .catch(this.handleError);
@@ -185,6 +184,19 @@ export class ProjectsService {
               return response.json();
             })
             .catch(this.handleError);
+  }
+
+  assignToTask(userId: number, taskId: number): Promise<any> {
+    return this.http.put(
+              `${this.baseUrl}/api/tasks/${taskId}`,
+              JSON.stringify({taskChanges: {user_id: userId}}),
+              {headers: this.headers})
+              .toPromise()
+              .then((response) => {
+                console.log(response.json())
+                return response.json();
+              })
+              .catch(this.handleError);
   }
 
   updateTaskStatus(taskId: number, taskStatus: boolean): void {

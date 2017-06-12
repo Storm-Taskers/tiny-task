@@ -34,7 +34,7 @@
         </div>
       </button>
 
-      <button md-menu-item disableRipple (click)="deleteTask(task.id, task)">
+      <button md-menu-item disableRipple (click)="addUserToTask(1, task.id)">
         <div class="menu-item">
           <i class="material-icons">assignment_ind</i>
           <span>Assign to User</span>
@@ -50,7 +50,7 @@
 
         <md-menu #menu2="mdMenu">
         </md-menu>
-        
+
       <button md-menu-item disableRipple (click)="deleteTask(task.id, task)">
         <div class="menu-item">
           <i class="material-icons">delete_forever</i>
@@ -58,7 +58,7 @@
         </div>
       </button>
     </md-menu>
-    
+
   </div>
 </div>
   <div class="phase-footer">

@@ -1,6 +1,6 @@
 <div class="header">
   <h2 class="h2-header">
-    {{ selectedUserInfo?.full_name }}
+    {{ selectedUserInfo?.full_name + selectedUserInfo?.id }}
     <div class="availability">Current Availability: {{  selectedUserInfo?.user_availability}}</div>
     <h3 class="h3-header">
       Send {{ selectedUserInfo?.full_name.split(' ')[0] }} an
@@ -14,3 +14,5 @@
   <h1>{{ selectedUserInfo?.full_name.split(' ')[0] + '\'s Tasks' }}</h1>
 </div>
 <hr/>
+
+<h1>{{ userTasks }}</h1>
