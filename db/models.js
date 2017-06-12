@@ -15,7 +15,7 @@ const Sequelize = require("sequelize");
 
 // const connection = new Sequelize("tiny_task", "root", "");
 
-const connection = new Sequelize("heroku_117a59f899c5677", "bc4f4387ccab9d", "74c98b07",
+const connection = new Sequelize("heroku_117a59f899c5677", "bc4f4387ccab9d", "ec3dcd6835dab72",
  { host: 'localhost',
    port: process.env.PORT || 8000,
    dialect: 'mysql',
