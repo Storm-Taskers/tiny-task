@@ -60,7 +60,7 @@ exports.tasks = {
       user_info: []
     };
     if (req.body.user_id) {
-      helper.addUserTasks(req.body.user_id, req.params.task_id, addedUser => {
+      helper.addUserTasks(req.body, req.params.task_id, addedUser => {
         helper.retrieveTaskUser(req.params.task_id, users => {
           for (var i = 0; i < users.length; i++) {
             updatedTask.user_info.push(users[i].dataValues.user_id);
