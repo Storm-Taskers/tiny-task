@@ -16,7 +16,7 @@ const Sequelize = require("sequelize");
 // const connection = new Sequelize("tiny_task", "root", "");
 
 const connection = new Sequelize("heroku_117a59f899c5677", "bc4f4387ccab9d", "ec3dcd6835dab72",
- { host: 'us-iron-auto-dca-03-a.cleardb.net',
+ { host: 'us-cdbr-east-04.cleardb.com',
    // port: process.env.PORT || 8000,
    // dialect: 'mysql',
    //  pool: {
