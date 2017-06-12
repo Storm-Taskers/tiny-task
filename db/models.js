@@ -13,10 +13,18 @@ const Sequelize = require("sequelize");
 //   dialect: 'mysql',
 // })
 
-const connection = new Sequelize("heroku_117a59f899c5677", "bc4f4387ccab9d", "74c98b07",  {
-          host: 'us-cdbr-east-04.cleardb.com',
-          dialect: "mysql"
-        } );
+// const connection = new Sequelize("tiny_task", "root", "");
+
+const connection = new Sequelize("heroku_117a59f899c5677", "bc4f4387ccab9d", "74c98b07",
+ { host: 'localhost',
+   port: process.env.PORT || 8000,
+   dialect: 'mysql',
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    },
+  });
 
 const Users = connection.define("users", {
   auth_token: {
