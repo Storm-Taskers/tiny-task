@@ -4,9 +4,8 @@
   "description": "Project Manager web app to turn large tasks into small tasks",
   "main": "server.js",
   "scripts": {
-    "pre-install": "npm install; npm install --prefix tiny-task-app",
     "test": "mocha spec/server-database.js -w",
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "seed": "node seed.js",
     "post-install": "ng build --aot -prod --prefix tiny-task-app"
   },
