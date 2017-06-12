@@ -2,14 +2,14 @@
   "name": "tiny-task-app",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": { "node": "6.10.2", "npm": "3.10.10" },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "engines": { "node": "6.10.2", "npm": "3.10.10" }
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Project Manager web app to turn large tasks into small tasks",
   "main": "server.js",
+  "engines": { "node": "6.10.2", "npm": "3.10.10" },
   "scripts": {
     "test": "mocha spec/server-database.js -w",
     "start": "node server.js",
     "seed": "node seed.js",
-    "postinstall": "ng build --aot -prod --prefix tiny-task-app",
-    "engines": { "node": "6.10.2", "npm": "3.10.10" }
+    "postinstall": "ng build --aot -prod --prefix tiny-task-app"
   },
   "repository": {
     "type": "git",
