@@ -189,7 +189,7 @@ export class ProjectsService {
   assignToTask(userId: number, taskId: number): Promise<any> {
     return this.http.put(
               `${this.baseUrl}/api/tasks/${taskId}`,
-              JSON.stringify({taskChanges: {user_id: userId}}),
+              JSON.stringify({user_id: userId}),
               {headers: this.headers})
               .toPromise()
               .then((response) => {
