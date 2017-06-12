@@ -452,17 +452,19 @@ Content-type: json/application
 
   Request Example:
   ```JSON
-  { "taskChanges": {
-      "task_name": "Take Medicine",
-      "complete": true,
-      "user_id": [
-        {
-          "id": 1
-        }
-      ]
+  {
+    "taskChanges": {
+      "task_name": "Get stuff done",
+      "complete": false,
+      "task_weight": 1,
+      "task_color": "red",
+      "phase_id": 1,
+      "stage": "in progress"
     }
   }
   ```
+
+
 
   Response Example:
   ```JSON

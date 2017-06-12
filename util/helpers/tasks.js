@@ -49,12 +49,11 @@ exports.retrieveTaskUser = (task_id, callback) => {
     });
 };
 
-exports.addUserTasks = (user_id, stage, task_id, callback) => {
+exports.addUserTasks = (user_id, task_id, callback) => {
   models.User_Tasks
     .create({
       user_id: user_id,
-      task_id: task_id,
-      stage: stage
+      task_id: task_id
     })
     .then(results => {
       callback(results);
@@ -83,25 +82,17 @@ exports.updateTask = (task_id, changes, callback) => {
       }
     })
     .then(task => {
-      task
-        .updateAttributes({
-          task_name: changes.task_name,
-          complete: changes.complete,
-          task_weight: changes.task_weight,
-          task_color: changes.task_color,
-          phase_id: changes.phase_id
-        })
-        .then(task => {
-          models.Tasks
-            .findOne({
-              where: {
-                id: taskId
-              }
-            })
-            .then(task => {
-              callback(task);
-            });
-        });
+      task.updateAttributes(changes).then(task => {
+        models.Tasks
+          .findOne({
+            where: {
+              id: taskId
+            }
+          })
+          .then(task => {
+            callback(task);
+          });
+      });
     });
 };
 
