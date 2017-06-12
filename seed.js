@@ -263,7 +263,8 @@ const seedData = [
         params: { phase_id: 1 },
         body: {
           task_name: "Create back-end",
-          task_color: "green"
+          task_color: "green",
+          stage: "in progress"
         }
       },
       {
@@ -281,7 +282,8 @@ const seedData = [
         params: { phase_id: 1 },
         body: {
           task_name: "Create front-end",
-          task_color: "blue"
+          task_color: "blue",
+          stage: "in progress"
         }
       },
       {
@@ -300,7 +302,8 @@ const seedData = [
         body: {
           task_name: "Write more Tests",
           complete: true,
-          task_color: "yellow"
+          task_color: "yellow",
+          stage: "done"
         }
       },
       {
@@ -319,7 +322,8 @@ const seedData = [
         body: {
           task_name: "Write more functions",
           complete: true,
-          task_color: "orange"
+          task_color: "orange",
+          stage: "done"
         }
       },
       {
@@ -337,7 +341,8 @@ const seedData = [
         params: { phase_id: 3 },
         body: {
           task_name: "Finish app",
-          task_color: "red"
+          task_color: "red",
+          stage: "not started"
         }
       },
       {
@@ -356,7 +361,8 @@ const seedData = [
         body: {
           task_name: "Make it pretty",
           complete: true,
-          task_color: "purple"
+          task_color: "purple",
+          stage: "done"
         }
       },
       {
@@ -373,8 +379,8 @@ const seedData = [
       {
         params: { task_id: 1 },
         body: {
-          user_id: "1",
-          stage: "Not started"
+          user_id: 1,
+          team_id: 1
         }
       },
       {
@@ -390,8 +396,8 @@ const seedData = [
       {
         params: { task_id: 2 },
         body: {
-          user_id: "2",
-          stage: "Not started"
+          user_id: 2,
+          team_id: 1
         }
       },
       {
@@ -408,8 +414,8 @@ const seedData = [
       {
         params: { task_id: 3 },
         body: {
-          user_id: "4",
-          stage: "Not started"
+          user_id: 4,
+          team_id: 1
         }
       },
       {
@@ -426,8 +432,8 @@ const seedData = [
       {
         params: { task_id: 4 },
         body: {
-          user_id: "1",
-          stage: "Not started"
+          user_id: 1,
+          team_id: 1
         }
       },
       {
@@ -444,8 +450,8 @@ const seedData = [
       {
         params: { task_id: 5 },
         body: {
-          user_id: "2",
-          stage: "Not started"
+          user_id: 2,
+          team_id: 1
         }
       },
       {
@@ -462,8 +468,8 @@ const seedData = [
       {
         params: { task_id: 6 },
         body: {
-          user_id: "3",
-          stage: "Not started"
+          user_id: 3,
+          team_id: 1
         }
       },
       {
