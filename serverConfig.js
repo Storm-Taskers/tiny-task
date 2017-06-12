@@ -9,6 +9,6 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/api', router);
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/tiny-task-app/dist'));
 
 module.exports = app;
