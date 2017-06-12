@@ -12,8 +12,8 @@ app.use('/api', router);
 
 app.use(express.static(__dirname + '/tiny-task-app/dist'));
 
-// app.get('/*', function(req, res) {
-//   res.sendFile(__dirname + '/tiny-task-app/dist/index.html');
-// });
+app.get('/*', function(req, res) {
+  res.sendFile(__dirname + '/tiny-task-app/dist/index.html');
+});
 
 module.exports = app;
