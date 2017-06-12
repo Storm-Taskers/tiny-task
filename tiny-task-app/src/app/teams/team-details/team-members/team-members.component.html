@@ -15,4 +15,4 @@
 </div>
 <hr/>
 
-<h1>{{ userTasks }}</h1>
+<h3 *ngFor="let task of userTasks">{{ task.task_name }}</h3>
