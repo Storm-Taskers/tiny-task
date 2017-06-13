@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 
+
 let connection;
   if (process.env.DATABASE_URL) {
     connection = new Sequelize(process.env.DATABASE_URL, {
@@ -10,7 +11,6 @@ let connection;
   } else {
     connection = new Sequelize("tiny_task", "root", "");
   }
-
 
 const Users = connection.define("users", {
   auth_token: {
