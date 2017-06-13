@@ -4,27 +4,20 @@ import { Injectable } from '@angular/core';
 // Import ReactiveJS toPromise
 import 'rxjs/add/operator/toPromise';
 
-import { Project } from '../../projects/Project';
-import { Phase } from '../../projects/project-details/phases/Phase';
-import { Task } from '../../projects/project-details/phases/tasks/Task';
-import { User } from '../../projects/project-details/project-user/User';
+import { Bulletin-Board } from '../../bulletin-board/bulletin-board';
+import { Announcement } from '../../bulletin-board/bulletin-board-details/announcements/announcements';
+import { User } from '../../bulletin-board/bulletin-board-details/announcements-user/User';
 
 
 @Injectable()
-export class ProjectsService {
+export class BulletinBoardService {
   private headers = new Headers({'Content-type': 'application/JSON'});
   private baseUrl: string = 'http://localhost:8080';
 
-  public projectIds: number[] = [];
+  public announcementIds: number[] = [];
 
-  public projects: Project[] = [];
-  public currentProject: Project;
-  public phases: Phase[] = [];
-  public usersOnProject: User[];
-  public tasks: Task[];
-  public totalWeight: number;
-  public completeWeight: number;
-  public progress: number;
+  public announcements: announcement[] = [];
+  public usersOnAnnouncement: User[];
 
 
   constructor(private http: Http) { }
@@ -35,223 +28,50 @@ export class ProjectsService {
   }
 
   // Fetch Information
-  getProject(projectId: number): void {
-    this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
+  getAnnouncements(bulletinBoardId: number): void {
+    this.http.get(`${this.baseUrl}/api/announcements/${teamId}`)
       .toPromise()
       .then( (response) => {
-        this.projects.push(response.json().project_info);
-        this.usersOnProject = response.json().user_info;
-        this.phases = response.json().phase_info;
-        this.currentProject = response.json().project_info;
-        this.totalWeight = 0;
-        this.completeWeight = 0;
-        this.progress = 0;
-      })
-      .catch(this.handleError);
-  }
-
-  getTasks(phaseId: number): Promise<Task[]> {
-    return this.http.get(`${this.baseUrl}/api/tasks/${phaseId}`)
-            .toPromise()
-            .then((response) => {
-              response.json().task_info.forEach((task) => {
-                if ( task.complete ) {
-                  this.completeWeight += task.task_weight;
-                }
-
-                this.totalWeight += task.task_weight;
-                this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
-              });
-              return response.json();
-            })
-            .catch(this.handleError);
-  }
-
-  getUserTasks(token: string): Promise<Task[]> {
-    return this.http.get(`${this.baseUrl}/api/tasks/user/${token}`)
-            .toPromise()
-            .then( (response) => {
-              return response.json();
-            })
-            .catch(this.handleError);
-  }
-
-  getTeamProjects(teamId: number): Promise<any> {
-    return this.http.get(`${this.baseUrl}/api/projects/teams/${teamId}`)
-      .toPromise()
-      .then( (response) => {
-        this.projectIds = response.json();
-      })
-      .catch(this.handleError);
-  }
-
-  getUserProjects(userId: number): Promise<any> {
-    return this.http.get(`${this.baseUrl}/api/users/projects/${userId}`)
-      .toPromise()
-      .then( (response) => {
-        this.projectIds = response.json();
+        this.anouncements.push(response.json().announcement_info);
+        this.usersOnAnnouncement = response.json().user_info;
       })
       .catch(this.handleError);
   }
 
   // Post Information
-  createProject(teamId: number, userId: number): void {
+  createAnnouncement(teamId: number, userId: number): void {
     this.http.post(
-      `${this.baseUrl}/api/projects`,
-      JSON.stringify({project_name: 'New Project', user_id: userId, team_id: teamId}),
+      `${this.baseUrl}/api/announcements`,
+      JSON.stringify({announcement_name: 'New Announcement', user_id: userId, team_id: teamId}),
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        this.projects.push(response.json().project_info);
-        this.projectIds.push(response.json().project_info.id);
+        this.announcements.push(response.json().announcement_info);
+        this.announcementIds.push(response.json().announcement_info.id);
       })
       .catch(this.handleError);
-  }
-
-  createPhase(projectId: number): void {
-    this.http.post(
-      `${this.baseUrl}/api/phases/${projectId}`,
-      JSON.stringify({phase_name: "New Phase"}),
-      {headers: this.headers})
-      .toPromise()
-      .then( (response) => {
-        this.phases.push(response.json());
-      })
-      .catch(this.handleError);
-  }
-
-  createTask(phaseId: number): Promise<Task> {
-    return this.http.post(
-            `${this.baseUrl}/api/tasks/${phaseId}`,
-            JSON.stringify({task_name: 'New Task'}),
-            {headers: this.headers})
-            .toPromise()
-            .then( (response) => {
-              this.totalWeight += 1;
-              this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
-              return response.json();
-            })
-            .catch(this.handleError);
   }
 
   // Edit Information
-  editProjectName(projectId: number, projectName: string): void {
+  editAnnouncement(announcementId: number, announcementName: string): void {
     this.http.put(
-      `${this.baseUrl}/api/projects/${projectId}`,
-      JSON.stringify({projectId: projectId, projectChanges: {project_name: projectName}}),
+      `${this.baseUrl}/api/announcements/${announcementId}`,
+      JSON.stringify({announcementId: announcementId, announcementChanges: {announcement_name: announcementName}}),
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        this.projects.find(project => project.id === projectId).project_name = projectName;
+        this.announcements.find(announcement => announcement.id === announcementId).announcement_name = announcementName;
       })
       .catch(this.handleError);
-  }
-
-  editProjectCompleteStatus(projectId: number, projectName: string, projectCompleted: boolean): void {
-    this.http.put(
-      `${this.baseUrl}/api/projects/${projectId}`,
-      JSON.stringify({projectId: projectId, projectChanges: {project_name: projectName, complete: projectCompleted}}),
-      {headers: this.headers})
-      .toPromise()
-      .then( (response) => {
-        this.projects.find(project => project.id === projectId).complete = projectCompleted;
-      })
-      .catch(this.handleError);
-  }
-
-  editPhaseName(phaseId: number, phaseName: string): void {
-    this.http.put(
-      `${this.baseUrl}/api/phases/${phaseId}`,
-      JSON.stringify({phase_name: phaseName}),
-      {headers: this.headers})
-      .toPromise()
-      .then( (response) => {
-        this.phases.find(phase => phase.id === phaseId).phase_name = phaseName;
-      })
-      .catch(this.handleError);
-  }
-
-  editTaskName(taskId: number, taskName: string): Promise<Task> {
-    return this.http.put(
-            `${this.baseUrl}/api/tasks/${taskId}`,
-            JSON.stringify({taskChanges: {
-                task_name: taskName
-              }
-            }),
-            {headers: this.headers})
-            .toPromise()
-            .then(response => {
-              return response.json();
-            })
-            .catch(this.handleError);
-  }
-
-  updateTaskStatus(taskId: number, taskStatus: boolean): void {
-    this.http.put(
-      `${this.baseUrl}/api/tasks/${taskId}`,
-      JSON.stringify({taskChanges: {complete: taskStatus}}),
-      {headers: this.headers})
-      .toPromise()
-      .then( (response) => {
-        if ( response.json().complete ) {
-          this.completeWeight += response.json().task_weight;
-        } else {
-          this.completeWeight -= response.json().task_weight;
-        }
-        this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
-      })
-      .catch(this.handleError);
-  }
-
-  updatePhaseOrder(projectId: number, phaseOrder: string): void {
-    this.http.put(`${this.baseUrl}/api/projects/phases/${projectId}`, JSON.stringify({phase_order: phaseOrder}),
-    {headers: this.headers})
-    .toPromise()
-    .then( (response) => {
-    })
-    .catch(this.handleError);
   }
 
   // Delete Information
-  deleteProject(projectId: number): void {
-    this.http.delete(`${this.baseUrl}/api/projects/${projectId}`)
+  deleteAnnouncement(announcementId: number): void {
+    this.http.delete(`${this.baseUrl}/api/announcements/${announcementId}`)
       .toPromise()
       .then( (response) => {
-        let projectToRemove = this.projects.findIndex(project => project.id === projectId);
-        this.projects.splice(projectToRemove, 1);
+        let announcementToRemove = this.announcements.findIndex(announcement => announcement.id === announcementId);
+        this.announcements.splice(announcementToRemove, 1);
       })
       .catch(this.handleError);
   }
-
-  deletePhase(phaseId: number, tasks: Task[]): void {
-    this.http.delete(`${this.baseUrl}/api/phases/${phaseId}`)
-      .toPromise()
-      .then( (response) => {
-        let phaseToRemove = this.phases.findIndex(phase => phase.id === phaseId);
-        this.phases.splice(phaseToRemove, 1);
-        tasks.forEach((task) => {
-          if ( task.complete ) {
-            this.completeWeight -= task.task_weight;
-          }
-
-          this.totalWeight -= task.task_weight;
-        });
-        this.progress = this.totalWeight !== 0 ? Math.floor((this.completeWeight / this.totalWeight) * 100) : 0;
-      })
-      .catch(this.handleError);
-  }
-
-  deleteTask(taskId: number, task: Task): void {
-    this.http.delete(`${this.baseUrl}/api/tasks/${taskId}`)
-      .toPromise()
-      .then( (response) => {
-        if ( task.complete ) {
-          this.completeWeight -= task.task_weight;
-        }
-
-        this.totalWeight -= task.task_weight;
-        this.progress = this.totalWeight !== 0 ? Math.floor((this.completeWeight / this.totalWeight) * 100) : 0;
-      })
-      .catch(this.handleError);;
-  }
-}

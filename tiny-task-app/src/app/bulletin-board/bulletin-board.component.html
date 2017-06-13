@@ -1,24 +1,13 @@
 <div class="header">
-  <h2 class="h2-header">Current Projects
-    <button md-icon-button (click)="addNewProject()">
+  <h2 class="h2-header">Announcements
+    <button md-icon-button (click)="addNewAnnouncement()">
      <i class="material-icons">library_add</i>
     </button>
   </h2>
-<!--Render Dropdown Menu-->
-  <md-select placeholder="Filter Projects by Team" [(ngModel)]="value" (change)="setTeamProjects($event)">
-    <md-option value="all">--All--</md-option>
-    <md-option
-      *ngFor="let team of teamService.userTeams;"
-      [value]="team.id"
-      [class.selected]="teamService.currentTeam.id === team.id"
-      >
-      {{ team.team_name }}
-    </md-option>
-  </md-select>
 </div>
 <hr/>
 
-<div class="container-project" dnd-sortable-container [sortableData]="projectsService.projects">
+<div class="container-project" dnd-sortable-container [sortableData]="BulletinBoardService.announcements">
 <!--Implement ngFor to create Projects-->
   <div *ngFor="let project of projectsService.projects; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateProjectOrder()">
     <div *ngIf="!project.complete" class="current-project">
