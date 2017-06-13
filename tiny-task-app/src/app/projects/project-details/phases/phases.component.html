@@ -15,7 +15,7 @@
     </button>
   </md-menu>
 <!--Implement ngFor to create Phase Details (task)-->
-<div class="task-dropzone" dnd-sortable-container [sortableData]="phaseTasks" [dropZones]="['task-dropZone']">
+<div class="task-dropzone" dnd-sortable-container [sortableData]="phaseTasks">
   <div *ngFor="let task of phaseTasks; let x = index" dnd-sortable [sortableIndex]="x" [dragEnabled]="!dragOperation">
     <div [ngClass]="!task.complete ? 'task task-container': 'task-completed'">
       <tasks
