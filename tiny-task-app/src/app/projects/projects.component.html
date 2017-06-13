@@ -9,7 +9,8 @@
     <md-option value="all">--All--</md-option>
     <md-option
       *ngFor="let team of teamService.userTeams;"
-      [value]="team"
+      [value]="team.id"
+      [class.selected]="teamService.currentTeam.id === team.id"
       >
       {{ team.team_name }}
     </md-option>

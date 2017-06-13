@@ -76,8 +76,8 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-  getTeamProjects(teamId: number): void {
-    this.http.get(`${this.baseUrl}/api/projects/teams/${teamId}`)
+  getTeamProjects(teamId: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/api/projects/teams/${teamId}`)
       .toPromise()
       .then( (response) => {
         this.projectIds = response.json();
@@ -85,8 +85,8 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  getUserProjects(userId: number): void {
-    this.http.get(`${this.baseUrl}/api/users/projects/${userId}`)
+  getUserProjects(userId: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/api/users/projects/${userId}`)
       .toPromise()
       .then( (response) => {
         this.projectIds = response.json();

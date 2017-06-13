@@ -11,7 +11,7 @@ import { NavService } from '../services/nav-service/nav.service';
 })
 
 export class ProjectsComponent implements OnInit {
-  private value: any = 'all';
+  private value: any;
 
   constructor(
     private projectsService: ProjectsService,
@@ -24,6 +24,7 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
+    this.value = this.navService.lastVisitedProject;
 
     this.projectsService.projects = [];
 
@@ -64,11 +65,23 @@ export class ProjectsComponent implements OnInit {
   }
 
   setTeamProjects(event: Event): void {
-    if ( this.value !== 'selected' && this.value !== 'all' ) {
+    this.projectsService.projects = [];
+    if ( this.value !== 'all' ) {
+      this.navService.lastVisitedProject = this.value;
       this.teamService.setCurrentTeam(this.value);
-      this.projectsService.getTeamProjects(this.value.id);
+
+      this.projectsService.getTeamProjects(this.value).then(() => {
+        this.projectsService.projectIds.forEach((projectId) => {
+          this.projectsService.getProject(projectId);
+        })
+      });
     } else {
-      this.projectsService.getUserProjects(this.userService.userId);
+      this.navService.lastVisitedProject = 'all';
+      this.projectsService.getUserProjects(this.userService.userId).then(() => {
+        this.projectsService.projectIds.forEach((projectId) => {
+          this.projectsService.getProject(projectId);
+        })
+      });
     }
   }
 

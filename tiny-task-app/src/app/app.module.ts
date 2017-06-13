@@ -27,7 +27,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { PhasesComponent } from './projects/project-details/phases/phases.component';
 import { ProjectUserComponent } from './projects/project-details/project-user/project-user.component';
-import { TeamMembersComponent } from './projects/project-details/team-members/team-members.component';
+import { TeamMembersComponent } from './teams/team-details/team-members/team-members.component';
 import { TasksComponent } from './projects/project-details/phases/tasks/tasks.component';
 import { UserDetailsComponent } from './projects/project-details/project-user/user-details/user-details.component';
 import { CallbackComponent } from './auth0/callback/callback.component';
