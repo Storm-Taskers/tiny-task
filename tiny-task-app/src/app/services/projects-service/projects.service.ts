@@ -66,8 +66,8 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-  getUserTasks(userId: number): Promise<Task[]> {
-    return this.http.get(`${this.baseUrl}/api/tasks/users/${userId}`)
+  getUserTasks(userId: number, projectId: number): Promise<Task[]> {
+    return this.http.get(`${this.baseUrl}/api/tasks/${projectId}/users/${userId}`)
             .toPromise()
             .then( (response) => {
               return response.json();
@@ -188,7 +188,7 @@ export class ProjectsService {
   assignToTask(userId: number, taskId: number, teamId: number): void {
     this.http.put(
       `${this.baseUrl}/api/tasks/${taskId}`,
-      JSON.stringify({user_id: userId, team_id: teamId}),
+      JSON.stringify({user_id: userId, team_id: teamId, project_id: this.currentProject.id}),
       {headers: this.headers})
       .toPromise()
       .then((response) => {

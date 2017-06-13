@@ -64,7 +64,7 @@ router.delete(
   "/tasks/users/:user_id/:task_id",
   handlerUsers.users.deleteTaskUsers
 );
-router.get("/tasks/users/:user_id", handlerTasks.tasks.retrieveUserTasks);
+router.get("/tasks/:project_id/users/:user_id", handlerTasks.tasks.retrieveUserTasks);
 
 ////////ANNOUNCEMENTS/////////////////
 router.get(

@@ -93,7 +93,7 @@ exports.tasks = {
   },
 
   retrieveUserTasks: (req, res) => {
-    helper.retrieveTasksByUserId(req.params.user_id, results => {
+    helper.retrieveTasksByUserId(req.params, results => {
       this.extractTasks(results, tasks => {
         res.send(tasks);
       });
