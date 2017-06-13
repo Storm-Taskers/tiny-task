@@ -51,14 +51,25 @@ exports.retrieveTaskUser = (task_id, callback) => {
 
 exports.addUserTasks = (body, task_id, callback) => {
   models.User_Tasks
-    .create({
-      user_id: body.user_id,
-      team_id: body.team_id,
-      task_id: task_id
+    .findAll({
+      where: {
+        task_id: task_id,
+        user_id: body.user_id
+      }
     })
     .then(results => {
-      callback(results);
-    });
+      if (!results.length) {
+      models.User_Tasks
+        .create({
+          user_id: body.user_id,
+          team_id: body.team_id,
+          task_id: task_id
+        })
+        .then(results => {
+          callback(results);
+        });
+      }
+    })
 };
 
 exports.addTask = (body, phase_id, callback) => {
@@ -67,7 +78,7 @@ exports.addTask = (body, phase_id, callback) => {
       task_name: body.task_name,
       task_color: body.task_color,
       complete: body.complete || false,
-      stage: body.stage,
+      stage: body.stage || 'Not Started',
       phase_id: phase_id
     })
     .then(result => {

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { ProjectsService } from '../../../services/projects-service/projects.service';
 import { TeamService } from '../../../services/team-service/team.service';
 
 import { User } from '../../../projects/project-details/project-user/User';
+import { Task } from '../../../projects/project-details/phases/tasks/Task';
 
 @Component({
   selector: 'team-members',
@@ -14,13 +15,16 @@ import { User } from '../../../projects/project-details/project-user/User';
 })
 
 export class TeamMembersComponent implements OnInit {
-  public selectedUserId: number;
-  public selectedUserInfo: User;
+  private selectedUserId: number;
+  private selectedUserInfo: User;
+  private userTasks: Task[] = [];
+  private loadNoUser: boolean;
 
   constructor(
     private projectsService: ProjectsService,
     private teamService: TeamService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location
   ) { }
 
@@ -28,7 +32,17 @@ export class TeamMembersComponent implements OnInit {
     // Get Current User Id and Information
     this.route.params.subscribe(params => {
       this.selectedUserId = +params['id'];
-      this.selectedUserInfo = this.projectsService.usersOnProject.find((user) => user.id === this.selectedUserId);
+      if ( typeof this.projectsService.usersOnProject !== 'undefined' ) {
+        this.selectedUserInfo = this.projectsService.usersOnProject.find((user) => user.id === this.selectedUserId);
+      } else {
+        this.router.navigate(['/projects']);
+      }
     });
+
+    // Render User's tasks
+    this.projectsService.getUserTasks(this.selectedUserId)
+      .then((tasks) => {
+        this.userTasks = tasks;
+      })
   }
 }

@@ -1,4 +1,18 @@
 <div class="header">
-  <h2 class="h2-header">{{ selectedUserInfo?.full_name }}</h2>
+  <h2 class="h2-header">
+    {{ selectedUserInfo?.full_name + selectedUserInfo?.id }}
+    <div class="availability">Current Availability: {{  selectedUserInfo?.user_availability}}</div>
+    <h3 class="h3-header">
+      Send {{ selectedUserInfo?.full_name.split(' ')[0] }} an
+      <a href="{{'mailto:' + selectedUserInfo?.email}}">Email</a>
+    </h3>
+  </h2>
 </div>
 <hr/>
+
+<div class="container-tasks">
+  <h1>{{ selectedUserInfo?.full_name.split(' ')[0] + '\'s Tasks' }}</h1>
+</div>
+<hr/>
+
+<h3 *ngFor="let task of userTasks">{{ task.task_name }}</h3>

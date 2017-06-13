@@ -15,10 +15,10 @@ export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
   @Input () dragOperation: boolean = true;
   phaseTasks: Task[];
-  
+
   @Output() dragOperationChange = new EventEmitter();
 
-  disableDrag(): void { 
+  disableDrag(): void {
     this.dragOperation = false;
     this.dragOperationChange.emit(this.dragOperation);
   }
@@ -53,13 +53,21 @@ export class PhasesComponent implements OnInit {
       });
   }
 
+  addUserToTask(userId: number, taskId: number): void {
+    this.projectsService.assignToTask(userId, taskId, this.projectsService.currentProject.team_id);
+  }
+
+  removeUserFromTask(userId: number, taskId: number): void {
+    this.projectsService.removeUserFromTask(userId, taskId);
+  }
+
   deleteTask(taskId: number, task: Task): void {
     this.projectsService.deleteTask(taskId, task);
     this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
   }
 
   toggleTaskComplete(taskId: number, task: Task) {
-    this.projectsService.updateTaskStatus(taskId, !task.complete); 
+    this.projectsService.updateTaskStatus(taskId, !task.complete);
     this.phaseTasks.find(task => task.id === taskId).complete = !task.complete;
   }
 

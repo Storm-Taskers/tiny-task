@@ -21,7 +21,6 @@ export class ProjectsService {
   public currentProject: Project;
   public phases: Phase[] = [];
   public usersOnProject: User[];
-  public tasks: Task[];
   public totalWeight: number;
   public completeWeight: number;
   public progress: number;
@@ -67,8 +66,8 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-  getUserTasks(token: string): Promise<Task[]> {
-    return this.http.get(`${this.baseUrl}/api/tasks/user/${token}`)
+  getUserTasks(userId: number): Promise<Task[]> {
+    return this.http.get(`${this.baseUrl}/api/tasks/users/${userId}`)
             .toPromise()
             .then( (response) => {
               return response.json();
@@ -186,6 +185,18 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
+  assignToTask(userId: number, taskId: number, teamId: number): void {
+    this.http.put(
+      `${this.baseUrl}/api/tasks/${taskId}`,
+      JSON.stringify({user_id: userId, team_id: teamId}),
+      {headers: this.headers})
+      .toPromise()
+      .then((response) => {
+        response.json();
+      })
+      .catch(this.handleError);
+  }
+
   updateTaskStatus(taskId: number, taskStatus: boolean): void {
     this.http.put(
       `${this.baseUrl}/api/tasks/${taskId}`,
@@ -252,6 +263,15 @@ export class ProjectsService {
         this.totalWeight -= task.task_weight;
         this.progress = this.totalWeight !== 0 ? Math.floor((this.completeWeight / this.totalWeight) * 100) : 0;
       })
-      .catch(this.handleError);;
+      .catch(this.handleError);
+  }
+
+  removeUserFromTask(userId: number, taskId: number): void {
+    this.http.delete(
+      `${this.baseUrl}/api/tasks/users/${userId}/${taskId}`)
+      .toPromise()
+      .then( (response) => {
+      })
+      .catch(this.handleError);
   }
 }

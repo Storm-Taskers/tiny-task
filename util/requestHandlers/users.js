@@ -1,6 +1,7 @@
 const helperUsers = require("../helpers/users.js");
 const helperProjects = require("../helpers/projects.js");
 const helperTeams = require("../helpers/teams.js");
+const helperTasks = require("../helpers/tasks.js");
 
 exports.extractProjectId = (teams, callback) => {
   Promise.all(
@@ -140,7 +141,7 @@ exports.users = {
   },
 
   deleteTaskUsers: (req, res) => {
-    helperUsers.deleteTaskUser(
+    helperTasks.deleteTaskUser(
       req.params.user_id,
       req.params.task_id,
       (err, message) => {
