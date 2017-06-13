@@ -24,6 +24,7 @@
       *ngFor="let user of teamService.selectedTeamUserInfo"
       [user]="user"
       [teamMenu]="true"
+      [team]="teamService.selectedTeamInfo"
       [removeFromTeam]="removeFromTeam()">
     </user>
 </div>
