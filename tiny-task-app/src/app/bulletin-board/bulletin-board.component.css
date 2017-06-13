@@ -1,0 +1,7 @@
+.eachAnnouncement {
+  margin: 10px;
+  border-radius: 3px;
+  border-style: double;
+  border-color: black;
+  max-width: auto;
+}

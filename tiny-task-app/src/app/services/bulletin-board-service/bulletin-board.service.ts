@@ -14,7 +14,7 @@ export class BulletinBoardService {
 
   public announcementIds: number[] = [];
 
-  public announcements: string [];
+  public announcements: string[] = [];
   public announcementUser: number [];
 
 
@@ -26,24 +26,29 @@ export class BulletinBoardService {
   }
 
   // Fetch Information
-  getAnnouncements(bulletinBoardId: number, teamId: number): void {
+  getAnnouncements(teamId: number): void {
+    console.log(teamId, 'teamId');
     this.http.get(`${this.baseUrl}/api/announcements/${teamId}`)
       .toPromise()
       .then( (response) => {
-        this.announcements.push(response.json());
+        console.log(this.announcements, 'announcement array');
+        console.log(response.json(), 'response');
+        this.announcements = response.json();
+      }).then(() => {
+        console.log(this.announcements, 'announcements');
       })
       .catch(this.handleError);
   }
 
   // Post Information
-  createAnnouncement(teamId: number, userId: number): void {
+  createAnnouncement(teamId: number, userId: number, announcement: string): void {
     this.http.post(
       `${this.baseUrl}/api/announcements`,
-      JSON.stringify({announcement: 'New Announcement', user_id: userId, team_id: teamId}),
+      JSON.stringify({announcement: announcement, user_id: userId, team_id: teamId}),
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        this.announcements.push(response.json());
+        this.announcements.push(response.json().announcement);
         this.announcementIds.push(response.json().id);
       })
       .catch(this.handleError);

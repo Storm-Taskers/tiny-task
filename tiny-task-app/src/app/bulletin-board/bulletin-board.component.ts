@@ -3,6 +3,8 @@ import { BulletinBoardService } from '../services/bulletin-board-service/bulleti
 import { UserService } from '../services/user-service/user.service';
 import { TeamService } from '../services/team-service/team.service';
 
+import { Announcement } from './announcement'
+
 @Component({
   selector: 'bulletinBoard',
   templateUrl: './bulletin-board.component.html',
@@ -12,7 +14,7 @@ import { TeamService } from '../services/team-service/team.service';
 export class BulletinBoardComponent implements OnInit {
   private value: any = 'all';
   private teamId: number = this.teamService.currentTeam
-  public announcements: string[] = this.bulletinBoardService.announcements = [];
+  public nameField: string;
 
   constructor(
     private bulletinBoardService: BulletinBoardService,
@@ -22,31 +24,18 @@ export class BulletinBoardComponent implements OnInit {
 
 
   ngOnInit() {
-
-    if ( !this.userService.userId ) {
-      this.userService.userUpdate.subscribe( (userData) => {
-        // Team Rendering
-        this.teamService.getUserTeams(userData.user_profile.id);
-
-        // Project Rendering
-        this.bulletinBoardService.announcementIds = userData.announcement_id;
-        this.bulletinBoardService.announcementIds.forEach((announcementId) => {
-          this.bulletinBoardService.getAnnouncements(announcementId, this.teamId);
-        });
-      });
-    } else {
-      this.teamService.getUserTeams(this.userService.userId);
-      this.bulletinBoardService.announcementIds.forEach((announcementId) => {
-          this.bulletinBoardService.getAnnouncements(announcementId, this.teamId);
-      });
-    }
+    this.bulletinBoardService.getAnnouncements(this.teamId);
+    console.log(this.bulletinBoardService.announcements, 'inside ngoninit');
   }
 
-  addNewAnnouncement(): void {
+  addNewAnnouncement(announcement: string): void {
     let teamId: number = this.teamService.currentTeam;
     let userId: number = this.userService.userId;
 
-    this.bulletinBoardService.createAnnouncement(teamId, userId);
+    if (announcement !== '' && typeof announcement !== 'undefined') {
+      this.bulletinBoardService.createAnnouncement(teamId, userId, announcement);
+      this.nameField = '';
+    }
   }
 
   deleteAnnouncement(announcementId: number, announcement: string): void {
