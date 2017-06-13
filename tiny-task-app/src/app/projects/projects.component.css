@@ -28,6 +28,7 @@ hr {
   flex-wrap: wrap;
   justify-content: flex-start;
   margin-bottom: 30px;
+  min-height: 200px;
 }
 
 .current-project {
@@ -49,6 +50,7 @@ hr {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  min-height: 200px;
 }
 
 .past-project {
