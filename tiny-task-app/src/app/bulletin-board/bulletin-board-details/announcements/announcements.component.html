@@ -1,0 +1,70 @@
+<div class="current-phases">
+  <div class="project-header">
+    <inline-editor [(ngModel)]="phase.phase_name" (onSave)="editPhaseName(phase.id, $event); enableDrag()" name="phase.phase_name" size="15" min="1" max="50" (onError)="handleError()" (onCancel)="enableDrag()" (onEdit)="disableDrag()" type="text">
+    </inline-editor>
+    <button md-icon-button [mdMenuTriggerFor]="menu">
+      <i class="material-icons">more_vert</i>
+    </button>
+  </div>
+  <md-menu #menu="mdMenu">
+    <button md-menu-item disableRipple (click)="deletePhase(phase.id)">
+      <div class="menu-item">
+        <i class="material-icons">delete_forever</i>
+        <span>Delete Phase</span>
+      </div>
+    </button>
+  </md-menu>
+<!--Implement ngFor to create Phase Details (task)-->
+<div>
+  <div *ngFor="let task of phaseTasks; let i = index">
+    <div [ngClass]="!task.complete ? 'task-container task': 'task-container task-completed'">
+      <tasks
+        [task]="task">
+      </tasks>
+      <button md-icon-button [mdMenuTriggerFor]="menu">
+        <i class="material-icons">more_vert</i>
+      </button>
+    </div>
+    <!--menu-->
+    <md-menu #menu="mdMenu">
+      <button md-menu-item disableRipple (click)="toggleTaskComplete(task.id, task)">
+        <div class="menu-item">
+          <i class="material-icons">done</i>
+          <span>Task Completed</span>
+        </div>
+      </button>
+
+      <button md-menu-item disableRipple (click)="deleteTask(task.id, task)">
+        <div class="menu-item">
+          <i class="material-icons">assignment_ind</i>
+          <span>Assign to User</span>
+        </div>
+      </button>
+
+      <button md-menu-item disableRipple [mdMenuTriggerFor]="menu2">
+        <div class="menu-item">
+          <i class="material-icons">assignment_ind</i>
+          <span>Task Difficulty</span>
+        </div>
+      </button>
+
+        <md-menu #menu2="mdMenu">
+        </md-menu>
+        
+      <button md-menu-item disableRipple (click)="deleteTask(task.id, task)">
+        <div class="menu-item">
+          <i class="material-icons">delete_forever</i>
+          <span>Delete Task</span>
+        </div>
+      </button>
+    </md-menu>
+    
+  </div>
+</div>
+  <div class="phase-footer">
+    <button md-icon-button disableRipple (click)="addNewTask(phase.id)">
+      <i class="material-icons">library_add</i>
+      ADD A TASK
+    </button>
+  </div>
+</div>
