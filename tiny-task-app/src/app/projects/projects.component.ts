@@ -24,7 +24,7 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
-    this.value = this.navService.lastVisitedProject;
+    this.value = this.navService.lastVisitedProject || 'all';
 
     this.projectsService.projects = [];
 
@@ -40,10 +40,19 @@ export class ProjectsComponent implements OnInit {
         });
       });
     } else {
+
       this.teamService.getUserTeams(this.userService.userId);
-      this.projectsService.projectIds.forEach((projectId) => {
+      if ( this.projectsService.projectIds.length !== 0 ) {
+        this.projectsService.projectIds.forEach((projectId) => {
           this.projectsService.getProject(projectId);
-      });
+        });
+      } else {
+        this.projectsService.getUserProjects(this.userService.userId).then(() => {
+          this.projectsService.projectIds.forEach((projectId) => {
+            this.projectsService.getProject(projectId);
+          })
+        });
+      }
     }
   }
 
@@ -52,7 +61,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   addNewProject(): void {
-    let teamId: number = this.teamService.currentTeam.id;
+    let teamId: number = this.teamService.currentTeam;
     let userId: number = this.userService.userId;
 
     this.projectsService.createProject(teamId, userId);

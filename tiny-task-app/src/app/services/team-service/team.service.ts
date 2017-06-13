@@ -17,7 +17,7 @@ export class TeamService {
   public userTeams: Team[] = [];
 
   // Current Team Information
-  public currentTeam: Team = {id: 1, team_name: 'Tiny Task'}; // Mock
+  public currentTeam: number = 1; // Mock
   public selectedTeamInfo: Team;
   public selectedTeamUserInfo: User[] = [];
 
@@ -28,8 +28,8 @@ export class TeamService {
     return Promise.reject(error.message || error);
   }
 
-  setCurrentTeam(team: Team): void {
-    this.currentTeam = team;
+  setCurrentTeam(id: number): void {
+    this.currentTeam = id;
   }
 
   // Get Information
