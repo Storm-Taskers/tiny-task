@@ -14,8 +14,8 @@ import { TeamService } from '../../services/team-service/team.service';
 })
 
 export class ProjectDetailsComponent implements OnInit {
-  selectedProjectId: number;
-  dragOperation: boolean = true;
+  public selectedProjectId: number;
+  public dragOperation: boolean = true;
 
   constructor(
     private projectsService: ProjectsService,

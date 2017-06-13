@@ -3,7 +3,7 @@
     <button md-icon-button (click)="addNewTeam(nameField)">
       <i class="material-icons">library_add</i>
     </button>
-    <input [(ngModel)]="nameField" value="nameField" placeholder="Enter New Team Name">
+    <input [(ngModel)]="nameField" value="nameField" placeholder="Enter New Team Name" (keyup.enter)="addNewTeam(nameField)">
   </h2>
 <!--Render Dropdown Menu-->
 </div>

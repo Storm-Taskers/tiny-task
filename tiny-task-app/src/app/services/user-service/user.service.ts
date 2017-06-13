@@ -27,6 +27,7 @@ export class UserService {
     this.http.get(`${this.baseUrl}/api/users/${token}`)
       .toPromise()
       .then( (response) => {
+        console.log(response.json());
         this.userProfile = response.json().user_profile;
         this.userId = response.json().user_profile.id;
         this.userUpdate.emit(response.json());
