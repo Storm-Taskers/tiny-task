@@ -14,4 +14,8 @@ export class NavService {
   changeToProjectsPage(): void {
     this.currentPage = 'projects';
   }
+
+  changeToBulletinBoardPage(): void {
+    this.currentPage = 'bulletin-board'
+  }
 }

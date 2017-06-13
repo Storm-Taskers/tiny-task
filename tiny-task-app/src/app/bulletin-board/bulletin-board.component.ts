@@ -54,14 +54,14 @@ export class BulletinBoardComponent implements OnInit {
     this.bulletinBoardService.createAnnouncement(teamId, userId);
   }
 
-  deleteAnnouncement(announcementId: number, announcementName: string): void {
-    if (confirm(`Are you sure you want to delete "${announcementName}"?`)) {
+  deleteAnnouncement(announcementId: number, announcement: string): void {
+    if (confirm(`Are you sure you want to delete "${announcement}"?`)) {
       this.bulletinBoardService.deleteAnnouncement(announcementId);
     }
   }
 
-  editAnnouncement(announcementId: number, announcementName: string): void {
-    this.bulletinBoardService.editAnnouncement(announcementId, announcementName);
+  editAnnouncement(announcementId: number, announcement: string): void {
+    this.bulletinBoardService.editAnnouncement(announcementId, announcement);
   }
 
   handleError(): void {

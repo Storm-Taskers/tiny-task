@@ -1,9 +1,8 @@
-export class Project {
+export class Announcement {
   id: number;
   user_id: string;
   team_id: number;
-  project_name: string;
-  complete: boolean;
+  announcement: string;
   createdAt: string;
   updatedAt: string;
 }
