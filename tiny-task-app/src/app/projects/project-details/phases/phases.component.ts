@@ -54,10 +54,11 @@ export class PhasesComponent implements OnInit {
   }
 
   addUserToTask(userId: number, taskId: number): void {
-    this.projectsService.assignToTask(userId, taskId)
-      .then((task) => {
-        console.log(task);
-      });
+    this.projectsService.assignToTask(userId, taskId, this.projectsService.currentProject.team_id);
+  }
+
+  removeUserFromTask(userId: number, taskId: number): void {
+    this.projectsService.removeUserFromTask(userId, taskId);
   }
 
   deleteTask(taskId: number, task: Task): void {

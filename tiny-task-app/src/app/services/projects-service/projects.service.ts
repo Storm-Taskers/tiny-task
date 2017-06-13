@@ -21,7 +21,6 @@ export class ProjectsService {
   public currentProject: Project;
   public phases: Phase[] = [];
   public usersOnProject: User[];
-  public tasks: Task[];
   public totalWeight: number;
   public completeWeight: number;
   public progress: number;
@@ -186,17 +185,16 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
-  assignToTask(userId: number, taskId: number): Promise<any> {
-    return this.http.put(
-              `${this.baseUrl}/api/tasks/${taskId}`,
-              JSON.stringify({user_id: userId}),
-              {headers: this.headers})
-              .toPromise()
-              .then((response) => {
-                console.log(response.json())
-                return response.json();
-              })
-              .catch(this.handleError);
+  assignToTask(userId: number, taskId: number, teamId: number): void {
+    this.http.put(
+      `${this.baseUrl}/api/tasks/${taskId}`,
+      JSON.stringify({user_id: userId, team_id: teamId}),
+      {headers: this.headers})
+      .toPromise()
+      .then((response) => {
+        response.json();
+      })
+      .catch(this.handleError);
   }
 
   updateTaskStatus(taskId: number, taskStatus: boolean): void {
@@ -265,6 +263,15 @@ export class ProjectsService {
         this.totalWeight -= task.task_weight;
         this.progress = this.totalWeight !== 0 ? Math.floor((this.completeWeight / this.totalWeight) * 100) : 0;
       })
-      .catch(this.handleError);;
+      .catch(this.handleError);
+  }
+
+  removeUserFromTask(userId: number, taskId: number): void {
+    this.http.delete(
+      `${this.baseUrl}/api/tasks/users/${userId}/${taskId}`)
+      .toPromise()
+      .then( (response) => {
+      })
+      .catch(this.handleError);
   }
 }
