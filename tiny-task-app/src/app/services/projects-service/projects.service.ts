@@ -231,6 +231,16 @@ export class ProjectsService {
     .catch(this.handleError);
   }
 
+  updateTaskPhaseId(taskId: number, phaseId: number): void {
+    console.log(taskId, phaseId);
+    this.http.put(`${this.baseUrl}/api/tasks/${taskId}`, JSON.stringify({taskChanges: {phase_id: phaseId}}),
+    {headers: this.headers})
+    .toPromise()
+    .then( (response) => {
+    })
+    .catch(this.handleError);
+  }
+
   // Delete Information
   deleteProject(projectId: number): void {
     this.http.delete(`${this.baseUrl}/api/projects/${projectId}`)

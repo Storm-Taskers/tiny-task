@@ -13,18 +13,32 @@ import { Task } from './tasks/Task';
 
 export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
-  @Input () dragOperation: boolean = true;
-  phaseTasks: Task[];
+  @Input() dragOperation: boolean = true;
+  @Input() taskEditing: boolean;
+  private phaseTasks: Task[];
+  public taskDrag: boolean = false;
 
   @Output() dragOperationChange = new EventEmitter();
+  @Output() taskEditingChange = new EventEmitter();
 
   disableDrag(): void {
-    this.dragOperation = false;
+    if(!this.taskEditing) {
+      this.taskDrag = true;
+      this.dragOperation = false;
+      this.taskEditingChange.emit(!this.taskEditing);
+    }
+    
     this.dragOperationChange.emit(this.dragOperation);
   }
 
   enableDrag(): void {
-    this.dragOperation = true;
+    if(!this.taskEditing) {
+      this.taskDrag = false;
+      this.dragOperation = true;
+      this.taskEditingChange.emit(!this.taskEditing);
+    }
+
+    this.taskEditingChange.emit(this.taskEditing);
     this.dragOperationChange.emit(this.dragOperation);
   }
 
@@ -64,6 +78,12 @@ export class PhasesComponent implements OnInit {
   deleteTask(taskId: number, task: Task): void {
     this.projectsService.deleteTask(taskId, task);
     this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
+  }
+
+  updateTaskPhaseId(event: any): void {
+    event.preventDefault();
+    console.log(event);
+  //  this.projectsService.updateTaskPhaseId(taskId, 1);
   }
 
   toggleTaskComplete(taskId: number, task: Task) {
