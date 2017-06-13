@@ -14,6 +14,7 @@ export class AuthService {
     audience: 'https://tinytask.auth0.com/userinfo',
     redirectUri: 'http://localhost:4200/callback',
     scope: 'openid profile',
+    leeway: 30
   });
 
   userProfile: any;
