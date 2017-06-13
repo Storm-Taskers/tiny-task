@@ -18,9 +18,9 @@
 </div>
 <hr/>
 
-<div class="container-project" dnd-sortable-container [sortableData]="projectsService.projects">
+<div class="container-project" dnd-sortable-container [sortableData]="projectsService.projects" [dropZones]="['completed-dropZone']">
 <!--Implement ngFor to create Projects-->
-  <div *ngFor="let project of projectsService.projects; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateProjectOrder()">
+  <div *ngFor="let project of projectsService.projects; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateProjectOrder()" [dragData]="project">
     <div *ngIf="!project.complete" class="current-project">
       <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
       <div>
@@ -51,7 +51,7 @@
 
 <h2>Past Projects</h2>
 <hr/>
-<div class="container-past-project">
+<div class="container-past-project" dnd-droppable (onDropSuccess)="updateProjectStatus($event)" [dropZones]="['completed-dropZone']">
 <!--Implement ngFor to create Projects-->
   <div *ngFor="let project of projectsService.projects">
     <div *ngIf="project.complete" class="past-project">
