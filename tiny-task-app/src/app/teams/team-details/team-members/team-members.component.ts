@@ -34,15 +34,14 @@ export class TeamMembersComponent implements OnInit {
       this.selectedUserId = +params['id'];
       if ( typeof this.projectsService.usersOnProject !== 'undefined' ) {
         this.selectedUserInfo = this.projectsService.usersOnProject.find((user) => user.id === this.selectedUserId);
+      // Render User's tasks
+        this.projectsService.getUserTasks(this.selectedUserId, this.projectsService.currentProject.id).then((tasks) => {
+          this.userTasks = tasks;
+        })
       } else {
         this.router.navigate(['/projects']);
       }
     });
 
-    // Render User's tasks
-    this.projectsService.getUserTasks(this.selectedUserId, this.projectsService.currentProject.id)
-      .then((tasks) => {
-        this.userTasks = tasks;
-      })
   }
 }

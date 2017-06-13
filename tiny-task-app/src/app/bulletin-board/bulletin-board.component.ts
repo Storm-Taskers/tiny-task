@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BulletinBoardService } from '../services/bulletin-board-service/bulletin-board.service';
 import { UserService } from '../services/user-service/user.service';
 import { TeamService } from '../services/team-service/team.service';
-import { NavService } from '../services/nav-service/nav.service';
 
 @Component({
   selector: 'bulletinBoard',
@@ -12,8 +11,7 @@ import { NavService } from '../services/nav-service/nav.service';
 
 export class BulletinBoardComponent implements OnInit {
   private value: any = 'all';
-  private teamId: number = this.teamService.currentTeam.id
-
+  private teamId: number = this.teamService.currentTeam
   public announcements: string[] = this.bulletinBoardService.announcements = [];
 
   constructor(
@@ -45,7 +43,7 @@ export class BulletinBoardComponent implements OnInit {
   }
 
   addNewAnnouncement(): void {
-    let teamId: number = this.teamService.currentTeam.id;
+    let teamId: number = this.teamService.currentTeam;
     let userId: number = this.userService.userId;
 
     this.bulletinBoardService.createAnnouncement(teamId, userId);
