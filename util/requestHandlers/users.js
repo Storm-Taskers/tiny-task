@@ -60,6 +60,18 @@ exports.users = {
     }
   },
 
+  retrieveProjectIds: (req, res) => {
+    helperTeams.retrieveUserTeams(req.params.user_id, teams => {
+      if (teams.length !== 0) {
+        this.extractProjectId(teams, projectIds => {
+          res.send(projectIds);
+        });
+      } else {
+        res.send([]);
+      }
+    })
+  },
+
   searchUser: (req, res) => {
     let query = req.params.query.toLowerCase();
     helperUsers.searchUsers(query, userList => {

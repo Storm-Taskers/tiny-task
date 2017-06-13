@@ -40,7 +40,7 @@ export class TeamMembersComponent implements OnInit {
     });
 
     // Render User's tasks
-    this.projectsService.getUserTasks(this.selectedUserId)
+    this.projectsService.getUserTasks(this.selectedUserId, this.projectsService.currentProject.id)
       .then((tasks) => {
         this.userTasks = tasks;
       })

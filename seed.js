@@ -380,7 +380,8 @@ const seedData = [
         params: { task_id: 1 },
         body: {
           user_id: 1,
-          team_id: 1
+          team_id: 1,
+          project_id: 1
         }
       },
       {
@@ -397,7 +398,8 @@ const seedData = [
         params: { task_id: 2 },
         body: {
           user_id: 2,
-          team_id: 1
+          team_id: 1,
+          project_id: 1
         }
       },
       {
@@ -415,7 +417,8 @@ const seedData = [
         params: { task_id: 3 },
         body: {
           user_id: 4,
-          team_id: 1
+          team_id: 1,
+          project_id: 1
         }
       },
       {
@@ -433,7 +436,8 @@ const seedData = [
         params: { task_id: 4 },
         body: {
           user_id: 1,
-          team_id: 1
+          team_id: 1,
+          project_id: 1
         }
       },
       {
@@ -451,7 +455,8 @@ const seedData = [
         params: { task_id: 5 },
         body: {
           user_id: 2,
-          team_id: 1
+          team_id: 1,
+          project_id: 1
         }
       },
       {
@@ -469,7 +474,8 @@ const seedData = [
         params: { task_id: 6 },
         body: {
           user_id: 3,
-          team_id: 1
+          team_id: 1,
+          project_id: 1
         }
       },
       {

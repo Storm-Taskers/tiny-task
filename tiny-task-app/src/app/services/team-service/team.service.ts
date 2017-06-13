@@ -85,16 +85,16 @@ export class TeamService {
   }
 
   // Delete Information
-  deleteTeam(teamId: number): void {
-    this.http.delete(
-      `${this.baseUrl}/api/teams/${teamId}`,
-      {headers: this.headers})
-      .toPromise()
-      .then((response) => {
-        let indexTeamToDelete = this.userTeams.findIndex(team => team.id === teamId);
-        this.userTeams.splice(indexTeamToDelete, 1);
-      })
-      .catch(this.handleError);
+  deleteTeam(teamId: number): Promise<any> {
+    return this.http.delete(
+            `${this.baseUrl}/api/teams/${teamId}`,
+            {headers: this.headers})
+            .toPromise()
+            .then((response) => {
+              let indexTeamToDelete = this.userTeams.findIndex(team => team.id === teamId);
+              this.userTeams.splice(indexTeamToDelete, 1);
+            })
+            .catch(this.handleError);
   }
 
   removeFromTeam(teamId: number, userId: number): void {

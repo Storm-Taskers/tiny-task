@@ -25,11 +25,12 @@ exports.retrieveTaskByTaskId = (task_id, callback) => {
     });
 };
 
-exports.retrieveTasksByUserId = (user_id, callback) => {
+exports.retrieveTasksByUserId = (params, callback) => {
   return models.User_Tasks
     .findAll({
       where: {
-        user_id: user_id
+        user_id: params.user_id,
+        project_id: params.project_id
       }
     })
     .then(results => {
@@ -63,6 +64,7 @@ exports.addUserTasks = (body, task_id, callback) => {
         .create({
           user_id: body.user_id,
           team_id: body.team_id,
+          project_id: body.project_id,
           task_id: task_id
         })
         .then(results => {

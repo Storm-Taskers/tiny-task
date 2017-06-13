@@ -111,6 +111,11 @@ Teams.hasMany(User_Tasks, {
   onDelete: "CASCADE"
 });
 
+Projects.hasMany(User_Tasks, {
+  foreignKey: { name: "project_id", targetKey: "id"},
+  onDelete: "CASCADE"
+});
+
 const Messages = connection.define("messages", {
   message: { type: Sequelize.TEXT }
 });
