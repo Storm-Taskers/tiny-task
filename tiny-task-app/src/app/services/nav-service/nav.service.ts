@@ -5,6 +5,7 @@ export class NavService {
   public currentPage: string = 'projects';
   public lastVisitedProject: any = 'all';
 
+
   constructor() { }
 
   changeToDetailsPage(): void {
@@ -13,9 +14,5 @@ export class NavService {
 
   changeToProjectsPage(): void {
     this.currentPage = 'projects';
-  }
-
-  changeToBulletinBoardPage(): void {
-    this.currentPage = 'bulletin-board'
   }
 }

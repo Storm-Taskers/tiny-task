@@ -5,28 +5,25 @@ import { TeamService } from '../services/team-service/team.service';
 import { NavService } from '../services/nav-service/nav.service';
 
 @Component({
-  selector: 'projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  selector: 'bulletinBoard',
+  templateUrl: './bulletin-board.component.html',
+  styleUrls: ['./bulletin-board.component.css']
 })
 
 export class BulletinBoardComponent implements OnInit {
   private value: any = 'all';
+  private teamId: number = this.teamService.currentTeam.id
+
+  public announcements: string[] = this.bulletinBoardService.announcements = [];
 
   constructor(
     private bulletinBoardService: BulletinBoardService,
     private userService: UserService,
     private teamService: TeamService,
-    private navService: NavService,
   ) { }
 
 
   ngOnInit() {
-    // Render Navigation Bar
-    this.navService.changeToBulletinBoardPage();
-    this.value = this.navService.lastVisitedAnnouncement;
-
-    this.BulletinBoardService.announcements = [];
 
     if ( !this.userService.userId ) {
       this.userService.userUpdate.subscribe( (userData) => {
@@ -36,13 +33,13 @@ export class BulletinBoardComponent implements OnInit {
         // Project Rendering
         this.bulletinBoardService.announcementIds = userData.announcement_id;
         this.bulletinBoardService.announcementIds.forEach((announcementId) => {
-          this.bulletinBoardService.getAnnouncements(announcementId);
+          this.bulletinBoardService.getAnnouncements(announcementId, this.teamId);
         });
       });
     } else {
       this.teamService.getUserTeams(this.userService.userId);
       this.bulletinBoardService.announcementIds.forEach((announcementId) => {
-          this.bulletinBoardService.getAnnouncements(announcementId);
+          this.bulletinBoardService.getAnnouncements(announcementId, this.teamId);
       });
     }
   }

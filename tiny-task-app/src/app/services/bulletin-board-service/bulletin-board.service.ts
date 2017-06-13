@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 import { Announcement } from '../../bulletin-board/announcement';
-import { User } from '../../bulletin-board/announcements-user/User';
 
 
 @Injectable()
@@ -15,8 +14,8 @@ export class BulletinBoardService {
 
   public announcementIds: number[] = [];
 
-  public announcements: announcement[] = [];
-  public usersOnAnnouncement: User[];
+  public announcements: string [];
+  public announcementUser: number [];
 
 
   constructor(private http: Http) { }
@@ -27,12 +26,11 @@ export class BulletinBoardService {
   }
 
   // Fetch Information
-  getAnnouncements(bulletinBoardId: number): void {
+  getAnnouncements(bulletinBoardId: number, teamId: number): void {
     this.http.get(`${this.baseUrl}/api/announcements/${teamId}`)
       .toPromise()
       .then( (response) => {
-        this.announcements.push(response.json().announcement_info);
-        this.usersOnAnnouncement = response.json().user_info;
+        this.announcements.push(response.json());
       })
       .catch(this.handleError);
   }
@@ -45,8 +43,8 @@ export class BulletinBoardService {
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        this.announcements.push(response.json().announcement_info);
-        this.announcementIds.push(response.json().announcement_info.id);
+        this.announcements.push(response.json());
+        this.announcementIds.push(response.json().id);
       })
       .catch(this.handleError);
   }
@@ -59,7 +57,7 @@ export class BulletinBoardService {
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        this.announcements.find(announcement => announcement.id === announcementId).announcement = announcement;
+        this.announcements.find(announcement => announcementId === announcementId)
       })
       .catch(this.handleError);
   }
@@ -69,8 +67,9 @@ export class BulletinBoardService {
     this.http.delete(`${this.baseUrl}/api/announcements/${announcementId}`)
       .toPromise()
       .then( (response) => {
-        let announcementToRemove = this.announcements.findIndex(announcement => announcement.id === announcementId);
+        let announcementToRemove = this.announcements.findIndex(announcement => announcementId === announcementId);
         this.announcements.splice(announcementToRemove, 1);
       })
       .catch(this.handleError);
   }
+}

@@ -20,11 +20,11 @@
       <div *ngIf="navService.currentPage !== 'projects'" class="col">
         <hr/>
         <div class="nav-items">
-          <a routerLink=""><i class="material-icons">forum</i>BULLETIN BOARD</a>
+          <a routerLink="" (click)="navService.changeToBulletinBoardPage()"><i class="material-icons">forum</i>BULLETIN BOARD</a>
         </div>
         <hr/>
         <div class="nav-items">
-          <a routerLink=""><i class="material-icons">folder_shared</i>RESOURCES</a>
+          <a routerLink="announcements"><i class="material-icons">folder_shared</i>RESOURCES</a>
         </div>
       </div>
     </nav>
