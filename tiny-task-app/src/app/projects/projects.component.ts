@@ -24,6 +24,8 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
+
+
     this.value = this.navService.lastVisitedProject || 'all';
 
     this.projectsService.projects = [];
@@ -40,7 +42,6 @@ export class ProjectsComponent implements OnInit {
         });
       });
     } else {
-
       this.teamService.getUserTeams(this.userService.userId);
       if ( this.projectsService.projectIds.length !== 0 ) {
         this.projectsService.projectIds.forEach((projectId) => {

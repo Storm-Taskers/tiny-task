@@ -49,6 +49,14 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
+  getProjectIds(userId: number): void {
+    this.http.get(`${this.baseUrl}/api/projects/user/${userId}`)
+      .toPromise()
+      .then( (response) => {
+        this.projectIds = response.json();
+      })
+  }
+
   getTasks(phaseId: number): Promise<Task[]> {
     return this.http.get(`${this.baseUrl}/api/tasks/${phaseId}`)
             .toPromise()

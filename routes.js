@@ -33,21 +33,17 @@ router.delete(
 );
 
 //////////PROJECTS/////////////////
-router.get(
-  "/projects/:project_id",
-  handlerProjects.projects.retrieveProjectById
+router.get("/projects/:project_id", handlerProjects.projects.retrieveProjectById
 );
 router.post("/projects", handlerProjects.projects.createNewProjects);
 router.put("/projects/:project_id", handlerProjects.projects.updateProjects);
-router.put(
-  "/projects/phases/:project_id",
-  handlerProjects.projects.updatePhaseOrder
+router.put("/projects/phases/:project_id", handlerProjects.projects.updatePhaseOrder
 );
 router.delete("/projects/:project_id", handlerProjects.projects.deleteProjects);
 router.get(
-  "/projects/teams/:team_id",
-  handlerProjects.projects.retrieveProjectsByTeam
+  "/projects/teams/:team_id", handlerProjects.projects.retrieveProjectsByTeam
 );
+router.get("/projects/user/:user_id", handlerUsers.users.retrieveProjectIds);
 
 //////////PHASES/////////////////
 router.post("/phases/:project_id", handlerPhases.phases.createNewPhases);
