@@ -7,14 +7,14 @@
 </div>
 <hr/>
 
-<div class="container-project" dnd-sortable-container [sortableData]="BulletinBoardService.announcements">
+<div class="container-announcement" dnd-sortable-container [sortableData]="BulletinBoardService.announcements">
 <!--Implement ngFor to create Projects-->
-  <div *ngFor="let project of projectsService.projects; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateProjectOrder()">
-    <div *ngIf="!project.complete" class="current-project">
-      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
+  <div *ngFor="let announcement of announcementsService.announcements; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateProjectOrder()">
+    <div *ngIf="!announcement.complete" class="current-announcement">
+      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/announcements', announcement.id]">
       <div>
-        <div class="project-header">
-          <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="editProjectName(project.id, $event)" name="projectText" size="15"  min="1" max="50" (onError)="handleError()" placeholder="Project Name"></inline-editor>
+        <div class="announcement-header">
+          <inline-editor type="text" [(ngModel)]="announcement.announcement_name" (onSave)="editAnnouncementName(announcement.id, $event)" name="announcementText" size="15"  min="1" max="50" (onError)="handleError()" placeholder="Announcement Name"></inline-editor>
           <button md-icon-button [mdMenuTriggerFor]="menu">
             <i class="material-icons">more_vert</i>
           </button>
@@ -22,51 +22,13 @@
       </div>
     </div>
     <md-menu #menu="mdMenu">
-      <button md-menu-item (click)="deleteProject(project.id, project.project_name)">
+      <button md-menu-item (click)="deleteProject(announcement.id, announcement.announcement_name)">
         <div class="menu-item">
           <i class="material-icons">delete_forever</i>
           <span>Delete Project</span>
         </div>
-      </button>
-      <button md-menu-item (click)="toggleCompleteProject(project.id, project.project_name, project.complete)">
-        <div class="menu-item">
-          <i class="material-icons">done_all</i>
-          <span>Project Finished</span>
-        </div>
-      </button>
     </md-menu>
   </div>
 </div>
 
-<h2>Past Projects</h2>
-<hr/>
-<div class="container-past-project">
-<!--Implement ngFor to create Projects-->
-  <div *ngFor="let project of projectsService.projects">
-    <div *ngIf="project.complete" class="past-project">
-      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" [routerLink]="['/projects', project.id]">
-      <div class="project-header">
-        <div>
-          {{ project.project_name }}
-        </div>
-        <button md-icon-button [mdMenuTriggerFor]="menu">
-          <i class="material-icons">more_vert</i>
-        </button>
-      </div>
-       <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="deleteProject(project.id, project.project_name)">
-          <div class="menu-item">
-            <i class="material-icons">delete_forever</i>
-            <span>Delete Project</span>
-          </div>
-        </button>
-        <button md-menu-item (click)="toggleCompleteProject(project.id, project.project_name, project.complete)">
-          <div class="menu-item">
-            <i class="material-icons">done_all</i>
-            <span>Revive Project</span>
-          </div>
-        </button>
-      </md-menu>
-    </div>
-  </div>
 </div>
