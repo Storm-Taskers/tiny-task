@@ -16,10 +16,13 @@
   </md-menu>
 <!--Implement ngFor to create Phase Details (task)-->
 <div class="task-dropzone" dnd-sortable-container [sortableData]="phaseTasks">
-  <div *ngFor="let task of phaseTasks; let x = index" dnd-sortable [sortableIndex]="x" [dragEnabled]="!dragOperation">
-    <div [ngClass]="!task.complete ? 'task task-container': 'task-completed'">
+  <div *ngFor="let task of phaseTasks; let x = index" dnd-sortable [sortableIndex]="x" [dragEnabled]="taskDrag" (onDragEnd)="enableDrag()" (drop)="updateTaskPhaseId($event); enableDrag()" (mouseup)="enableDrag()">
+    <div [ngClass]="!task.complete ? 'task task-container': 'task-completed'" (mousedown)="disableDrag()">
       <tasks
-        [task]="task">
+        [task]="task"
+        [(taskDrag)]="taskDrag"
+        [(dragOperation)]="dragOperation"
+        [(taskEditing)]="taskEditing">
       </tasks>
       <button md-icon-button [mdMenuTriggerFor]="menu">
         <i class="material-icons">more_vert</i>
