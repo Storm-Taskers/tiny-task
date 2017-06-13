@@ -5,6 +5,7 @@ export class NavService {
   public currentPage: string = 'projects';
   public lastVisitedProject: any;
 
+
   constructor() { }
 
   changeToDetailsPage(): void {
