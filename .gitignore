@@ -2,3 +2,5 @@
 .DS_Store
 
 /package-lock.json
+/tiny-task-app/dist
+/npm-debug.log
