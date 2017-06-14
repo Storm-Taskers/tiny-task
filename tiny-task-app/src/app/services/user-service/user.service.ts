@@ -33,4 +33,13 @@ export class UserService {
       })
       .catch(this.handleError);
     }
+
+  getUserProfile(userId: number): Promise<User> {
+    return this.http.get(`${this.baseUrl}/api/users/profile/${userId}`)
+            .toPromise()
+            .then(response => {
+              return response.json();
+            })
+            .catch(this.handleError);
+  }
 }

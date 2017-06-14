@@ -101,6 +101,15 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
+  getUserProjectsAndTasks(userId: number, teamId): Promise<any> {
+    return this.http.get(`${this.baseUrl}/api/projects/teams/${teamId}/users/${userId}`)
+      .toPromise()
+      .then( (response) => {
+        return response.json();
+      })
+      .catch(this.handleError);
+  }
+
   // Post Information
   createProject(teamId: number, userId: number): void {
     this.http.post(

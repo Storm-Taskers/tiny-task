@@ -2,6 +2,7 @@ const helperProject = require("../helpers/projects.js");
 const helperUser = require("../helpers/users.js");
 const helperTeam = require("../helpers/teams.js");
 const helperPhases = require("../helpers/phases.js");
+const helperTasks = require("../helpers/tasks.js");
 
 (exports.reorderPhases = (phases, phaseOrder, callback) => {
   if (phaseOrder === null) {
@@ -22,7 +23,7 @@ const helperPhases = require("../helpers/phases.js");
     result = phases;
   }
   callback(result);
-}), 
+}),
 
 (exports.projects = {
   createNewProjects: (req, res, isSeed) => {
@@ -109,5 +110,54 @@ const helperPhases = require("../helpers/phases.js");
       });
       res.send(idArr);
     });
+  },
+
+  retrieveProjectAndTasks: (req, res) => {
+    let projectsAndTasks = {};
+    helperProject.retrieveProjectByTeamId(req.params.team_id, projects => {
+      asyncProjectsTasksRetrieve(projects, req.params.team_id, req.params.user_id, projectsTasks => {
+        res.send(projectsTasks);
+      });
+    });
   }
 });
+
+const asyncProjectsTasksRetrieve = (projects, team_id, user_id, callback) => {
+  Promise.all(
+    projects.map(project => {
+      return new Promise((resolve, reject) => {
+        let projectTaskData = {project_info: project}
+        helperTasks.retrieveTeamUserTasks(team_id, user_id, project.dataValues.id, tasks => {
+          asyncTaskRetrieve(tasks, tasksInfo => {
+            projectTaskData.tasks_info = tasksInfo;
+            resolve(projectTaskData);
+          });
+        });
+      });
+    })
+  ).then(results => {
+    let projectsTasks = [];
+    results.forEach(result => {
+      projectsTasks.push(result);
+    });
+    callback(projectsTasks);
+  });
+}
+
+const asyncTaskRetrieve = (tasks, callback) => {
+  Promise.all(
+    tasks.map(task => {
+      return new Promise((resolve, reject) => {
+        helperTasks.retrieveTaskByTaskId(task.dataValues.id, task => {
+          resolve(task);
+        });
+      });
+    })
+  ).then(results => {
+    let tasksInfo = [];
+    results.forEach(result => {
+      tasksInfo.push(result);
+    });
+    callback(tasksInfo);
+  });
+}

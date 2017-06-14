@@ -21,13 +21,13 @@ exports.retrieveUser = (authToken, callback) => {
   });
 };
 
-exports.retrieveUserProfile = (userId, callback) => {
+exports.retrieveProfile = (userId, callback) => {
   models.User_Profile.findOne({
     where: {
       id: userId
     }
-  }).then((userProfile) => {
-    callback(userProfile);
+  }).then(user_profile => {
+    callback(user_profile);
   });
 };
 

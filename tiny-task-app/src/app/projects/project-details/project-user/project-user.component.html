@@ -8,7 +8,7 @@
       <i class="material-icons">more_horiz</i>
     </button>
     <md-menu #menu="mdMenu">
-        <button md-menu-item disableRipple>
+        <button md-menu-item disableRipple [routerLink]="['user', user.id]">
           <div class="menu-item">
             <i class="material-icons">navigate_next</i>
             <span>Show User Projects</span>

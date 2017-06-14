@@ -25,7 +25,6 @@ export class ProjectsComponent implements OnInit {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
 
-
     this.value = this.navService.lastVisitedProject || 'all';
 
     this.projectsService.projects = [];
@@ -78,7 +77,7 @@ export class ProjectsComponent implements OnInit {
     this.projectsService.projects = [];
     if ( this.value !== 'all' ) {
       this.navService.lastVisitedProject = this.value;
-      this.teamService.setCurrentTeam(this.value);
+      this.teamService.currentTeam = this.value;
 
       this.projectsService.getTeamProjects(this.value).then(() => {
         this.projectsService.projectIds.forEach((projectId) => {

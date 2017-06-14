@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'bulletinboard', component: BulletinBoardComponent},
   { path: 'profile', component: UserProfileComponent },
   { path: 'teams', component: TeamsComponent },
+  { path: 'teams/:id/user/:teamUserId', component: TeamMembersComponent},
   { path: 'teams/:id', component: TeamDetailsComponent },
   { path: '', redirectTo: 'projects', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }

@@ -12,6 +12,7 @@ const handlerResources = require("./util/requestHandlers/resources.js");
 
 //////////USERS/////////////////
 router.get("/users/:auth_token", handlerUsers.users.retrieveUser);
+router.get("/users/profile/:user_id", handlerUsers.users.retrieveProfile);
 router.get("/users/search/:query", handlerUsers.users.searchUser);
 router.post("/users/", handlerUsers.users.createNewUser);
 router.put("/users/:user_id", handlerUsers.users.updateUser);
@@ -44,6 +45,7 @@ router.get(
   "/projects/teams/:team_id", handlerProjects.projects.retrieveProjectsByTeam
 );
 router.get("/projects/user/:user_id", handlerUsers.users.retrieveProjectIds);
+router.get("/projects/teams/:team_id/users/:user_id", handlerProjects.projects.retrieveProjectAndTasks);
 
 //////////PHASES/////////////////
 router.post("/phases/:project_id", handlerPhases.phases.createNewPhases);
