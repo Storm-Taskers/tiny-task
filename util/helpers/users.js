@@ -21,16 +21,6 @@ exports.retrieveUser = (authToken, callback) => {
   });
 };
 
-exports.retrieveUserProfile = (userId, callback) => {
-  models.User_Profile.findOne({
-    where: {
-      id: userId
-    }
-  }).then((userProfile) => {
-    callback(userProfile);
-  });
-};
-
 exports.retrieveProfile = (userId, callback) => {
   models.User_Profile.findOne({
     where: {
