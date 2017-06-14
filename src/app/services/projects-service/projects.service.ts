@@ -26,7 +26,6 @@ export class ProjectsService {
   public completeWeight: number;
   public progress: number;
 
-
   constructor(private http: Http) { }
 
   private handleError(error: any): Promise<any> {
