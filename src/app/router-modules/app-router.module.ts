@@ -9,6 +9,7 @@ import { TeamsComponent } from '../teams/teams.component';
 import { TeamDetailsComponent } from '../teams/team-details/team-details.component';
 import { TeamMembersComponent} from '../teams/team-details/team-members/team-members.component';
 import { BulletinBoardComponent } from '../bulletin-board/bulletin-board.component';
+import { SharedResourceComponent } from '../shared-resources/shared-resources.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 // Routes to components
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'projects/:id', component: ProjectDetailsComponent},
   { path: 'projects/:projectid/teams/member/:id', component: TeamMembersComponent},
   { path: 'bulletinboard', component: BulletinBoardComponent},
+  { path: 'sharedresource', component: SharedResourceComponent },
   { path: 'profile', component: UserProfileComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'teams/:id/user/:teamUserId', component: TeamMembersComponent},
