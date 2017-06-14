@@ -31,21 +31,21 @@ export class TeamMembersComponent implements OnInit {
   ngOnInit() {
     // Get Current User Id and Information
     this.route.params.subscribe(params => {
-      if ( typeof params['teamUserId'] !== 'undefined' ) {
-        this.projectsService.getUserProjectsAndTasks(+params['id'], +params['teamUserId']).then(projectsAndTasks => {
+      this.selectedUserId = +params['id'];
+
+      if ( typeof params['teamUserId'] !== 'undefined' && typeof this.teamService.currentTeam !== 'undefined' ) {
+        console.log(this.teamService.currentTeam);
+        this.projectsService.getUserProjectsAndTasks(this.selectedUserId, +params['teamUserId']).then(projectsAndTasks => {
           console.log(projectsAndTasks);
         });
-      } else {
-        this.selectedUserId = +params['id'];
-        if ( typeof this.projectsService.usersOnProject !== 'undefined' ) {
+      } else if ( typeof this.projectsService.usersOnProject !== 'undefined' ) {
           this.selectedUserInfo = this.projectsService.usersOnProject.find((user) => user.id === this.selectedUserId);
-        // Render User's tasks
+          // Render User's tasks
           this.projectsService.getUserTasks(this.selectedUserId, this.projectsService.currentProject.id).then((tasks) => {
             this.userTasks = tasks;
           })
-        } else {
-          this.router.navigate(['/projects']);
-        }
+      } else {
+        this.router.navigate(['/projects']);
       }
     });
   }
