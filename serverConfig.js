@@ -13,6 +13,7 @@ app.use('/api', router);
 app.use(express.static(__dirname + 'dist'));
 
 app.get('/*', function(req, res) {
+  console.log('server');
   res.sendFile(__dirname + 'dist/index.html');
 });
 
