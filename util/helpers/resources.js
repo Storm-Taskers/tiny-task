@@ -26,7 +26,26 @@ exports.getResourcesByTeamId = (params, callback) => {
     });
 };
 
-exports.deleteResources = (params, callback) => {
+exports.updateResource = (req, callback) => {
+  models.Shared_Resources
+    .findOne({
+      where: {
+        id: req.params.resources_id
+      }
+    })
+    .then(resources => {
+      resources
+        .updateAttributes(req.body)
+        .then(resources => {
+          callback(null, resources.dataValues);
+        })
+        .catch(err => {
+          callback(err, null);
+        });
+    });
+};
+
+exports.deleteResource = (params, callback) => {
   models.Shared_Resources
     .destroy({
       where: {

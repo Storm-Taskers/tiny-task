@@ -19,21 +19,20 @@ exports.resources = {
     });
   },
 
-  // updateResources: (req, res) => {
-  //   helper
-  //     .updateResource(req.body, () => {
-  //       res.end(JSON.stringify(res.body));
-  //     })
-  //     .then(resource => {
-  //       res.status(200).send("resource updated");
-  //     })
-  //     .catch(err => {
-  //       res.status(404).send(err, "error on updating resource");
-  //     });
-  // },
+  updateResources: (req, res) => {
+    helper.updateResource(req, (err, result) => {
+      if (err) {
+        return res.status(500).send("server error");
+      } else {
+        console.log("seed announcement updated");
+        res.status(200).send(result);
+        res.end();
+      }
+    });
+  },
 
   deleteResources: (req, res) => {
-    helper.deleteResources(req.params, message => {
+    helper.deleteResource(req.params, message => {
       res.status(200).send(message);
     });
   }

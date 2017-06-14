@@ -81,7 +81,10 @@ router.delete("/announcements/:announcement_id", handlerAnnouncements.announceme
 ////////RESOURCES/////////////////
 router.get("/resources/:team_id", handlerResources.resources.retrieveResources);
 router.post("/resources", handlerResources.resources.createNewResources);
-// router.put('/resources/:resources_id', handlerResources.resources.updateResources);
+router.put(
+  "/resources/:resources_id",
+  handlerResources.resources.updateResources
+);
 router.delete(
   "/resources/:resources_id",
   handlerResources.resources.deleteResources
