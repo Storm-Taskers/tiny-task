@@ -10,10 +10,10 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/api', router);
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + 'dist'));
 
 app.get('/*', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + 'dist/index.html');
 });
 
 module.exports = app;
