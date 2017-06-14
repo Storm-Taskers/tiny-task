@@ -33,10 +33,21 @@
     </div>
   </md-sidenav>
   <div class="content">
-    <div *ngIf="showNav" class="mini-bar" (click)="sidenav.toggle()">
-      <button md-mini-fab class="example-fab">
-        <md-icon>add</md-icon>
-      </button>
+    <div *ngIf="showNav" class="mini-bar">
+      <a (click)="sidenav.toggle()">
+       <i class="material-icons">menu</i>
+      </a>
+      <a routerLink="teams" (click)="navService.changeToProjectsPage()">
+        <i class="material-icons">recent_actors</i>
+      </a>
+      <a routerLink="projects"><i class="material-icons">note</i></a>
+      <div *ngIf="navService.currentPage !== 'projects'" class="col">
+        <a [routerLink]="['/bulletinboard']"><i class="material-icons">forum</i></a>
+        <a routerLink="announcements"><i class="material-icons">folder_shared</i></a>
+      </div>
+      <a class="example-fab">
+        <i class="material-icons" (click)="sidenav.toggle()">forum</i>
+      </a>
     </div>
     <div class="content-display">
       <router-outlet></router-outlet>

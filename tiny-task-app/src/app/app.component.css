@@ -11,6 +11,13 @@ h2 {
   margin: 0;
 }
 
+a {
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+}
+
 hr {
   width: 220px;
 }
@@ -27,6 +34,9 @@ hr {
 }
 
 .mini-bar {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   background-color: #333333;
   height: 100%;
   padding: 6px;
@@ -60,7 +70,10 @@ hr {
   align-items: left;
   height: 100%;
 }
-
+a {
+  cursor: pointer;
+  color: hsla(0, 0%, 55%, 1);
+}
 a:link, a:visited {
   display: flex;
   flex-direction: row;
@@ -83,7 +96,7 @@ a:hover, a:active {
 .app {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 40px 1fr;
+  grid-template-rows: 45px 1fr;
   grid-template-areas:
   "header"
   "content";
@@ -97,12 +110,8 @@ a:hover, a:active {
   white-space: nowrap; 
 }
 
-.material-icons {
-  margin-right: 10px
-}
-
-.hide {
-  display: none;
+.example-fab {
+  margin-top: auto;
 }
 
 .content-display {
