@@ -13,18 +13,34 @@ import { Task } from './tasks/Task';
 
 export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
-  @Input () dragOperation: boolean = true;
-  phaseTasks: Task[];
+  @Input() dragOperation: boolean = true;
+  @Input() taskEditing: boolean = false;
+  private phaseTasks: Task[];
+  public taskDrag: boolean = false;
 
   @Output() dragOperationChange = new EventEmitter();
+  @Output() taskEditingChange = new EventEmitter();
 
   disableDrag(): void {
-    this.dragOperation = false;
+    if(!this.taskEditing) {
+      this.taskDrag = true;
+      this.dragOperation = false;
+      this.taskEditingChange.emit(!this.taskEditing);
+      //console.log("enable task drag:", this.taskEditing, this.taskDrag, this.dragOperation)
+    }
+    this.taskEditingChange.emit(this.taskEditing);
     this.dragOperationChange.emit(this.dragOperation);
   }
 
   enableDrag(): void {
-    this.dragOperation = true;
+    if(!this.taskEditing) {
+      this.taskDrag = false;
+      this.dragOperation = true;
+      this.taskEditingChange.emit(!this.taskEditing);
+      //console.log("enable phase drag:", this.taskEditing, this.taskDrag, this.dragOperation)
+    }
+
+    this.taskEditingChange.emit(this.taskEditing);
     this.dragOperationChange.emit(this.dragOperation);
   }
 
@@ -64,6 +80,18 @@ export class PhasesComponent implements OnInit {
   deleteTask(taskId: number, task: Task): void {
     this.projectsService.deleteTask(taskId, task);
     this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
+  }
+
+  updateTaskPhaseId(event: any, taskId: number): void {
+    // console.log(event.target.parentElement.parentElement.getAttribute("data-phase"));
+   
+    let current = event.target;
+    while(!current.getAttribute("data-phase")) {
+      current = current.parentElement;
+    }
+    let phaseId = parseInt(current.getAttribute("data-phase"), 10);
+    // console.log(phaseId);
+    this.projectsService.updateTaskPhaseId(taskId, phaseId);
   }
 
   toggleTaskComplete(taskId: number, task: Task) {

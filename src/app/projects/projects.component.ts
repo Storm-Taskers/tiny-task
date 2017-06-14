@@ -98,11 +98,16 @@ export class ProjectsComponent implements OnInit {
     this.projectsService.editProjectName(projectId, newName);
   }
 
-  updateProjectOrder($event: any) {
+  updateProjectOrder(event: any) {
     console.log(this.projectsService.projects);
   }
 
+  updateProjectStatus(event: any) {
+    this.toggleCompleteProject(event.dragData.id, event.dragData.project_name, event.dragData.complete)
+  }
+
   toggleCompleteProject(projectId: number, projectName: string, projectCompleted: boolean): void {
+    // console.log(projectId, projectName, projectCompleted);
     this.projectsService.editProjectCompleteStatus(projectId, projectName, !projectCompleted);
   }
 

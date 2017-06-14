@@ -13,7 +13,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: 'https://tinytask.auth0.com/userinfo',
     redirectUri: 'http://localhost:4200/callback',
-    scope: 'openid profile',
+    scope: 'openid profile email',
     leeway: 30
   });
 

@@ -1,0 +1,121 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  grid-area: header;
+  background-color: #444444;
+}
+
+h2 {
+  color: white;
+  margin: 0;
+}
+
+a {
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+hr {
+  width: 220px;
+}
+
+.side-nav {
+   display: flex;
+   flex-direction: column;
+}
+
+.container-nav {
+  background-color: white;
+  padding: 30px;
+  height: 70%;
+}
+
+.mini-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-content: center;
+  background-color: #333333;
+  height: 98%;
+  padding: 6px;
+  margin-right: 10px;
+}
+
+.pageView {
+  grid-area: content;
+  height: 95vh;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: hsla(341, 59%, 48%, 1);
+  padding: 5px;
+  box-shadow: 0px 2px 5px #888888;
+  height: 180px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  height: 100%;
+}
+
+a {
+  cursor: pointer;
+  color: hsla(0, 0%, 55%, 1);
+}
+
+a:link, a:visited {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24px;
+  color: hsla(0, 0%, 55%, 1);
+  text-decoration: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+a:hover, a:active {
+  color: white;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: 45px 1fr;
+  grid-template-areas:
+  "header"
+  "content";
+  grid-column-gap: 20px;
+  margin: 0;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+  white-space: nowrap; 
+}
+
+.content-display {
+  width: 95%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: 10px; 
+  margin-left: 10px
+}
+
+.material-icons {
+  font-size: 40px;
+}

@@ -16,7 +16,8 @@ import { TeamService } from '../../services/team-service/team.service';
 export class ProjectDetailsComponent implements OnInit {
   public selectedProjectId: number;
   public dragOperation: boolean = true;
-
+  public taskEditing: boolean = false;
+  
   constructor(
     private projectsService: ProjectsService,
     private userService: UserService,
@@ -45,7 +46,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.projectsService.createPhase(this.selectedProjectId);
   }
 
-  updatePhaseOrder(projectId: number): void {
+  updatePhaseOrder(): void {
     let phaseOrder = '';
 
     this.projectsService.phases.forEach( (phase, index) => {
@@ -55,7 +56,7 @@ export class ProjectDetailsComponent implements OnInit {
         phaseOrder += phase.id + ' ';
       }
     })
-
+   
     this.projectsService.updatePhaseOrder(this.selectedProjectId, phaseOrder);
   }
 }
