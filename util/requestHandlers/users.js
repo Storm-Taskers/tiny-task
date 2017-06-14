@@ -35,29 +35,31 @@ exports.extractProjectId = (teams, callback) => {
 
 exports.users = {
   retrieveUser: (req, res) => {
-    if (req.params.query) {
-      console.log("placeholder for query");
-    } else {
-      var userData = {};
-      helperUsers.retrieveUser(req.params.auth_token, userProfile => {
-        if (userProfile.length === 0) {
-          res.send(userData);
-        } else {
-          userData.user_profile = userProfile;
-          helperTeams.retrieveUserTeams(userProfile.id, teams => {
-            if (teams.length !== 0) {
-              this.extractProjectId(teams, projectIds => {
-                userData.project_id = projectIds;
-                res.send(userData);
-              });
-            } else {
-              userData.project_id = [];
+    var userData = {};
+    helperUsers.retrieveUser(req.params.auth_token, userProfile => {
+      if (userProfile.length === 0) {
+        res.send(userData);
+      } else {
+        userData.user_profile = userProfile;
+        helperTeams.retrieveUserTeams(userProfile.id, teams => {
+          if (teams.length !== 0) {
+            this.extractProjectId(teams, projectIds => {
+              userData.project_id = projectIds;
               res.send(userData);
-            }
-          });
-        }
-      });
-    }
+            });
+          } else {
+            userData.project_id = [];
+            res.send(userData);
+          }
+        });
+      }
+    });
+  },
+
+  retrieveProfile: (req, res) => {
+    helperUsers.retrieveProfile(req.params.user_id, user_profile => {
+      res.send(user_profile);
+    })
   },
 
   retrieveProjectIds: (req, res) => {

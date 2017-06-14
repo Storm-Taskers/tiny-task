@@ -31,6 +31,16 @@ exports.retrieveUserProfile = (userId, callback) => {
   });
 };
 
+exports.retrieveProfile = (userId, callback) => {
+  models.User_Profile.findOne({
+    where: {
+      id: userId
+    }
+  }).then(user_profile => {
+    callback(user_profile);
+  });
+};
+
 exports.addUsers = (body, id, callback) => {
   models.Users.create({
       auth_token: body.auth_token,
