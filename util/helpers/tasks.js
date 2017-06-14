@@ -50,6 +50,20 @@ exports.retrieveTaskUser = (task_id, callback) => {
     });
 };
 
+exports.retrieveTeamUserTasks = (team_id, user_id, project_id, callback) => {
+  models.User_Tasks
+    .findAll({
+      where: {
+        team_id: team_id,
+        user_id: user_id,
+        project_id: project_id
+      }
+    })
+    .then(tasks => {
+      callback(tasks);
+    });
+}
+
 exports.addUserTasks = (body, task_id, callback) => {
   models.User_Tasks
     .findAll({

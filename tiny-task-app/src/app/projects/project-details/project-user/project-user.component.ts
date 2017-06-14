@@ -16,6 +16,6 @@ export class ProjectUserComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
+
 }
