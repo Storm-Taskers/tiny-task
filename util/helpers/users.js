@@ -43,8 +43,6 @@ exports.addUsers = (token, id, callback) => {
 };
 
 exports.addUserProfile = (authInfo, callback) => {
-  console.log('here');
-  console.log(authInfo.name);
   models.User_Profile.create({
       full_name: authInfo.name,
       email: authInfo.nickname,

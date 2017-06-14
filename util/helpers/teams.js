@@ -16,7 +16,7 @@ exports.addTeam = (team_name, user_id, callback) => {
       team_name: team_name,
       user_id: user_id
     }).then((result) => {
-      callback(result);
+      callback(result, user_id);
     });
 };
 

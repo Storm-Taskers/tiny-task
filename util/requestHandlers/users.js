@@ -36,9 +36,15 @@ exports.users = {
     let authToken = req.params.auth_info;
     helperUsers.retrieveUser(authToken, userProfile => {
       if (userProfile === null) {
+        userData.project_id = [];
         helperUsers.addUserProfile(req.body, userProfile => {
-          helperUsers.addUsers(authToken, userProfile.id, user => {
-            res.send(user);
+          userData.user_profile = userProfile;
+          helperUsers.addUsers(authToken, userProfile.id, (err, user) => {
+            helperTeams.addTeam('Solo Projects', user.dataValues.user_profile_id, (team, user_id) => {
+              helperTeams.addTeamUser(user_id, team.dataValues.id, (user) => {
+                res.send(userData);
+              });
+            });
           });
         });
       } else {
