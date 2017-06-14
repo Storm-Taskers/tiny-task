@@ -5,10 +5,15 @@
   "main": "server.js",
   "engines": { "node": "6.10.2", "npm": "3.10.10" },
   "scripts": {
-    "preinstall": "npm install --prefix tiny-task-app",
     "test": "mocha spec/server-database.js -w",
     "start": "nodemon server.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "ng": "ng",
+    "start app": "ng serve",
+    "test app": "ng test",
+    "build": "ng build",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "repository": {
     "type": "git",
@@ -30,7 +35,6 @@
     "express": "^4.15.3",
     "mocha": "^3.4.2",
     "mysql": "^2.13.0",
-    "nodemon": "^1.11.0",
     "pg": "^6.2.4",
     "request": "^2.81.0",
     "sequelize": "^3.30.4",
@@ -53,6 +57,21 @@
     "@angular/compiler-cli": "^4.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "@types/jasmine": "2.5.38",
+    "@types/node": "~6.0.60",
+    "codelyzer": "~2.0.0",
+    "jasmine-core": "~2.5.2",
+    "jasmine-spec-reporter": "~3.2.0",
+    "karma": "~1.4.1",
+    "karma-chrome-launcher": "~2.1.1",
+    "karma-cli": "~1.0.1",
+    "karma-jasmine": "~1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
+    "protractor": "~5.1.0",
+    "ts-node": "~2.0.0",
+    "tslint": "~4.5.0",
+    "typescript": "~2.2.0"
   }
 }
