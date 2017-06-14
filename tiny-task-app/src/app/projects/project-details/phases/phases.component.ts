@@ -83,8 +83,6 @@ export class PhasesComponent implements OnInit {
   }
 
   updateTaskPhaseId(event: any, taskId: number): void {
-    // debugger;
-    // event.preventDefault();
     // console.log(event.target.parentElement.parentElement.getAttribute("data-phase"));
    
     let current = event.target;
@@ -92,7 +90,7 @@ export class PhasesComponent implements OnInit {
       current = current.parentElement;
     }
     let phaseId = parseInt(current.getAttribute("data-phase"), 10);
-    console.log(phaseId);
+    // console.log(phaseId);
     this.projectsService.updateTaskPhaseId(taskId, phaseId);
   }
 
