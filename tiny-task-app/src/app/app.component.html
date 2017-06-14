@@ -16,8 +16,6 @@
           <a routerLink="teams" (click)="sidenav.toggle()" (click)="navService.changeToProjectsPage()" ><i class="material-icons">recent_actors</i>TEAMS</a>
           <hr/>
           <a routerLink="projects" (click)="sidenav.toggle()"><i class="material-icons">note</i>PROJECTS</a>
-          <hr/>
-          <a routerLink="" (click)="sidenav.toggle()"><i class="material-icons">date_range</i>CALENDAR</a>
         </div>
         <div *ngIf="navService.currentPage !== 'projects'" class="col">
           <hr/>
@@ -34,20 +32,15 @@
   </md-sidenav>
   <div class="content">
     <div *ngIf="showNav" class="mini-bar">
-      <a (click)="sidenav.toggle()">
-       <i class="material-icons">menu</i>
-      </a>
-      <a routerLink="teams" (click)="navService.changeToProjectsPage()">
-        <i class="material-icons">recent_actors</i>
-      </a>
-      <a routerLink="projects"><i class="material-icons">note</i></a>
-      <div *ngIf="navService.currentPage !== 'projects'" class="col">
-        <a [routerLink]="['/bulletinboard']"><i class="material-icons">forum</i></a>
-        <a routerLink="announcements"><i class="material-icons">folder_shared</i></a>
+      <div>
+        <a (click)="sidenav.toggle()" mdTooltip="Menu" mdTooltipPosition="after"><i class="material-icons">menu</i></a>
+        <a routerLink="teams" (click)="navService.changeToProjectsPage()"  mdTooltip="Teams" mdTooltipPosition="after"><i class="material-icons">recent_actors</i></a>
       </div>
-      <a class="example-fab">
-        <i class="material-icons" (click)="sidenav.toggle()">forum</i>
-      </a>
+      <a routerLink="projects"><i class="material-icons" mdTooltip="Projects" mdTooltipPosition="after">note</i></a>
+      <div *ngIf="navService.currentPage !== 'projects'" class="col">
+        <a [routerLink]="['/bulletinboard']"><i class="material-icons" mdTooltip="Bulletin Board" mdTooltipPosition="after">forum</i></a>
+        <a routerLink="announcements"><i class="material-icons" mdTooltip="Resources" mdTooltipPosition="after">folder_shared</i></a>
+      </div>
     </div>
     <div class="content-display">
       <router-outlet></router-outlet>
