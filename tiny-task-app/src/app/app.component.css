@@ -14,6 +14,7 @@ h2 {
 hr {
   width: 220px;
 }
+
 .side-nav {
    display: flex;
    flex-direction: column;
@@ -28,7 +29,7 @@ hr {
 .mini-bar {
   background-color: #333333;
   height: 100%;
-  padding: 8px;
+  padding: 6px;
   margin-right: 10px;
 }
 

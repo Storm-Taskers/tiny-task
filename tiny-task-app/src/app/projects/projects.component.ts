@@ -25,6 +25,10 @@ export class ProjectsComponent implements OnInit {
     // Render Navigation Bar
     this.navService.changeToProjectsPage();
 
+<<<<<<< 8083b90d291cc0249dcb028f246a519bbe3e6769
+=======
+
+>>>>>>> Hide mini bar when sidenav is visible
     this.value = this.navService.lastVisitedProject || 'all';
 
     this.projectsService.projects = [];
@@ -77,7 +81,11 @@ export class ProjectsComponent implements OnInit {
     this.projectsService.projects = [];
     if ( this.value !== 'all' ) {
       this.navService.lastVisitedProject = this.value;
+<<<<<<< 8083b90d291cc0249dcb028f246a519bbe3e6769
       this.teamService.currentTeam = this.value;
+=======
+      this.teamService.setCurrentTeam(this.value);
+>>>>>>> Hide mini bar when sidenav is visible
 
       this.projectsService.getTeamProjects(this.value).then(() => {
         this.projectsService.projectIds.forEach((projectId) => {
@@ -98,11 +106,24 @@ export class ProjectsComponent implements OnInit {
     this.projectsService.editProjectName(projectId, newName);
   }
 
+<<<<<<< 8083b90d291cc0249dcb028f246a519bbe3e6769
   updateProjectOrder($event: any) {
     console.log(this.projectsService.projects);
   }
 
   toggleCompleteProject(projectId: number, projectName: string, projectCompleted: boolean): void {
+=======
+  updateProjectOrder(event: any) {
+    console.log(this.projectsService.projects);
+  }
+
+  updateProjectStatus(event: any) {
+    this.toggleCompleteProject(event.dragData.id, event.dragData.project_name, event.dragData.complete)
+  }
+
+  toggleCompleteProject(projectId: number, projectName: string, projectCompleted: boolean): void {
+    // console.log(projectId, projectName, projectCompleted);
+>>>>>>> Hide mini bar when sidenav is visible
     this.projectsService.editProjectCompleteStatus(projectId, projectName, !projectCompleted);
   }
 

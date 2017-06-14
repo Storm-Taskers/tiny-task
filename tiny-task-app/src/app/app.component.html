@@ -4,7 +4,7 @@
   </header>
 <!--Render User Profile-->
 <md-sidenav-container class="pageView">
-  <md-sidenav #sidenav mode="push" opened="false">
+  <md-sidenav #sidenav mode="push" opened="false" (open-start)="toggleMiniBar()" (close-start)="toggleMiniBar()">
     <div class="user-info">
       <auth0 *ngIf="!authService.isAuthenticated()"></auth0>
       <user-info *ngIf="authService.isAuthenticated()"></user-info>
@@ -33,8 +33,8 @@
     </div>
   </md-sidenav>
   <div class="content">
-    <div class="mini-bar" (click)="sidenav.toggle()">
-      <button md-mini-fab class="example-fab" (click)="sidenav.toggle()">
+    <div *ngIf="showNav" class="mini-bar" (click)="sidenav.toggle()">
+      <button md-mini-fab class="example-fab">
         <md-icon>add</md-icon>
       </button>
     </div>
