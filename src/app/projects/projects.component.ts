@@ -37,19 +37,19 @@ export class ProjectsComponent implements OnInit {
         // Project Rendering
         this.projectsService.projectIds = userData.project_id;
         this.projectsService.projectIds.forEach((projectId) => {
-          this.projectsService.getProject(projectId);
+          this.projectsService.getProject(projectId, true);
         });
       });
     } else {
       this.teamService.getUserTeams(this.userService.userId);
       if ( this.projectsService.projectIds.length !== 0 ) {
         this.projectsService.projectIds.forEach((projectId) => {
-          this.projectsService.getProject(projectId);
+          this.projectsService.getProject(projectId, true);
         });
       } else {
         this.projectsService.getUserProjects(this.userService.userId).then(() => {
           this.projectsService.projectIds.forEach((projectId) => {
-            this.projectsService.getProject(projectId);
+            this.projectsService.getProject(projectId, true);
           })
         });
       }
@@ -81,14 +81,14 @@ export class ProjectsComponent implements OnInit {
 
       this.projectsService.getTeamProjects(this.value).then(() => {
         this.projectsService.projectIds.forEach((projectId) => {
-          this.projectsService.getProject(projectId);
+          this.projectsService.getProject(projectId, true);
         })
       });
     } else {
       this.navService.lastVisitedProject = 'all';
       this.projectsService.getUserProjects(this.userService.userId).then(() => {
         this.projectsService.projectIds.forEach((projectId) => {
-          this.projectsService.getProject(projectId);
+          this.projectsService.getProject(projectId, true);
         })
       });
     }

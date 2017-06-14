@@ -34,17 +34,19 @@ export class ProjectsService {
   }
 
   // Fetch Information
-  getProject(projectId: number): void {
+  getProject(projectId: number, mainView: boolean): void {
     this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then( (response) => {
         this.projects.push(response.json().project_info);
-        this.usersOnProject = response.json().user_info;
-        this.phases = response.json().phase_info;
-        this.currentProject = response.json().project_info;
-        this.totalWeight = 0;
-        this.completeWeight = 0;
-        this.progress = 0;
+        if ( !mainView ) {
+          this.totalWeight = 0;
+          this.completeWeight = 0;
+          this.progress = 0;
+          this.usersOnProject = response.json().user_info;
+          this.phases = response.json().phase_info;
+          this.currentProject = response.json().project_info;
+        }
       })
       .catch(this.handleError);
   }
@@ -68,6 +70,7 @@ export class ProjectsService {
 
                 this.totalWeight += task.task_weight;
                 this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
+                console.log(this.progress);
               });
               return response.json();
             })
