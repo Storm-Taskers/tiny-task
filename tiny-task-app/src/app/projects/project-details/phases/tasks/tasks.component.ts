@@ -37,19 +37,21 @@ export class TasksComponent {
     this.taskEditing = true;
     this.taskDrag = false;
     this.dragOperation = false;
+    console.log("disable all drag:", this.taskEditing, this.taskDrag, this.dragOperation)
 
+    this.taskEditingChange.emit(this.taskEditing);
     this.dragOperationChange.emit(this.dragOperation);
     this.taskDragChange.emit(this.taskDrag);
-    this.taskEditingChange.emit(this.taskEditing);
   }
 
   enablePhaseDrag(): void {
     this.taskEditing = false;
     this.taskDrag = false;
     this.dragOperation = true;
+    console.log("enable phase drag:", this.taskEditing, this.taskDrag, this.dragOperation);
     
-    this.dragOperationChange.emit(this.dragOperation);
-    this.taskDragChange.emit(this.taskDrag);
     this.taskEditingChange.emit(this.taskEditing);
+    this.dragOperationChange.emit(this.dragOperation);
+    this.taskDragChange.emit(this.taskDrag); 
   }
 }

@@ -1,22 +1,40 @@
 header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
   grid-area: header;
+  background-color: #444444;
+}
+
+h2 {
+  color: white;
+  margin: 0;
 }
 
 hr {
   width: 220px;
 }
+.side-nav {
+   display: flex;
+   flex-direction: column;
+}
 
 .container-nav {
   background-color: white;
-  grid-area: nav;
   padding: 30px;
-  border: .25px solid lightgrey;
-  box-shadow: 0px 2px 5px lightgrey;
+  height: 70%;
+}
+
+.mini-bar {
+  background-color: #333333;
+  height: 100%;
+  padding: 8px;
+  margin-right: 10px;
 }
 
 .pageView {
   grid-area: content;
-  padding: 10px;
+  height: 95vh;
 }
 
 .user-info {
@@ -24,16 +42,22 @@ hr {
   flex-direction: column;
   align-items: center;
   background-color: hsla(341, 59%, 48%, 1);
-  grid-area: profile;
   padding: 5px;
-  max-height: auto;
   box-shadow: 0px 2px 5px #888888;
+  height: 180px;
 }
 
 .col {
   display: flex;
   flex-direction: column;
   align-items: left;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  height: 100%;
 }
 
 a:link, a:visited {
@@ -57,14 +81,13 @@ a:hover, a:active {
 
 .app {
   display: grid;
-  grid-template-rows: 160px 3fr;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40px 1fr;
   grid-template-areas:
-  "profile content"
-  "nav content";
+  "header"
+  "content";
   grid-column-gap: 20px;
   margin: 0;
-  height: 95vh;
 }
 
 .nav-items {
@@ -75,4 +98,16 @@ a:hover, a:active {
 
 .material-icons {
   margin-right: 10px
+}
+
+.hide {
+  display: none;
+}
+
+.content-display {
+  width: 95%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: 10px; 
+  margin-left: 10px
 }
