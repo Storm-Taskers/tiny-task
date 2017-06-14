@@ -14,10 +14,26 @@ exports.addResource = (req, callback) => {
     });
 };
 
-// exports.retrieveResources = () => {
+exports.getResourcesByTeamId = (params, callback) => {
+  return models.Shared_Resources
+    .findAll({
+      where: {
+        team_id: params.team_id
+      }
+    })
+    .then(resources => {
+      callback(resources);
+    });
+};
 
-// }
-
-// exports.deleteResources = () => {
-
-// }
+exports.deleteResources = (params, callback) => {
+  models.Shared_Resources
+    .destroy({
+      where: {
+        id: params.resources_id
+      }
+    })
+    .then(() => {
+      callback("resourceDeleted");
+    });
+};

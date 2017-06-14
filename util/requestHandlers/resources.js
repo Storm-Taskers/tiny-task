@@ -1,18 +1,12 @@
 const helper = require("../helpers/resources.js");
 
 exports.resources = {
-  // retrieveResources: (req, res) => {
-  //   helper
-  //     .retrieveResource(req, () => {
-  //       res.end(JSON.stringify(res.body));
-  //     })
-  //     .then(resource => {
-  //       res.status(200).send("resource retrieved");
-  //     })
-  //     .catch(err => {
-  //       res.status(404).send(err, "error retrieving resource");
-  //     });
-  // },
+  retrieveResources: (req, res) => {
+    helper.getResourcesByTeamId(req.params, resources => {
+      res.send(resources);
+    });
+  },
+
   createNewResources: (req, res, isSeed) => {
     helper.addResource(req, result => {
       if (typeof isSeed === "function") {
@@ -23,7 +17,8 @@ exports.resources = {
         res.end();
       }
     });
-  }
+  },
+
   // updateResources: (req, res) => {
   //   helper
   //     .updateResource(req.body, () => {
@@ -36,5 +31,10 @@ exports.resources = {
   //       res.status(404).send(err, "error on updating resource");
   //     });
   // },
-  // deleteResources: (req, res) => {}
+
+  deleteResources: (req, res) => {
+    helper.deleteResources(req.params, message => {
+      res.status(200).send(message);
+    });
+  }
 };

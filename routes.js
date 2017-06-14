@@ -78,15 +78,18 @@ router.post("/announcements",handlerAnnouncements.announcements.createNewAnnounc
 router.put("/announcements/:announcement_id", handlerAnnouncements.announcements.updateAnnouncements);
 router.delete("/announcements/:announcement_id", handlerAnnouncements.announcements.deleteAnnouncements);
 
+////////RESOURCES/////////////////
+router.get("/resources/:team_id", handlerResources.resources.retrieveResources);
+router.post("/resources", handlerResources.resources.createNewResources);
+// router.put('/resources/:resources_id', handlerResources.resources.updateResources);
+router.delete(
+  "/resources/:resources_id",
+  handlerResources.resources.deleteResources
+);
+
 //////////MESSAGES/////////////////
 // router.get('/api/messages', handlerMessages.messages.retrieveMessages);
 // router.post('/api/messages', handlerMessages.messages.createNewMessages);
 // router.delete('/api/messages', handlerMessages.messages.deleteMessages);
-
-////////RESOURCES/////////////////
-// router.get('/resources/:team_id', handlerResources.resources.retrieveResources);
-router.post("/resources", handlerResources.resources.createNewResources);
-// router.put('/resources/:resources_id', handlerResources.resources.updateResources);
-// router.delete('/resources/:resources_id', handlerResources.resources.deleteResources);
 
 module.exports = router;
