@@ -1,36 +1,46 @@
 <div class="app">
-  <!--<header>
-    <h1>{{ title }}</h1>
-  </header>-->
+  <header>
+    <h2>{{ title }}</h2>
+  </header>
 <!--Render User Profile-->
-  <div class="user-info">
-    <auth0 *ngIf="!authService.isAuthenticated()"></auth0>
-    <user-info *ngIf="authService.isAuthenticated()"></user-info>
-  </div>
-<!--Render Nav Bar-->
-  <div class="container-nav">
-    <nav class="nav-bar">
-      <div class="col">
-        <a routerLink="teams" (click)="navService.changeToProjectsPage()" ><i class="material-icons">recent_actors</i>TEAMS</a>
-        <hr/>
-        <a routerLink="projects"><i class="material-icons">note</i>PROJECTS</a>
-        <hr/>
-        <a routerLink=""><i class="material-icons">date_range</i>CALENDAR</a>
-      </div>
-      <div *ngIf="navService.currentPage !== 'projects'" class="col">
-        <hr/>
-        <div class="nav-items">
-          <a [routerLink]="['/bulletinboard']"><i class="material-icons">forum</i>BULLETIN BOARD</a>
+<md-sidenav-container class="pageView">
+  <md-sidenav #sidenav mode="push" opened="false">
+    <div class="user-info">
+      <auth0 *ngIf="!authService.isAuthenticated()"></auth0>
+      <user-info *ngIf="authService.isAuthenticated()"></user-info>
+    </div>
+  <!--Render Nav Bar-->
+    <div class="container-nav">
+      <nav class="nav-bar">
+        <div class="col">
+          <a routerLink="teams" (click)="sidenav.toggle()" (click)="navService.changeToProjectsPage()" ><i class="material-icons">recent_actors</i>TEAMS</a>
+          <hr/>
+          <a routerLink="projects" (click)="sidenav.toggle()"><i class="material-icons">note</i>PROJECTS</a>
+          <hr/>
+          <a routerLink="" (click)="sidenav.toggle()"><i class="material-icons">date_range</i>CALENDAR</a>
         </div>
-        <hr/>
-        <div class="nav-items">
-          <a routerLink="announcements"><i class="material-icons">folder_shared</i>RESOURCES</a>
+        <div *ngIf="navService.currentPage !== 'projects'" class="col">
+          <hr/>
+          <div class="nav-items">
+            <a [routerLink]="['/bulletinboard']" (click)="sidenav.toggle()"><i class="material-icons">forum</i>BULLETIN BOARD</a>
+          </div>
+          <hr/>
+          <div class="nav-items">
+            <a routerLink="announcements"><i class="material-icons">folder_shared</i>RESOURCES</a>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
+  </md-sidenav>
+  <div class="content">
+    <div class="mini-bar" (click)="sidenav.toggle()">
+      <button md-mini-fab class="example-fab" (click)="sidenav.toggle()">
+        <md-icon>add</md-icon>
+      </button>
+    </div>
+    <div class="content-display">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-<!--Render Content-->
-  <div class="pageView">
-    <router-outlet></router-outlet>
-  </div>
+</md-sidenav-container>
 </div>

@@ -14,7 +14,7 @@ import { Task } from './tasks/Task';
 export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
   @Input() dragOperation: boolean = true;
-  @Input() taskEditing: boolean;
+  @Input() taskEditing: boolean = false;
   private phaseTasks: Task[];
   public taskDrag: boolean = false;
 
@@ -26,8 +26,9 @@ export class PhasesComponent implements OnInit {
       this.taskDrag = true;
       this.dragOperation = false;
       this.taskEditingChange.emit(!this.taskEditing);
+      //console.log("enable task drag:", this.taskEditing, this.taskDrag, this.dragOperation)
     }
-    
+    this.taskEditingChange.emit(this.taskEditing);
     this.dragOperationChange.emit(this.dragOperation);
   }
 
@@ -36,6 +37,7 @@ export class PhasesComponent implements OnInit {
       this.taskDrag = false;
       this.dragOperation = true;
       this.taskEditingChange.emit(!this.taskEditing);
+      //console.log("enable phase drag:", this.taskEditing, this.taskDrag, this.dragOperation)
     }
 
     this.taskEditingChange.emit(this.taskEditing);
@@ -80,10 +82,18 @@ export class PhasesComponent implements OnInit {
     this.phaseTasks.splice(this.phaseTasks.findIndex(task => task.id === taskId), 1);
   }
 
-  updateTaskPhaseId(event: any): void {
-    event.preventDefault();
-    console.log(event);
-  //  this.projectsService.updateTaskPhaseId(taskId, 1);
+  updateTaskPhaseId(event: any, taskId: number): void {
+    // debugger;
+    // event.preventDefault();
+    // console.log(event.target.parentElement.parentElement.getAttribute("data-phase"));
+   
+    let current = event.target;
+    while(!current.getAttribute("data-phase")) {
+      current = current.parentElement;
+    }
+    let phaseId = parseInt(current.getAttribute("data-phase"), 10);
+    console.log(phaseId);
+    this.projectsService.updateTaskPhaseId(taskId, phaseId);
   }
 
   toggleTaskComplete(taskId: number, task: Task) {

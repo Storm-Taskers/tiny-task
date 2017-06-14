@@ -1,7 +1,9 @@
 <div class="current-phases">
   <div class="project-header">
+    <strong>
     <inline-editor [(ngModel)]="phase.phase_name" (onSave)="editPhaseName(phase.id, $event); enableDrag()" name="phase.phase_name" size="15" min="1" max="50" (onError)="handleError()" (onCancel)="enableDrag()" (onEdit)="disableDrag()" type="text">
     </inline-editor>
+    </strong>
     <button md-icon-button [mdMenuTriggerFor]="menu">
       <i class="material-icons">more_vert</i>
     </button>
@@ -15,8 +17,8 @@
     </button>
   </md-menu>
 <!--Implement ngFor to create Phase Details (task)-->
-<div class="task-dropzone" dnd-sortable-container [sortableData]="phaseTasks">
-  <div *ngFor="let task of phaseTasks; let x = index" dnd-sortable [sortableIndex]="x" [dragEnabled]="taskDrag" (onDragEnd)="enableDrag()" (drop)="updateTaskPhaseId($event); enableDrag()" (mouseup)="enableDrag()">
+<div class="task-dropzone" dnd-sortable-container [sortableData]="phaseTasks" [attr.data-phase]="phase.id">
+  <div *ngFor="let task of phaseTasks; let x = index" dnd-sortable [sortableIndex]="x" [dragEnabled]="taskDrag" (onDragEnd)="enableDrag()" (drop)="updateTaskPhaseId($event, task.id); enableDrag()" (mouseup)="enableDrag()">
     <div [ngClass]="!task.complete ? 'task task-container': 'task-completed'" (mousedown)="disableDrag()">
       <tasks
         [task]="task"
