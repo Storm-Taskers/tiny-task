@@ -44,6 +44,7 @@ router.get(
   "/projects/teams/:team_id", handlerProjects.projects.retrieveProjectsByTeam
 );
 router.get("/projects/user/:user_id", handlerUsers.users.retrieveProjectIds);
+router.get("/projects/teams/:team_id/users/:user_id", handlerProjects.projects.retrieveProjectAndTasks);
 
 //////////PHASES/////////////////
 router.post("/phases/:project_id", handlerPhases.phases.createNewPhases);
