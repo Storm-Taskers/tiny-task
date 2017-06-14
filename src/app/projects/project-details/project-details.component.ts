@@ -32,6 +32,9 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Reset Progress Bar
+    this.projectsService.phases = [];
+
     // Render Navigation Bar
     this.navService.changeToDetailsPage();
 
@@ -39,7 +42,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.route.params.subscribe(params => this.selectedProjectId = +params['id']);
 
     // Get Project Info
-    this.route.params.subscribe(params => this.projectsService.getProject(+params['id']));
+    this.route.params.subscribe(params => this.projectsService.getProject(+params['id'], false));
   }
 
   addNewPhase(): void {
