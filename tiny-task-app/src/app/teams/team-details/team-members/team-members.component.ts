@@ -34,7 +34,7 @@ export class TeamMembersComponent implements OnInit {
   ngOnInit() {
     // Get Current User Id and Information
     this.route.params.subscribe(params => {
-      if ( typeof params['teamUserId'] !== 'undefined' ) {
+      if ( typeof params['teamUserId'] !== 'undefined' && typeof this.userService.userProfile !== 'undefined' ) {
         this.selectedUserId = +params['teamUserId'];
         this.userService.getUserProfile(this.selectedUserId)
           .then(userProfile => this.selectedUserInfo = userProfile);
