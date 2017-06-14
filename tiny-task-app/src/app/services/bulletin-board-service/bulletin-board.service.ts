@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 import { Announcement } from '../../bulletin-board/announcement';
-
+import { User } from '../../projects/project-details/project-user/User';
 
 @Injectable()
 export class BulletinBoardService {
@@ -13,7 +13,7 @@ export class BulletinBoardService {
   private baseUrl: string = 'http://localhost:8080';
 
   public announcements: Announcement[] = [];
-  public announcementUser: number [];
+  public announcementUser: Array<User> = [];
 
 
   constructor(private http: Http) { }
@@ -28,11 +28,7 @@ export class BulletinBoardService {
     this.http.get(`${this.baseUrl}/api/announcements/${teamId}`)
       .toPromise()
       .then( (response) => {
-        console.log(response.json());
-        this.announcements = response.json().announcement_info;
-        this.announcementUser = response.json().user_info;
-        console.log(this.announcements, 'announcement object');
-        console.log(this.announcementUser, 'user object');
+        this.announcements = response.json();
       })
       .catch(this.handleError);
   }
@@ -53,12 +49,15 @@ export class BulletinBoardService {
 
   // Edit Information
   editAnnouncement(announcementId: number, announcement: string): void {
+    console.log(announcementId, 'id inside service');
+    console.log(announcement, 'announcement inside service');
     this.http.put(
       `${this.baseUrl}/api/announcements/${announcementId}`,
       JSON.stringify({announcementId: announcementId, announcementChanges: {announcement: announcement}}),
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
+        console.log(response, 'after put request');
         this.announcements.find(announcement => announcementId === announcementId)
       })
       .catch(this.handleError);

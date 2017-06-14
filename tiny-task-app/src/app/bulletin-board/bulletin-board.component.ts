@@ -24,7 +24,7 @@ export class BulletinBoardComponent implements OnInit {
 
 
   ngOnInit() {
-    this.bulletinBoardService.getAnnouncements(this.teamId);
+      this.bulletinBoardService.getAnnouncements(this.teamId);
   }
 
   addNewAnnouncement(announcement: string): void {
@@ -43,7 +43,9 @@ export class BulletinBoardComponent implements OnInit {
     }
   }
 
-  editAnnouncement(announcementId: number, announcement: string): void {
+  editAnnouncement(announcement: string, announcementId: number): void {
+    console.log(announcement, 'announcement');
+    console.log(announcementId, 'id');
     this.bulletinBoardService.editAnnouncement(announcementId, announcement);
   }
 
