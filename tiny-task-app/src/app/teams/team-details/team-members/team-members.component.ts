@@ -18,7 +18,8 @@ export class TeamMembersComponent implements OnInit {
   private selectedUserId: number;
   private selectedUserInfo: User;
   private userTasks: Task[] = [];
-  private loadNoUser: boolean;
+  private loadAllProjects: boolean;
+  private projectsAndTasks: any;
 
   constructor(
     private projectsService: ProjectsService,
@@ -34,11 +35,13 @@ export class TeamMembersComponent implements OnInit {
       this.selectedUserId = +params['id'];
 
       if ( typeof params['teamUserId'] !== 'undefined' && typeof this.teamService.currentTeam !== 'undefined' ) {
-        console.log(this.teamService.currentTeam);
+        this.loadAllProjects = true;
         this.projectsService.getUserProjectsAndTasks(this.selectedUserId, +params['teamUserId']).then(projectsAndTasks => {
-          console.log(projectsAndTasks);
+          this.projectsAndTasks = projectsAndTasks;
+          console.log(this.projectsAndTasks);
         });
       } else if ( typeof this.projectsService.usersOnProject !== 'undefined' ) {
+          this.loadAllProjects = false;
           this.selectedUserInfo = this.projectsService.usersOnProject.find((user) => user.id === this.selectedUserId);
           // Render User's tasks
           this.projectsService.getUserTasks(this.selectedUserId, this.projectsService.currentProject.id).then((tasks) => {

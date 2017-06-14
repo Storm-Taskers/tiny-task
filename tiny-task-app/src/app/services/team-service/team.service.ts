@@ -28,10 +28,6 @@ export class TeamService {
     return Promise.reject(error.message || error);
   }
 
-  setCurrentTeam(id: number): void {
-    this.currentTeam = id;
-  }
-
   // Get Information
   getUserTeams(userId: number): void {
     this.http.get(`${this.baseUrl}/api/teams/users/${userId}`)
