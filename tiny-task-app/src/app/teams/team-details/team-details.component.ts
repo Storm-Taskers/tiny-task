@@ -37,7 +37,7 @@ export class TeamDetailsComponent implements OnInit {
 
   ngOnInit() {
     // Get Current Team Id
-    this.route.params.subscribe(params => this.teamId = +params['id']);
+    this.route.params.subscribe(params => this.teamService.currentTeam = this.teamId = +params['id']);
 
     // Get Team Info
     this.route.params.subscribe(params => this.teamService.getTeamInfo(+params['id']));
