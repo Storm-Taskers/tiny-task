@@ -20,6 +20,7 @@ import { NavService } from './services/nav-service/nav.service';
 import { TeamService } from './services/team-service/team.service';
 import { AuthService } from './services/auth-service/auth.service';
 import { BulletinBoardService } from './services/bulletin-board-service/bulletin-board.service';
+import { SharedResourceService } from './services/shared-resources-service/shared-resources.service';
 
 // Import application sub-components
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -32,7 +33,8 @@ import { TeamMembersComponent } from './teams/team-details/team-members/team-mem
 import { TasksComponent } from './projects/project-details/phases/tasks/tasks.component';
 import { UserDetailsComponent } from './projects/project-details/project-user/user-details/user-details.component';
 import { CallbackComponent } from './auth0/callback/callback.component';
-import { BulletinBoardComponent } from './bulletin-board/bulletin-board.component'
+import { BulletinBoardComponent } from './bulletin-board/bulletin-board.component';
+import { SharedResourceComponent } from './shared-resources/shared-resources.component'
 
 // Import Materials
 import { MaterialModule } from './material-modules/material.module';
@@ -60,7 +62,8 @@ import { DndModule } from 'ng2-dnd';
     TeamDetailsComponent,
     PageNotFoundComponent,
     Auth0Component,
-    BulletinBoardComponent
+    BulletinBoardComponent,
+    SharedResourceComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,7 @@ import { DndModule } from 'ng2-dnd';
     RouterModule.forRoot(ROUTES, { useHash: true }),
     DndModule.forRoot()
   ],
-  providers: [UserService, ProjectsService, NavService, TeamService, AuthService, BulletinBoardService],
+  providers: [UserService, ProjectsService, NavService, TeamService, AuthService, BulletinBoardService, SharedResourceService],
   bootstrap: [AppComponent]
 })
 
