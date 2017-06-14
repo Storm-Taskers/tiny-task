@@ -10,7 +10,7 @@ import { User } from '../../projects/project-details/project-user/User';
 @Injectable()
 export class SharedResourceService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = 'http://localhost:8080';
+  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
 
   public resources: Resource[] = [];
   public resourceUser: Array<User> = [];
