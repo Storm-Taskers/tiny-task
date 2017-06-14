@@ -13,7 +13,7 @@ import { User } from '../../projects/project-details/project-user/User';
 @Injectable()
 export class ProjectsService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = 'http://localhost:8080';
+  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
 
   public projectIds: number[] = [];
 

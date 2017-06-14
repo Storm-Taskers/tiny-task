@@ -6,13 +6,14 @@ import auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
-  
+  private redirectUri = `${process.env.BASE_URL}/callback` || 'http://localhost:4200/callback';
+
   auth0 = new auth0.WebAuth({
     clientID: 'WCqZCPIb7LQzup2tz-RKh-jurybqDAbL',
     domain: 'tinytask.auth0.com',
     responseType: 'token id_token',
     audience: 'https://tinytask.auth0.com/userinfo',
-    redirectUri: 'http://localhost:4200/callback',
+    redirectUri: this.redirectUri,
     scope: 'openid profile email',
     leeway: 30
   });
@@ -20,7 +21,7 @@ export class AuthService {
   userProfile: any;
 
   constructor(public router: Router) {}
-  
+
   public login(): void {
     this.auth0.authorize();
   }
