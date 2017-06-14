@@ -1,13 +1,27 @@
-const helper = require("../helpers/announcements.js");
+const announcementHelper = require('../helpers/announcements.js');
+const userHelper = require('../helpers/users.js');
 
 exports.announcements = {
   retrieveAnnouncements: (req, res) => {
-    helper.getAnnouncementsByTeamId(req.params, announcements => {
-      res.send(announcements);
+    let announcementData = {};
+    announcementHelper.getAnnouncementsByTeamId(req.params, announcements => {
+      announcementData.announcement_info = announcements;
+      let index = 0;
+      announcements.forEach(announcement => {
+        userHelper.retrieveUserProfile(announcement.dataValues.user_id, (userProfile) => {
+          console.log(announcement.dataValues.user_id, 'userId');
+          console.log(userProfile, 'userProfile');
+          announcementData.user_info = userProfile;
+          index++;
+          if(index === announcements.length-1) {
+            res.send(announcementData);
+          }
+        });
+      });
     });
   },
   createNewAnnouncements: (req, res, isSeed) => {
-    helper.addAnnouncement(req, (err, result) => {
+    announcementHelper.addAnnouncement(req, (err, result) => {
       if (err) {
         return res.status(500).send("server error");
       } else if (typeof isSeed === "function") {
@@ -20,7 +34,7 @@ exports.announcements = {
     });
   },
   updateAnnouncements: (req, res) => {
-    helper.updateAnnouncement(req, (err, result) => {
+    announcementHelper.updateAnnouncement(req, (err, result) => {
       if (err) {
         return res.status(500).send("server error");
       } else {
@@ -31,7 +45,7 @@ exports.announcements = {
     });
   },
   deleteAnnouncements: (req, res) => {
-    helper.deleteAnnouncement(req.params, message => {
+    announcementHelper.deleteAnnouncement(req.params, message => {
       res.status(200).send(message);
     });
   }

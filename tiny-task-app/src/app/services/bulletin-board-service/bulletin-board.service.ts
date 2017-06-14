@@ -12,9 +12,7 @@ export class BulletinBoardService {
   private headers = new Headers({'Content-type': 'application/JSON'});
   private baseUrl: string = 'http://localhost:8080';
 
-  public announcementIds: number[] = [];
-
-  public announcements: string[] = [];
+  public announcements: Announcement[] = [];
   public announcementUser: number [];
 
 
@@ -27,15 +25,14 @@ export class BulletinBoardService {
 
   // Fetch Information
   getAnnouncements(teamId: number): void {
-    console.log(teamId, 'teamId');
     this.http.get(`${this.baseUrl}/api/announcements/${teamId}`)
       .toPromise()
       .then( (response) => {
-        console.log(this.announcements, 'announcement array');
-        console.log(response.json(), 'response');
-        this.announcements = response.json();
-      }).then(() => {
-        console.log(this.announcements, 'announcements');
+        console.log(response.json());
+        this.announcements = response.json().announcement_info;
+        this.announcementUser = response.json().user_info;
+        console.log(this.announcements, 'announcement object');
+        console.log(this.announcementUser, 'user object');
       })
       .catch(this.handleError);
   }
@@ -49,7 +46,7 @@ export class BulletinBoardService {
       .toPromise()
       .then( (response) => {
         this.announcements.push(response.json().announcement);
-        this.announcementIds.push(response.json().id);
+        this.announcementUser.push(response.json().user_id);
       })
       .catch(this.handleError);
   }
@@ -72,7 +69,7 @@ export class BulletinBoardService {
     this.http.delete(`${this.baseUrl}/api/announcements/${announcementId}`)
       .toPromise()
       .then( (response) => {
-        let announcementToRemove = this.announcements.findIndex(announcement => announcementId === announcementId);
+        let announcementToRemove = this.announcements.findIndex(announcement => announcement.id === announcementId);
         this.announcements.splice(announcementToRemove, 1);
       })
       .catch(this.handleError);

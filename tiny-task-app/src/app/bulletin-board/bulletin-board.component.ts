@@ -25,7 +25,6 @@ export class BulletinBoardComponent implements OnInit {
 
   ngOnInit() {
     this.bulletinBoardService.getAnnouncements(this.teamId);
-    console.log(this.bulletinBoardService.announcements, 'inside ngoninit');
   }
 
   addNewAnnouncement(announcement: string): void {

@@ -16,6 +16,10 @@
     class="announcement">
     <div class="eachAnnouncement">
       {{ announcement.announcement }}
+      <div
+        *ngFor="let user of bulletinBoardService.announcementUser">
+        <div>{{ user.full_name }}</div>
+      </div>
       <button md-icon-button (click)="deleteAnnouncement(announcement.id, announcement.announcement); $event.stopPropagation()" >
         <i class="material-icons">delete</i>
       </button>
