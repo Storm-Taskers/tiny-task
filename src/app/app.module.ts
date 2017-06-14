@@ -21,6 +21,7 @@ import { TeamService } from './services/team-service/team.service';
 import { AuthService } from './services/auth-service/auth.service';
 import { BulletinBoardService } from './services/bulletin-board-service/bulletin-board.service';
 import { SharedResourceService } from './services/shared-resources-service/shared-resources.service';
+import { DragService} from './services/drag-service/drag.service';
 
 // Import application sub-components
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -75,7 +76,7 @@ import { DndModule } from 'ng2-dnd';
     RouterModule.forRoot(ROUTES, { useHash: true }),
     DndModule.forRoot()
   ],
-  providers: [UserService, ProjectsService, NavService, TeamService, AuthService, BulletinBoardService, SharedResourceService],
+  providers: [UserService, ProjectsService, NavService, TeamService, AuthService, BulletinBoardService, DragService, SharedResourceService],
   bootstrap: [AppComponent]
 })
 
