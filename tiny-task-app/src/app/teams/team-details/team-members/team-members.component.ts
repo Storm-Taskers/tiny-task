@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { ProjectsService } from '../../../services/projects-service/projects.service';
 import { TeamService } from '../../../services/team-service/team.service';
+import { UserService } from '../../../services/user-service/user.service';
 
 import { User } from '../../../projects/project-details/project-user/User';
 import { Task } from '../../../projects/project-details/phases/tasks/Task';
@@ -24,6 +25,7 @@ export class TeamMembersComponent implements OnInit {
   constructor(
     private projectsService: ProjectsService,
     private teamService: TeamService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location
@@ -32,15 +34,16 @@ export class TeamMembersComponent implements OnInit {
   ngOnInit() {
     // Get Current User Id and Information
     this.route.params.subscribe(params => {
-      this.selectedUserId = +params['id'];
-
-      if ( typeof params['teamUserId'] !== 'undefined' && typeof this.teamService.currentTeam !== 'undefined' ) {
+      if ( typeof params['teamUserId'] !== 'undefined' ) {
+        this.selectedUserId = +params['teamUserId'];
+        this.userService.getUserProfile(this.selectedUserId)
+          .then(userProfile => this.selectedUserInfo = userProfile);
         this.loadAllProjects = true;
-        this.projectsService.getUserProjectsAndTasks(this.selectedUserId, +params['teamUserId']).then(projectsAndTasks => {
+        this.projectsService.getUserProjectsAndTasks(this.selectedUserId, +params['id']).then(projectsAndTasks => {
           this.projectsAndTasks = projectsAndTasks;
-          console.log(this.projectsAndTasks);
         });
       } else if ( typeof this.projectsService.usersOnProject !== 'undefined' ) {
+          this.selectedUserId = +params['id'];
           this.loadAllProjects = false;
           this.selectedUserInfo = this.projectsService.usersOnProject.find((user) => user.id === this.selectedUserId);
           // Render User's tasks

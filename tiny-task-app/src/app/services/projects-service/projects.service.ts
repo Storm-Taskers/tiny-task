@@ -105,7 +105,6 @@ export class ProjectsService {
     return this.http.get(`${this.baseUrl}/api/projects/teams/${teamId}/users/${userId}`)
       .toPromise()
       .then( (response) => {
-        console.log(response.json());
         return response.json();
       })
       .catch(this.handleError);
