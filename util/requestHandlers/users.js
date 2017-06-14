@@ -36,9 +36,14 @@ exports.extractProjectId = (teams, callback) => {
 exports.users = {
   retrieveUser: (req, res) => {
     var userData = {};
-    helperUsers.retrieveUser(req.params.auth_token, userProfile => {
-      if (userProfile.length === 0) {
-        res.send(userData);
+    let authToken = req.params.auth_info;
+    helperUsers.retrieveUser(authToken, userProfile => {
+      if (userProfile === null) {
+        helperUsers.addUserProfile(req.body, userProfile => {
+          helperUsers.addUsers(authToken, userProfile.id, user => {
+            res.send(user);
+          });
+        });
       } else {
         userData.user_profile = userProfile;
         helperTeams.retrieveUserTeams(userProfile.id, teams => {

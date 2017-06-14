@@ -23,8 +23,11 @@ export class UserService {
     return Promise.reject(error.message || error);
   }
 
-  getUserInfo(token: string): void {
-    this.http.get(`${this.baseUrl}/api/users/${token}`)
+  getUserInfo(token: any): void {
+    this.http.post(
+      `${this.baseUrl}/api/users/${token.sub}`,
+       JSON.stringify(token),
+       {headers: this.headers})
       .toPromise()
       .then( (response) => {
         this.userProfile = response.json().user_profile;
@@ -32,7 +35,7 @@ export class UserService {
         this.userUpdate.emit(response.json());
       })
       .catch(this.handleError);
-    }
+  }
 
   getUserProfile(userId: number): Promise<User> {
     return this.http.get(`${this.baseUrl}/api/users/profile/${userId}`)

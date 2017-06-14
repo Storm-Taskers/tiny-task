@@ -20,7 +20,7 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getProfile((err, profile) => {
-      this.userService.getUserInfo(this.authService.userProfile.given_name)
+      this.userService.getUserInfo(this.authService.userProfile);
     });
     console.log('Initiated');
   }
