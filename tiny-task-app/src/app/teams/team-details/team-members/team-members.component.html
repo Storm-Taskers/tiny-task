@@ -20,18 +20,19 @@
 </div>
 
 <ng-template #allProjects>
+  <div class="container-tasks">
+    <h3>{{ selectedUserInfo?.full_name.split(' ')[0] + '\'s Projects and Tasks' }}</h3>
+  </div>
+  <hr/>
+
   <div *ngFor="let projectTask of projectsAndTasks">
     <div class="container-projects">
       <h1>{{ projectTask.project_info.project_name }}</h1>
     </div>
     <hr/>
 
-    <div class="container-tasks">
-      <h3>{{ selectedUserInfo?.full_name.split(' ')[0] + '\'s Tasks' }}</h3>
-    </div>
-    <hr/>
 
-    <h3 *ngFor="let task of projectTask.task_info">{{ task.task_name }}</h3>
+    <h4 *ngFor="let task of projectTask.tasks_info">{{ task.task_name }}</h4>
 
   </div>
 </ng-template>
