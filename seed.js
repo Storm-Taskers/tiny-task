@@ -28,7 +28,7 @@ const seedData = [
           full_name: "Kevin Nguyen",
           email: "kevinN@tinytask.com",
           user_color: "blue",
-          user_status: "Slacking off",
+          user_status: "Adding Styling",
           user_availability: "false"
         }
       },
@@ -48,7 +48,7 @@ const seedData = [
           full_name: "Brian Leung",
           email: "brianl@tinytask.com",
           user_color: "black",
-          user_status: "Eating a hot pocket",
+          user_status: "Building out user profiles",
           user_availability: "false"
         }
       },
@@ -68,7 +68,7 @@ const seedData = [
           full_name: "David Hsiao",
           email: "davidh@tinytask.com",
           user_color: "yellow",
-          user_status: "Working hard",
+          user_status: "Connecting apis",
           user_availability: "true"
         }
       },
@@ -88,7 +88,7 @@ const seedData = [
           full_name: "Beth Stevic",
           email: "beths@tinytask.com",
           user_color: "green",
-          user_status: "Working hard",
+          user_status: "Debugging deployment",
           user_availability: "true"
         }
       },
@@ -491,8 +491,63 @@ const seedData = [
     return handlerAnnouncements.announcements.createNewAnnouncements(
       {
         body: {
-          announcement: "Warriors 17 NBA Champs",
-          user_id: "1",
+          announcement: "Scrum stand ups daily at 8:30am",
+          user_id: 1,
+          team_id: 1
+        }
+      },
+      {
+        end: () => {
+          console.log("seed announcement added");
+        }
+      },
+      true
+    );
+  },
+
+() => {
+    return handlerAnnouncements.announcements.createNewAnnouncements(
+      {
+        body: {
+          announcement: "Check out the new Angular documents posted in the resources",
+          user_id: 2,
+          team_id: 1
+        }
+      },
+      {
+        end: () => {
+          console.log("seed announcement added");
+        }
+      },
+      true
+    );
+  },
+
+
+  () => {
+    return handlerAnnouncements.announcements.createNewAnnouncements(
+      {
+        body: {
+          announcement: "Sign up to go to the game on Friday",
+          user_id: 3,
+          team_id: 1
+        }
+      },
+      {
+        end: () => {
+          console.log("seed announcement added");
+        }
+      },
+      true
+    );
+  },
+
+  () => {
+    return handlerAnnouncements.announcements.createNewAnnouncements(
+      {
+        body: {
+          announcement: "Weekly Meeting Moved to Mondays at 9am",
+          user_id: 4,
           team_id: 1
         }
       },
@@ -504,6 +559,7 @@ const seedData = [
       true
     );
   }
+
 ];
 
 const seed = () => {

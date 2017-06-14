@@ -1,35 +1,28 @@
 <div class="header">
-  <h2 class="h2-header">Announcements
-    <button md-icon-button (click)="addNewAnnouncement()">
-     <i class="material-icons">library_add</i>
+  <h2 class="h2-header">Team Announcements
+    <button md-icon-button (click)="addNewAnnouncement(nameField)">
+      <i class="material-icons">library_add</i>
     </button>
+    <input [(ngModel)]="nameField" value="nameField" placeholder="Add New Announcement" (keyup.enter)="addNewAnnouncement(nameField)">
   </h2>
 </div>
 <hr/>
 
-<div class="container-announcement" dnd-sortable-container [sortableData]="BulletinBoardService.announcements">
-<!--Implement ngFor to create Projects-->
-  <div *ngFor="let announcement of announcementsService.announcements; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateProjectOrder()">
-    <div *ngIf="!announcement.complete" class="current-announcement">
-      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/announcements', announcement.id]">
-      <div>
-        <div class="announcement-header">
-          <inline-editor type="text" [(ngModel)]="announcement.announcement_name" (onSave)="editAnnouncementName(announcement.id, $event)" name="announcementText" size="15"  min="1" max="50" (onError)="handleError()" placeholder="Announcement Name"></inline-editor>
-          <button md-icon-button [mdMenuTriggerFor]="menu">
-            <i class="material-icons">more_vert</i>
-          </button>
-        </div>
-      </div>
+<div class="container-announcement">
+<!--Implement ngFor to create Announcements-->
+  <div
+    *ngFor="let announcement of bulletinBoardService.announcements"
+    class="announcement">
+    <div class="eachAnnouncement">
+      <td contenteditable="true" [textContent]="announcement.announcement" (input)="editAnnouncement($event.target.textContent, announcement.id)">{{ announcement.announcement }} </td>
+<!--       <div
+        *ngFor="let user of bulletinBoardService.announcements.user_info">
+        <div>{{ user.full_name }}</div>
+      </div> -->
+      <button md-icon-button (click)="deleteAnnouncement(announcement.id, announcement.announcement); $event.stopPropagation()" >
+        <i class="material-icons">delete</i>
+      </button>
     </div>
-    <md-menu #menu="mdMenu">
-      <button md-menu-item (click)="deleteAnnouncement(announcement.id, announcement.announcement_name)">
-        <div class="menu-item">
-          <i class="material-icons">delete_forever</i>
-          <span>Delete Announcement</span>
-        </div>
-        </button>
-    </md-menu>
   </div>
-
-
 </div>
+

@@ -63,22 +63,10 @@ router.delete(
 router.get("/tasks/:project_id/users/:user_id", handlerTasks.tasks.retrieveUserTasks);
 
 ////////ANNOUNCEMENTS/////////////////
-router.get(
-  "/announcements/:team_id",
-  handlerAnnouncements.announcements.retrieveAnnouncements
-);
-router.post(
-  "/announcements",
-  handlerAnnouncements.announcements.createNewAnnouncements
-);
-router.put(
-  "/announcements/:announcement_id",
-  handlerAnnouncements.announcements.updateAnnouncements
-);
-router.delete(
-  "/announcements/:announcement_id",
-  handlerAnnouncements.announcements.deleteAnnouncements
-);
+router.get("/announcements/:team_id", handlerAnnouncements.announcements.retrieveAnnouncements);
+router.post("/announcements",handlerAnnouncements.announcements.createNewAnnouncements);
+router.put("/announcements/:announcement_id", handlerAnnouncements.announcements.updateAnnouncements);
+router.delete("/announcements/:announcement_id", handlerAnnouncements.announcements.deleteAnnouncements);
 
 //////////MESSAGES/////////////////
 // router.get('/api/messages', handlerMessages.messages.retrieveMessages);
