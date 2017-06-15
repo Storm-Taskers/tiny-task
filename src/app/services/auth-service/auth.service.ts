@@ -7,7 +7,9 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {
+
   private redirectUri = environment.appUrl + '/callback';
+
 
   auth0 = new auth0.WebAuth({
     clientID: 'WCqZCPIb7LQzup2tz-RKh-jurybqDAbL',
