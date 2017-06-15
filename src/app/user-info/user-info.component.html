@@ -6,7 +6,7 @@
   <button
     class="btn btn-primary btn-margin"
     *ngIf="authService.isAuthenticated()"
-    (click)="authService.logout()">
+    (click)="authService.logout(); clearProject()">
       Log Out
   </button>
 </div>
