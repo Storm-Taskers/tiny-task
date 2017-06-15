@@ -3,14 +3,12 @@ const models = require('../../db/models.js');
 
 exports.addAnnouncement = (req, callback) => {
   models.Announcements.create({
-      announcement: req.body.announcement,
-      user_id: req.body.user_id,
-      team_id: req.body.team_id
-    }).then(announcement => {
-      callback(null, announcement.dataValues);
-    }).catch(err => {
-      callback(err, null);
-    });
+    announcement: req.body.announcement,
+    user_id: req.body.user_id,
+    team_id: req.body.team_id
+  }).then(announcement => {
+    callback(announcement.dataValues);
+  });
 };
 
 exports.getAnnouncementsByTeamId = (params, callback) => {

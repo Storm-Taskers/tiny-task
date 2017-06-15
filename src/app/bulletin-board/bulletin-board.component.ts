@@ -30,8 +30,11 @@ export class BulletinBoardComponent implements OnInit {
   addNewAnnouncement(announcement: string): void {
     let teamId: number = this.teamService.currentTeam;
     let userId: number = this.userService.userId;
-
+    console.log(this.teamService.currentTeam);
     if (announcement !== '' && typeof announcement !== 'undefined') {
+      console.log(announcement, 'inside component');
+      console.log(teamId, 'team id');
+      console.log(userId, 'user id');
       this.bulletinBoardService.createAnnouncement(teamId, userId, announcement);
       this.nameField = '';
     }

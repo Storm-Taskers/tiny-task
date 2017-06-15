@@ -22,16 +22,17 @@ exports.announcements = {
     });
   },
   createNewAnnouncements: (req, res, isSeed) => {
-    announcementHelper.addAnnouncement(req, (err, result) => {
-      if (err) {
-        return res.status(500).send("server error");
-      } else if (typeof isSeed === "function") {
-        res.status(200).send(result);
-        res.end();
-      } else {
-        console.log("seed announcement added");
-        res.end();
-      }
+    announcementHelper.addAnnouncement(req, (result) => {
+      userHelper.retrieveProfile(req.body.user_id, (userProfile) => {
+        result.userName = userProfile.full_name;
+        if (typeof isSeed === "function") {
+          res.status(200).send(result);
+          res.end();
+        } else {
+          console.log("seed announcement added");
+          res.end();
+        }
+      });
     });
   },
   updateAnnouncements: (req, res) => {
