@@ -12,8 +12,8 @@ import { ProjectsService } from '../../services/projects-service/projects.servic
 })
 
 export class AssignUserTaskComponent {
-
   private results: Object = this.data;
+
   constructor(
     @Inject(MD_DIALOG_DATA) public data: any,
     private dialogRef: MdDialogRef<AssignUserTaskComponent>,
