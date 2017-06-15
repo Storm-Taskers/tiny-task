@@ -1,10 +1,15 @@
 <div class="info">
   <div class="user-name">{{ userService.userProfile?.full_name }}</div>
-  <div class="email">{{ userService.userProfile?.email }}</div>
-  <i class="material-icons md-48">account_circle</i>
-  <!--<a routerLink="profile">Account Settings</a>-->
+  <div class="email">{{ userEmail }}</div>
+  <img class="image-circle" src="{{userImg}}"/>
+  <!--<i class="material-icons md-48">account_circle</i>-->
+  <div>Status:</div>
+  <div class="status">
+    <inline-editor [(ngModel)]="status" (onSave)="updateUserStatus($event)" name="UserStatus" size="15" min="0" max="50" (onError)="handleError()" placeholder="Type Status" type="text">
+    </inline-editor>
+  </div>
   <button
-    class="btn btn-primary btn-margin"
+    class="myButton"
     *ngIf="authService.isAuthenticated()"
 <<<<<<< 428618f97afc5e526b22a5f1c2053a68f761dd02
 <<<<<<< f7b46ed54ad8bffbfd9a41ec7f4bbe2bca492115

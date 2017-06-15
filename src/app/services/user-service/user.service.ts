@@ -46,4 +46,16 @@ export class UserService {
             })
             .catch(this.handleError);
   }
+
+  updateUserStatus(status: string): void {
+    this.http.put(
+      `${this.baseUrl}/api/users/${this.userId}`, 
+      JSON.stringify({user_status: status}), 
+      {headers: this.headers})
+      .toPromise()
+      .then(response => {
+        return response.json();
+      })
+      .catch(this.handleError);
+  }
 }

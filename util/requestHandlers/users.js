@@ -118,6 +118,7 @@ exports.users = {
   },
 
   updateUser: (req, res) => {
+    console.log(req.params, req.body);
     helperUsers.updateUserProfiles(req.params, req.body, (err, message) => {
       if (err) {
         res.status(500).send("server error");

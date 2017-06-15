@@ -22,13 +22,15 @@
 <!--Implement ngFor to create Projects-->
   <div *ngFor="let project of projectsService.projects; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateProjectOrder()" [dragData]="project">
     <div *ngIf="!project.complete" class="current-project">
-      <img src="http://dia.tv/wp-content/uploads/2014/08/Project_logo_02.png" (click)="showDetails()" [routerLink]="['/projects', project.id]">
       <div>
-        <div class="project-header">
+        <div class="project-header" >
           <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="editProjectName(project.id, $event)" name="projectText" size="15"  min="1" max="50" (onError)="handleError()" placeholder="Project Name"></inline-editor>
           <button md-icon-button [mdMenuTriggerFor]="menu">
             <i class="material-icons">more_vert</i>
           </button>
+        </div>
+        <div class="project-content" (click)="showDetails()" [routerLink]="['/projects', project.id]">
+        Render me Timbers
         </div>
       </div>
     </div>
