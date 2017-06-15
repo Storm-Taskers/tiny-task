@@ -31,9 +31,9 @@ exports.retrieveProfile = (userId, callback) => {
   });
 };
 
-exports.addUsers = (body, id, callback) => {
+exports.addUsers = (token, id, callback) => {
   models.Users.create({
-      auth_token: body.auth_token,
+      auth_token: token,
       user_profile_id: id
     }).then((result) => {
       callback(null, result);
@@ -42,12 +42,12 @@ exports.addUsers = (body, id, callback) => {
     });
 };
 
-exports.addUserProfile = (body, callback) => {
+exports.addUserProfile = (authInfo, callback) => {
   models.User_Profile.create({
-      full_name: body.full_name,
-      email: body.email,
-      user_status: body.user_status,
-      user_availability: body.user_availability
+      full_name: authInfo.name,
+      email: authInfo.nickname,
+      user_status: 'Newly Created Account!',
+      user_availability: 'Available'
     }).then((result) => {
       callback(result);
     });

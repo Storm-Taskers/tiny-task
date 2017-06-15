@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class TeamService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = environment.url;
+  private baseUrl: string = environment.serverUrl;
   public userTeams: Team[] = [];
 
   // Current Team Information
@@ -33,7 +33,8 @@ export class TeamService {
     this.http.get(`${this.baseUrl}/api/teams/users/${userId}`)
       .toPromise()
       .then((response) => {
-        this.userTeams = response.json()
+        this.userTeams = response.json();
+        this.currentTeam = this.userTeams.find(team => team.solo_team == true).id;
       })
       .catch(this.handleError);
   }

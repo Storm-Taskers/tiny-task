@@ -41,7 +41,8 @@ Users.belongsTo(User_Profile, {
 });
 
 const Teams = connection.define("teams", {
-  team_name: { type: Sequelize.STRING, allowNull: true }
+  team_name: { type: Sequelize.STRING, allowNull: true },
+  solo_team: { type: Sequelize.BOOLEAN, allowNull: false }
 });
 
 const Team_Users = connection.define("team_users", {});

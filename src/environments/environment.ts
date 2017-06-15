@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  url: 'https://tinytask.herokuapp.com'
-};
+  serverUrl: 'http://localhost:8080',
+  appUrl: 'http://localhost:4200'
+}

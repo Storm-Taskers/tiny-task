@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class BulletinBoardService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = environment.url;
+  private baseUrl: string = environment.serverUrl;
 
   public announcements: Announcement[] = [];
   public announcementUser: Array<User> = [];
