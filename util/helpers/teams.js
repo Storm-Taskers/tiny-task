@@ -11,10 +11,11 @@ exports.retrieveTeamById = (team_id, callback) => {
     });
 };
 
-exports.addTeam = (team_name, user_id, callback) => {
+exports.addTeam = (team_name, user_id, solo, callback) => {
   models.Teams.create({
       team_name: team_name,
-      user_id: user_id
+      user_id: user_id,
+      solo_team: solo
     }).then((result) => {
       callback(result, user_id);
     });

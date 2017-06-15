@@ -33,7 +33,8 @@ export class TeamService {
     this.http.get(`${this.baseUrl}/api/teams/users/${userId}`)
       .toPromise()
       .then((response) => {
-        this.userTeams = response.json()
+        this.userTeams = response.json();
+        this.currentTeam = this.userTeams.find(team => team.solo_team == true).id;
       })
       .catch(this.handleError);
   }
