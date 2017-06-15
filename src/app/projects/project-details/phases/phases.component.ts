@@ -1,4 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MdDialog } from '@angular/material';
+
+import { AssignUserTaskComponent } from '../../../task-dialogs/assign-user-task/assign-user-task.component';
+import { AssignTaskWeightComponent } from '../../../task-dialogs/assign-task-weight/assign-task-weight.component';
 
 import { ProjectsService } from '../../../services/projects-service/projects.service';
 
@@ -26,7 +30,6 @@ export class PhasesComponent implements OnInit {
       this.taskDrag = true;
       this.dragOperation = false;
       this.taskEditingChange.emit(!this.taskEditing);
-      //console.log("enable task drag:", this.taskEditing, this.taskDrag, this.dragOperation)
     }
     this.taskEditingChange.emit(this.taskEditing);
     this.dragOperationChange.emit(this.dragOperation);
@@ -37,18 +40,29 @@ export class PhasesComponent implements OnInit {
       this.taskDrag = false;
       this.dragOperation = true;
       this.taskEditingChange.emit(!this.taskEditing);
-      //console.log("enable phase drag:", this.taskEditing, this.taskDrag, this.dragOperation)
     }
 
     this.taskEditingChange.emit(this.taskEditing);
     this.dragOperationChange.emit(this.dragOperation);
   }
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(
+    private projectsService: ProjectsService,
+    private dialog: MdDialog
+  ) { }
 
   ngOnInit() {
     this.projectsService.getTasks(this.phase.id).then((result: any) => {
       this.phaseTasks = result.task_info;
+    });
+  }
+
+  openAssignUsers(taskId: number): void {
+    let userTaskDialog = this.dialog.open(AssignUserTaskComponent, {
+      data: taskId
+    });
+    userTaskDialog.afterClosed().subscribe(result => {
+      console.log(result);
     });
   }
 
@@ -83,14 +97,11 @@ export class PhasesComponent implements OnInit {
   }
 
   updateTaskPhaseId(event: any, taskId: number): void {
-    // console.log(event.target.parentElement.parentElement.getAttribute("data-phase"));
-
     let current = event.target;
     while(!current.getAttribute("data-phase")) {
       current = current.parentElement;
     }
     let phaseId = parseInt(current.getAttribute("data-phase"), 10);
-    // console.log(phaseId);
     this.projectsService.updateTaskPhaseId(taskId, phaseId);
   }
 

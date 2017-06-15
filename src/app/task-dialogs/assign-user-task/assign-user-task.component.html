@@ -1,0 +1,9 @@
+<div class="task-dialog" *ngFor="let user of projectsService.usersOnProject">
+  <h2 md-dialog-title>Change Task Assignment</h2>
+  <md-dialog-content class="names" (click)="changeResults()">{{ user.full_name }}</md-dialog-content>
+
+  <md-dialog-actions>
+    <button md-button [md-dialog-close]="results">Save</button>
+    <button md-button md-dialog-close>Discard Changes</button>
+  </md-dialog-actions>
+</div>

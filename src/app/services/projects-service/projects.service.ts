@@ -70,7 +70,6 @@ export class ProjectsService {
 
                 this.totalWeight += task.task_weight;
                 this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
-                console.log(this.progress);
               });
               return response.json();
             })
