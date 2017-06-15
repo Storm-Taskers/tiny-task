@@ -13,7 +13,7 @@ import { User } from '../../projects/project-details/project-user/User';
 @Injectable()
 export class TeamService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = process.env.BASE_URL;
+  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
   public userTeams: Team[] = [];
 
   // Current Team Information

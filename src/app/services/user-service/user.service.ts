@@ -11,7 +11,7 @@ import { User } from '../../projects/project-details/project-user/User';
 export class UserService {
   public userUpdate: EventEmitter<any> = new EventEmitter();
   private headers = new Headers({'Content-Type': 'application/JSON'});
-  private baseUrl: string = process.env.BASE_URL;
+  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
 
   public userId: number;
   public userProfile: User;
