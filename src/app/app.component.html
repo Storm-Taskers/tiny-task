@@ -20,11 +20,11 @@
           <div *ngIf="navService.currentPage !== 'projects'" class="col">
             <hr/>
             <div class="nav-items">
-              <a [routerLink]="['/bulletinboard']" (click)="sidenav.toggle()"><i class="material-icons">forum</i>BULLETIN BOARD</a>
+              <a routerLink="bulletinboard" (click)="sidenav.toggle()"><i class="material-icons">forum</i>BULLETIN BOARD</a>
             </div>
             <hr/>
             <div class="nav-items">
-              <a routerLink="announcements"><i class="material-icons">folder_shared</i>RESOURCES</a>
+              <a routerLink="sharedresource"><i class="material-icons">folder_shared</i>RESOURCES</a>
             </div>
           </div>
         </nav>
@@ -38,8 +38,8 @@
         </div>
         <a routerLink="projects"><i class="material-icons" mdTooltip="Projects" mdTooltipPosition="after">note</i></a>
         <div *ngIf="navService.currentPage !== 'projects'" class="col">
-          <a [routerLink]="['/bulletinboard']"><i class="material-icons" mdTooltip="Bulletin Board" mdTooltipPosition="after">forum</i></a>
-          <a routerLink="announcements"><i class="material-icons" mdTooltip="Resources" mdTooltipPosition="after">folder_shared</i></a>
+          <a routerLink="bulletinboard"><i class="material-icons" mdTooltip="Bulletin Board" mdTooltipPosition="after">forum</i></a>
+          <a routerLink="sharedresource"><i class="material-icons" mdTooltip="Resources" mdTooltipPosition="after">folder_shared</i></a>
         </div>
       </div>
       <div class="content-display">

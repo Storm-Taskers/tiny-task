@@ -24,7 +24,7 @@ export class SharedResourceService {
   // Fetch Information
   getResources(teamId: number): void {
     this.http
-      .get(`${this.baseUrl}/api/resources/1`)
+      .get(`${this.baseUrl}/api/resources/${teamId}`)
       .toPromise()
       .then(response => {
         console.log(response.json());
