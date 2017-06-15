@@ -59,7 +59,7 @@ router.delete("/phases/:phase_id", handlerPhases.phases.deletePhases);
 
 //////////TASKS/////////////////
 router.get("/tasks/:phase_id", handlerTasks.tasks.retrieveTasksByPhaseId);
-//router.get('/tasks/users/:user_id', handlerTasks.users.getUserTasks);
+router.get("/tasks/users/:task_id", handlerTasks.tasks.retrieveTaskUsers);
 router.post("/tasks/:phase_id", handlerTasks.tasks.createNewTasks);
 router.put("/tasks/:task_id", handlerTasks.tasks.updateTasks);
 router.delete("/tasks/:task_id", handlerTasks.tasks.deleteTasks);
