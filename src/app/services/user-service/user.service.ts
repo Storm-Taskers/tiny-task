@@ -45,6 +45,7 @@ export class UserService {
               return response.json();
             })
             .catch(this.handleError);
+            //testing
   }
 
   updateUserStatus(status: string): void {
