@@ -5,7 +5,7 @@
 </div>
 <hr/>
 <input [(ngModel)]="nameField" value="nameField" placeholder="Enter New Team Name" (keyup.enter)="addNewTeam(nameField)">
-  <button md-icon-button (click)="addNewTeam(nameField)">
+  <button md-icon-button (click)="addNewTeam(nameField)" mdTooltip="Add a New Team" mdTooltipPosition="after">
   <i class="material-icons">library_add</i>
 </button>
 <div class="container-team">

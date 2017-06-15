@@ -35,7 +35,6 @@ h2 {
   display: block;
   height: 15px;
   overflow: hidden;
-  position: relative;
   transform: translateZ(0);
   transition: opacity 250ms linear;
   width: 1000px;

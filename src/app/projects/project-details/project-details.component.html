@@ -1,7 +1,7 @@
 <div class="header">
   <div class="h2-header">
     <h2>
-      {{ projectsService.currentProject?.project_name }} Team Members
+      {{ projectsService.currentProject?.project_name.toUpperCase() }} TEAM MEMBERS
     </h2>
   </div>
 </div>
@@ -17,9 +17,9 @@
 <div class="header">
   <div class="h2-header">
     <h2>
-      Project Board
+     {{ projectsService.currentProject?.project_name.toUpperCase() }} PROJECT BOARD
     </h2>
-    <button md-icon-button (click)="addNewPhase()">
+    <button md-icon-button (click)="addNewPhase()" mdTooltip="Add a Board" mdTooltipPosition="after">
       <i class="material-icons">library_add</i>
     </button>
     <md-progress-bar

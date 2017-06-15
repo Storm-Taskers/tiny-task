@@ -1,14 +1,15 @@
 <div class="app">
+  
   <header>
-    <div class="logo">
-    <img src="../assets/tinytasklogowhite.png" height="50" width="50" style="margin-right: 5px">
-      <h2>{{ title.toUpperCase() }}</h2>
+    <div class="logo" routerLink="/">
+    <img src="../assets/tinytasklogowhitered.png" height="50" width="50" style="margin-right: 5px">
+      <h2>{{ title.toUpperCase() }}<span style="color: hsla(2, 81%, 65%, 1)">.</span></h2>
     </div>
-    <h3>Log In</h3>
+    <h3 (click)="authService.login()">Log In</h3>
   </header>
   <!--Render User Profile-->
   <md-sidenav-container class="pageView">
-    <md-sidenav #sidenav mode="push" opened="false" (open-start)="toggleMiniBar()" (close-start)="toggleMiniBar()">
+    <md-sidenav style="overflow: hidden;" #sidenav mode="push" opened="false" (open-start)="toggleMiniBar()" (close-start)="toggleMiniBar()">
       <div class="user-info">
         <auth0 *ngIf="!authService.isAuthenticated()"></auth0>
         <user-info *ngIf="authService.isAuthenticated()"></user-info>
