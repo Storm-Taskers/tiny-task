@@ -17,14 +17,15 @@ export class ProjectDetailsComponent implements OnInit {
   public selectedProjectId: number;
   public dragOperation: boolean = true;
   public taskEditing: boolean = false;
-  
+
+
   constructor(
-    private projectsService: ProjectsService,
-    private userService: UserService,
-    private navService: NavService,
-    private teamService: TeamService,
-    private route: ActivatedRoute,
-    private location: Location
+    public projectsService: ProjectsService,
+    public userService: UserService,
+    public navService: NavService,
+    public teamService: TeamService,
+    public route: ActivatedRoute,
+    public location: Location
    ) {}
 
   goBack(): void {
@@ -59,7 +60,7 @@ export class ProjectDetailsComponent implements OnInit {
         phaseOrder += phase.id + ' ';
       }
     })
-   
+
     this.projectsService.updatePhaseOrder(this.selectedProjectId, phaseOrder);
   }
 }

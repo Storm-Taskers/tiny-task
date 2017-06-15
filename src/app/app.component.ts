@@ -14,8 +14,8 @@ export class AppComponent {
   showNav: boolean = true;
 
   constructor(
-    private navService: NavService,
-    private authService: AuthService
+    public navService: NavService,
+    public authService: AuthService
   ) { }
 
   toggleMiniBar(): void {

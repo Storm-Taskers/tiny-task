@@ -17,10 +17,10 @@ export class TeamsComponent implements OnInit {
   public nameField: string;
 
   constructor(
-    private teamService: TeamService,
-    private userService: UserService,
-    private navService: NavService,
-    private projectsService: ProjectsService
+    public teamService: TeamService,
+    public userService: UserService,
+    public navService: NavService,
+    public projectsService: ProjectsService
   ) { }
 
   ngOnInit() {

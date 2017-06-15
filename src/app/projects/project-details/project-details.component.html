@@ -24,10 +24,9 @@
     </button>
     <md-progress-bar
         class="example-margin"
-        [color]="blue"
-        [mode]="determinate"
-        [value]="projectsService.progress"
-        [bufferValue]="bufferValue">
+        mode="determinate"
+        value="projectsService.progress"
+        bufferValue="bufferValue">
     </md-progress-bar>
     <h2 class="percent">{{ projectsService.progress + '%' }}</h2>
   </div>

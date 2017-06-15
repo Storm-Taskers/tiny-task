@@ -22,17 +22,17 @@ import { User } from '../../projects/project-details/project-user/User';
   styleUrls: ['./team-details.component.css']
 })
 export class TeamDetailsComponent implements OnInit {
-  private teamId: number;
-  private render: boolean = false;
-  private term: string;
+  public teamId: number;
+  public render: boolean = false;
+  public term: string;
 
   public users: Observable<User[]>;
-  private memberSearchTerms = new Subject<string>();
+  public memberSearchTerms = new Subject<string>();
 
   constructor(
-    private teamService: TeamService,
-    private route: ActivatedRoute,
-    private location: Location
+    public teamService: TeamService,
+    public route: ActivatedRoute,
+    public location: Location
   ) { }
 
   ngOnInit() {

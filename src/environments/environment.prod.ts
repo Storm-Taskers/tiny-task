@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  url: 'https://tinytask.herokuapp.com/callback'
+  serverUrl: 'https://tinytask.herokuapp.com',
+  appUrl: 'http://tinytask.herokuapp.com'
 };

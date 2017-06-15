@@ -1,21 +1,18 @@
 <div class="header">
   <h2 class="h2-header">Team Resources
-    <button md-icon-button (click)="addNewResource(nameField)">
+    <button md-icon-button>
       <i class="material-icons">library_add</i>
     </button>
-    <input [(ngModel)]="nameField" value="nameField" placeholder="Add New Resource" (keyup.enter)="addNewResource(nameField)">
+    <input [(ngModel)]="nameField" value="nameField" placeholder="Add New Resource" >
   </h2>
 </div>
 <hr/>
 
 <div class="container-resource">
 <!--Implement ngFor to create Announcements-->
-  <div
-    *ngFor="let resource of sharedResourceService.resources"
-    class="resource">
+  <div>
     <div class="eachResource">
-      <td contenteditable="true" [textContent]="resource.resource" (input)="editResource($event.target.textContent, resource.id)">{{ resource.resource }} </td>
-      <button md-icon-button (click)="deleteResource(resource.id, resource.resource); $event.stopPropagation()" >
+      <button md-icon-button>
         <i class="material-icons">delete</i>
       </button>
     </div>

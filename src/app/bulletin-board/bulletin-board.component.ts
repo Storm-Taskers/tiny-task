@@ -12,14 +12,14 @@ import { Announcement } from './announcement'
 })
 
 export class BulletinBoardComponent implements OnInit {
-  private value: any = 'all';
-  private teamId: number = this.teamService.currentTeam
+  public value: any = 'all';
+  public teamId: number = this.teamService.currentTeam
   public nameField: string;
 
   constructor(
-    private bulletinBoardService: BulletinBoardService,
-    private userService: UserService,
-    private teamService: TeamService,
+    public bulletinBoardService: BulletinBoardService,
+    public userService: UserService,
+    public teamService: TeamService,
   ) { }
 
 

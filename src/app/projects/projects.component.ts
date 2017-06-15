@@ -11,13 +11,13 @@ import { NavService } from '../services/nav-service/nav.service';
 })
 
 export class ProjectsComponent implements OnInit {
-  private value: any = 'all';
+  public value: any = 'all';
 
   constructor(
-    private projectsService: ProjectsService,
-    private userService: UserService,
-    private teamService: TeamService,
-    private navService: NavService,
+    public projectsService: ProjectsService,
+    public userService: UserService,
+    public teamService: TeamService,
+    public navService: NavService,
   ) { }
 
 

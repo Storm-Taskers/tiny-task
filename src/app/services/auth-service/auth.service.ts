@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class AuthService {
 
-  private redirectUri = environment.appUrl + '/callback';
+  public redirectUri = environment.appUrl + '/callback';
 
 
   auth0 = new auth0.WebAuth({
@@ -57,7 +57,7 @@ export class AuthService {
     });
   }
 
-  private setSession(authResult): void {
+  public setSession(authResult): void {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);

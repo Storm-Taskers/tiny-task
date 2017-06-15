@@ -13,9 +13,9 @@ import { AuthService } from '../services/auth-service/auth.service';
 
 export class UserInfoComponent implements OnInit {
   constructor(
-    private userService: UserService,
-    private projectsService: ProjectsService,
-    private authService: AuthService
+    public userService: UserService,
+    public projectsService: ProjectsService,
+    public authService: AuthService
    ) { }
 
   ngOnInit() {

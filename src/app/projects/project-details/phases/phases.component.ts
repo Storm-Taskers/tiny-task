@@ -15,7 +15,7 @@ export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
   @Input() dragOperation: boolean = true;
   @Input() taskEditing: boolean = false;
-  private phaseTasks: Task[];
+  public phaseTasks: Task[];
   public taskDrag: boolean = false;
 
   @Output() dragOperationChange = new EventEmitter();
@@ -84,7 +84,7 @@ export class PhasesComponent implements OnInit {
 
   updateTaskPhaseId(event: any, taskId: number): void {
     // console.log(event.target.parentElement.parentElement.getAttribute("data-phase"));
-   
+
     let current = event.target;
     while(!current.getAttribute("data-phase")) {
       current = current.parentElement;
