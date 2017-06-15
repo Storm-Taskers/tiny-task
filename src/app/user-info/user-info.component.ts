@@ -20,7 +20,6 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getProfile((err, profile) => {
-      console.log(process.env, 'should be env variable');
       this.userService.getUserInfo(this.authService.userProfile.given_name)
     });
     console.log('Initiated');
