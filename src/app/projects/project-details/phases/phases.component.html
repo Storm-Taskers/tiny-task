@@ -1,9 +1,9 @@
 <div class="current-phases">
   <div class="project-header">
-    <strong>
-    <inline-editor [(ngModel)]="phase.phase_name" (onSave)="editPhaseName(phase.id, $event); enableDrag()" name="phase.phase_name" size="15" min="1" max="50" (onError)="handleError()" (onCancel)="enableDrag()" (onEdit)="disableDrag()" type="text">
-    </inline-editor>
-    </strong>
+    <div class="editor">
+      <inline-editor [(ngModel)]="phase.phase_name" (onSave)="editPhaseName(phase.id, $event); enableDrag()" name="phase.phase_name" size="15" min="1" max="50" (onError)="handleError()" (onCancel)="enableDrag()" (onEdit)="disableDrag()" type="text">
+      </inline-editor>
+    </div>
     <button md-icon-button [mdMenuTriggerFor]="menu">
       <i class="material-icons">more_vert</i>
     </button>

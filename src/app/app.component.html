@@ -1,6 +1,9 @@
 <div class="app">
   <header>
-    <h2>{{ title.toUpperCase() }}</h2>
+    <div class="logo">
+    <img src="../assets/tinytasklogowhite.png" height="50" width="50" style="margin-right: 5px">
+      <h2>{{ title.toUpperCase() }}</h2>
+    </div>
     <h3>Log In</h3>
   </header>
   <!--Render User Profile-->
@@ -45,6 +48,7 @@
       </div>
       <div class="content-display">
         <router-outlet></router-outlet>
+        <!--<img class="background-logo" src="../assets/tinytasklogowhite.png" height="300" width="300" style="margin-right: 5px">-->
       </div>
     </div>
   </md-sidenav-container>

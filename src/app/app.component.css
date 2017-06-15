@@ -57,7 +57,7 @@ hr {
   background-color: hsla(341, 59%, 48%, 1);
   padding: 5px;
   box-shadow: 0px 2px 5px #888888;
-  height: 180px;
+  height: auto;
 }
 
 .col {
@@ -72,8 +72,11 @@ hr {
   align-items: left;
   height: 100%;
   background: #ECE9E6;
-  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6); 
-  background: linear-gradient(to right, #FFFFFF, #ECE9E6); 
+  background: -webkit-linear-gradient(to right, #FFFFFF, #e5e2de); 
+  background: linear-gradient(to right, #FFFFFF, #e5e2de); 
+  /*background-image: url(../assets/tinytasklogowhite.png);
+  background-repeat: no-repeat;
+  background-position: right top;*/
 }
 
 a {
@@ -113,13 +116,26 @@ a:hover, a:active {
 }
 
 .content-display {
+ 
   width: 95%;
   padding: 10px;
   margin-top: 10px;
   margin-right: 10px; 
-  margin-left: 10px
+  margin-left: 10px;
 }
 
 .material-icons {
   font-size: 40px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.background-logo {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
 }
