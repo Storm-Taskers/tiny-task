@@ -16,19 +16,19 @@ import { Task } from '../../../projects/project-details/phases/tasks/Task';
 })
 
 export class TeamMembersComponent implements OnInit {
-  private selectedUserId: number;
-  private selectedUserInfo: User;
-  private userTasks: Task[] = [];
-  private loadAllProjects: boolean;
-  private projectsAndTasks: any;
+  public selectedUserId: number;
+  public selectedUserInfo: User;
+  public userTasks: Task[] = [];
+  public loadAllProjects: boolean;
+  public projectsAndTasks: any;
 
   constructor(
-    private projectsService: ProjectsService,
-    private teamService: TeamService,
-    private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private location: Location
+    public projectsService: ProjectsService,
+    public teamService: TeamService,
+    public userService: UserService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public location: Location
   ) { }
 
   ngOnInit() {

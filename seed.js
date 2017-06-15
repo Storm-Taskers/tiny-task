@@ -24,7 +24,7 @@ const seedData = [
     return handlerUsers.users.createNewUser(
       {
         body: {
-          auth_token: "Kevin",
+          auth_token: "facebook|10107514427025035",
           full_name: "Kevin Nguyen",
           email: "kevinN@tinytask.com",
           user_color: "blue",
@@ -44,7 +44,7 @@ const seedData = [
     return handlerUsers.users.createNewUser(
       {
         body: {
-          auth_token: "Brian",
+          auth_token: "google-oauth2|108664476940118181583",
           full_name: "Brian Leung",
           email: "brianl@tinytask.com",
           user_color: "black",
@@ -64,7 +64,7 @@ const seedData = [
     return handlerUsers.users.createNewUser(
       {
         body: {
-          auth_token: "David",
+          auth_token: "google-oauth2|109498890375366459761",
           full_name: "David Hsiao",
           email: "davidh@tinytask.com",
           user_color: "yellow",
@@ -84,7 +84,7 @@ const seedData = [
     return handlerUsers.users.createNewUser(
       {
         body: {
-          auth_token: "Beth",
+          auth_token: "google-oauth2|100506042269516154610",
           full_name: "Beth Stevic",
           email: "beths@tinytask.com",
           user_color: "green",

@@ -12,14 +12,14 @@ import { Announcement } from './announcement'
 })
 
 export class BulletinBoardComponent implements OnInit {
-  private value: any = 'all';
-  private teamId: number = this.teamService.currentTeam
+  public value: any = 'all';
+  public teamId: number = this.teamService.currentTeam
   public nameField: string;
 
   constructor(
-    private bulletinBoardService: BulletinBoardService,
-    private userService: UserService,
-    private teamService: TeamService,
+    public bulletinBoardService: BulletinBoardService,
+    public userService: UserService,
+    public teamService: TeamService,
   ) { }
 
 
@@ -30,8 +30,11 @@ export class BulletinBoardComponent implements OnInit {
   addNewAnnouncement(announcement: string): void {
     let teamId: number = this.teamService.currentTeam;
     let userId: number = this.userService.userId;
-
+    console.log(this.teamService.currentTeam);
     if (announcement !== '' && typeof announcement !== 'undefined') {
+      console.log(announcement, 'inside component');
+      console.log(teamId, 'team id');
+      console.log(userId, 'user id');
       this.bulletinBoardService.createAnnouncement(teamId, userId, announcement);
       this.nameField = '';
     }
