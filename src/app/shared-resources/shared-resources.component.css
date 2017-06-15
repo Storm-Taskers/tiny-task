@@ -1,7 +1,85 @@
+h2 {
+  display: inline;
+  padding: 0px;
+  margin: 0px;
+  cursor: default;
+}
+
+hr {
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.h2-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.container-resource {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  min-height: 200px;
+}
+
 .eachResource {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 10px;
+  width: 500px;
+  color: black;
+  justify-content: flex-start;
+  background-color: hsl(41, 100%, 50%);
   border-radius: 3px;
+  padding: 7px;
+  margin: 5px;
+  box-shadow: 0px 2px 5px #888888;
+}
+
+.url {
+  background-color: white;
+  color: black;
   border-style: double;
   border-color: black;
-  max-width: auto;
+  text-align: center;
+  border-radius: 2px;
+  margin-right: 25px;
+  margin-left: 15px;
+  width: 450px;
+  height: auto;
+  padding: 7px;
+  box-shadow: 0px 2px 2px #888888;
+}
+
+.notes {
+  background-color: white;
+  color: black;
+  border-style: double;
+  border-color: black;
+  text-align: center;
+  border-radius: 2px;
+  margin-right: 25px;
+  margin-left: 15px;
+  margin-top: 10px;
+  width: 450px;
+  height: auto;
+  padding: 7px;
+  box-shadow: 0px 2px 2px #888888;
+}
+
+.delete {
+  display: flex;
+  margin-right: auto;
+  color: black;
+  font-style: bold;
 }
