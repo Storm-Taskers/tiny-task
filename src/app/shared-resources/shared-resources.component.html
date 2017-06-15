@@ -1,10 +1,10 @@
 <div class="header">
   <h2 class="h2-header">Team Resources
-    <button md-icon-button (click)="addNewResource(nameField)">
+    <button md-icon-button (click)="addNewResource(commentField, urlField)">
       <i class="material-icons">library_add</i>
     </button>
-    <input [(ngModel)]="nameField" value="nameField" placeholder="Add URL" (keyup.enter)="addNewResource(nameField)">
-    <input [(ngModel)]="nameField" value="nameField" placeholder="Add Comment" (keyup.enter)="addNewResource(nameField)">
+    <input [(ngModel)]="commentField" value="commentField" placeholder="Add URL" (keyup.enter)="addNewResource(commentField, urlField)">
+    <input [(ngModel)]="urlField" value="urlField" placeholder="Add Notes" (keyup.enter)="addNewResource(commentField, urlField)">
 
   </h2>
 </div>
@@ -14,8 +14,8 @@
   <!--Implement ngFor to create Announcements-->
   <div *ngFor="let resource of sharedResourceService.resources" class="resource">
     <div class="eachResource">
-      <div>{{ resource.URL }} </div>
-      <div>{{ resource.notes }}</div>
+      <a href="{{ 'https://' + resource?.URL }}" target="_blank">{{ resource?.URL }} </a>
+      <div>{{ resource?.notes }}</div>
       <button md-icon-button (click)="deleteResource(resource.id, resource.resource); $event.stopPropagation()">
         <i class="material-icons">delete</i>
       </button>

@@ -13,7 +13,8 @@ import { Resource } from "./shared-resources";
 export class SharedResourceComponent implements OnInit {
   private value: any = "all";
   private teamId: number = this.teamService.currentTeam;
-  public nameField: string;
+  public commentField: string;
+  public urlField: string;
 
   constructor(
     private sharedResourceService: SharedResourceService,
@@ -25,18 +26,19 @@ export class SharedResourceComponent implements OnInit {
     this.sharedResourceService.getResources(this.teamId);
   }
 
-  addNewResource(resource: string, resourceNote: string): void {
-    let teamId: number = this.teamService.currentTeam;
+  addNewResource(commentField: string, urlField: string): void {
+    let teamId: number = 1;
     let userId: number = this.userService.userId;
 
-    if (resource !== "" && typeof resource !== "undefined") {
+    if (commentField !== "" || urlField !== "") {
       this.sharedResourceService.createResource(
         teamId,
         userId,
-        resource,
-        resourceNote
+        commentField,
+        urlField
       );
-      this.nameField = "";
+      this.commentField = "";
+      this.urlField = "";
     }
   }
 
