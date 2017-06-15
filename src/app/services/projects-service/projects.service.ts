@@ -219,9 +219,7 @@ export class ProjectsService {
       JSON.stringify({user_id: userId, team_id: teamId, project_id: this.currentProject.id}),
       {headers: this.headers})
       .toPromise()
-      .then((response) => {
-        response.json();
-      })
+      .then()
       .catch(this.handleError);
   }
 
@@ -308,8 +306,7 @@ export class ProjectsService {
     this.http.delete(
       `${this.baseUrl}/api/tasks/users/${userId}/${taskId}`)
       .toPromise()
-      .then( (response) => {
-      })
+      .then()
       .catch(this.handleError);
   }
 }

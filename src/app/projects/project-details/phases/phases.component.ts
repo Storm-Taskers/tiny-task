@@ -58,12 +58,34 @@ export class PhasesComponent implements OnInit {
   }
 
   openAssignUsers(taskId: number): void {
-    let userTaskDialog = this.dialog.open(AssignUserTaskComponent, {
-      data: taskId
+    let results = {};
+    this.projectsService.usersOnProject.forEach((user) => {
+      results[user.id] = false;
     });
-    userTaskDialog.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+
+    this.projectsService.getUsersOnTask(taskId)
+      .then(users => {
+        users.forEach((user) => {
+          results[user.user_id] = true;
+        });
+
+        let userTaskDialog = this.dialog.open(AssignUserTaskComponent, {
+          data: Object.assign({}, results)
+        });
+
+        userTaskDialog.afterClosed().subscribe(changes => {
+          for ( let id in changes ) {
+            if ( results[id] !== changes[id] ) {
+              if ( changes[id] ) {
+                // Add to task
+                this.projectsService.assignToTask(+id, taskId, this.projectsService.currentProject.team_id);
+              } else {
+                this.projectsService.removeUserFromTask(+id, taskId);
+              }
+            }
+          }
+        });
+      });
   }
 
   editPhaseName(phaseId: number, newName: string): void {

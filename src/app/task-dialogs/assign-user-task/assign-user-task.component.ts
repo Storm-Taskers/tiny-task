@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 import { PhasesComponent } from '../../projects/project-details/phases/phases.component';
@@ -11,27 +11,14 @@ import { ProjectsService } from '../../services/projects-service/projects.servic
   styleUrls: ['./assign-user-task.component.css']
 })
 
-export class AssignUserTaskComponent implements OnInit {
+export class AssignUserTaskComponent {
 
-  private results: Object = {};
+  private results: Object = this.data;
   constructor(
     @Inject(MD_DIALOG_DATA) public data: any,
     private dialogRef: MdDialogRef<AssignUserTaskComponent>,
     private projectsService: ProjectsService
   ) { }
-
-  ngOnInit(): void {
-    this.projectsService.usersOnProject.forEach((user) => {
-      this.results[user.id] = false;
-    });
-
-    this.projectsService.getUsersOnTask(this.data)
-      .then(users => {
-        users.forEach((user) => {
-          this.results[user.user_id] = true;
-        });
-      });
-  }
 
   changeResults(userId: number): void {
     this.results[userId] = !this.results[userId];
