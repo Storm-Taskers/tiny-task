@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 export class UserService {
   public userUpdate: EventEmitter<any> = new EventEmitter();
   private headers = new Headers({'Content-Type': 'application/JSON'});
-  private baseUrl: string = environment.url;
+  private baseUrl: string = environment.serverUrl;
 
   public userId: number;
   public userProfile: User;

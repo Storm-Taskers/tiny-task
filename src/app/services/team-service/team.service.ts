@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class TeamService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = environment.url;
+  private baseUrl: string = environment.serverUrl;
   public userTeams: Team[] = [];
 
   // Current Team Information
