@@ -6,7 +6,11 @@
   <button
     class="btn btn-primary btn-margin"
     *ngIf="authService.isAuthenticated()"
+<<<<<<< f7b46ed54ad8bffbfd9a41ec7f4bbe2bca492115
     (click)="authService.logout();">
+=======
+    (click)="authService.logout(); clearProject()">
+>>>>>>> Add env variables
       Log Out
   </button>
 </div>
