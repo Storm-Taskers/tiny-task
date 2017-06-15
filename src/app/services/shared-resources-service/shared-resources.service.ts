@@ -6,11 +6,12 @@ import 'rxjs/add/operator/toPromise';
 
 import { Resource } from '../../shared-resources/shared-resources';
 import { User } from '../../projects/project-details/project-user/User';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SharedResourceService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
+  private baseUrl: string = environment.url;
 
   public resources: Resource[] = [];
   public resourceUser: Array<User> = [];

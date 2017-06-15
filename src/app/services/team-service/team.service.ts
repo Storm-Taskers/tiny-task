@@ -8,12 +8,12 @@ import 'rxjs/add/operator/map';
 
 import { Team } from '../../teams/Team';
 import { User } from '../../projects/project-details/project-user/User';
-
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class TeamService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
+  private baseUrl: string = environment.url;
   public userTeams: Team[] = [];
 
   // Current Team Information

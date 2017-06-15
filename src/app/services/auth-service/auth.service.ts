@@ -3,10 +3,11 @@ import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import auth0 from 'auth0-js';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {
-  private redirectUri = `${process.env.BASE_URL}/callback` || 'http://localhost:4200/callback';
+  private redirectUri = environment.url;
 
   auth0 = new auth0.WebAuth({
     clientID: 'WCqZCPIb7LQzup2tz-RKh-jurybqDAbL',

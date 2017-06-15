@@ -8,12 +8,13 @@ import { Project } from '../../projects/Project';
 import { Phase } from '../../projects/project-details/phases/Phase';
 import { Task } from '../../projects/project-details/phases/tasks/Task';
 import { User } from '../../projects/project-details/project-user/User';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable()
 export class ProjectsService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
+  private baseUrl: string = environment.url;
 
   public projectIds: number[] = [];
 

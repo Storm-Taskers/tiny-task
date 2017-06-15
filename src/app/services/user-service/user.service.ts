@@ -5,13 +5,14 @@ import { Injectable, EventEmitter } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 import { User } from '../../projects/project-details/project-user/User';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable()
 export class UserService {
   public userUpdate: EventEmitter<any> = new EventEmitter();
   private headers = new Headers({'Content-Type': 'application/JSON'});
-  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
+  private baseUrl: string = environment.url;
 
   public userId: number;
   public userProfile: User;

@@ -6,11 +6,12 @@ import 'rxjs/add/operator/toPromise';
 
 import { Announcement } from '../../bulletin-board/announcement';
 import { User } from '../../projects/project-details/project-user/User';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class BulletinBoardService {
   private headers = new Headers({'Content-type': 'application/JSON'});
-  private baseUrl: string = process.env.BASE_URL || 'http://localhost:8080';
+  private baseUrl: string = environment.url;
 
   public announcements: Announcement[] = [];
   public announcementUser: Array<User> = [];
