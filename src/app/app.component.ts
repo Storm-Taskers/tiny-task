@@ -10,7 +10,7 @@ import { AuthService } from './services/auth-service/auth.service';
 })
 
 export class AppComponent {
-  title: string = 'Tiny Task';
+  title: string = 'Tiny Task.';
   showNav: boolean = true;
 
   constructor(

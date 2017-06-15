@@ -12,10 +12,10 @@ import { Resource } from "./shared-resources";
 })
 export class SharedResourceComponent implements OnInit {
   private value: any = "all";
-  private teamId: number = this.teamService.currentTeam;
+  private teamId: number = 1;
   public commentField: string;
   public urlField: string;
-
+  //this.teamService.currentTeam;
   constructor(
     private sharedResourceService: SharedResourceService,
     private userService: UserService,
@@ -27,19 +27,14 @@ export class SharedResourceComponent implements OnInit {
   }
 
   addNewResource(commentField: string, urlField: string): void {
-    let teamId: number = 1;
     let userId: number = this.userService.userId;
 
     if (commentField !== "" || urlField !== "") {
-      this.sharedResourceService.createResource(
-        teamId,
-        userId,
-        commentField,
-        urlField
-      );
-      this.commentField = "";
-      this.urlField = "";
+      this.sharedResourceService.createResource(this.teamId, userId, commentField, urlField);
     }
+    
+    this.commentField = "";
+    this.urlField = "";
   }
 
   deleteResource(resourceId: number, resource: string): void {
@@ -48,16 +43,8 @@ export class SharedResourceComponent implements OnInit {
     }
   }
 
-  editResource(
-    resource: string,
-    resourceNotes: string,
-    resourceId: number
-  ): void {
-    this.sharedResourceService.editResource(
-      resourceId,
-      resource,
-      resourceNotes
-    );
+  editResource(resource: string, resourceNotes: string, resourceId: number): void {
+    this.sharedResourceService.editResource(resourceId, resource, resourceNotes);
   }
 
   handleError(): void {
