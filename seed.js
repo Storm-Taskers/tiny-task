@@ -565,7 +565,7 @@ const seedData = [
       {
         body: {
           URL: "www.google.com",
-          Notes: "best website ever, must see!!",
+          notes: "best website ever, must see!!",
           user_id: 1,
           team_id: 1
         }
@@ -584,7 +584,7 @@ const seedData = [
       {
         body: {
           URL: "www.facebook.com",
-          Notes: "great site to help you get some friends",
+          notes: "great site to help you get some friends",
           user_id: 2,
           team_id: 1
         }
@@ -603,7 +603,7 @@ const seedData = [
       {
         body: {
           URL: "www.yahoo.com",
-          Notes: "nobody uses this anymore",
+          notes: "nobody uses this anymore",
           user_id: 3,
           team_id: 1
         }
