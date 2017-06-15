@@ -6,7 +6,9 @@ import auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
-  private redirectUri = `${process.env.BASE_URL}/callback`;
+  private redirectUri = `google.com`;
+
+//`${process.env.BASE_URL}/callback`
 
   auth0 = new auth0.WebAuth({
     clientID: 'WCqZCPIb7LQzup2tz-RKh-jurybqDAbL',
