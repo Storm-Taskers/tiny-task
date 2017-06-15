@@ -1,15 +1,15 @@
 <div class="header">
   <h2 class="h2-header">My Teams
-    <button md-icon-button (click)="addNewTeam(nameField)">
-      <i class="material-icons">library_add</i>
-    </button>
-    <input [(ngModel)]="nameField" value="nameField" placeholder="Enter New Team Name" (keyup.enter)="addNewTeam(nameField)">
   </h2>
 <!--Render Dropdown Menu-->
 </div>
 <hr/>
-
+<input [(ngModel)]="nameField" value="nameField" placeholder="Enter New Team Name" (keyup.enter)="addNewTeam(nameField)">
+  <button md-icon-button (click)="addNewTeam(nameField)" mdTooltip="Add a New Team" mdTooltipPosition="after">
+  <i class="material-icons">library_add</i>
+</button>
 <div class="container-team">
+  
 <!--Implement ngFor to create Teams-->
   <div *ngFor="let team of teamService.userTeams">
     <div

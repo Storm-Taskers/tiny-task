@@ -5,6 +5,7 @@ html, body, md-sidenav-container{
   padding: 0;
   border: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -107,3 +108,6 @@ a.c-inline-editor {
   filter: alpha(opacity=20);
 }
 
+.mat-sidenav-container {
+  overflow: hidden;
+}
