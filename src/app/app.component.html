@@ -5,7 +5,8 @@
     <img src="../assets/tinytasklogowhitered.png" height="50" width="50" style="margin-right: 5px">
       <h2>{{ title.toUpperCase() }}<span style="color: hsla(2, 81%, 65%, 1)">.</span></h2>
     </div>
-    <h3 (click)="authService.login()">Log In</h3>
+    <h3 *ngIf="!authService.isAuthenticated()" (click)="authService.login()">LOGIN</h3>
+    <h3 *ngIf="authService.isAuthenticated()" (click)="authService.logout()">LOGOUT</h3>
   </header>
   <!--Render User Profile-->
   <md-sidenav-container class="pageView">
