@@ -77,12 +77,24 @@ export class PhasesComponent implements OnInit {
           for ( let id in changes ) {
             if ( results[id] !== changes[id] ) {
               if ( changes[id] ) {
-                // Add to task
                 this.projectsService.assignToTask(+id, taskId, this.projectsService.currentProject.team_id);
               } else {
                 this.projectsService.removeUserFromTask(+id, taskId);
               }
             }
+          }
+        });
+      });
+  }
+
+  openTaskWeight(taskId: number): void {
+    this.projectsService.getTaskInfo(taskId)
+      .then(current => {
+
+        let weightTaskDialog = this.dialog.open(AssignTaskWeightComponent);
+        weightTaskDialog.afterClosed().subscribe(weight => {
+          if ( current !== weight ) {
+            this.projectsService.updateTaskWeight(taskId, weight, current.task_weight);
           }
         });
       });

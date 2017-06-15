@@ -1,3 +1,14 @@
-<p>
-  assign-task-weight works!
-</p>
+<div class="weight-dialog">
+  <h2 md-dialog-title>Change Task Difficulty</h2>
+
+  <md-dialog-content><button md-button [md-dialog-close]="1">1</button></md-dialog-content>
+  <md-dialog-content><button md-button [md-dialog-close]="5">5</button></md-dialog-content>
+  <md-dialog-content><button md-button [md-dialog-close]="10">10</button></md-dialog-content>
+  <md-dialog-content><button md-button [md-dialog-close]="20">20</button></md-dialog-content>
+  <md-dialog-content><button md-button [md-dialog-close]="50">50</button></md-dialog-content>
+  <md-dialog-content><button md-button [md-dialog-close]="100">100</button></md-dialog-content>
+
+  <md-dialog-actions>
+    <button md-button md-dialog-close>Cancel</button>
+  </md-dialog-actions>
+</div>

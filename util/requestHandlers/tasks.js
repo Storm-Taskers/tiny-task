@@ -13,6 +13,12 @@ exports.tasks = {
     });
   },
 
+  retrieveTaskByTaskId: (req, res) => {
+    helper.retrieveTaskByTaskId(req.params.task_id, task => {
+      res.send(task);
+    });
+  },
+
   retrieveTasksByPhaseId: (req, res) => {
     let taskData = { user_info: [] };
     helper.retrieveTasksByPhaseId(req.params, tasks => {
