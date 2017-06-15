@@ -90,7 +90,6 @@ export class PhasesComponent implements OnInit {
   openTaskWeight(taskId: number): void {
     this.projectsService.getTaskInfo(taskId)
       .then(current => {
-
         let weightTaskDialog = this.dialog.open(AssignTaskWeightComponent);
         weightTaskDialog.afterClosed().subscribe(weight => {
           if ( current !== weight ) {
