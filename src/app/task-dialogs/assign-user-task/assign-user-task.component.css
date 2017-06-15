@@ -9,6 +9,11 @@
   max-height: 500px;
 }
 
+.user-option {
+  display: flex;
+  flex-direction: row;
+}
+
 .names:hover {
   color: whitesmoke;
 }

@@ -13,8 +13,7 @@ import { ProjectsService } from '../../services/projects-service/projects.servic
 
 export class AssignUserTaskComponent implements OnInit {
 
-  private results: Object;
-
+  private results: Object = {};
   constructor(
     @Inject(MD_DIALOG_DATA) public data: any,
     private dialogRef: MdDialogRef<AssignUserTaskComponent>,
@@ -22,10 +21,19 @@ export class AssignUserTaskComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.projectsService.usersOnProject.forEach((user) => {
+      this.results[user.id] = false;
+    });
 
+    this.projectsService.getUsersOnTask(this.data)
+      .then(users => {
+        users.forEach((user) => {
+          this.results[user.user_id] = true;
+        });
+      });
   }
 
-  changeResults(): void {
-
+  changeResults(userId: number): void {
+    this.results[userId] = !this.results[userId];
   }
 }

@@ -29,8 +29,8 @@ exports.tasks = {
   },
 
   retrieveTaskUsers: (req, res) => {
-    helper.retrieveTaskUsers(req.params.task_id, users => {
-      console.log(users);
+    helper.retrieveTaskUser(req.params.task_id, users => {
+      res.send(users);
     })
   },
 

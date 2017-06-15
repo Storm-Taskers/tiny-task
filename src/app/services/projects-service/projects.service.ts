@@ -76,6 +76,15 @@ export class ProjectsService {
             .catch(this.handleError);
   }
 
+  getUsersOnTask(taskId: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/api/tasks/users/${taskId}`)
+            .toPromise()
+            .then(response => {
+              return response.json();
+            })
+            .catch(this.handleError);
+  }
+
   getUserTasks(userId: number, projectId: number): Promise<Task[]> {
     return this.http.get(`${this.baseUrl}/api/tasks/${projectId}/users/${userId}`)
             .toPromise()
