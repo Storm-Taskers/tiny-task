@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  url: process.env.BASE_URL
+  url: 'https://tinytask.herokuapp.com'
 };
