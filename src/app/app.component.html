@@ -1,6 +1,10 @@
 <div class="app">
   <header>
-    <div class="logo" routerLink="/">
+    <div class="logo" routerLink="/" *ngIf="!authService.isAuthenticated()">
+    <img src="../assets/tinytasklogowhitered.png" height="50" width="50" style="margin-right: 5px">
+      <h2>{{ title.toUpperCase() }}<span style="color: hsla(2, 81%, 65%, 1)">.</span></h2>
+    </div>
+     <div class="logo" routerLink="/projects" *ngIf="authService.isAuthenticated()">
     <img src="../assets/tinytasklogowhitered.png" height="50" width="50" style="margin-right: 5px">
       <h2>{{ title.toUpperCase() }}<span style="color: hsla(2, 81%, 65%, 1)">.</span></h2>
     </div>
