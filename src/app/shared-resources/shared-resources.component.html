@@ -18,12 +18,11 @@
   <!--Implement ngFor to create Announcements-->
   <div *ngFor="let resource of sharedResourceService.resources" class="resource">
     <div class="eachResource">
-      <div class="url">
+      <div class="url" >
         <a href="{{ 'https://' + resource?.URL }}" target="_blank">{{ resource?.URL }} </a>
       </div>
-      <div class="notes">{{ resource?.notes }}</
-      div>
-      <button class="delete"(click)="deleteResource(resource.id, resource.resource); $event.stopPropagation()">X
+      <div class="notes">{{ resource?.notes }}</div>
+      <button md-icon-button class="delete"(click)="deleteResource(resource.id, resource.resource); $event.stopPropagation()"><i class="material-icons">&#xE14C;</i>
       </button>
     </div>
   </div>
