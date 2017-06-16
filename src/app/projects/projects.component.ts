@@ -35,10 +35,12 @@ export class ProjectsComponent implements OnInit {
         this.teamService.getUserTeams(userData.user_profile.id);
 
         // Project Rendering
-        this.projectsService.projectIds = userData.project_id;
-        this.projectsService.projectIds.forEach((projectId) => {
-          this.projectsService.getProject(projectId, true);
-        });
+        if ( this.projectsService.projectIds.length === 0 ) {
+          this.projectsService.projectIds = userData.project_id;
+          this.projectsService.projectIds.forEach((projectId) => {
+            this.projectsService.getProject(projectId, true);
+          });
+        }
       });
     } else {
       this.teamService.getUserTeams(this.userService.userId);

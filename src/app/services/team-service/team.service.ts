@@ -34,8 +34,10 @@ export class TeamService {
       .toPromise()
       .then((response) => {
         this.userTeams = response.json();
-        this.selectedTeamInfo = this.userTeams.find(team => team.solo_team == true);
-        this.currentTeam = this.selectedTeamInfo.id;
+        if ( !this.selectedTeamInfo ) {
+          this.selectedTeamInfo = this.userTeams.find(team => team.solo_team == true);
+          this.currentTeam = this.selectedTeamInfo.id;
+        }
       })
       .catch(this.handleError);
   }

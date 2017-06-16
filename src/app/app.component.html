@@ -10,7 +10,7 @@
       <h3  (click)="authService.login()">SIGN UP</h3>
     </div>
     <div class="login" *ngIf="authService.isAuthenticated()">
-    <h3 (click)="authService.logout()" routerLink="/">LOGOUT</h3>
+    <h3 (click)="logout()" routerLink="/">LOGOUT</h3>
     </div>
   </header>
   <!--Render User Profile-->
