@@ -1,7 +1,12 @@
+  <div>
+    <h1 class="project-title">
+      {{ projectsService.currentProject?.project_name.toUpperCase() + " "}}
+    </h1> 
+  </div>
 <div class="header">
   <div class="h2-header">
     <h2>
-      {{ projectsService.currentProject?.project_name.toUpperCase() }} TEAM MEMBERS
+  TEAM MEMBERS
     </h2>
   </div>
 </div>
@@ -17,7 +22,7 @@
 <div class="header">
   <div class="h2-header">
     <h2>
-     {{ projectsService.currentProject?.project_name.toUpperCase() }} PROJECT BOARD
+      PROJECT BOARD
     </h2>
     <button md-icon-button (click)="addNewPhase()" mdTooltip="Add a Board" mdTooltipPosition="after">
       <i class="material-icons">library_add</i>

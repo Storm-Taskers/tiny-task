@@ -3,10 +3,12 @@
     {{ selectedUserInfo?.full_name }}
     <div class="availability">Current Availability: {{  selectedUserInfo?.user_availability}}</div>
     </h2>
+    <div>
   <button>
     <a href="{{'mailto:' + selectedUserInfo?.email}}">Send {{ selectedUserInfo?.full_name.split(' ')[0] }} an email</a>
   </button>
   <button (click)="returnToProject()">Return to Project</button>
+  </div>
 </div>
 <hr/>
 
