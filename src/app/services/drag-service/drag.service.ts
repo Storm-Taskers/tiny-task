@@ -6,6 +6,7 @@ export class DragService {
   public taskEdit: boolean = false;
   public phaseDrag: boolean = true;
   public taskDrag: boolean = false;
+  public currentEditTasks: number = 0;
 
   constructor() { }
 
