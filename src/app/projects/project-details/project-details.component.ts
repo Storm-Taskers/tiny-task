@@ -6,6 +6,7 @@ import { ProjectsService } from '../../services/projects-service/projects.servic
 import { UserService } from '../../services/user-service/user.service';
 import { NavService } from '../../services/nav-service/nav.service';
 import { TeamService } from '../../services/team-service/team.service';
+import { DragService } from '../../services/drag-service/drag.service';
 
 @Component({
   selector: 'app-project-details',
@@ -22,6 +23,7 @@ export class ProjectDetailsComponent implements OnInit {
     public userService: UserService,
     public navService: NavService,
     public teamService: TeamService,
+    public dragService: DragService,
     public route: ActivatedRoute,
     public location: Location
    ) {}
@@ -31,6 +33,11 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Subscribe to drag events
+    this.dragService.dragUpdate.subscribe(drag => {
+      this.enablePhaseDrag = drag.phaseDrag;
+    });
+
     // Reset Progress Bar
     this.projectsService.phases = [];
 
