@@ -29,11 +29,16 @@ hr {
   justify-content: flex-start;
   margin-bottom: 30px;
   min-height: 200px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, .6);
+  box-shadow: 0px 2px 5px rgba(200, 200, 200, .6);
+  padding: 10px;
 }
 
 .current-project {
   color: white;
   width: 280px;
+  height: 180px;
   background-color: hsla(2, 81%, 65%, 1);
   border-radius: 3px;
   padding: 7px;
@@ -61,18 +66,13 @@ hr {
 .past-project {
   color: white;
   width: 280px;
-  background-color: hsla(348, 82%, 44%, .3);
+  height: 180px;
+  background-color: hsla(2, 81%, 65%, .3);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   padding: 10px;
   margin: 5px;
   box-shadow: 0px 2px 5px #888888;
-}
-
-.past-project > img {
-  object-fit: contain;
-  width: 280px;
-  opacity: .5;
 }
 
 .project-header {

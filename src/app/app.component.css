@@ -58,7 +58,7 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: hsla(341, 59%, 48%, 1);
+  background-color: hsla(2, 81%, 65%, 1);
   padding: 5px;
   box-shadow: 0px 2px 5px #888888;
   height: auto;
@@ -135,7 +135,6 @@ a:hover, a:active {
 }
 
 .content-display {
- 
   width: 100%;
   padding: 10px;
   margin-top: 10px;
@@ -175,9 +174,16 @@ h3 {
   padding: 0 14px;
   font-size: 14px;
   text-shadow: 1px 1px 0 rgba(0,0,0,.1);
-  border-radius: 2px
+  border-radius: 2px;
+  margin: 4px;
 }
 
 h3:hover {
   opacity: .5;
+}
+
+.login {
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
 }

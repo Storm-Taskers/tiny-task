@@ -1,10 +1,11 @@
 .current-team-members {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   color: white;
   min-height: 130px;
-  max-width: 160px;
+  width: 200px;
   background-color: #00bcd4;
   border-radius: 6px;
   padding: 7px;
@@ -19,6 +20,7 @@
 
 .status {
   font-size: 16px;
+  text-align: center;
 }
 
 .projectMenu:hover {

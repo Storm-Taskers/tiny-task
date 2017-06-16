@@ -8,10 +8,10 @@
     <inline-editor [(ngModel)]="status" (onSave)="updateUserStatus($event)" name="UserStatus" size="15" min="0" max="50" (onError)="handleError()" placeholder="Type Status" type="text">
     </inline-editor>
   </div>
-  <button
+  <h3
     class="myButton"
     *ngIf="authService.isAuthenticated()"
     (click)="authService.logout();">
-      Log Out
-  </button>
+      LOGOUT
+  </h3>
 </div>
