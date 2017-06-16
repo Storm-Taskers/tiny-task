@@ -52,14 +52,13 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
-  width: 500px;
+  margin: 5px;
+  width: 480px;
   color: black;
   justify-content: flex-start;
   background-color: hsl(41, 100%, 50%);
   border-radius: 3px;
   padding: 7px;
-  margin: 5px;
   box-shadow: 0px 2px 5px #888888;
 }
 
@@ -67,7 +66,8 @@ hr {
   background-color: white;
   color: black;
   border-color: black;
-  text-align: center;
+  text-overflow: ellipsis;
+  text-align: left;
   border-radius: 2px;
   margin-right: 25px;
   margin-left: 15px;
@@ -75,13 +75,15 @@ hr {
   height: auto;
   padding: 7px;
   box-shadow: 0px 2px 2px #888888;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
 }
-
 .notes {
   background-color: white;
   color: black;
   border-color: black;
-  text-align: center;
+  text-align: left;
   border-radius: 2px;
   margin-right: 25px;
   margin-left: 15px;
@@ -90,11 +92,14 @@ hr {
   height: auto;
   padding: 7px;
   box-shadow: 0px 2px 2px #888888;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
 }
 
 .delete {
   display: flex;
-  margin-right: auto;
-  color: black;
+  margin-left: auto;
+  color: white;
   font-style: bold;
 }
