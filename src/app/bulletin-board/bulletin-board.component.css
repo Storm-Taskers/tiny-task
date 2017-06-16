@@ -25,6 +25,7 @@ hr {
 
 .container-announcement {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
   margin-bottom: 30px;
