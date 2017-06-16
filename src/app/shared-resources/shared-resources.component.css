@@ -23,6 +23,22 @@ hr {
   justify-content: space-between;
 }
 
+.inputBoxes {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.urlInput {
+  margin-right: 2px;
+
+}
+
+.noteInput {
+  margin-left: 2px;
+
+}
+
 .container-resource {
   display: flex;
   flex-direction: column;
