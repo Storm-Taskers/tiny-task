@@ -30,12 +30,9 @@
 
   <div *ngFor="let projectTask of projectsAndTasks">
     <div class="container-projects">
-      <h1>{{ projectTask.project_info.project_name }}</h1>
+      <h1>{{ projectTask?.project_info.project_name }}</h1>
     </div>
     <hr/>
-
-
     <h4 *ngFor="let task of projectTask?.tasks_info">{{ task.task_name }}</h4>
-
   </div>
 </ng-template>

@@ -12,13 +12,7 @@ import { Task } from './Task';
 
 export class TasksComponent {
   @Input() task: Task;
-  @Input() taskDrag: boolean;
-  @Input() dragOperation: boolean;
-  @Input() taskEditing: boolean;
-
-  @Output() dragOperationChange = new EventEmitter();
-  @Output() taskDragChange = new EventEmitter();
-  @Output() taskEditingChange = new EventEmitter();
+  public taskEditing: boolean = false;
 
   constructor(private projectsService: ProjectsService) { }
 
@@ -34,24 +28,28 @@ export class TasksComponent {
   }
 
   disableAllDrag(): void {
-    this.taskEditing = true;
-    this.taskDrag = false;
-    this.dragOperation = false;
-    console.log("disable all drag:", this.taskEditing, this.taskDrag, this.dragOperation)
+    // Disable all dragging and set taskEditing to be true
 
-    this.taskEditingChange.emit(this.taskEditing);
-    this.dragOperationChange.emit(this.dragOperation);
-    this.taskDragChange.emit(this.taskDrag);
+    // this.taskEditing = true;
+    // this.taskDrag = false;
+    // this.dragOperation = false;
+    // console.log("disable all drag:", this.taskEditing, this.taskDrag, this.dragOperation)
+
+    // this.taskEditingChange.emit(this.taskEditing);
+    // this.dragOperationChange.emit(this.dragOperation);
+    // this.taskDragChange.emit(this.taskDrag);
   }
 
   enablePhaseDrag(): void {
-    this.taskEditing = false;
-    this.taskDrag = false;
-    this.dragOperation = true;
-    console.log("enable phase drag:", this.taskEditing, this.taskDrag, this.dragOperation);
-    
-    this.taskEditingChange.emit(this.taskEditing);
-    this.dragOperationChange.emit(this.dragOperation);
-    this.taskDragChange.emit(this.taskDrag); 
+    // Enable phase drag, disable taskdrag, and set taskEditing to be false
+
+    // this.taskEditing = false;
+    // this.taskDrag = false;
+    // this.dragOperation = true;
+    // console.log("enable phase drag:", this.taskEditing, this.taskDrag, this.dragOperation);
+
+    // this.taskEditingChange.emit(this.taskEditing);
+    // this.dragOperationChange.emit(this.dragOperation);
+    // this.taskDragChange.emit(this.taskDrag);
   }
 }

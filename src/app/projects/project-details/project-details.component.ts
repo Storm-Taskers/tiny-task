@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -15,9 +15,7 @@ import { TeamService } from '../../services/team-service/team.service';
 
 export class ProjectDetailsComponent implements OnInit {
   public selectedProjectId: number;
-  public dragOperation: boolean = true;
-  public taskEditing: boolean = false;
-
+  public enablePhaseDrag: boolean = true;
 
   constructor(
     public projectsService: ProjectsService,

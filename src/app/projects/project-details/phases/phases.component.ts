@@ -17,13 +17,9 @@ import { Task } from './tasks/Task';
 
 export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
-  @Input() dragOperation: boolean = true;
-  @Input() taskEditing: boolean = false;
   public phaseTasks: Task[];
-  public taskDrag: boolean = false;
-
-  @Output() dragOperationChange = new EventEmitter();
-  @Output() taskEditingChange = new EventEmitter();
+  public enableTaskDrag: boolean = false;
+  public taskEditing: boolean = false;
 
   constructor(
     private projectsService: ProjectsService,
@@ -37,24 +33,28 @@ export class PhasesComponent implements OnInit {
   }
 
   disableDrag(): void {
-    if(!this.taskEditing) {
-      this.taskDrag = true;
-      this.dragOperation = false;
-      this.taskEditingChange.emit(!this.taskEditing);
-    }
-    this.taskEditingChange.emit(this.taskEditing);
-    this.dragOperationChange.emit(this.dragOperation);
+    // Disable phase drag and enable task drag IF task editing is off
+
+    // if(!this.taskEditing) {
+    //   this.taskDrag = true;
+    //   this.dragOperation = false;
+    //   this.taskEditingChange.emit(!this.taskEditing);
+    // }
+    // this.taskEditingChange.emit(this.taskEditing);
+    // this.dragOperationChange.emit(this.dragOperation);
   }
 
   enableDrag(): void {
-    if(!this.taskEditing) {
-      this.taskDrag = false;
-      this.dragOperation = true;
-      this.taskEditingChange.emit(!this.taskEditing);
-    }
+    // Enable phase drag and disable task drag IF task editing is off
 
-    this.taskEditingChange.emit(this.taskEditing);
-    this.dragOperationChange.emit(this.dragOperation);
+    // if(!this.taskEditing) {
+    //   this.taskDrag = false;
+    //   this.dragOperation = true;
+    //   this.taskEditingChange.emit(!this.taskEditing);
+    // }
+
+    // this.taskEditingChange.emit(this.taskEditing);
+    // this.dragOperationChange.emit(this.dragOperation);
   }
 
   openAssignUsers(taskId: number): void {

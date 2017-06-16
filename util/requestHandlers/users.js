@@ -65,7 +65,6 @@ exports.users = {
   },
 
   retrieveProfile: (req, res) => {
-    console.log(req.params);
     helperUsers.retrieveProfile(req.params.user_id, user_profile => {
       res.send(user_profile);
     })
@@ -140,13 +139,6 @@ exports.users = {
       res.send(userTeamData);
     });
   },
-
-  // getUserTasks: (req, res) => {
-  //   let userTaskData = {};
-  //   helperUsers.retrieveTaskUser(req.params.user_id, (tasks) => {
-
-  //   });
-  // },
 
   deleteTeamUsers: (req, res) => {
     helperTeams.deleteTeamUser(
