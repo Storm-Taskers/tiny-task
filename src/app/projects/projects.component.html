@@ -34,6 +34,14 @@
         <div class="project-content" (click)="showDetails()" [routerLink]="['/projects', project.id]">
           {{ project.team_name }}
         </div>
+        <div *ngIf="project.phase_complete !== 0 || project.phase_incomplete !== 0; else addPhase" class="phase-counters">
+          <div>
+            Phases Complete: {{ project.phase_complete }}
+          </div>
+          <div>
+            Phases Incomplete: {{ project.phase_incomplete }}
+          </div>
+        </div>
       </div>
     </div>
     <md-menu #menu="mdMenu">
@@ -68,7 +76,7 @@
         </button>
       </div>
       <div class="project-content" (click)="showDetails()" [routerLink]="['/projects', project.id]">
-        Render me Timbers
+        {{ project.team_name }}
       </div>
       <md-menu #menu="mdMenu">
       <button md-menu-item (click)="deleteProject(project.id, project.project_name)">
@@ -87,3 +95,7 @@
     </div>
   </div>
 </div>
+
+<ng-template class="no-phase" #addPhase>
+  <div>No Phases in Project</div>
+</ng-template>

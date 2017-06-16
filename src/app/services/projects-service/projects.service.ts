@@ -38,11 +38,21 @@ export class ProjectsService {
     return this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
             .toPromise()
             .then( (response) => {
+              console.log(response.json());
               if (response.json().project_info === null) {
                 return null;
               }
               let projectToPush = response.json().project_info;
               projectToPush.team_name = response.json().team_info[0].team_name;
+              projectToPush.phase_complete = 0;
+              projectToPush.phase_incomplete = 0;
+              response.json().phase_info.forEach(phase => {
+                if ( phase.phase_status === 'complete' ) {
+                  projectToPush.phase_complete++;
+                } else {
+                  projectToPush.phase_incomplete++;
+                }
+              });
               this.projects.push(projectToPush);
               if ( !mainView ) {
                 this.totalWeight = 0;
