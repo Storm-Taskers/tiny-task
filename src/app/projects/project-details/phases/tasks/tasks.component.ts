@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { ProjectsService } from '../../../../services/projects-service/projects.service';
+import { DragService } from '../../../../services/drag-service/drag.service';
 
 import { Task } from './Task';
 
@@ -10,11 +11,14 @@ import { Task } from './Task';
   styleUrls: ['./tasks.component.css']
 })
 
-export class TasksComponent {
+export class TasksComponent implements OnInit {
   @Input() task: Task;
   public taskEditing: boolean = false;
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(
+    private projectsService: ProjectsService,
+    private dragService: DragService
+  ) { }
 
   editTaskName(taskId: number, newName: string): void {
     this.projectsService.editTaskName(taskId, newName)
@@ -27,29 +31,19 @@ export class TasksComponent {
     alert("144 Character Limit Exceeded");
   }
 
+  ngOnInit(): void {
+    this.dragService.dragUpdate.subscribe((drag) => {
+      this.taskEditing = drag.taskEdit;
+    });
+  }
+
   disableAllDrag(): void {
     // Disable all dragging and set taskEditing to be true
-
-    // this.taskEditing = true;
-    // this.taskDrag = false;
-    // this.dragOperation = false;
-    // console.log("disable all drag:", this.taskEditing, this.taskDrag, this.dragOperation)
-
-    // this.taskEditingChange.emit(this.taskEditing);
-    // this.dragOperationChange.emit(this.dragOperation);
-    // this.taskDragChange.emit(this.taskDrag);
+    this.dragService.enableTaskEdit();
   }
 
   enablePhaseDrag(): void {
     // Enable phase drag, disable taskdrag, and set taskEditing to be false
-
-    // this.taskEditing = false;
-    // this.taskDrag = false;
-    // this.dragOperation = true;
-    // console.log("enable phase drag:", this.taskEditing, this.taskDrag, this.dragOperation);
-
-    // this.taskEditingChange.emit(this.taskEditing);
-    // this.dragOperationChange.emit(this.dragOperation);
-    // this.taskDragChange.emit(this.taskDrag);
+    this.dragService.disableTaskEdit();
   }
 }
