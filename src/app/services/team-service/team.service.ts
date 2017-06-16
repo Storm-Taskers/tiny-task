@@ -45,6 +45,7 @@ export class TeamService {
             .then((response) => {
               this.selectedTeamInfo = response.json().team_info[0];
               this.selectedTeamUserInfo = response.json().user_info;
+              return response.json();
             })
             .catch(this.handleError);
   }
