@@ -1,0 +1,9 @@
+.weight-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 250px;
+  min-height: 250px;
+  max-width: 550px;
+  max-height: 550px;
+}
