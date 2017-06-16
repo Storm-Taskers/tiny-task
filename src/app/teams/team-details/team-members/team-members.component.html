@@ -6,7 +6,7 @@
   <button>
     <a href="{{'mailto:' + selectedUserInfo?.email}}">Send {{ selectedUserInfo?.full_name.split(' ')[0] }} an email</a>
   </button>
-  <button>Return to Project</button>
+  <button (click)="returnToProject()">Return to Project</button>
 </div>
 <hr/>
 
