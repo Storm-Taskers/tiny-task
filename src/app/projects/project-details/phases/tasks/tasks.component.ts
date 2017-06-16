@@ -39,11 +39,15 @@ export class TasksComponent implements OnInit {
 
   disableAllDrag(): void {
     // Disable all dragging and set taskEditing to be true
+    this.dragService.currentEditTasks++;
     this.dragService.enableTaskEdit();
   }
 
   enablePhaseDrag(): void {
     // Enable phase drag, disable taskdrag, and set taskEditing to be false
-    this.dragService.disableTaskEdit();
+    this.dragService.currentEditTasks--;
+    if ( this.dragService.currentEditTasks === 0 ) {
+      this.dragService.disableTaskEdit();
+    }
   }
 }
