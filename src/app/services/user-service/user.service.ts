@@ -16,6 +16,7 @@ export class UserService {
 
   public userId: number;
   public userProfile: User;
+  public availability: string;
 
   constructor(private http: Http) { }
 
@@ -32,6 +33,7 @@ export class UserService {
       .toPromise()
       .then( (response) => {
         this.userProfile = response.json().user_profile;
+        this.availability = this.userProfile.user_availability;
         this.userId = response.json().user_profile.id;
         this.userUpdate.emit(response.json());
       })
@@ -50,12 +52,24 @@ export class UserService {
 
   updateUserStatus(status: string): void {
     this.http.put(
-      `${this.baseUrl}/api/users/${this.userId}`, 
-      JSON.stringify({user_status: status}), 
+      `${this.baseUrl}/api/users/${this.userId}`,
+      JSON.stringify({user_status: status}),
       {headers: this.headers})
       .toPromise()
       .then(response => {
         return response.json();
+      })
+      .catch(this.handleError);
+  }
+
+  updateUserAvailability(available: string): void {
+    this.http.put(
+      `${this.baseUrl}/api/users/${this.userId}`,
+      JSON.stringify({user_availability: available}),
+      {headers: this.headers})
+      .toPromise()
+      .then(response => {
+        this.availability = response.json().user_availability
       })
       .catch(this.handleError);
   }
