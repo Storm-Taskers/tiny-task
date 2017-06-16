@@ -81,7 +81,7 @@ Content-type: json/application
   ```JSON
   {
     "name": "Kevin Nguyen",
-    nickname": "kevinN@tinytask.com"
+    "nickname": "kevinN@tinytask.com"
   }
   ```
 
@@ -94,7 +94,7 @@ Content-type: json/application
       "name": "Kevin Nguyen",
       "nickname": "kevin@tinytask.com",
       "user_status": "Newly Created Account!",
-      "user_availability: "Available",
+      "user_availability": "Available",
       "createdAt": "2017-06-15T18:20:00.000Z",
       "updatedAt": "2017-06-15T18:20:00.000Z"
     }

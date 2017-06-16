@@ -6,11 +6,16 @@
 <hr/>
 
 <div class="container-resource">
-  <input [(ngModel)]="commentField" value="commentField" placeholder="Add URL" (keyup.enter)="addNewResource(commentField, urlField)">
-  <input [(ngModel)]="urlField" value="urlField" placeholder="Add Notes" (keyup.enter)="addNewResource(commentField, urlField)">
-  <button md-icon-button (click)="addNewResource(commentField, urlField)" mdTooltip="Add Resource" mdTooltipPosition="after">
-    <i class="material-icons">library_add</i>
-  </button>
+  <div>
+
+    <input [(ngModel)]="commentField" value="commentField" placeholder="Add URL" (keyup.enter)="addNewResource(commentField, urlField)">
+
+    <input [(ngModel)]="urlField" value="urlField" placeholder="Add Notes" (keyup.enter)="addNewResource(commentField, urlField)">
+
+    <button md-icon-button (click)="addNewResource(commentField, urlField)" mdTooltip="Add Resource" mdTooltipPosition="after">
+      <i class="material-icons">library_add</i>
+    </button>
+  </div>
   <!--Implement ngFor to create Announcements-->
   <div *ngFor="let resource of sharedResourceService.resources" class="resource">
     <div class="eachResource">

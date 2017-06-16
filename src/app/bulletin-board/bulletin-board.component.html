@@ -1,14 +1,16 @@
 <div class="header">
   <h2 class="h2-header">Team Announcements
-    <button md-icon-button (click)="addNewAnnouncement(nameField)">
-      <i class="material-icons">library_add</i>
-    </button>
-    <input [(ngModel)]="nameField" value="nameField" placeholder="Add New Announcement" (keyup.enter)="addNewAnnouncement(nameField)">
   </h2>
 </div>
 <hr/>
 
 <div class="container-announcement">
+  <div>
+    <button md-icon-button (click)="addNewAnnouncement(nameField)">
+      <i class="material-icons">library_add</i>
+    </button>
+    <input [(ngModel)]="nameField" value="nameField" placeholder="Add New Announcement" (keyup.enter)="addNewAnnouncement(nameField)">
+  </div>
 <!--Implement ngFor to create Announcements-->
   <div
     *ngFor="let announcement of bulletinBoardService.announcements"

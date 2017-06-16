@@ -1,28 +1,13 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Tiny Task</a>
-
-      <button
-        class="btn btn-primary btn-margin"
-        routerLink="/">
-          Home
-      </button>
-
-      <button
+      <h2 class="navbar-brand" href="#"> Please Login to Tiny Task</h2>
+      <h3
         class="btn btn-primary btn-margin"
         *ngIf="!auth.isAuthenticated()"
         (click)="auth.login()">
-          Log In
-      </button>
-
-      <button
-        class="btn btn-primary btn-margin"
-        *ngIf="auth.isAuthenticated()"
-        (click)="auth.logout()">
-          Log Out
-      </button>
-
+          LOGIN
+      </h3>
     </div>
   </div>
 </nav>
