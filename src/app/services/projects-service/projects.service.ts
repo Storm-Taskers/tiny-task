@@ -146,16 +146,16 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  createPhase(projectId: number): void {
-    this.http.post(
-      `${this.baseUrl}/api/phases/${projectId}`,
-      JSON.stringify({phase_name: "New Phase"}),
-      {headers: this.headers})
-      .toPromise()
-      .then( (response) => {
-        this.phases.push(response.json());
-      })
-      .catch(this.handleError);
+  createPhase(projectId: number): Promise<any> {
+    return this.http.post(
+            `${this.baseUrl}/api/phases/${projectId}`,
+            JSON.stringify({phase_name: "New Phase"}),
+            {headers: this.headers})
+            .toPromise()
+            .then( (response) => {
+              this.phases.push(response.json());
+            })
+            .catch(this.handleError);
   }
 
   createTask(phaseId: number): Promise<Task> {
