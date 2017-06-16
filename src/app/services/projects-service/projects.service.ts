@@ -38,7 +38,6 @@ export class ProjectsService {
     return this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
             .toPromise()
             .then( (response) => {
-              console.log(response.json());
               if (response.json().project_info === null) {
                 return null;
               }
