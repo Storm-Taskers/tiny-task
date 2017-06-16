@@ -49,7 +49,7 @@ export class TeamDetailsComponent implements OnInit {
           if ( result === null ) {
             this.router.navigate(['/teams']);
           }
-
+        
           this.navService.lastVisitedProject = this.teamService.selectedTeamInfo.team_name;
         })
     });

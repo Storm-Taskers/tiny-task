@@ -47,6 +47,7 @@ export class TeamService {
               if ( response.json().team_info.length === 0 ) {
                 return null;
               }
+
               this.selectedTeamInfo = response.json().team_info[0];
               this.selectedTeamUserInfo = response.json().user_info;
               return response.json();
