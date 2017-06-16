@@ -38,7 +38,7 @@ export class SharedResourceComponent implements OnInit {
   }
 
   deleteResource(resourceId: number, resource: string): void {
-    if (confirm(`Are you sure you want to delete "${resource}"?`)) {
+    if (confirm(`Are you sure you want to delete this resource?`)) {
       this.sharedResourceService.deleteResource(resourceId);
     }
   }
