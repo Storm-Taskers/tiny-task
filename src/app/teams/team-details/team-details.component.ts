@@ -43,8 +43,10 @@ export class TeamDetailsComponent implements OnInit {
 
     // Get Team Info
     this.route.params.subscribe(params => {
-      this.teamService.getTeamInfo(+params['id']);
-      this.navService.lastVisitedProject = this.teamService.selectedTeamInfo.team_name;
+      this.teamService.getTeamInfo(+params['id'])
+        .then(() => {
+          this.navService.lastVisitedProject = this.teamService.selectedTeamInfo.team_name;
+        })
     });
 
     // Set Up Member Search Observable

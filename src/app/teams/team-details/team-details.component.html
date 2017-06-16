@@ -21,7 +21,7 @@
 
 <div class="container-team-users">
     <user
-      *ngFor="let user of teamService.selectedTeamUserInfo"
+      *ngFor="let user of teamService?.selectedTeamUserInfo"
       [user]="user"
       [teamMenu]="true"
       [team]="teamService.selectedTeamInfo"

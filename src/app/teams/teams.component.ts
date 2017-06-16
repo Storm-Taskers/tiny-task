@@ -28,6 +28,10 @@ export class TeamsComponent implements OnInit {
       // Team Rendering
       this.teamService.getUserTeams(userData.user_profile.id);
     });
+
+    if ( this.teamService.userTeams.length === 0 ) {
+      this.teamService.getUserTeams(this.userService.userId);
+    }
   }
 
   addNewTeam(teamName: string): void {
