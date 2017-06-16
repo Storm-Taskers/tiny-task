@@ -41,4 +41,8 @@ export class UserInfoComponent implements OnInit {
   updateUserStatus (event: string) {
     this.userService.updateUserStatus(event);
   }
+
+  updateAvailability(availability: string): void {
+    this.userService.updateUserAvailability(availability);
+  }
 }

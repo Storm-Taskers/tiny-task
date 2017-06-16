@@ -8,4 +8,10 @@
     <inline-editor [(ngModel)]="status" (onSave)="updateUserStatus($event)" name="UserStatus" size="15" min="0" max="50" (onError)="handleError()" placeholder="Type Status" type="text">
     </inline-editor>
   </div>
+  <div>Current Availability:</div>
+  <div *ngIf="userService.availability === 'Available'; else notAvail" (click)="updateAvailability('Not Available')">O</div>
 </div>
+
+<ng-template #notAvail>
+  <div (click)="updateAvailability('Available')">X</div>
+</ng-template>
