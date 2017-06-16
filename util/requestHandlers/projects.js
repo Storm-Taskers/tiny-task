@@ -50,18 +50,22 @@ const helperTasks = require("../helpers/tasks.js");
     let returnData = {};
     helperProject.retrieveProjectById(req.params.project_id, project => {
       returnData.project_info = project;
-      helperTeam.retrieveTeamById(project.team_id, team => {
-        returnData.team_info = team;
-        helperTeam.retrieveTeamUsers(team[0].dataValues.id, users => {
-          returnData.user_info = users;
-          helperPhases.retrievePhasesByProjectId(req.params.project_id, (phases) => {
-            this.reorderPhases(phases, returnData.project_info.dataValues.phase_order, (result) => {
-              returnData.phase_info = result;
-              res.send(returnData).end();
+      if (project) {
+        helperTeam.retrieveTeamById(project.team_id, team => {
+          returnData.team_info = team;
+          helperTeam.retrieveTeamUsers(team[0].dataValues.id, users => {
+            returnData.user_info = users;
+            helperPhases.retrievePhasesByProjectId(req.params.project_id, (phases) => {
+              this.reorderPhases(phases, returnData.project_info.dataValues.phase_order, (result) => {
+                returnData.phase_info = result;
+                res.send(returnData).end();
+              });
             });
           });
         });
-      });
+      } else {
+        res.send(returnData);
+      }
     });
   },
 

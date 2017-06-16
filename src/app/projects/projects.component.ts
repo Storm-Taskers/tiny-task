@@ -62,9 +62,10 @@ export class ProjectsComponent implements OnInit {
 
   addNewProject(): void {
     let teamId: number = this.teamService.currentTeam;
+    let teamName: string = this.teamService.selectedTeamInfo.team_name;
     let userId: number = this.userService.userId;
 
-    this.projectsService.createProject(teamId, userId);
+    this.projectsService.createProject(teamId, userId, teamName);
   }
 
   deleteProject(projectId: number, projectName: string): void {
@@ -102,16 +103,11 @@ export class ProjectsComponent implements OnInit {
     this.projectsService.editProjectName(projectId, newName);
   }
 
-  updateProjectOrder(event: any) {
-    console.log(this.projectsService.projects);
-  }
-
   updateProjectStatus(event: any) {
     this.toggleCompleteProject(event.dragData.id, event.dragData.project_name, event.dragData.complete)
   }
 
   toggleCompleteProject(projectId: number, projectName: string, projectCompleted: boolean): void {
-    // console.log(projectId, projectName, projectCompleted);
     this.projectsService.editProjectCompleteStatus(projectId, projectName, !projectCompleted);
   }
 

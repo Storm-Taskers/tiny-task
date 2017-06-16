@@ -34,23 +34,26 @@ export class ProjectsService {
   }
 
   // Fetch Information
-  getProject(projectId: number, mainView: boolean): void {
-    this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
-      .toPromise()
-      .then( (response) => {
-        let projectToPush = response.json().project_info;
-        projectToPush.team_name = response.json().team_info[0].team_name;
-        this.projects.push(projectToPush);
-        if ( !mainView ) {
-          this.totalWeight = 0;
-          this.completeWeight = 0;
-          this.progress = 0;
-          this.usersOnProject = response.json().user_info;
-          this.phases = response.json().phase_info;
-          this.currentProject = response.json().project_info;
-        }
-      })
-      .catch(this.handleError);
+  getProject(projectId: number, mainView: boolean): Promise<any> {
+    return this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
+            .toPromise()
+            .then( (response) => {
+              if (response.json().project_info === null) {
+                return null;
+              }
+              let projectToPush = response.json().project_info;
+              projectToPush.team_name = response.json().team_info[0].team_name;
+              this.projects.push(projectToPush);
+              if ( !mainView ) {
+                this.totalWeight = 0;
+                this.completeWeight = 0;
+                this.progress = 0;
+                this.usersOnProject = response.json().user_info;
+                this.phases = response.json().phase_info;
+                this.currentProject = response.json().project_info;
+              }
+            })
+            .catch(this.handleError);
   }
 
   getProjectIds(userId: number): void {
@@ -133,15 +136,17 @@ export class ProjectsService {
   }
 
   // Post Information
-  createProject(teamId: number, userId: number): void {
+  createProject(teamId: number, userId: number, teamName: string): void {
     this.http.post(
       `${this.baseUrl}/api/projects`,
       JSON.stringify({project_name: 'New Project', user_id: userId, team_id: teamId}),
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        this.projects.push(response.json().project_info);
-        this.projectIds.push(response.json().project_info.id);
+        let projectToPush = response.json().project_info;
+        projectToPush.team_name = teamName;
+        this.projects.push(projectToPush);
+        this.projectIds.push(projectToPush.id);
       })
       .catch(this.handleError);
   }

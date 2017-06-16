@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { ProjectsService } from '../../services/projects-service/projects.service';
@@ -25,6 +25,7 @@ export class ProjectDetailsComponent implements OnInit {
     public teamService: TeamService,
     public dragService: DragService,
     public route: ActivatedRoute,
+    public router: Router,
     public location: Location
    ) {}
 
@@ -48,7 +49,11 @@ export class ProjectDetailsComponent implements OnInit {
     this.route.params.subscribe(params => this.selectedProjectId = +params['id']);
 
     // Get Project Info
-    this.route.params.subscribe(params => this.projectsService.getProject(+params['id'], false));
+    this.route.params.subscribe(params => this.projectsService.getProject(+params['id'], false).then(result => {
+      if ( result === null ) {
+        this.router.navigate(['/projects']);
+      }
+    }));
   }
 
   addNewPhase(): void {

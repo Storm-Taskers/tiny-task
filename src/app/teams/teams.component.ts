@@ -24,13 +24,14 @@ export class TeamsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.userUpdate.subscribe( (userData) => {
-      // Team Rendering
-      this.teamService.getUserTeams(userData.user_profile.id);
-    });
-
-    if ( this.teamService.userTeams.length === 0 ) {
-      this.teamService.getUserTeams(this.userService.userId);
+    if ( !this.userService.userId ) {
+      this.userService.userUpdate.subscribe( (userData) => {
+        this.teamService.getUserTeams(userData.user_profile.id);
+      });
+    } else {
+      if ( this.teamService.userTeams.length === 0 ) {
+        this.teamService.getUserTeams(this.userService.userId);
+      }
     }
   }
 
