@@ -25,6 +25,17 @@ export class PhasesComponent implements OnInit {
   @Output() dragOperationChange = new EventEmitter();
   @Output() taskEditingChange = new EventEmitter();
 
+  constructor(
+    private projectsService: ProjectsService,
+    private dialog: MdDialog
+  ) { }
+
+  ngOnInit() {
+    this.projectsService.getTasks(this.phase.id).then((result: any) => {
+      this.phaseTasks = result.task_info;
+    });
+  }
+
   disableDrag(): void {
     if(!this.taskEditing) {
       this.taskDrag = true;
@@ -44,17 +55,6 @@ export class PhasesComponent implements OnInit {
 
     this.taskEditingChange.emit(this.taskEditing);
     this.dragOperationChange.emit(this.dragOperation);
-  }
-
-  constructor(
-    private projectsService: ProjectsService,
-    private dialog: MdDialog
-  ) { }
-
-  ngOnInit() {
-    this.projectsService.getTasks(this.phase.id).then((result: any) => {
-      this.phaseTasks = result.task_info;
-    });
   }
 
   openAssignUsers(taskId: number): void {

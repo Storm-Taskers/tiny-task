@@ -78,6 +78,7 @@ export class ProjectsComponent implements OnInit {
     if ( this.value !== 'all' ) {
       this.navService.lastVisitedProject = this.value;
       this.teamService.currentTeam = this.value;
+      this.teamService.getTeamInfo(this.value);
 
       this.projectsService.getTeamProjects(this.value).then(() => {
         this.projectsService.projectIds.forEach((projectId) => {
