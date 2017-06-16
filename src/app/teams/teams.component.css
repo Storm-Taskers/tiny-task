@@ -32,15 +32,21 @@ hr {
 }
 
 .team {
+  cursor: pointer;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   color: white;
   background-color: hsla(2, 81%, 65%, 1);
-  min-width: 150px;
+  min-width: 250px;
+  height: 30px;
   max-width: auto;
   border-radius: 6px;
-  padding: 7px;
+  padding: 10px;
   margin: 5px;
   box-shadow: 0px 2px 5px #888888;
+  font-weight: bold;
+  font-size: 25px;
 }
 
 .team:hover {
