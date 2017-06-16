@@ -17,7 +17,15 @@ h1, h2 {
   justify-content: space-between;
 }
 
-.h2-header, .h3-header {
+.h2-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 80%;
+}
+
+.h3-header {
   display: flex;
   flex-direction: row;
   align-items: center;

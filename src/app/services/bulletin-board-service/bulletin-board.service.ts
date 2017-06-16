@@ -27,7 +27,6 @@ export class BulletinBoardService {
     this.http.get(`${this.baseUrl}/api/announcements/${teamId}`)
       .toPromise()
       .then( (response) => {
-        console.log(response.json(), 'response.json');
         this.announcements = response.json().announcements;
       })
       .catch(this.handleError);
@@ -35,16 +34,13 @@ export class BulletinBoardService {
 
   // Post Information
   createAnnouncement(teamId: number, userId: number, announcement: string): void {
-    console.log(announcement, 'inside post');
     this.http.post(
       `${this.baseUrl}/api/announcements`,
       JSON.stringify({announcement: announcement, user_id: userId, team_id: teamId}),
       {headers: this.headers})
       .toPromise()
       .then( (response) => {
-        console.log(response, 'should be response from server');
         this.announcements.push(response.json());
-        console.log(this.announcements, 'announcement array');
       })
       .catch(this.handleError);
   }

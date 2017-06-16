@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth-service/auth.service';
 })
 
 export class UserInfoComponent implements OnInit {
- 
+
   constructor(
     public userService: UserService,
     public projectsService: ProjectsService,

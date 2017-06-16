@@ -8,6 +8,7 @@
       <h3  (click)="authService.login()">LOGIN</h3>
       <h3  (click)="authService.login()">SIGN UP</h3>
     </div>
+    <h2> {{ teamService.selectedTeamInfo?.team_name }} </h2>
     <h3 *ngIf="authService.isAuthenticated()" (click)="authService.logout()" routerLink="/">LOGOUT</h3>
   </header>
   <!--Render User Profile-->
