@@ -56,3 +56,8 @@ h3 {
   margin: 4px;
   margin-top: 8px;
 }
+
+.current-availability {
+  font-size: 18px;
+  margin-top: 10px;
+}
