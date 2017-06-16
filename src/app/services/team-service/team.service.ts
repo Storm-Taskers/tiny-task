@@ -17,7 +17,7 @@ export class TeamService {
   public userTeams: Team[] = [];
 
   // Current Team Information
-  public currentTeam: number; // Mock
+  public currentTeam: number;
   public selectedTeamInfo: Team;
   public selectedTeamUserInfo: User[] = [];
 

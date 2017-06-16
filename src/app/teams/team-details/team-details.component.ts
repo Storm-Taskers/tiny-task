@@ -13,6 +13,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import { TeamService } from '../../services/team-service/team.service';
+import { NavService } from '../../services/nav-service/nav.service';
 
 import { User } from '../../projects/project-details/project-user/User';
 
@@ -31,6 +32,7 @@ export class TeamDetailsComponent implements OnInit {
 
   constructor(
     public teamService: TeamService,
+    public navService: NavService,
     public route: ActivatedRoute,
     public location: Location
   ) { }
@@ -40,7 +42,10 @@ export class TeamDetailsComponent implements OnInit {
     this.route.params.subscribe(params => this.teamService.currentTeam = this.teamId = +params['id']);
 
     // Get Team Info
-    this.route.params.subscribe(params => this.teamService.getTeamInfo(+params['id']));
+    this.route.params.subscribe(params => {
+      this.teamService.getTeamInfo(+params['id']);
+      this.navService.lastVisitedProject = this.teamService.selectedTeamInfo.team_name;
+    });
 
     // Set Up Member Search Observable
     this.users = this.memberSearchTerms
