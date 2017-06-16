@@ -15,8 +15,9 @@
     <h3>{{ selectedUserInfo?.full_name.split(' ')[0] + '\'s Tasks' }}</h3>
   </div>
   <hr/>
-
-  <h3 *ngFor="let task of userTasks">{{ task.task_name }}</h3>
+  <div class="eachTask">
+    <h3 *ngFor="let task of userTasks">{{ task.task_name }}</h3>
+  </div>
 </div>
 
 <ng-template #allProjects>
