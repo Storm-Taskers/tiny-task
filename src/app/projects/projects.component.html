@@ -12,7 +12,7 @@
       [value]="team.id"
       [class.selected]="teamService.currentTeam === team.id"
       >
-      {{ team.team_name }}
+      {{ team?.team_name }}
     </md-option>
   </md-select>
 </div>

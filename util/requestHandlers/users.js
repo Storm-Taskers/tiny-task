@@ -40,7 +40,7 @@ exports.users = {
         helperUsers.addUserProfile(req.body, userProfile => {
           userData.user_profile = userProfile;
           helperUsers.addUsers(authToken, userProfile.id, (err, user) => {
-            helperTeams.addTeam('Solo Projects', user.dataValues.user_profile_id, true, (team, user_id) => {
+            helperTeams.addTeam('My Personal Projects', user.dataValues.user_profile_id, true, (team, user_id) => {
               helperTeams.addTeamUser(user_id, team.dataValues.id, (user) => {
                 res.send(userData);
               });

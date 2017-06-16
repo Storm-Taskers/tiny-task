@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -34,6 +34,7 @@ export class TeamDetailsComponent implements OnInit {
     public teamService: TeamService,
     public navService: NavService,
     public route: ActivatedRoute,
+    public router: Router,
     public location: Location
   ) { }
 
@@ -44,7 +45,10 @@ export class TeamDetailsComponent implements OnInit {
     // Get Team Info
     this.route.params.subscribe(params => {
       this.teamService.getTeamInfo(+params['id'])
-        .then(() => {
+        .then(result => {
+          if ( result === null ) {
+            this.router.navigate(['/teams']);
+          }
           this.navService.lastVisitedProject = this.teamService.selectedTeamInfo.team_name;
         })
     });
