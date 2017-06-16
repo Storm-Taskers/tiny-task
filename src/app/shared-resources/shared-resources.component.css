@@ -99,7 +99,7 @@ hr {
 
 .delete {
   display: flex;
-  margin-right: auto;
-  color: black;
+  margin-left: auto;
+  color: white;
   font-style: bold;
 }
