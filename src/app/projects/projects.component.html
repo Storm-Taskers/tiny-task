@@ -5,8 +5,8 @@
     </button>
   </h2>
 <!--Render Dropdown Menu-->
-  <md-select placeholder="Filter Projects by Team" [(ngModel)]="value" (change)="setTeamProjects($event)">
-    <md-option value="all">--All--</md-option>
+  <md-select placeholder="Select Projects by Team" [(ngModel)]="value" (change)="setTeamProjects($event)">
+    <md-option value="all">--All Projects--</md-option>
     <md-option
       *ngFor="let team of teamService.userTeams;"
       [value]="team.id"
@@ -30,7 +30,7 @@
           </button>
         </div>
         <div class="project-content" (click)="showDetails()" [routerLink]="['/projects', project.id]">
-        Render me Timbers
+          {{ project.team_name }}
         </div>
       </div>
     </div>

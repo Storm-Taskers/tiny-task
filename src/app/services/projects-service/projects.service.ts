@@ -38,7 +38,9 @@ export class ProjectsService {
     this.http.get(`${this.baseUrl}/api/projects/${projectId}`)
       .toPromise()
       .then( (response) => {
-        this.projects.push(response.json().project_info);
+        let projectToPush = response.json().project_info;
+        projectToPush.team_name = response.json().team_info[0].team_name;
+        this.projects.push(projectToPush);
         if ( !mainView ) {
           this.totalWeight = 0;
           this.completeWeight = 0;
@@ -144,16 +146,16 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  createPhase(projectId: number): void {
-    this.http.post(
-      `${this.baseUrl}/api/phases/${projectId}`,
-      JSON.stringify({phase_name: "New Phase"}),
-      {headers: this.headers})
-      .toPromise()
-      .then( (response) => {
-        this.phases.push(response.json());
-      })
-      .catch(this.handleError);
+  createPhase(projectId: number): Promise<any> {
+    return this.http.post(
+            `${this.baseUrl}/api/phases/${projectId}`,
+            JSON.stringify({phase_name: "New Phase"}),
+            {headers: this.headers})
+            .toPromise()
+            .then( (response) => {
+              this.phases.push(response.json());
+            })
+            .catch(this.handleError);
   }
 
   createTask(phaseId: number): Promise<Task> {

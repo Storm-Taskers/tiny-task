@@ -78,6 +78,7 @@ export class ProjectsComponent implements OnInit {
     if ( this.value !== 'all' ) {
       this.navService.lastVisitedProject = this.value;
       this.teamService.currentTeam = this.value;
+      this.teamService.getTeamInfo(this.value);
 
       this.projectsService.getTeamProjects(this.value).then(() => {
         this.projectsService.projectIds.forEach((projectId) => {
@@ -86,6 +87,9 @@ export class ProjectsComponent implements OnInit {
       });
     } else {
       this.navService.lastVisitedProject = 'all';
+      this.teamService.currentTeam = null;
+      this.teamService.selectedTeamInfo = null;
+      this.teamService.selectedTeamUserInfo = null;
       this.projectsService.getUserProjects(this.userService.userId).then(() => {
         this.projectsService.projectIds.forEach((projectId) => {
           this.projectsService.getProject(projectId, true);

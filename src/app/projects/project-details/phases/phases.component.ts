@@ -5,6 +5,7 @@ import { AssignUserTaskComponent } from '../../../task-dialogs/assign-user-task/
 import { AssignTaskWeightComponent } from '../../../task-dialogs/assign-task-weight/assign-task-weight.component';
 
 import { ProjectsService } from '../../../services/projects-service/projects.service';
+import { DragService } from '../../../services/drag-service/drag.service';
 
 import { Phase } from './Phase';
 import { Task } from './tasks/Task';
@@ -17,37 +18,13 @@ import { Task } from './tasks/Task';
 
 export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
-  @Input() dragOperation: boolean = true;
-  @Input() taskEditing: boolean = false;
   public phaseTasks: Task[];
-  public taskDrag: boolean = false;
-
-  @Output() dragOperationChange = new EventEmitter();
-  @Output() taskEditingChange = new EventEmitter();
-
-  disableDrag(): void {
-    if(!this.taskEditing) {
-      this.taskDrag = true;
-      this.dragOperation = false;
-      this.taskEditingChange.emit(!this.taskEditing);
-    }
-    this.taskEditingChange.emit(this.taskEditing);
-    this.dragOperationChange.emit(this.dragOperation);
-  }
-
-  enableDrag(): void {
-    if(!this.taskEditing) {
-      this.taskDrag = false;
-      this.dragOperation = true;
-      this.taskEditingChange.emit(!this.taskEditing);
-    }
-
-    this.taskEditingChange.emit(this.taskEditing);
-    this.dragOperationChange.emit(this.dragOperation);
-  }
+  public enableTaskDrag: boolean = false;
+  public taskEditing: boolean = false;
 
   constructor(
     private projectsService: ProjectsService,
+    private dragService: DragService,
     private dialog: MdDialog
   ) { }
 
@@ -55,6 +32,23 @@ export class PhasesComponent implements OnInit {
     this.projectsService.getTasks(this.phase.id).then((result: any) => {
       this.phaseTasks = result.task_info;
     });
+
+    this.dragService.dragUpdate.subscribe(drag => {
+      this.enableTaskDrag = drag.taskDrag;
+      this.taskEditing = drag.taskEdit;
+    });
+  }
+
+  disableDrag(): void {
+    if ( !this.taskEditing ) {
+      this.dragService.enableTaskDrag();
+    }
+  }
+
+  enableDrag(): void {
+    if ( !this.taskEditing ) {
+      this.dragService.enablePhaseDrag();
+    }
   }
 
   openAssignUsers(taskId: number): void {

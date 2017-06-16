@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -6,6 +6,7 @@ import { ProjectsService } from '../../services/projects-service/projects.servic
 import { UserService } from '../../services/user-service/user.service';
 import { NavService } from '../../services/nav-service/nav.service';
 import { TeamService } from '../../services/team-service/team.service';
+import { DragService } from '../../services/drag-service/drag.service';
 
 @Component({
   selector: 'app-project-details',
@@ -15,15 +16,14 @@ import { TeamService } from '../../services/team-service/team.service';
 
 export class ProjectDetailsComponent implements OnInit {
   public selectedProjectId: number;
-  public dragOperation: boolean = true;
-  public taskEditing: boolean = false;
-
+  public enablePhaseDrag: boolean = true;
 
   constructor(
     public projectsService: ProjectsService,
     public userService: UserService,
     public navService: NavService,
     public teamService: TeamService,
+    public dragService: DragService,
     public route: ActivatedRoute,
     public location: Location
    ) {}
@@ -33,6 +33,11 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Subscribe to drag events
+    this.dragService.dragUpdate.subscribe(drag => {
+      this.enablePhaseDrag = drag.phaseDrag;
+    });
+
     // Reset Progress Bar
     this.projectsService.phases = [];
 
@@ -47,14 +52,16 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   addNewPhase(): void {
-    this.projectsService.createPhase(this.selectedProjectId);
+    this.projectsService.createPhase(this.selectedProjectId).then(() => {
+      this.updatePhaseOrder();
+    });
   }
 
   updatePhaseOrder(): void {
     let phaseOrder = '';
 
     this.projectsService.phases.forEach( (phase, index) => {
-      if(index === this.projectsService.phases.length - 1) {
+      if (index === this.projectsService.phases.length - 1) {
         phaseOrder += phase.id;
       } else {
         phaseOrder += phase.id + ' ';
