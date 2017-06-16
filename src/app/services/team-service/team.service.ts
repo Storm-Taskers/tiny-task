@@ -39,14 +39,14 @@ export class TeamService {
       .catch(this.handleError);
   }
 
-  getTeamInfo(teamId: number): void {
-    this.http.get(`${this.baseUrl}/api/teams/${teamId}`)
-      .toPromise()
-      .then((response) => {
-        this.selectedTeamInfo = response.json().team_info[0];
-        this.selectedTeamUserInfo = response.json().user_info;
-      })
-      .catch(this.handleError);
+  getTeamInfo(teamId: number): Promise<any> {
+    return this.http.get(`${this.baseUrl}/api/teams/${teamId}`)
+            .toPromise()
+            .then((response) => {
+              this.selectedTeamInfo = response.json().team_info[0];
+              this.selectedTeamUserInfo = response.json().user_info;
+            })
+            .catch(this.handleError);
   }
 
   findAllUsers(user: string): Observable<User[]> {
