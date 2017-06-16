@@ -58,7 +58,6 @@ hr {
   background-color: rgba(255, 255, 255, .6);
   box-shadow: 0px 2px 5px rgba(200, 200, 200, .6);
   padding: 10px;
-
 }
 
 .past-project {
@@ -80,13 +79,34 @@ hr {
   border-bottom: 1px solid white;
 }
 
+.project-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.view {
+    cursor: pointer;
+    background-color: bisque;
+    color: white;
+    right: 5px;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 14px;
+    font-size: 14px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.1);
+    border-radius: 2px;
+    margin: 4px;
+}
+
 .project-title {
   font-size: 22px;
   font-weight: bold;
 }
 
 .container-project .project-content {
-  cursor: pointer;
+  display: flex;
+  flex-direction: flex-start;
   margin-top: 5px;
   margin-bottom: 5px;
   height: auto;
@@ -94,7 +114,19 @@ hr {
   border-radius: 3px;
 }
 
-.container-project .project-content:hover {
-  opacity: .5;
+.project-content {
+  display: flex;
+  flex-direction: flex-start;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: auto;
+  min-height: 70px;
+  max-height: 70px;
+  padding: 7px;
+  border-radius: 3px;
+}
+
+.container-project .view:hover {
+  opacity: .8;
   background-color: hsla(2, 81%, 80%, 1);
 }

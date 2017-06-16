@@ -1,6 +1,10 @@
 <h1 *ngIf="auth.isAuthenticated()">
   Welcome to Tiny Task!
 </h1>
-<h1 *ngIf="!auth.isAuthenticated()">
-  Welcome to Tiny Task! Please <a (click)="auth.login()">Log In</a> to continue.
-</h1>
+<div *ngIf="!auth.isAuthenticated()" class="content-home">
+  <div class="logo">
+  </div>
+  <h1>
+    WELCOME TO TINY TASK! <div>PLEASE <a (click)="auth.login()">LOG IN</a> TO CONTINUE.</div>
+  </h1>
+</div>

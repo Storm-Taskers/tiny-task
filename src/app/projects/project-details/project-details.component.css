@@ -23,6 +23,12 @@ h2 {
   justify-content: space-between;
 }
 
+.project-title {
+  color:hsla(2, 81%, 65%, 1);
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .container-team-members, .container-phases, .phases {
   display: flex;
   cursor: default;
@@ -48,10 +54,10 @@ h2 {
 .example-margin {
   display: block;
   height: 15px;
-  overflow: hidden;
   transform: translateZ(0);
   transition: opacity 250ms linear;
-  width: 1000px;
+  width: 800px;
+  overflow-y: hidden;
 }
 
 .percent {

@@ -1,6 +1,6 @@
 .task-dialog {
   display: flex;
-  overflow: scroll;
+  overflow: auto;
   flex-direction: column;
   align-items: center;
   min-width: 250px;
@@ -10,8 +10,16 @@
 }
 
 .user-option {
+  cursor:pointer;
   display: flex;
   flex-direction: row;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+.user-option:hover {
+  background-color: lightslategray;
+  opacity: .3;
 }
 
 .disable-select {
@@ -21,6 +29,18 @@
   user-select: none;
 }
 
+button.mat-button {
+  outline: 1px solid;
+  border-radius: 3px;
+  margin: 5px;
+}
+
 .names:hover {
   color: whitesmoke;
+}
+
+md-dialog-actions.mat-dialog-actions{
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
 }

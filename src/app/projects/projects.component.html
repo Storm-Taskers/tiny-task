@@ -31,9 +31,10 @@
             <i class="material-icons">more_vert</i>
           </button>
         </div>
-        <div class="project-content" (click)="showDetails()" [routerLink]="['/projects', project.id]">
+        <div class="project-content">
           {{ project.team_name }}
         </div>
+<<<<<<< 11282cbfabc8e67e451923d918e25d1891bba473
         <div *ngIf="project.phase_complete !== 0 || project.phase_incomplete !== 0; else addPhase" class="phase-counters">
           <div>
             Phases Complete: {{ project.phase_complete }}
@@ -41,6 +42,10 @@
           <div>
             Phases Incomplete: {{ project.phase_incomplete }}
           </div>
+=======
+        <div class="project-footer">
+         <h3 class="view" (click)="showDetails()" [routerLink]="['/projects', project.id]">VIEW</h3>
+>>>>>>> Update a lot of styles for components
         </div>
       </div>
     </div>
