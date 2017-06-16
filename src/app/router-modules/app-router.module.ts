@@ -11,6 +11,7 @@ import { TeamMembersComponent} from '../teams/team-details/team-members/team-mem
 import { BulletinBoardComponent } from '../bulletin-board/bulletin-board.component';
 import { SharedResourceComponent } from '../shared-resources/shared-resources.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { HomeComponent } from '../auth0/home/home.component';
 
 // Routes to components
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'teams', component: TeamsComponent },
   { path: 'teams/:id/user/:teamUserId', component: TeamMembersComponent},
   { path: 'teams/:id', component: TeamDetailsComponent },
-  { path: '', redirectTo: 'projects', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

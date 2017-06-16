@@ -24,7 +24,9 @@
     <div *ngIf="!project.complete" class="current-project">
       <div>
         <div class="project-header">
-          <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="editProjectName(project.id, $event)" name="projectText" size="15"  min="1" max="50" (onError)="handleError()" placeholder="Project Name"></inline-editor>
+          <div class="project-title">
+            <inline-editor type="text" [(ngModel)]="project.project_name" (onSave)="editProjectName(project.id, $event)" name="projectText" size="15"  min="1" max="50" (onError)="handleError()" placeholder="Project Name"></inline-editor>
+          </div>
           <button md-icon-button [mdMenuTriggerFor]="menu">
             <i class="material-icons">more_vert</i>
           </button>

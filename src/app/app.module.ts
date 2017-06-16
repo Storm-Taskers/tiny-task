@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { Auth0Component } from './auth0/auth0.component';
 import { AppRouterModule } from './router-modules/app-router.module';
-import { HomeComponent } from './auth0/home/home.component';
+
 
 import { ROUTES } from './auth0/auth0.routes';
 
@@ -36,6 +36,7 @@ import { UserDetailsComponent } from './projects/project-details/project-user/us
 import { CallbackComponent } from './auth0/callback/callback.component';
 import { BulletinBoardComponent } from './bulletin-board/bulletin-board.component';
 import { SharedResourceComponent } from './shared-resources/shared-resources.component'
+import { HomeComponent } from './auth0/home/home.component';
 
 // Import Materials
 import { MaterialModule } from './material-modules/material.module';

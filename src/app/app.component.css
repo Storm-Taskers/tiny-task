@@ -51,7 +51,7 @@ hr {
 .pageView {
   grid-area: content;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .user-info {

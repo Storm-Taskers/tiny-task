@@ -11,8 +11,8 @@
         "start": "nodemon server.js",
         "seed": "node seed.js",
         "ng": "ng",
-        "start app": "ng serve",
-        "test app": "ng test",
+        "startapp": "ng serve",
+        "testapp": "ng test",
         "build": "ng build",
         "lint": "ng lint",
         "e2e": "ng e2e"

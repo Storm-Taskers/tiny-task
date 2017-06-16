@@ -16,7 +16,7 @@
       [routerLink]="['/teams', team.id]"
       class="team">
       {{ team.team_name }}
-      <button md-icon-button (click)="deleteTeam(team.id, team.team_name); $event.stopPropagation()" >
+      <button md-icon-button (click)="deleteTeam(team.id, team.team_name); $event.stopPropagation()">
         <i class="material-icons">delete</i>
       </button>
     </div>
