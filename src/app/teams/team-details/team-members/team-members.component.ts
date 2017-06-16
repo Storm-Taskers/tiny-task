@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { ProjectsService } from '../../../services/projects-service/projects.service';
 import { TeamService } from '../../../services/team-service/team.service';
 import { UserService } from '../../../services/user-service/user.service';
+import { NavService } from '../../../services/nav-service/nav.service';
 
 import { User } from '../../../projects/project-details/project-user/User';
 import { Task } from '../../../projects/project-details/phases/tasks/Task';
@@ -26,6 +27,7 @@ export class TeamMembersComponent implements OnInit {
     public projectsService: ProjectsService,
     public teamService: TeamService,
     public userService: UserService,
+    public navService: NavService,
     public route: ActivatedRoute,
     public router: Router,
     public location: Location
@@ -54,5 +56,8 @@ export class TeamMembersComponent implements OnInit {
         this.router.navigate(['/projects']);
       }
     });
+  }
+  returnToProject() {
+    this.location.back();
   }
 }

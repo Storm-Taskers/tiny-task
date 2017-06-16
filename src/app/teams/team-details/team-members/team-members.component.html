@@ -1,22 +1,24 @@
 <div class="header">
   <h2 class="h2-header">
-    {{ selectedUserInfo?.full_name + selectedUserInfo?.id }}
+    {{ selectedUserInfo?.full_name }}
     <div class="availability">Current Availability: {{  selectedUserInfo?.user_availability}}</div>
-    <h3 class="h3-header">
-      Send {{ selectedUserInfo?.full_name.split(' ')[0] }} an
-      <a href="{{'mailto:' + selectedUserInfo?.email}}">Email</a>
-    </h3>
-  </h2>
+    </h2>
+  <button>
+    <a href="{{'mailto:' + selectedUserInfo?.email}}">Send {{ selectedUserInfo?.full_name.split(' ')[0] }} an email</a>
+  </button>
+  <button (click)="returnToProject()">Return to Project</button>
 </div>
 <hr/>
 
 <div *ngIf="!loadAllProjects; else allProjects">
-  <div class="container-tasks">
+  <div class="userName">
     <h3>{{ selectedUserInfo?.full_name.split(' ')[0] + '\'s Tasks' }}</h3>
-  </div>
-  <hr/>
-  <div class="eachTask">
-    <h3 *ngFor="let task of userTasks">{{ task.task_name }}</h3>
+    </div>
+    <div class="container-tasks">
+    <div>
+      <h3 class="eachTask" *ngFor="let task of userTasks">{{ task.task_name }}
+      </h3>
+    </div>
   </div>
 </div>
 
