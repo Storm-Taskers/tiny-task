@@ -100,8 +100,11 @@ hr {
 }
 
 .project-title {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
 }
 
 .container-project .project-content {
@@ -116,7 +119,7 @@ hr {
 
 .project-content {
   display: flex;
-  flex-direction: flex-start;
+  flex-direction: column;
   margin-top: 5px;
   margin-bottom: 5px;
   height: auto;

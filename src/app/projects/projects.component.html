@@ -33,21 +33,19 @@
         </div>
         <div class="project-content">
           {{ project.team_name }}
-        </div>
-<<<<<<< 11282cbfabc8e67e451923d918e25d1891bba473
-        <div *ngIf="project.phase_complete !== 0 || project.phase_incomplete !== 0; else addPhase" class="phase-counters">
+              <div *ngIf="project.phase_complete !== 0 || project.phase_incomplete !== 0; else addPhase" class="phase-counters">
           <div>
             Phases Complete: {{ project.phase_complete }}
           </div>
           <div>
             Phases Incomplete: {{ project.phase_incomplete }}
           </div>
-=======
+        </div>
+        </div>
         <div class="project-footer">
          <h3 class="view" (click)="showDetails()" [routerLink]="['/projects', project.id]">VIEW</h3>
->>>>>>> Update a lot of styles for components
         </div>
-      </div>
+     
     </div>
     <md-menu #menu="mdMenu">
       <button md-menu-item (click)="deleteProject(project.id, project.project_name)">
@@ -64,6 +62,7 @@
       </button>
     </md-menu>
   </div>
+</div>
 </div>
 
 <h2>PAST PROJECTS</h2>
