@@ -146,8 +146,50 @@ exports.updateTask = (task_id, changes, callback) => {
 };
 
 exports.updateTaskOrder = (task_id, orderChanges, callback) => {
-
-}
+  models.Tasks.findOne({
+    where: { id: task_id }
+  })
+  .then(task => {
+    task.updateAttributes({
+      previous: orderChanges.new_previous,
+      next: orderChanges.new_next
+    });
+    reconnectLinks(task_id)
+    .then(() => {
+      if (orderChange.new_previous === null) {
+        models.Tasks.findOne({
+          where: { id: orderChange.new_next }
+        })
+        .then(next => {
+          next.updateAttributes({previous: task_id});
+          callback(task);
+        });
+      } else if (orderChange.new_next === null) {
+        models.Tasks.findOne({
+          where: { id: orderChange.new_previous }
+        })
+        .then(previous => {
+          previous.updateAttributes({next: task_id});
+          callback(task);
+        });
+      } else {
+        models.Tasks.findOne({
+          where: { id: orderChange.new_previous }
+        })
+        .then(previous => {
+          previous.updateAttributes({next: task_id});
+          models.Tasks.findOne({
+            where: { id: orderChange.new_next }
+          })
+          .then(next => {
+            next.updateAttributes({previous: task_id});
+            callback(task);
+          });
+        });
+      }
+    });
+  });
+};
 
 exports.deleteTaskUser = (user_id, task_id, callback) => {
   models.User_Tasks
@@ -219,4 +261,4 @@ const reconnectLinks = (task_id) => {
       }
     });
   });
-}
+};
