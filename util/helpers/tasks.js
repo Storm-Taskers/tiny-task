@@ -145,14 +145,14 @@ exports.updateTask = (task_id, changes, callback) => {
     });
 };
 
-exports.updateTaskOrder = (task_id, orderChanges, callback) => {
+exports.updateTaskOrder = (task_id, orderChange, callback) => {
   models.Tasks.findOne({
     where: { id: task_id }
   })
   .then(task => {
     task.updateAttributes({
-      previous: orderChanges.new_previous,
-      next: orderChanges.new_next
+      previous: orderChange.new_previous,
+      next: orderChange.new_next
     });
     reconnectLinks(task_id)
     .then(() => {
