@@ -98,8 +98,10 @@ exports.addTask = (body, phase_id, callback) => {
     })
     .then(results => {
       var prev = null;
+      var next = null;
       if (results.length) {
         var previousTask = results.find(task => task.dataValues.previous === null);
+        prev = previousTask.id;
       }
       models.Tasks
       .create({
@@ -108,11 +110,12 @@ exports.addTask = (body, phase_id, callback) => {
         complete: body.complete || false,
         stage: body.stage || "not started",
         phase_id: phase_id,
-        previous: prev
+        previous: prev,
+        next: null
       })
       .then(result => {
         if ( typeof previousTask !== 'undefined' ) {
-          previousTask.updateAttributes({previous: result.id});
+          previousTask.updateAttributes({next: result.id});
         }
         callback(result);
       });
