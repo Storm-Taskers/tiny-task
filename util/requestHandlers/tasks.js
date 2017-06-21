@@ -60,6 +60,10 @@ exports.tasks = {
           });
         });
       });
+    } else if (req.body.orderChange) {
+      helper.updateTaskOrder(req.params.task_id, req.body.orderChange, task => {
+        res.status(200).send(task);
+      });
     } else {
       helper.updateTask(req.params.task_id, req.body.taskChanges, task => {
         if (typeof isSeed === "function") {
