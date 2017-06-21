@@ -89,7 +89,7 @@ const Tasks = connection.define("tasks", {
   task_color: { type: Sequelize.STRING },
   task_weight: { type: Sequelize.INTEGER, defaultValue: 1 },
   stage: { type: Sequelize.STRING, allowNull: false },
-  next: { type: Sequelize.INTEGER, allowNull: true }
+  next: { type: Sequelize.INTEGER, allowNull: true },
   previous: { type: Sequelize.INTEGER, allowNull: true }
 });
 Tasks.belongsTo(Phases, {

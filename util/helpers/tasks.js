@@ -100,7 +100,7 @@ exports.addTask = (body, phase_id, callback) => {
       var prev = null;
       var next = null;
       if (results.length) {
-        var previousTask = results.find(task => task.dataValues.previous === null);
+        var previousTask = results.find(task => task.dataValues.next === null);
         prev = previousTask.id;
       }
       models.Tasks
@@ -162,13 +162,41 @@ exports.deleteTaskUser = (user_id, task_id, callback) => {
 };
 
 exports.deleteTask = (task_id, callback) => {
-  models.Tasks
-    .destroy({
+  // Reconnect tasks for doubly linked list
+  models.Tasks.findOne({
+    where: {
+      id: task_id
+    }
+  })
+  .then(result => {
+    console.log(result);
+    // Find previous task
+    models.Tasks.findOne({
       where: {
-        id: task_id
+        id: result.dataValues.previous
       }
     })
-    .then(() => {
-      callback("taskDeleted");
-    });
+    .then(previous => {
+      // Find next task
+      models.Tasks.findOne({
+        where: {
+          id: result.dataValues.next
+        }
+      })
+      .then(next => {
+        console.log(previous.id, next.id, task_id);
+        previous.updateAttributes({next: next.dataValues.id});
+        next.updateAttributes({previous: previous.dataValues.id});
+        models.Tasks
+          .destroy({
+            where: {
+              id: task_id
+            }
+          })
+          .then(() => {
+            callback("taskDeleted");
+          });
+      });
+    })
+  })
 };
