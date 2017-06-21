@@ -88,7 +88,8 @@ const Tasks = connection.define("tasks", {
   complete: { type: Sequelize.BOOLEAN, defaultValue: false },
   task_color: { type: Sequelize.STRING },
   task_weight: { type: Sequelize.INTEGER, defaultValue: 1 },
-  stage: { type: Sequelize.STRING, allowNull: false }
+  stage: { type: Sequelize.STRING, allowNull: false },
+  previous: { type: Sequelize.INTEGER, allowNull: true }
 });
 Tasks.belongsTo(Phases, {
   foreignKey: { name: "phase_id", targetKey: "id" },

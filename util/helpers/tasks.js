@@ -89,17 +89,34 @@ exports.addUserTasks = (body, task_id, callback) => {
 };
 
 exports.addTask = (body, phase_id, callback) => {
+  // Find all tasks
   models.Tasks
-    .create({
-      task_name: body.task_name,
-      task_color: body.task_color,
-      complete: body.complete || false,
-      stage: body.stage || "not started",
-      phase_id: phase_id
+    .findAll({
+      where: {
+        phase_id: phase_id
+      }
     })
-    .then(result => {
-      callback(result);
-    });
+    .then(results => {
+      var prev = null;
+      if (results.length) {
+        var previousTask = results.find(task => task.dataValues.previous === null);
+      }
+      models.Tasks
+      .create({
+        task_name: body.task_name,
+        task_color: body.task_color,
+        complete: body.complete || false,
+        stage: body.stage || "not started",
+        phase_id: phase_id,
+        previous: prev
+      })
+      .then(result => {
+        if ( typeof previousTask !== 'undefined' ) {
+          previousTask.updateAttributes({previous: result.id});
+        }
+        callback(result);
+      });
+    })
 };
 
 exports.updateTask = (task_id, changes, callback) => {
