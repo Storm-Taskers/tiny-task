@@ -89,17 +89,37 @@ exports.addUserTasks = (body, task_id, callback) => {
 };
 
 exports.addTask = (body, phase_id, callback) => {
+  // Find all tasks
+  let prev = null;
+  let previousTask;
   models.Tasks
-    .create({
-      task_name: body.task_name,
-      task_color: body.task_color,
-      complete: body.complete || false,
-      stage: body.stage || "not started",
-      phase_id: phase_id
+    .findAll({
+      where: {
+        phase_id: phase_id
+      }
     })
-    .then(result => {
-      callback(result);
-    });
+    .then(results => {
+      if (results.length) {
+        previousTask = results.find(task => task.dataValues.next === null);
+        prev = previousTask.id;
+      }
+      models.Tasks
+      .create({
+        task_name: body.task_name,
+        task_color: body.task_color,
+        complete: body.complete || false,
+        stage: body.stage || "not started",
+        phase_id: phase_id,
+        previous: prev,
+        next: null
+      })
+      .then(result => {
+        if ( typeof previousTask !== 'undefined' ) {
+          previousTask.updateAttributes({next: result.id});
+        }
+        callback(result);
+      });
+    })
 };
 
 exports.updateTask = (task_id, changes, callback) => {
@@ -125,6 +145,52 @@ exports.updateTask = (task_id, changes, callback) => {
     });
 };
 
+exports.updateTaskOrder = (task_id, orderChange, callback) => {
+  models.Tasks.findOne({
+    where: { id: task_id }
+  })
+  .then(task => {
+    task.updateAttributes({
+      previous: orderChange.new_previous,
+      next: orderChange.new_next
+    });
+    reconnectLinks(task_id)
+    .then(() => {
+      if (orderChange.new_previous === null) {
+        models.Tasks.findOne({
+          where: { id: orderChange.new_next }
+        })
+        .then(next => {
+          next.updateAttributes({previous: task_id});
+          callback(task);
+        });
+      } else if (orderChange.new_next === null) {
+        models.Tasks.findOne({
+          where: { id: orderChange.new_previous }
+        })
+        .then(previous => {
+          previous.updateAttributes({next: task_id});
+          callback(task);
+        });
+      } else {
+        models.Tasks.findOne({
+          where: { id: orderChange.new_previous }
+        })
+        .then(previous => {
+          previous.updateAttributes({next: task_id});
+          models.Tasks.findOne({
+            where: { id: orderChange.new_next }
+          })
+          .then(next => {
+            next.updateAttributes({previous: task_id});
+            callback(task);
+          });
+        });
+      }
+    });
+  });
+};
+
 exports.deleteTaskUser = (user_id, task_id, callback) => {
   models.User_Tasks
     .destroy({
@@ -142,13 +208,57 @@ exports.deleteTaskUser = (user_id, task_id, callback) => {
 };
 
 exports.deleteTask = (task_id, callback) => {
-  models.Tasks
-    .destroy({
-      where: {
-        id: task_id
-      }
-    })
+  // Reconnect tasks for doubly linked list
+  reconnectLinks(task_id)
     .then(() => {
-      callback("taskDeleted");
+      models.Tasks.destroy({
+        where: { id: task_id }
+      })
+      .then(() => {
+        callback("taskDeleted");
+      });
+    })
+};
+
+const reconnectLinks = (task_id) => {
+  return new Promise((resolve, reject) => {
+    models.Tasks.findOne({
+      where: { id: task_id }
+    })
+    .then(result => {
+      if (result.dataValues.previous === null) {
+        models.Tasks.findOne({
+          where: { id: result.dataValues.next }
+        })
+        .then(next => {
+          next.updateAttributes({previous: null});
+          resolve(result);
+        });
+      } else if (result.dataValues.next === null) {
+        models.Tasks.findOne({
+          where: { id: result.dataValues.previous }
+        })
+        .then(previous => {
+          previous.updateAttributes({next: null});
+          resolve(result);
+        });
+      } else {
+        // Find previous task
+        models.Tasks.findOne({
+          where: { id: result.dataValues.previous }
+        })
+        .then(previous => {
+          // Find next task
+          models.Tasks.findOne({
+            where: { id: result.dataValues.next }
+          })
+          .then(next => {
+            previous.updateAttributes({next: next.dataValues.id});
+            next.updateAttributes({previous: previous.dataValues.id});
+            resolve(result);
+          });
+        });
+      }
     });
+  });
 };

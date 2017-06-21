@@ -22,9 +22,14 @@ exports.tasks = {
   retrieveTasksByPhaseId: (req, res) => {
     let taskData = { user_info: [] };
     helper.retrieveTasksByPhaseId(req.params, tasks => {
-      taskData.task_info = tasks;
+      let tasks_object = {};
+      tasks.forEach(task => {
+        tasks_object[task.dataValues.id] = task;
+      });
+      taskData.task_info = tasks_object;
       for (let i = 0; i < tasks.length; i++) {
-        helper.retrieveTaskUser(tasks[i].id, users => {
+        let task_id = tasks[i].dataValues.id;
+        helper.retrieveTaskUser(task_id, users => {
           if (users.length !== 0) {
             taskData.user_info[i] = users;
           }
@@ -59,6 +64,10 @@ exports.tasks = {
             }
           });
         });
+      });
+    } else if (req.body.orderChange) {
+      helper.updateTaskOrder(req.params.task_id, req.body.orderChange, task => {
+        res.status(200).send(task);
       });
     } else {
       helper.updateTask(req.params.task_id, req.body.taskChanges, task => {

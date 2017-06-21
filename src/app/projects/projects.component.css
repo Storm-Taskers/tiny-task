@@ -86,7 +86,7 @@ hr {
 
 .view {
     cursor: pointer;
-    background-color: bisque;
+    background-color: #ffd204;
     color: white;
     right: 5px;
     width: auto;
@@ -102,8 +102,8 @@ hr {
 .project-title {
   font-size: 18px;
   font-weight: bold;
-  white-space: nowrap; 
-  overflow: hidden; 
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
