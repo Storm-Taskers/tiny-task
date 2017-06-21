@@ -30,7 +30,15 @@ export class PhasesComponent implements OnInit {
 
   ngOnInit() {
     this.projectsService.getTasks(this.phase.id).then((result: any) => {
-      this.phaseTasks = result.task_info;
+      let tasks = result.task_info;
+      let firstTask = Object.keys(tasks).find(task => tasks[task].previous === null);
+
+      this.phaseTasks = [tasks[firstTask]];
+      let nextTask = tasks[firstTask].next;
+      while ( nextTask !== null ) {
+        this.phaseTasks.push(tasks[nextTask]);
+        nextTask = tasks[nextTask].next;
+      }
     });
 
     this.dragService.dragUpdate.subscribe(drag => {

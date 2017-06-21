@@ -77,12 +77,13 @@ export class ProjectsService {
     return this.http.get(`${this.baseUrl}/api/tasks/${phaseId}`)
             .toPromise()
             .then((response) => {
-              response.json().task_info.forEach((task) => {
-                if ( task.complete ) {
-                  this.completeWeight += task.task_weight;
+              let tasks = response.json().task_info;
+              Object.keys(tasks).forEach((task) => {
+                if ( tasks[task].complete ) {
+                  this.completeWeight += tasks[task].task_weight;
                 }
 
-                this.totalWeight += task.task_weight;
+                this.totalWeight += tasks[task].task_weight;
                 this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
               });
               return response.json();
