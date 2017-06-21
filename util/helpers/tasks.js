@@ -90,6 +90,8 @@ exports.addUserTasks = (body, task_id, callback) => {
 
 exports.addTask = (body, phase_id, callback) => {
   // Find all tasks
+  let prev = null;
+  let previousTask;
   models.Tasks
     .findAll({
       where: {
@@ -97,10 +99,8 @@ exports.addTask = (body, phase_id, callback) => {
       }
     })
     .then(results => {
-      var prev = null;
-      var next = null;
       if (results.length) {
-        var previousTask = results.find(task => task.dataValues.next === null);
+        previousTask = results.find(task => task.dataValues.next === null);
         prev = previousTask.id;
       }
       models.Tasks
@@ -145,6 +145,10 @@ exports.updateTask = (task_id, changes, callback) => {
     });
 };
 
+exports.updateTaskOrder = (task_id, orderChanges, callback) => {
+
+}
+
 exports.deleteTaskUser = (user_id, task_id, callback) => {
   models.User_Tasks
     .destroy({
@@ -163,40 +167,56 @@ exports.deleteTaskUser = (user_id, task_id, callback) => {
 
 exports.deleteTask = (task_id, callback) => {
   // Reconnect tasks for doubly linked list
-  models.Tasks.findOne({
-    where: {
-      id: task_id
-    }
-  })
-  .then(result => {
-    console.log(result);
-    // Find previous task
-    models.Tasks.findOne({
-      where: {
-        id: result.dataValues.previous
-      }
-    })
-    .then(previous => {
-      // Find next task
-      models.Tasks.findOne({
-        where: {
-          id: result.dataValues.next
-        }
+  reconnectLinks(task_id)
+    .then(() => {
+      models.Tasks.destroy({
+        where: { id: task_id }
       })
-      .then(next => {
-        console.log(previous.id, next.id, task_id);
-        previous.updateAttributes({next: next.dataValues.id});
-        next.updateAttributes({previous: previous.dataValues.id});
-        models.Tasks
-          .destroy({
-            where: {
-              id: task_id
-            }
-          })
-          .then(() => {
-            callback("taskDeleted");
-          });
+      .then(() => {
+        callback("taskDeleted");
       });
     })
-  })
 };
+
+const reconnectLinks = (task_id) => {
+  return new Promise((resolve, reject) => {
+    models.Tasks.findOne({
+      where: { id: task_id }
+    })
+    .then(result => {
+      if (result.dataValues.previous === null) {
+        models.Tasks.findOne({
+          where: { id: result.dataValues.next }
+        })
+        .then(next => {
+          next.updateAttributes({previous: null});
+          resolve(result);
+        });
+      } else if (result.dataValues.next === null) {
+        models.Tasks.findOne({
+          where: { id: result.dataValues.previous }
+        })
+        .then(previous => {
+          previous.updateAttributes({next: null});
+          resolve(result);
+        });
+      } else {
+        // Find previous task
+        models.Tasks.findOne({
+          where: { id: result.dataValues.previous }
+        })
+        .then(previous => {
+          // Find next task
+          models.Tasks.findOne({
+            where: { id: result.dataValues.next }
+          })
+          .then(next => {
+            previous.updateAttributes({next: next.dataValues.id});
+            next.updateAttributes({previous: previous.dataValues.id});
+            resolve(result);
+          });
+        });
+      }
+    });
+  });
+}

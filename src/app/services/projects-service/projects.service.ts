@@ -286,6 +286,20 @@ export class ProjectsService {
     .catch(this.handleError);
   }
 
+  updateTaskOrder(taskId: number, next: number, previous: number): void {
+    this.http.put(
+      `${this.baseUrl}/api/tasks/${taskId}`,
+      JSON.stringify({orderChange: {
+                        new_next: next,
+                        new_previous: previous
+                     }
+      }),
+      {headers: this.headers})
+      .toPromise()
+      .then()
+      .catch(this.handleError);
+  }
+
   updateTaskPhaseId(taskId: number, phaseId: number): void {
     this.http.put(`${this.baseUrl}/api/tasks/${taskId}`, JSON.stringify({taskChanges: {phase_id: phaseId}}),
     {headers: this.headers})
