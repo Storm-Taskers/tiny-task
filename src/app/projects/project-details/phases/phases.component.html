@@ -19,7 +19,7 @@
 <!--Implement ngFor to create Phase Details (task)-->
 <div class="task-dropzone" dnd-sortable-container [sortableData]="phaseTasks" [attr.data-phase]="phase.id">
   <div *ngFor="let task of phaseTasks; let x = index" dnd-sortable [sortableIndex]="x" [dragEnabled]="enableTaskDrag" (onDragEnd)="enableDrag()" (drop)="updateTaskPhaseId($event, task.id); enableDrag()" (mouseup)="enableDrag()">
-    <div [ngClass]="!task.complete ? 'task task-container': 'task-completed'" (mousedown)="disableDrag()">
+    <div [ngClass]="!task.complete ? 'task task-container': 'task-completed'" (mousedown)="disableDrag()" (drop)="updateTaskOrder(task.id)">
       <tasks
         [task]="task">
       </tasks>

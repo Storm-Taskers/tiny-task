@@ -18,7 +18,7 @@ import { Task } from './tasks/Task';
 
 export class PhasesComponent implements OnInit {
   @Input() phase: Phase;
-  public phaseTasks: Task[];
+  public phaseTasks: Task[] = [];
   public enableTaskDrag: boolean = false;
   public taskEditing: boolean = false;
 
@@ -30,14 +30,16 @@ export class PhasesComponent implements OnInit {
 
   ngOnInit() {
     this.projectsService.getTasks(this.phase.id).then((result: any) => {
-      let tasks = result.task_info;
-      let firstTask = Object.keys(tasks).find(task => tasks[task].previous === null);
+      if ( Object.keys(result.task_info).length !== 0 ) {
+        let tasks = result.task_info;
+        let firstTask = Object.keys(tasks).find(task => tasks[task].previous === null);
 
-      this.phaseTasks = [tasks[firstTask]];
-      let nextTask = tasks[firstTask].next;
-      while ( nextTask !== null ) {
-        this.phaseTasks.push(tasks[nextTask]);
-        nextTask = tasks[nextTask].next;
+        this.phaseTasks = [tasks[firstTask]];
+        let nextTask = tasks[firstTask].next;
+        while ( nextTask !== null ) {
+          this.phaseTasks.push(tasks[nextTask]);
+          nextTask = tasks[nextTask].next;
+        }
       }
     });
 
@@ -138,6 +140,24 @@ export class PhasesComponent implements OnInit {
     }
     let phaseId = parseInt(current.getAttribute("data-phase"), 10);
     this.projectsService.updateTaskPhaseId(taskId, phaseId);
+  }
+
+  updateTaskOrder(taskId: number): void {
+    let next = null;
+    let previous = null;
+    let update = this.phaseTasks.findIndex(task => task.id === taskId);
+    if ( this.phaseTasks.length > 1 ) {
+      if ( update === 0 ) {
+        next = this.phaseTasks[update + 1].id;
+      } else if ( update === (this.phaseTasks.length - 1) ) {
+        previous = this.phaseTasks[update - 1].id;
+      } else {
+        previous = this.phaseTasks[update - 1].id;
+        next = this.phaseTasks[update + 1].id;
+      }
+    }
+
+    this.projectsService.updateTaskOrder(taskId, next, previous);
   }
 
   toggleTaskComplete(taskId: number, task: Task) {
