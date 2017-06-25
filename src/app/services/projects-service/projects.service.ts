@@ -181,7 +181,7 @@ export class ProjectsService {
             .toPromise()
             .then( (response) => {
               this.totalWeight += 1;
-              this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);
+              this.progress = Math.floor((this.completeWeight / this.totalWeight) * 100);1
               return response.json();
             })
             .catch(this.handleError);
